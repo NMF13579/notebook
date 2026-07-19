@@ -8,8 +8,7 @@ This file is the active ownership registry. Each topic has exactly one canonical
 - Section README files are navigation-only.
 - Provenance records have authority `NONE`.
 - Migration history is maintained in `AOS/05_Reference/Provenance/`.
-- Legacy files remain physically present and unchanged.
-- No move or deletion has occurred, and no cleanup authorization is implied.
+- Provenance records preserve historical identities and Git recovery references; physical legacy source copies are not retained in the current repository tree.
 
 ## Ownership
 
