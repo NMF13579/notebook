@@ -1,0 +1,16 @@
+id: "07"
+title: Research
+object_type: section
+parent_id: null
+order: 7
+reconstruction_stage: 0
+status: not_started
+documentation_status: placeholder
+implementation_status: not_applicable
+depends_on: []
+next_required_action: null
+source_of_truth:
+  content: 07.00_README.md
+  state: 07.00_META.yml
+authority: DOCUMENTATION_REFERENCE
+updated_at: 2026-07-19
