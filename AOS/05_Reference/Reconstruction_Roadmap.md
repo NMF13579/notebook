@@ -1,0 +1,888 @@
+# Reconstruction Roadmap
+
+Назначение
+
+Этот документ задаёт верхнеуровневый маршрут воспроизведения AOS.
+
+Он отвечает на вопросы:
+
+* в каком порядке восстанавливать проект;
+* какие крупные этапы должны быть пройдены;
+* какой результат ожидается от каждого этапа;
+* какие зависимости существуют между этапами;
+* что следует отложить;
+* какие ошибки нельзя повторять;
+* когда можно переходить от документации к реализации;
+* когда оправдано возвращение Development Factory, Governance и automation.
+
+Этот roadmap не является детальным implementation plan.
+
+Он задаёт последовательность построения системы и границы этапов.
+
+⸻
+
+Основная стратегия
+
+AOS должен воспроизводиться не как копия старого repository и не как восстановление всего Control Plane одновременно.
+
+Правильная последовательность:
+
+понять продукт
+→ подготовить минимальные строительные леса
+→ реализовать первый пользовательский vertical slice
+→ проверить ручной workflow
+→ восстановить нужные product features
+→ добавить project memory
+→ добавить Development Factory
+→ вернуть минимально необходимый control
+→ автоматизировать подтверждённые процессы
+→ добавить advanced capabilities
+
+Главный принцип:
+
+Каждый следующий слой появляется только после того, как предыдущий создал проверяемый результат.
+
+⸻
+
+Цель реконструкции
+
+Цель — создать функционально и контрактно эквивалентный AOS без автоматического переноса исторической сложности AOS-FARM.
+
+Результат должен:
+
+* сохранять исходную пользовательскую ценность;
+* сохранять необходимые safety boundaries;
+* поддерживать управляемую работу AI-агентов;
+* быть понятным непрограммисту;
+* быть воспроизводимым;
+* иметь заменяемые внутренние компоненты;
+* не зависеть от старого recovery lifecycle;
+* не требовать полного Control Plane для первого запуска;
+* позволять постепенно возвращать полезные возможности.
+
+⸻
+
+Принципы маршрута
+
+Сначала смысл, затем структура
+
+Перед implementation необходимо понять:
+
+* назначение компонента;
+* пользователя;
+* observable behavior;
+* inputs и outputs;
+* границы;
+* acceptance criteria;
+* известные failure modes.
+
+Сначала вертикальный путь, затем горизонтальная полнота
+
+Лучше реализовать один полный пользовательский сценарий от начала до результата, чем создать множество незавершённых внутренних компонентов.
+
+Сначала вручную, затем automation
+
+Первые рабочие циклы выполняются вручную или полуавтоматически.
+
+Automation добавляется только после наблюдения реального повторяющегося процесса.
+
+Каждый этап должен иметь observable result
+
+Этап не считается завершённым только потому, что:
+
+* созданы файлы;
+* написан план;
+* добавлены placeholders;
+* CI прошёл;
+* agent сообщил PASS.
+
+Должен существовать результат, который можно проверить.
+
+Scope каждого этапа ограничен
+
+Этап не должен неявно включать будущие слои.
+
+Например, этап Product Core не должен автоматически включать:
+
+* полный agent routing;
+* registry;
+* Runtime Enforcement;
+* merge automation;
+* SaaS infrastructure.
+
+⸻
+
+Этап 0 — Project Definition
+
+Цель
+
+Сформировать устойчивое понимание того, что представляет собой AOS и какой продукт должен быть построен.
+
+Входит
+
+* Project Identity;
+* Product Vision;
+* Project Principles;
+* Reconstruction Roadmap;
+* основные термины;
+* границы Product Runtime;
+* границы Development Factory;
+* роль legacy sources;
+* основные открытые вопросы.
+
+Не входит
+
+* implementation;
+* product architecture;
+* code;
+* CI;
+* Control Plane;
+* automation;
+* import legacy implementation.
+
+Результат
+
+Человек и агент одинаково понимают:
+
+* что такое AOS;
+* кто его пользователь;
+* какую проблему он решает;
+* что считается продуктовой ценностью;
+* как проект должен быть воспроизведён;
+* какие принципы ограничивают последующие решения.
+
+Условие завершения
+
+Canonical документы `00_Core`, `01_Product` и этот roadmap позволяют принимать последующие решения без постоянного возвращения к истории старого проекта.
+
+⸻
+
+Этап 1 — Scaffolding
+
+Цель
+
+Создать минимальные строительные леса, достаточные для безопасной и последовательной разработки AOS.
+
+Входит
+
+* repository structure;
+* workspace rules;
+* Git foundation;
+* minimal agent instructions;
+* Task Brief template;
+* stage report template;
+* minimal safety floor;
+* local development environment;
+* basic checks;
+* minimal CI;
+* temporary workspace;
+* первый ручной development workflow.
+
+Не входит
+
+* Product Runtime;
+* full Control Plane;
+* universal registry;
+* autonomous execution;
+* automatic correction;
+* Runtime Enforcement;
+* complex lifecycle;
+* multi-agent orchestration.
+
+Результат
+
+Можно выполнить один полный ручной цикл:
+
+bounded task
+→ controlled change
+→ declared checks
+→ short report
+→ human review
+
+Без recovery loop и без зависимости от незавершённой автоматизации.
+
+Условие завершения
+
+Минимальный workflow успешно выполнен на реальной небольшой задаче.
+
+⸻
+
+Этап 2 — Product Discovery and Contracts
+
+Цель
+
+Перевести Product Vision в конкретные проверяемые product contracts.
+
+Входит
+
+* primary target user;
+* основной user journey;
+* первый vertical slice;
+* feature inventory;
+* observable behaviors;
+* acceptance criteria;
+* non-goals;
+* product boundaries;
+* UX hypotheses;
+* compatibility expectations;
+* initial metrics.
+
+Не входит
+
+* полная implementation всех features;
+* advanced automation;
+* full Governance;
+* сложная архитектура Development Factory.
+
+Результат
+
+Существует ясный ответ:
+
+* что должен уметь первый AOS;
+* что пользователь увидит;
+* какие функции обязательны;
+* как проверить product value;
+* какие функции отложены.
+
+Условие завершения
+
+Первый vertical slice может быть реализован без архитектурных догадок о пользовательском результате.
+
+⸻
+
+Этап 3 — First Product Vertical Slice
+
+Цель
+
+Реализовать минимальный end-to-end пользовательский сценарий.
+
+Рекомендуемый сценарий
+
+пользователь описывает небольшую задачу
+→ AOS помогает уточнить контекст
+→ формируется bounded scope
+→ coding agent выполняет изменение
+→ запускаются проверки
+→ пользователь получает понятный результат
+→ фиксируется одно следующее действие
+
+Входит
+
+* minimal user interface;
+* task intake;
+* context assembly;
+* bounded task definition;
+* controlled execution;
+* validation presentation;
+* result summary;
+* human review point;
+* session continuation.
+
+Не входит
+
+* универсальный agent orchestrator;
+* persistent registry;
+* automatic merge;
+* advanced correction loops;
+* full project memory;
+* Runtime Enforcement;
+* масштабирование.
+
+Результат
+
+Реальный пользователь может пройти полный путь от намерения до проверенного результата.
+
+Условие завершения
+
+Vertical slice протестирован на реальном проекте, а пользователь способен понять результат без чтения внутренних технических документов.
+
+⸻
+
+Этап 4 — Manual Workflow Validation
+
+Цель
+
+Проверить, что продуктовый и development workflow устойчивы без сложной automation.
+
+Входит
+
+* несколько реальных задач;
+* разные типы небольших изменений;
+* session handoff вручную;
+* ручной routing;
+* ручной Task Brief;
+* ручной validation;
+* human review;
+* фиксация повторяющихся операций;
+* фиксация failure modes.
+
+Не входит
+
+* автоматизация нестабильного процесса;
+* создание registry «на будущее»;
+* сложная state machine;
+* bounded correction без доказанной необходимости.
+
+Результат
+
+Команда понимает:
+
+* какие шаги действительно повторяются;
+* где возникает потеря context;
+* какие данные нужно сохранять;
+* какие решения требует человек;
+* какие операции стоит автоматизировать;
+* какие части процесса лишние.
+
+Условие завершения
+
+Выполнено несколько успешных manual cycles без существенного изменения основного workflow.
+
+⸻
+
+Этап 5 — Product Core Expansion
+
+Цель
+
+Расширить Product Runtime до минимально полезной системы.
+
+Возможные направления
+
+* project intake;
+* context model;
+* task definition;
+* result presentation;
+* session resume;
+* project status;
+* next action;
+* details view;
+* history;
+* human review interface;
+* multiple project support;
+* product-facing validation.
+
+Правило отбора features
+
+Feature добавляется, если она:
+
+* решает подтверждённую пользовательскую проблему;
+* поддерживает основной user journey;
+* имеет observable behavior;
+* может быть проверена;
+* не требует преждевременной платформенной сложности.
+
+Результат
+
+AOS становится полезным не только как demo vertical slice, но как рабочий инструмент для ограниченного набора реальных задач.
+
+Условие завершения
+
+Пользователь может регулярно применять AOS в реальной разработке и получать повторяемую ценность.
+
+⸻
+
+Этап 6 — Project Memory
+
+Цель
+
+Снизить стоимость восстановления состояния между sessions.
+
+Входит
+
+* current project state;
+* task history;
+* decisions;
+* findings;
+* artifact links;
+* session handoff;
+* last completed stage;
+* active task;
+* one next action;
+* resume context.
+
+Начальная реализация
+
+Project Memory сначала может храниться в простых Markdown или JSON artifacts.
+
+Не требуется начинать с:
+
+* database;
+* event sourcing;
+* vector storage;
+* graph database;
+* сложного registry.
+
+Результат
+
+Другой агент или новая session может продолжить работу без полного повторного discovery.
+
+Условие завершения
+
+Контекст восстанавливается из project artifacts, а не из памяти пользователя или длинной истории чатов.
+
+⸻
+
+Этап 7 — Development Factory
+
+Цель
+
+Автоматизировать повторяющиеся части development workflow, выявленные в manual cycles.
+
+Возможные компоненты
+
+* routing recommendations;
+* Task Brief generation;
+* prompt assembly;
+* validation selection;
+* stage report generation;
+* session handoff generation;
+* status aggregation;
+* artifact linking;
+* controlled agent invocation.
+
+Ограничение
+
+Development Factory должна оставаться вспомогательной.
+
+Product Runtime не должен переставать работать при её отключении.
+
+Результат
+
+Повторяющаяся ручная работа сокращается, но человек сохраняет понимание и контроль.
+
+Условие завершения
+
+Automation реально уменьшает время или риск и не создаёт новый обязательный recovery lifecycle.
+
+⸻
+
+Этап 8 — Minimal Governance and Control
+
+Цель
+
+Добавить только те control mechanisms, необходимость которых доказана реальными задачами.
+
+Возможные компоненты
+
+* scope enforcement;
+* Risk Profile;
+* human checkpoints;
+* protected changes;
+* destructive operation boundaries;
+* technical result vs approval separation;
+* Evidence handling;
+* fail-closed behavior;
+* Git action boundaries.
+
+Не входит автоматически
+
+* full enterprise Governance;
+* универсальная approval state machine;
+* сложная policy engine;
+* cryptographic authorization;
+* merge automation;
+* release automation.
+
+Результат
+
+Опасные и необратимые действия контролируются без чрезмерного усложнения обычной работы.
+
+Условие завершения
+
+Control layer предотвращает реальные failure modes и не становится главным источником blockers.
+
+⸻
+
+Этап 9 — Controlled Automation
+
+Цель
+
+Создать полуавтоматический conveyor для устойчивых и хорошо понятых процессов.
+
+Возможные функции
+
+* one next action calculation;
+* task preparation;
+* deterministic handoff;
+* bounded correction;
+* validation routing;
+* status recovery;
+* resumable workflow;
+* controlled retry;
+* explicit stop conditions.
+
+Обязательные ограничения
+
+* automation не назначает human approval;
+* automation не расширяет scope;
+* retries ограничены;
+* failure приводит к report и stop;
+* component можно отключить;
+* manual fallback остаётся доступным.
+
+Результат
+
+AOS способен проводить типовую задачу через несколько этапов без постоянной ручной сборки context.
+
+Условие завершения
+
+Conveyor устойчив на реальных задачах и не скрывает промежуточные решения.
+
+⸻
+
+Этап 10 — Runtime Enforcement
+
+Цель
+
+Перенести подтверждённые safety contracts из документации в исполняемые проверки.
+
+Возможные функции
+
+* scope verification;
+* baseline binding;
+* package verification;
+* protected path enforcement;
+* authorization boundary checks;
+* execution claim ceilings;
+* deterministic validation;
+* artifact integrity;
+* policy evaluation.
+
+Ограничение
+
+Runtime Enforcement добавляется только для правил, которые:
+
+* стабильны;
+* понятны;
+* многократно использовались;
+* имеют высокую цену нарушения;
+* могут быть формально проверены.
+
+Результат
+
+Критические safety boundaries проверяются системой, а не только описываются в документах.
+
+Условие завершения
+
+Enforcement уменьшает риск без блокировки нормального Product Runtime и development workflow.
+
+⸻
+
+Этап 11 — Integrations
+
+Цель
+
+Подключить внешние инструменты без жёсткой привязки core продукта к одному provider.
+
+Возможные integrations
+
+* Git;
+* GitHub;
+* Codex;
+* Claude Code;
+* Gemini;
+* external model providers;
+* CI systems;
+* issue trackers;
+* design tools;
+* pattern libraries;
+* documentation systems.
+
+Принцип
+
+Integration должна реализовывать стабильный internal contract.
+
+Core AOS не должен зависеть от конкретного provider без необходимости.
+
+Результат
+
+AOS может работать в реальном toolchain пользователя.
+
+Условие завершения
+
+Замена одного integration provider не требует переписывания Product Runtime.
+
+⸻
+
+Этап 12 — User Interface Expansion
+
+Цель
+
+Создать удобный пользовательский интерфейс поверх подтверждённого product workflow.
+
+Возможные формы
+
+* chat interface;
+* CLI;
+* desktop application;
+* web application;
+* IDE extension;
+* hybrid interface.
+
+Основные функции
+
+* status;
+* next;
+* details;
+* review;
+* approvals;
+* project navigation;
+* history;
+* task intake;
+* result presentation.
+
+Ограничение
+
+UI не должен скрывать различие между:
+
+* техническим результатом;
+* validation;
+* Evidence;
+* human decision.
+
+Результат
+
+Пользователь взаимодействует с AOS без необходимости работать напрямую с внутренними artifacts.
+
+Условие завершения
+
+Интерфейс сокращает cognitive load и сохраняет прозрачность.
+
+⸻
+
+Этап 13 — Scaling and Multi-Project Operation
+
+Цель
+
+Поддержать несколько проектов, команд и более сложные workflows.
+
+Возможные функции
+
+* multi-project registry;
+* shared pattern library;
+* team roles;
+* reusable workflows;
+* project templates;
+* distributed execution;
+* cross-repository coordination;
+* organization policies;
+* shared integrations.
+
+Ограничение
+
+Scaling не должно проектироваться до подтверждения single-project value.
+
+Результат
+
+AOS сохраняет управляемость при росте количества проектов и участников.
+
+Условие завершения
+
+Масштабирование не разрушает простоту основного пользовательского пути.
+
+⸻
+
+Этап 14 — Productization
+
+Цель
+
+Подготовить AOS к распространению и регулярному использованию внешними пользователями.
+
+Возможные направления
+
+* installation;
+* onboarding;
+* documentation;
+* upgrade path;
+* telemetry;
+* support;
+* packaging;
+* licensing;
+* security review;
+* privacy;
+* distribution;
+* release process.
+
+Ограничение
+
+Productization не должна начинаться до появления устойчивого product-market evidence хотя бы на малом наборе пользователей.
+
+Результат
+
+Новый пользователь может установить AOS, понять его и пройти первый успешный workflow.
+
+⸻
+
+Этапы, которые нельзя объединять преждевременно
+
+Следующие сочетания особенно опасны:
+
+Product Core + full Control Plane
+First Vertical Slice + universal Registry
+Manual Workflow + automatic Correction
+Project Memory + complex Database
+Product Discovery + implementation of all features
+Minimal Safety + enterprise Governance
+Documentation + approval authority
+
+Каждый из этих слоёв должен иметь самостоятельную причину появления.
+
+⸻
+
+Порядок использования legacy
+
+Legacy AOS-FARM анализируется по мере необходимости, а не импортируется целиком в начале.
+
+Для каждой feature:
+
+выбрать feature
+→ определить product intent
+→ найти contracts и observable behavior
+→ проверить old implementation и tests
+→ извлечь lessons
+→ выбрать disposition
+→ реализовать в новом AOS
+→ проверить поведение
+
+Возможные dispositions:
+
+* использовать только как reference;
+* извлечь knowledge;
+* reimplement from contract;
+* port after audit;
+* defer;
+* reject;
+* оставить unknown.
+
+⸻
+
+Как выбирать следующий объект
+
+Следующим выбирается объект, который:
+
+1. необходим для текущего vertical slice;
+2. имеет понятный пользовательский результат;
+3. не требует premature infrastructure;
+4. может быть реализован и проверен ограниченно;
+5. создаёт основу для следующего шага;
+6. соответствует принципу кратчайшего безопасного пути.
+
+Не следует выбирать объект только потому, что он:
+
+* технически интересен;
+* существовал в старом repository;
+* выглядит фундаментальным;
+* позволяет построить больше automation;
+* создаёт красивую архитектуру.
+
+⸻
+
+Критерий перехода между этапами
+
+Переход к следующему этапу разрешён, если:
+
+* результат текущего этапа существует;
+* он проверен;
+* известные blockers раскрыты;
+* scope следующего этапа понятен;
+* нет необходимости возвращаться к фундаментальному переопределению предыдущего слоя;
+* следующий этап решает реальную задачу.
+
+PASS проверки не означает автоматический переход.
+
+Переход остаётся отдельным решением человека.
+
+⸻
+
+Stop conditions
+
+Маршрут должен быть пересмотрен, если:
+
+* инфраструктура снова начинает опережать product value;
+* появляется self-hosting dependency;
+* для продолжения требуется незавершённый Control Plane;
+* recovery создаёт новые recovery stages;
+* scope этапа постоянно расширяется;
+* больше времени уходит на status и approvals, чем на продукт;
+* невозможно объяснить пользовательскую ценность текущей работы;
+* один и тот же blocker повторяется без изменения подхода;
+* документация и repository систематически расходятся.
+
+В таком случае предпочтительно:
+
+* уменьшить scope;
+* вернуться к manual workflow;
+* отказаться от abstraction;
+* заменить component;
+* пересобрать contract;
+* отложить automation;
+* изменить порядок этапов.
+
+⸻
+
+Минимальный путь до работающего AOS
+
+Кратчайший путь:
+
+Stage 0 — Project Definition
+→ Stage 1 — Scaffolding
+→ Stage 2 — Product Contracts
+→ Stage 3 — First Vertical Slice
+→ Stage 4 — Manual Workflow Validation
+→ Stage 5 — Product Core Expansion
+
+Остальные этапы не являются prerequisite первого полезного продукта.
+
+⸻
+
+Ожидаемый результат всего roadmap
+
+После прохождения roadmap должен существовать AOS, который:
+
+* предоставляет понятную пользовательскую ценность;
+* помогает управлять AI-assisted development;
+* сохраняет human authority;
+* поддерживает session continuity;
+* показывает честное состояние;
+* имеет проверяемые product contracts;
+* использует automation только там, где она оправдана;
+* не зависит от исторического recovery machinery;
+* может развиваться поэтапно;
+* может быть воспроизведён из документации и contracts.
+
+⸻
+
+Открытые вопросы
+
+1. Какой первый vertical slice будет выбран?
+2. Какой реальный проект станет первым dogfood?
+3. Какие features старого AOS-FARM относятся к Product Runtime?
+4. Какие components относятся только к Development Factory?
+5. Какой минимальный Project Memory нужен до automation?
+6. Нужен ли отдельный этап Architecture Foundation?
+7. На каком этапе появляется CLI или chat interface?
+8. Какие integrations обязательны для первого продукта?
+9. Какой минимальный control необходим до первого execution?
+10. Какие этапы могут быть сокращены после практического dogfood?
+
+Эти вопросы должны решаться по мере продвижения, а не блокировать создание первого working vertical slice.
+
+⸻
+
+Источники
+
+Roadmap сформирован на основе:
+
+* Project Identity;
+* Product Vision;
+* Project Principles;
+* historical Assembly Pipeline и Build Step roadmap;
+* refoundation strategy;
+* анализа failure modes AOS-FARM;
+* решений о Product Runtime и Development Factory;
+* manual-before-automation принципа;
+* Minimal Safety Floor;
+* progressive Governance;
+* планов controlled automation и Runtime Enforcement;
+* lessons из recovery loops;
+* исследований legacy repository и компонентов.
