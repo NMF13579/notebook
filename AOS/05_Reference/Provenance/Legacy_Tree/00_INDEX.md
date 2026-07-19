@@ -1,6 +1,6 @@
 > `00_INDEX.md` is a derived navigation route.
 > It is not the Source of Truth.
-> **Superseded by [`MANIFEST.md`](MANIFEST.md).** Retained as migration evidence; do not use it as the current document-location or status manifest.
+> **Superseded by [`MANIFEST.md`](../../../MANIFEST.md).** Retained as migration evidence; do not use it as the current document-location or status manifest.
 > Local object state is stored in numbered `META.yml` files.
 > Git history records factual repository changes.
 
@@ -28,7 +28,7 @@
 | [02.08](02_Scaffolding/02.08_Minimal_Checks_And_CI/02.08.00_README.md) | Minimal Checks And CI | not_started | not_started | unknown | null |
 | [02.09](02_Scaffolding/02.09_First_Manual_Workflow/02.09.00_README.md) | First Manual Workflow | not_started | not_started | unknown | null |
 | [03](03_Product/03.00_README.md) | Product | not_started | placeholder | not_applicable | null |
-| [04](03_Development/README.md) | Development | not_started | placeholder | not_applicable | null |
+| [04](../../../03_Development/README.md) | Development | not_started | placeholder | not_applicable | null |
 | [05](05_Control/05.00_README.md) | Control | not_started | placeholder | not_applicable | null |
 | [06](06_Advanced/06.00_README.md) | Advanced | not_started | placeholder | not_applicable | null |
 | [07](07_Research/07.00_README.md) | Research | not_started | placeholder | not_applicable | null |
