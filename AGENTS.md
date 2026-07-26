@@ -74,7 +74,10 @@ selected feature
 
 Без отдельной write-задачи разрешены read-only inspection, audit, conflict/gap analysis, DRAFT proposals, Markdown/link checks и targeted research.
 
-Изменять accepted documentation можно только по bounded task с goal, target paths, allowed/forbidden changes, expected result, validation и stop conditions.
+Изменять accepted documentation (в папке `docs/`) можно только по bounded task с goal, target paths, allowed/forbidden changes, expected result, validation и stop conditions.
+
+**Синтез и проектирование (AOS-3):**
+Директория `AOS-3/` выделена как рабочая область (Drafting Workspace). Разрешается собирать, синтезировать и проектировать новую DRAFT-документацию внутри `AOS-3/` для последующего применения в целевом репозитории. Работа и файлы в `AOS-3/` не переопределяют official baseline в `docs/`.
 
 ## Git boundaries
 
