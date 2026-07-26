@@ -23,6 +23,7 @@ authority_scope:
 - lesson_inventory
 - regression_catalog
 item_policy_effect: REQUIRES_ITEM_SCOPED_HUMAN_DECISION
+lesson_observation_default_class: SYNTHESIZED
 ---
 
 # 04 — Уроки и каталог ошибок
@@ -35,7 +36,11 @@ item_policy_effect: REQUIRES_ITEM_SCOPED_HUMAN_DECISION
 OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 ```
 
-Каталог принят как knowledge inventory. Историческое наблюдение или lesson proposal не становится обязательной policy автоматически: policy effect требует item-scoped human decision.
+Каталог принят как knowledge inventory. Историческое наблюдение или lesson proposal не становится обязательной policy автоматически: policy effect требует item-scoped human decision. Отдельные lessons не объявляются принятыми rules по умолчанию.
+
+**Классы наблюдений (observations):**
+- Классы `OBSERVED_AT_SNAPSHOT` и `REPORTED` допустимы только при наличии конкретного source locator.
+- При отсутствии точного source locator применяется общий класс `SYNTHESIZED`.
 
 ## 2. Каталог
 

@@ -75,7 +75,6 @@ feature dossier ≠ execution authorization
 
 | ID | Семейство фич | Слой | Рекомендация | Решение человека |
 |---|---|---|---|---|
-
 | `FTR-001` | Приём намерения, проблемное интервью и уточнение результата | Product Runtime | `KEEP` | `UNDECIDED` |
 | `FTR-002` | Read-only исследование проекта, карта возможностей и реестр gaps/conflicts | Product Runtime | `KEEP` | `UNDECIDED` |
 | `FTR-003` | Спецификация продукта, паспорт фичи и выбор первого вертикального среза | Product Runtime | `KEEP` | `UNDECIDED` |

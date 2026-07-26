@@ -185,7 +185,27 @@ reference idea
 → Execution Authorization
 ```
 
-## 12. Ограничения
+## 12. Legacy locator registry
+
+Registry позволяет разрешать legacy-упоминания из `06_Features.md` через следующие поля:
+
+```yaml
+locator_id:
+repository:
+snapshot_commit:
+path_or_search_key:
+evidence_class:
+status:
+```
+
+Для ссылок, которые нельзя точно разрешить по текущим данным, используйте:
+
+```yaml
+status: UNRESOLVED
+evidence_class: UNKNOWN
+```
+
+## 13. Ограничения
 
 - Byte-complete chat export: `NOT_RUN`.
 - Historical runtime execution: `NOT_RUN`.
