@@ -1,43 +1,44 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: c60c39b4bee652cde2fd2e38f81dc12b498aa817
+active_path: docs/03_Development.md
 document_language: ru
 technical_identifiers_language: en
-document_role: DEVELOPMENT_WORKFLOW
-proposed_post_acceptance_role: CANONICAL_DEVELOPMENT_WORKFLOW
-proposed_authority_scope:
-  - task_workflow
-  - stage_boundaries
-  - validation_rules
-  - reporting_rules
-  - git_action_boundaries
-source_files_bound_by_blob_sha: true
+document_role: CANONICAL_DEVELOPMENT_WORKFLOW
+authority_scope:
+- task_workflow
+- stage_boundaries
+- validation_rules
+- reporting_rules
+- git_action_boundaries
 ---
 
 # 03 — Разработка
 
 ## 1. Граница статуса
 
-Документ предлагает normative workflow после human acceptance. Он не является Task Brief и не разрешает конкретную mutation или Git-operation.
+Документ задаёт принятый normative workflow для подготовки и проверки работы. Он не является Task Brief, Execution Authorization или разрешением на конкретную mutation либо Git-operation.
 
-## 2. End-to-end model
+## 2. Сквозная модель
 
 ```text
 accepted user problem/outcome
 → detailed Feature Passport
 → targeted reference research if needed
-→ APPROVED architecture decision
+→ DRAFT architecture decision
 → bounded Task Brief
 → repository preflight
 → explicit Execution Authorization
@@ -50,33 +51,33 @@ accepted user problem/outcome
 → handoff and lesson proposal
 ```
 
-## 3. Semantic distinctions
+## 3. Семантические различия
 
 Analysis ≠ execution; Plan ≠ implementation; file presence ≠ behavior; readiness ≠ authorization; execution ≠ verification; test PASS ≠ acceptance; CI PASS ≠ approval; verification ≠ commit permission; Commit ≠ Push ≠ Merge ≠ Release; UNKNOWN ≠ OK; NOT_RUN ≠ PASS.
 
-## 4. Entry conditions
+## 4. Условия входа
 
 Feature должна иметь purpose/value, actors, trigger/preconditions, I/O, happy path, states, failures/recovery, dependencies, authority boundaries, acceptance, negative scenarios, unknowns и targeted reference questions.
 
-## 5. Risk-scaled flow
+## 5. Процесс, масштабируемый по риску
 
-### Low / trivial
+### Низкий / trivial
 
 Scope → one reversible change → focused check → concise report. No redundant architecture chain.
 
-### Medium
+### Средний
 
 Explicit acceptance, short plan, relevant regression и handoff.
 
-### High / protected
+### Высокий / protected
 
 Pinned baseline, inventory, protected paths, explicit authorization, rollback, Evidence package и human review.
 
-### Critical / destructive / sensitive
+### Критический / destructive / sensitive
 
 Stop-before-action, least privilege, data/provider boundary, recovery plan и explicit human decision.
 
-## 6. Feature-driven reconstruction
+## 6. Reconstruction через feature
 
 1. Выбрать feature из `06_Features.md`.
 2. Подтвердить user/problem/outcome/disposition.
@@ -88,7 +89,7 @@ Stop-before-action, least privilege, data/provider boundary, recovery plan и ex
 8. Не копировать legacy topology.
 9. Stop when question answered or scope expands.
 
-## 7. Lazy decomposition
+## 7. Ленивая декомпозиция
 
 ```text
 Epic → Stage → Sub-stage only when material → executable Task
@@ -100,7 +101,7 @@ Child создаётся только по authority boundary, independent valid
 
 Task Brief описывает goal/scope/constraints/validation. Authorization создаётся отдельно человеком, bind к exact task/subject, ограничен stage/operations/paths, имеет expiry/consumption и не разрешает Git actions.
 
-## 9. Repository preflight
+## 9. Preflight репозитория
 
 Проверить root, worktree, branch, HEAD, baseline, staged/unstaged/untracked, diff, nested repos, symlinks, paths, interpreter/dependencies, sandbox/network/remote, temp boundary, stop conditions, candidate identity, source/destination и credentials/data boundary.
 
@@ -108,7 +109,7 @@ Task Brief описывает goal/scope/constraints/validation. Authorization �
 IN_SCOPE_EXISTING | OUT_OF_SCOPE_USER_STATE | ENVIRONMENT_NOISE | GENERATED_DISPOSABLE | UNKNOWN_MATERIAL
 ```
 
-## 10. Stage model
+## 10. Модель стадий
 
 ### PLAN
 Read-only. Decision-ready Task Brief, risks, validation, stop conditions.
@@ -125,7 +126,7 @@ Read-only assessment/recommendation. No simulated acceptance or correction.
 ### DELIVER
 Handoff package, not stage or Git permission.
 
-## 11. Stage Report
+## 11. Отчёт стадии
 
 ```yaml
 task_id:
@@ -146,15 +147,15 @@ next_required_action:
 stop: true
 ```
 
-## 12. Change control
+## 12. Контроль изменений
 
 One active task, one causal change, no unrelated cleanup, inventory before sensitive mutation, explicit scope expansion, changed-file allowlist, atomic commit after separate authorization, docs↔schema↔CLI↔code↔tests consistency, source read-only during extraction, no automatic `git add -A`.
 
-## 13. Implementation rules
+## 13. Правила реализации
 
 Implement observable behavior, one contract owner, separate analysis/mutation, preview binds apply, atomic/journaled writes, explicit idempotent retry, preserve user state, authority defaults false, same strict validator in runtime/tests, stable CLI failures, `--help` no writes, optional failure isolated, no hidden network/provider, no privilege escalation, no silent compatibility, portable links, adapter drift checks, AI-code rationale/ownership/tests/handoff.
 
-## 14. Five verification gates
+## 14. Пять verification gates
 
 1. Structure.
 2. Scope.
@@ -166,15 +167,15 @@ Implement observable behavior, one contract owner, separate analysis/mutation, p
 CONTRACT_VIOLATION > FAIL > BLOCKED > UNKNOWN > NOT_RUN > PASS
 ```
 
-## 15. Test strategy
+## 15. Стратегия тестирования
 
 Unit: schemas/status/path/state/digest/conflict/permission/idempotency. Contract: Task Brief, auth false, enums, CLI exits, generated decisions, ownership, output versions, SoT separation. Integration: intake→spec, discovery→map, preview→apply, task→executor, executor→validation, memory→resume, install→reconcile, review→decision, freeze→validation. E2E: first start, idea→review, interruption, protected block, NOT_RUN, update preservation, Git boundaries, incident→lesson.
 
-## 16. Mandatory negative cases
+## 16. Обязательные негативные сценарии
 
 Empty mapping, bogus status, free-form Risk Profile, bool-as-int, mismatched session, malformed idle bypass, CLI exit 0 on failure, runtime schema bypass, scope not enforced, stale baseline, write-after-freeze, self-reference, read-only writes, remote secret leak, unrelated staging, environment false blocker, NOT_RUN→PASS, Evidence as auth, default authorized true, partial mutation no journal, update overwrites state, external instruction, UI approval, stale index, absolute links, conflicting entrypoints, adapter drift.
 
-## 17. Validation protocol
+## 17. Протокол validation
 
 Freeze subject; verify environment/import provenance; run targeted checks; wider suite only if relevant; record commands/results; preserve required/optional; classify limitations; inspect diff; verify no validation mutation; stop with one next action.
 
@@ -182,7 +183,7 @@ Freeze subject; verify environment/import provenance; run targeted checks; wider
 
 One document: purpose, before/after, exact paths, Evidence, acceptance, negative cases, findings, NOT_RUN, deviations, decision options и next action.
 
-## 19. Recovery and handoff
+## 19. Recovery и handoff
 
 Execution failure → stop, preserve state/logs, classify partial writes, recovery facts, no auto-retry, correction task. Validation finding → report/stop, separate correction. Handoff records repo identity, task/candidate, result, changes, checks, blockers, decisions, permissions и next action. Mutable facts rechecked on resume.
 
@@ -194,11 +195,11 @@ Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
 
 Before each action reverify repo/branch/HEAD/candidate/worktree/remote/auth. Later mutation invalidates old binding.
 
-## 21. Manual dogfood and automation admission
+## 21. Manual dogfood и допуск automation
 
 Measure comprehension, clarification loops, scope drift, authority confusion, time to Evidence/review, handoff quality и Governance overhead. Automate only proven repetition with stable contracts, known failures, fallback/removal and no authority expansion.
 
-## 22. Readiness chain
+## 22. Цепочка готовности
 
 ```text
 Detailed Feature Passport ≠ accepted feature

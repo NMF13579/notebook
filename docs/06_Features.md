@@ -1,39 +1,42 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: 5307c471efe8cc900c7348748294a60e73cd71fa
+active_path: docs/06_Features.md
 document_language: ru
 technical_identifiers_language: en
-document_role: FEATURE_INVENTORY_AND_DOSSIER_CATALOG
-proposed_post_acceptance_role: AUTHORITATIVE_FEATURE_INVENTORY
-proposed_authority_scope:
-  - feature_identity
-  - feature_dossiers
-  - source_crosswalk
-  - per_item_human_disposition
-source_files_bound_by_blob_sha: true
+document_role: AUTHORITATIVE_FEATURE_INVENTORY
+authority_scope:
+- feature_identity
+- feature_dossiers
+- source_crosswalk
+feature_selection_authority: ITEM_SCOPED_HUMAN_DECISION_ONLY
+implementation_planning_readiness: REQUIRES_FEATURE_SPECIFIC_CONTRACT
 ---
+
 # 06 — Фичи
 
 ## 1. Назначение и статус
 
-Единственный утверждённый инвентарь фич и каталог подробных dossiers нового AOS.
+Принятый единый inventory известных фич и каталог design-level dossiers нового AOS. Принятие inventory не является item-level feature selection.
 
 ```yaml
-catalog_status: APPROVED
+catalog_status: HUMAN_ACCEPTED_INVENTORY
 inventory_owner_after_acceptance: 06_Features.md
 feature_count: 30
-human_feature_selection: ACCEPTED
+human_feature_selection: NOT_RUN
 implementation_verification: NOT_RUN
 ```
 
@@ -55,6 +58,18 @@ NOT_ASSIGNED | DOCUMENTATION | SKELETON | PROTOTYPE | PARTIALLY_WORKING | PRODUC
 ## 3. Обязательные поля dossier
 
 Problem/users, trigger/preconditions, inputs/outputs, main flow, states, failures/recovery, dependencies, authority boundaries, acceptance, negative scenarios, minimal model, targeted research, non-goals and crosswalk.
+
+## 3.1. Граница готовности dossiers
+
+Dossiers пригодны для отбора, сравнения и подготовки feature-specific Product Contract. Они не являются готовыми implementation specifications.
+
+Следующие разделы содержат shared design defaults и требуют уточнения для выбранной feature: target users, preconditions, inputs, state effects, failure/recovery defaults, minimal implementation model и non-goals. Перед Task Brief необходимо заменить generic defaults точными feature-specific contracts, schemas, examples и executable acceptance tests.
+
+```text
+accepted inventory ≠ selected feature
+selected feature ≠ implementation-ready contract
+feature dossier ≠ execution authorization
+```
 
 ## 4. Индекс каталога
 
@@ -105,6 +120,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -220,6 +238,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -338,6 +359,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -458,6 +482,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -579,6 +606,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -697,6 +727,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -819,6 +852,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -934,6 +970,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1049,6 +1088,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1165,6 +1207,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1284,6 +1329,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1400,6 +1448,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1515,6 +1566,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1630,6 +1684,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1748,6 +1805,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1865,6 +1925,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -1980,6 +2043,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2094,6 +2160,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2210,6 +2279,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2326,6 +2398,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2441,6 +2516,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2556,6 +2634,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2668,6 +2749,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2783,6 +2867,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -2898,6 +2985,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -3014,6 +3104,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -3129,6 +3222,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -3243,6 +3339,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -3357,6 +3456,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**
@@ -3473,6 +3575,9 @@ human_disposition: UNDECIDED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
+dossier_readiness: DESIGN_CANDIDATE
+feature_specific_contract_required: true
+shared_defaults_present: true
 ```
 
 **Проблема**

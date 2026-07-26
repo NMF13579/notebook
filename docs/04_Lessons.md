@@ -1,27 +1,30 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: a54de39bdd76994c0d3641a3008b688a1509984f
+active_path: docs/04_Lessons.md
 document_language: ru
 technical_identifiers_language: en
-document_role: LESSONS_AND_FAILURE_CATALOG
-proposed_post_acceptance_role: ACCEPTED_LESSONS_AND_FAILURE_CATALOG
-proposed_authority_scope:
-  - historical_failures
-  - preventive_rules
-  - regression_catalog
-source_files_bound_by_blob_sha: true
+document_role: AUTHORITATIVE_LESSONS_AND_FAILURE_INVENTORY
+authority_scope:
+- historical_failures
+- lesson_inventory
+- regression_catalog
+item_policy_effect: REQUIRES_ITEM_SCOPED_HUMAN_DECISION
 ---
+
 # 04 — Уроки и каталог ошибок
 
 ## 1. Назначение и правила статуса
@@ -32,15 +35,15 @@ source_files_bound_by_blob_sha: true
 OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 ```
 
-Историческое наблюдение не становится policy автоматически.
+Каталог принят как knowledge inventory. Историческое наблюдение или lesson proposal не становится обязательной policy автоматически: policy effect требует item-scoped human decision.
 
 ## 2. Каталог
 
 
-## Documentation synthesis
+## Синтез документации
 
 
-### LES-001 — Exhaustive extraction produced low value
+### LES-001 — Полная экстракция дала низкую практическую ценность
 
 - **Наблюдение:** Полное извлечение создавало много артефактов, но мало помогало следующему design decision.
 - **Предлагаемое правило:** Исследовать только selected feature gap с stop conditions.
@@ -48,7 +51,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-002 — Too many documents created navigation debt
+### LES-002 — Избыточное количество документов создало навигационный долг
 
 - **Наблюдение:** Большое число files/indexes/manifests создало duplicate owners и stale links.
 - **Предлагаемое правило:** Сохранять семь top-level documents; operational artifacts — по необходимости.
@@ -56,7 +59,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-003 — Feature cards were too shallow
+### LES-003 — Карточки фич были слишком поверхностными
 
 - **Наблюдение:** Короткие карточки не содержали actors, states, failures, recovery и tests.
 - **Предлагаемое правило:** Использовать full Feature Passport до planning.
@@ -64,10 +67,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Product and Governance
+## Продукт и Governance
 
 
-### LES-004 — Governance preceded product value
+### LES-004 — Governance появился раньше доказанной продуктовой ценности
 
 - **Наблюдение:** Control Plane, registries и gates росли раньше Product Runtime.
 - **Предлагаемое правило:** Сначала visible vertical slice, затем controls по incidents/metrics.
@@ -75,7 +78,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-005 — Immature control validated itself
+### LES-005 — Незрелый контроль валидировал сам себя
 
 - **Наблюдение:** Незрелые control artifacts подтверждали собственный процесс.
 - **Предлагаемое правило:** Immutable validation subject и independent witness when material.
@@ -83,7 +86,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-006 — Planning acquired execution-grade ceremony
+### LES-006 — Планирование приобрело церемонию уровня execution
 
 - **Наблюдение:** Routine work повторно входила в planning chains.
 - **Предлагаемое правило:** Не перепланировать complete Task Brief без material change.
@@ -91,7 +94,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-007 — Readiness artifacts became blockers
+### LES-007 — Артефакты готовности стали блокерами
 
 - **Наблюдение:** Readiness packages заменяли исправление продукта.
 - **Предлагаемое правило:** Каждый artifact поддерживает capability/decision/check.
@@ -99,10 +102,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Authority and status
+## Полномочия и статусы
 
 
-### LES-008 — Technical result was treated as human acceptance
+### LES-008 — Технический результат приняли за human acceptance
 
 - **Наблюдение:** PASS/Evidence/CI/readiness смешивались с approval.
 - **Предлагаемое правило:** Separate technical result and human decision records.
@@ -110,7 +113,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-009 — Human decision was simulated
+### LES-009 — Решение человека было симулировано
 
 - **Наблюдение:** Decision-like fields не имели human provenance.
 - **Предлагаемое правило:** Decision требует actor, subject, date и explicit human action.
@@ -118,7 +121,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-010 — NOT_RUN became PASS
+### LES-010 — NOT_RUN превращался в PASS
 
 - **Наблюдение:** Недоступные checks исчезали из aggregate success.
 - **Предлагаемое правило:** Required NOT_RUN prevents PASS.
@@ -126,7 +129,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-011 — Unknown was hidden or blocked everything
+### LES-011 — Unknown скрывался или блокировал всё
 
 - **Наблюдение:** Unknown либо скрывался, либо блокировал всё.
 - **Предлагаемое правило:** Указывать affected claims/actions и блокировать только необходимое.
@@ -134,7 +137,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-012 — Authorization defaulted open
+### LES-012 — Авторизация была открыта по умолчанию
 
 - **Наблюдение:** Templates могли иметь authorized:true.
 - **Предлагаемое правило:** Authority-bearing defaults false.
@@ -142,10 +145,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Contracts and runtime
+## Контракты и runtime
 
 
-### LES-013 — Schema existed but runtime bypassed it
+### LES-013 — Schema существовала, но runtime обходил её
 
 - **Наблюдение:** Docs/tests и runtime использовали разные validation paths.
 - **Предлагаемое правило:** One strict contract implementation.
@@ -153,7 +156,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-014 — Invalid and empty states passed
+### LES-014 — Невалидные и пустые состояния проходили проверку
 
 - **Наблюдение:** Empty mapping, bogus status, free-form enum проходили.
 - **Предлагаемое правило:** Closed vocabulary, required fields, explicit empty state.
@@ -161,7 +164,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-015 — Malformed idle task bypassed validation
+### LES-015 — Повреждённая idle-задача обходила validation
 
 - **Наблюдение:** Повреждённый task мог считаться idle.
 - **Предлагаемое правило:** Explicit validated idle representation.
@@ -169,7 +172,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-016 — CLI failure looked successful
+### LES-016 — Ошибка CLI выглядела как успех
 
 - **Наблюдение:** Invalid input мог вернуть exit 0.
 - **Предлагаемое правило:** Stable terminal result and exit semantics.
@@ -177,10 +180,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Scope, repository and environment
+## Scope, репозиторий и окружение
 
 
-### LES-017 — Scope existed only in prose
+### LES-017 — Scope существовал только в тексте
 
 - **Наблюдение:** Allowed paths не ограничивали mutation.
 - **Предлагаемое правило:** Normalized allowlist + diff reconciliation.
@@ -188,7 +191,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-018 — Dirty worktree contaminated candidate
+### LES-018 — Dirty worktree загрязнял candidate
 
 - **Наблюдение:** Unrelated files попадали в diff/staging.
 - **Предлагаемое правило:** Isolated subject; classify existing state; no add -A.
@@ -196,7 +199,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-019 — Environment noise caused false blockers
+### LES-019 — Шум окружения создавал ложные blockers
 
 - **Наблюдение:** .venv/generated noise блокировали задачи.
 - **Предлагаемое правило:** Различать environment noise, user state, task state и material unknown.
@@ -204,7 +207,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-020 — Read-only command changed repository
+### LES-020 — Read-only команда изменяла репозиторий
 
 - **Наблюдение:** Status/validation helper писал в source tree.
 - **Предлагаемое правило:** Zero writes for read-only/help.
@@ -212,7 +215,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-021 — Raw remote data leaked
+### LES-021 — Raw remote data утекали
 
 - **Наблюдение:** Raw remote URL мог раскрыть credentials.
 - **Предлагаемое правило:** Redacting wrapper.
@@ -220,7 +223,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-022 — Machine-local links broke portability
+### LES-022 — Локальные ссылки ломали переносимость
 
 - **Наблюдение:** Absolute file:///Users links ломали переносимость.
 - **Предлагаемое правило:** Repository-relative links.
@@ -228,10 +231,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Identity, mutation and recovery
+## Идентичность, mutation и recovery
 
 
-### LES-023 — Mutation was non-atomic and unrecoverable
+### LES-023 — Mutation была неатомарной и невосстановимой
 
 - **Наблюдение:** Partial write оставлял unknown state.
 - **Предлагаемое правило:** Atomic publication или durable journal.
@@ -239,7 +242,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-024 — Candidate changed after freeze
+### LES-024 — Candidate изменялся после freeze
 
 - **Наблюдение:** Evidence создавалась для moving subject.
 - **Предлагаемое правило:** Finalize, freeze, verify, then validate.
@@ -247,7 +250,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-025 — Stale baseline was used
+### LES-025 — Использовался устаревший baseline
 
 - **Наблюдение:** Validation использовала устаревший baseline.
 - **Предлагаемое правило:** Bind exact baseline/candidate.
@@ -255,7 +258,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-026 — Installer ownership was unclear
+### LES-026 — Ownership installer был неясен
 
 - **Наблюдение:** Managed/user/project state могли перезаписываться вместе.
 - **Предлагаемое правило:** Classify paths; preview; preserve state.
@@ -263,10 +266,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Drift and context
+## Drift и контекст
 
 
-### LES-027 — Current status duplicated and drifted
+### LES-027 — Current status дублировался и расходился
 
 - **Наблюдение:** README и HANDOFF расходились.
 - **Предлагаемое правило:** One current-state owner; generated summaries.
@@ -274,7 +277,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-028 — Repository map and context index were stale
+### LES-028 — Карта репозитория и context index устаревали
 
 - **Наблюдение:** Derived maps имели старые commits/coverage.
 - **Предлагаемое правило:** Commit/hash binding, coverage, rebuildability.
@@ -282,7 +285,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-029 — Rules duplicated across adapters
+### LES-029 — Правила дублировались между adapters
 
 - **Наблюдение:** Rules копировались в README/llms/agent files.
 - **Предлагаемое правило:** One authority owner; thin generated adapters.
@@ -290,7 +293,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-030 — Context overload reduced correctness
+### LES-030 — Перегрузка контекстом снижала корректность
 
 - **Наблюдение:** Large startup context увеличивал conflicts.
 - **Предлагаемое правило:** Minimal bootstrap and task-scoped Context Pack.
@@ -298,7 +301,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-031 — Validation entrypoints conflicted
+### LES-031 — Validation entrypoints конфликтовали
 
 - **Наблюдение:** Документы называли разные official commands.
 - **Предлагаемое правило:** One official entrypoint.
@@ -306,10 +309,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Product / implementation boundary
+## Граница Product / implementation
 
 
-### LES-032 — Product Runtime and Factory blurred
+### LES-032 — Граница Product Runtime и Factory размывалась
 
 - **Наблюдение:** Internal conveyor выдавался за product progress.
 - **Предлагаемое правило:** Runtime solves identified user job.
@@ -317,7 +320,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-033 — Skeleton or documentation looked implemented
+### LES-033 — Skeleton или документация выглядели реализованным продуктом
 
 - **Наблюдение:** Files/schemas/CI воспринимались как working product.
 - **Предлагаемое правило:** Use maturity vocabulary.
@@ -325,7 +328,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-034 — First-contact UX fragmented
+### LES-034 — First-contact UX был фрагментирован
 
 - **Наблюдение:** Install/first-start/doctor/status жили отдельно.
 - **Предлагаемое правило:** One authoritative first-start path.
@@ -333,7 +336,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-035 — Control features were not integrated as one journey
+### LES-035 — Контрольные фичи не были объединены в единый journey
 
 - **Наблюдение:** Intake/validate/review/lessons были разрознены.
 - **Предлагаемое правило:** Dogfood one end-to-end task.
@@ -341,7 +344,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-036 — Git closure was not user-facing
+### LES-036 — Git closure не был понятен пользователю
 
 - **Наблюдение:** Local/remote/review/decision boundaries разрознены.
 - **Предлагаемое правило:** Compact status + one next action.
@@ -349,10 +352,10 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-## Automation and future systems
+## Автоматизация и будущие системы
 
 
-### LES-037 — Automation preceded manual proof
+### LES-037 — Automation появилась раньше manual proof
 
 - **Наблюдение:** Automation проектировалась до stable manual cycles.
 - **Предлагаемое правило:** Automate measured repetition only.
@@ -360,7 +363,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-038 — Unbounded retry became self-heal risk
+### LES-038 — Неограниченный retry создавал риск self-heal
 
 - **Наблюдение:** Retry скрывал failure и расширял scope.
 - **Предлагаемое правило:** Bound attempts and explicit escalation.
@@ -368,7 +371,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-039 — UI appeared to create authority
+### LES-039 — UI создавал видимость authority
 
 - **Наблюдение:** Visual click выглядел как approval.
 - **Предлагаемое правило:** UI records explicit decision contract.
@@ -376,7 +379,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-040 — Model routing was assumed rather than measured
+### LES-040 — Model routing основывался на предположениях, а не измерениях
 
 - **Наблюдение:** Models выбирались интуитивно.
 - **Предлагаемое правило:** Advisory routing first; measure before runtime router.
@@ -384,7 +387,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-041 — Multi-agent orchestration was premature
+### LES-041 — Multi-agent orchestration был преждевременным
 
 - **Наблюдение:** Roles added without measured deficit.
 - **Предлагаемое правило:** Single-agent explicit stages first.
@@ -392,7 +395,7 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
-### LES-042 — AI-written code accumulated maintainability debt
+### LES-042 — AI-written code накапливал maintenance debt
 
 - **Наблюдение:** Generated code терял rationale/ownership/handoff.
 - **Предлагаемое правило:** Preserve rationale, ownership, invariants, tests, debt, handoff.

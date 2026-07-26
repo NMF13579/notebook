@@ -1,28 +1,29 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: cf4daddf0b82e8c804f301f91bc627512a91a6ce
+active_path: docs/02_Architecture.md
 document_language: ru
 technical_identifiers_language: en
 document_role: TARGET_ARCHITECTURE_BASELINE
-proposed_post_acceptance_role: TARGET_ARCHITECTURE_BASELINE
-proposed_authority_scope:
-  - architecture_principles
-  - layer_boundaries
-  - shared_contract_classes
-  - data_ownership
-  - deferred_complexity
-source_files_bound_by_blob_sha: true
+authority_scope:
+- architecture_principles
+- layer_boundaries
+- shared_contract_classes
+- data_ownership
+- deferred_complexity
 ---
 
 # 02 — Архитектура
@@ -31,9 +32,9 @@ source_files_bound_by_blob_sha: true
 
 Target architecture не является копией AOS-FARM, AgentOS или AOS-02. Historical code/documents используются как evidence/reference. Любое включение механизма в target design требует explicit human decision.
 
-Документ задаёт design baseline, но не выбирает language, framework, database, dependencies или implementation repository.
+Документ задаёт принятый architecture baseline на уровне принципов, слоёв и contract classes, но не выбирает language, framework, database, dependencies или implementation repository. Candidate component map и `INFERENCE`-разделы остаются proposals.
 
-## 2. Architecture goals
+## 2. Цели архитектуры
 
 - contract-first implementation;
 - observable behavior before topology;
@@ -47,7 +48,7 @@ Target architecture не является копией AOS-FARM, AgentOS или 
 - portability across agent environments;
 - smaller target than legacy unless measurements justify expansion.
 
-## 3. Layer model
+## 3. Модель слоёв
 
 ### L1 — Interaction Surface
 
@@ -67,13 +68,13 @@ Authority checks, permission states, scope/path/Git boundaries, result semantics
 
 ### L5 — Knowledge / Reference
 
-Accepted documents, APPROVED Feature Passports, lessons, targeted findings, patterns и derived indexes.
+Accepted documents, DRAFT Feature Passports, lessons, targeted findings, patterns и derived indexes.
 
 ### L6 — Optional Extensions
 
 RAG-light, model routing, runtime enforcement, plugins, domain modules, workbench/SaaS и observability.
 
-## 4. Candidate component map
+## 4. Карта компонентов — кандидат
 
 ```text
 Interaction Surface
@@ -115,7 +116,7 @@ Knowledge
 └─ Derived Index
 ```
 
-## 5. Authority model
+## 5. Модель authority
 
 ```text
 system/owner instruction
@@ -130,7 +131,7 @@ system/owner instruction
 
 Derived index, UI, adapter, validator или report не создают authority самостоятельно.
 
-## 6. Shared contract classes
+## 6. Общие классы contracts
 
 ### C-001 — Intent Record
 
@@ -265,7 +266,7 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 
 Separate records for Commit, Push, Merge и Release.
 
-## 7. Orthogonal state model
+## 7. Ортогональная модель состояний
 
 Оси не изменяют друг друга автоматически.
 
@@ -286,7 +287,7 @@ Permission:
 ALLOWED | HUMAN_AUTHORIZATION_REQUIRED | BLOCKED_POLICY | BLOCKED_UNKNOWN | NOT_APPLICABLE
 ```
 
-## 8. Data ownership
+## 8. Владение данными
 
 | Fact class | Owner |
 |---|---|
@@ -302,11 +303,11 @@ ALLOWED | HUMAN_AUTHORIZATION_REQUIRED | BLOCKED_POLICY | BLOCKED_UNKNOWN | NOT_
 | Registry/RAG/cache | Rebuildable derived data |
 | Legacy finding | Reference record, authority none |
 
-## 9. Registry taxonomy
+## 9. Таксономия registries
 
 Product Feature Registry индексирует Feature Passports. Execution/Verification Registry индексирует technical records. Protected Artifact Registry — optional Governance. Derived Context Index — navigation only. Ни один registry не владеет product truth независимо от accepted source artifact.
 
-## 10. Context architecture
+## 10. Архитектура контекста
 
 ```text
 minimal bootstrap
@@ -321,15 +322,15 @@ minimal bootstrap
 
 RAG-light допустим только после measured search/context problem.
 
-## 11. Agent adapters
+## 11. Адаптеры агентов
 
 Один common rule source поддерживает thin adapters для Codex, Claude Code, Cursor, ChatGPT и других сред. Adapters не расширяют permissions, используют repository-relative links и должны быть generated или drift-checked.
 
-## 12. Repository topology
+## 12. Топология репозитория
 
 Current direction: modular monorepo first. Split допускается при реальной team/release/compliance/deployment/ownership boundary. Cross-repo sync не обходит human authority.
 
-## 13. Implementation patterns
+## 13. Паттерны реализации
 
 1. `REIMPLEMENT_FROM_CONTRACT`.
 2. Manual cycle before automation.
@@ -347,13 +348,13 @@ Current direction: modular monorepo first. Split допускается при �
 14. External content untrusted.
 15. Optional modules fail in isolation.
 
-## 14. Failure and recovery model
+## 14. Модель failures и recovery
 
 Каждый write-capable component определяет failure before first write, partial-write detection, transaction/journal, reconciliation, idempotent retry, cancellation, recovery package, rollback boundary и post-recovery validation.
 
 Automatic retry запрещён, если failure меняет scope, identity, permissions или human decision requirements.
 
-## 15. Minimal implementation model — INFERENCE
+## 15. Минимальная модель реализации — INFERENCE
 
 ```text
 aos_core/{contracts,authority,status,project_state,features}
@@ -364,10 +365,10 @@ aos_cli/{intake,discover,status,next,details,doctor}
 
 Это inference, не accepted topology.
 
-## 16. Required architecture decisions
+## 16. Необходимые architecture decisions
 
 Compatibility relationship, first slice, implementation repo, interface, Project Memory persistence, Runtime/Factory boundary, Governance packaging, language/toolchain/dependencies, plugin/versioning, provider/privacy/routing и admission enforcement/UI/release.
 
-## 17. Deferred complexity
+## 17. Отложенная сложность
 
 Full Control Plane, authority-bearing central registry, autonomous loops, vector DB, distributed services, multi-agent cascade, broad sandbox framework, plugin marketplace, SaaS collaboration backend и regulated medical architecture.

@@ -1,35 +1,36 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: c7eaa210dcb92733dbee7a31668878b135b1887f
+active_path: docs/01_Product.md
 document_language: ru
 technical_identifiers_language: en
-document_role: PRODUCT_BASELINE
-proposed_post_acceptance_role: CANONICAL_PRODUCT_BASELINE
-proposed_authority_scope:
-  - target_users
-  - user_problems
-  - product_boundaries
-  - accepted_product_directions
-  - product_non_goals
-source_files_bound_by_blob_sha: true
+document_role: CANONICAL_PRODUCT_BASELINE
+authority_scope:
+- target_users
+- user_problems
+- product_boundaries
+- accepted_product_directions
+- product_non_goals
 ---
 
 # 01 — Продукт
 
 ## 1. Граница статуса
 
-Документ является APPROVED product baseline. Подтверждённая цель и product-first direction отделены от proposed MVP, metrics, interface и feature selection. Ни один раздел не разрешает implementation.
+Документ является принятым product baseline. Подтверждённые product facts имеют fact-class-scoped authority; разделы, помеченные `PROPOSAL`, `OPTIONAL` или `UNDECIDED`, не становятся принятыми решениями. Ни один раздел не разрешает implementation.
 
 ## 2. Проблема продукта
 
@@ -53,7 +54,7 @@ source_files_bound_by_blob_sha: true
 | `P-014` | Automation precedes manual flow | Bad process automated |
 | `P-015` | Blockers/next action не понятны | Dependence on specialists |
 
-## 3. Product promise
+## 3. Обещание продукта
 
 ```text
 пользователь формулирует проблему или идею
@@ -96,17 +97,17 @@ source_files_bound_by_blob_sha: true
 - reproduce checks;
 - отличать historical report от current result.
 
-## 5. Adaptive intake
+## 5. Адаптивный intake
 
-### Existing complete specification
+### Готовая полная спецификация
 
-AOS сохраняет original input, проверяет missing fields и contradictions, показывает added assumptions, задаёт только material questions, создаёт APPROVED Product Spec/Feature Passport и останавливается до architecture/execution authority.
+AOS сохраняет original input, проверяет missing fields и contradictions, показывает added assumptions, задаёт только material questions, создаёт DRAFT Product Spec/Feature Passport и останавливается до architecture/execution authority.
 
-### Incomplete idea
+### Неполная идея
 
 Problem Interview определяет user/pain/current workaround, отделяет outcome от solution, фиксирует success signals, constraints, non-goals, unknowns, follow-up questions и sensitive/provider concerns.
 
-### Progressive depth
+### Прогрессивная глубина
 
 | Profile | Minimum depth |
 |---|---|
@@ -117,7 +118,7 @@ Problem Interview определяет user/pain/current workaround, отдел�
 
 Точные thresholds остаются `UNDECIDED`.
 
-## 6. Product artifacts
+## 6. Артефакты продукта
 
 ### Intent Record
 
@@ -135,7 +136,7 @@ Identity/owner, problem/user, observable behavior, trigger/preconditions, inputs
 
 Registry индексирует Feature Passports, но не заменяет их и не смешивается с execution/verification/protected registries.
 
-## 7. Scenario, access and UX pipeline — optional
+## 7. Pipeline сценариев, доступа и UX — optional
 
 ```text
 Problem Interview
@@ -151,7 +152,7 @@ Problem Interview
 
 Запускается только когда Product Spec недостаточно описывает actors, access-sensitive behavior и UX flow.
 
-## 8. Product boundaries
+## 8. Границы продукта
 
 ### Product Runtime
 
@@ -167,11 +168,11 @@ Minimal Safety Floor всегда; stronger controls только после obs
 
 ### Knowledge / Reference
 
-Accepted documents, APPROVED Feature Passports, lessons/patterns, targeted findings и rebuildable indexes.
+Accepted documents, DRAFT Feature Passports, lessons/patterns, targeted findings и rebuildable indexes.
 
-## 9. Core user journeys
+## 9. Основные пользовательские journeys
 
-### J-001 — Start a project
+### J-001 — Запуск нового проекта
 
 ```text
 intent → clarification → problem/outcome → Product Spec → slice choice
@@ -179,66 +180,66 @@ intent → clarification → problem/outcome → Product Spec → slice choice
 → implementation → validation → review → human decision
 ```
 
-### J-002 — Understand existing project
+### J-002 — Исследование существующего проекта
 
 ```text
 repository → read-only identity/preflight → capability map
 → gaps/conflicts/unknowns → candidate objectives → human selection
 ```
 
-### J-003 — Implement one feature
+### J-003 — Реализация одной feature
 
 ```text
 Feature Passport → targeted research → Product Contract → architecture
 → Task Brief → EXECUTE → Stage Report → VALIDATE → REVIEW → decision
 ```
 
-### J-004 — Resume
+### J-004 — Возобновление работы
 
 ```text
 /status → repository-derived state → exact identity → blockers/decisions
 → /next → optional /details
 ```
 
-### J-005 — Review
+### J-005 — Проверка и решение
 
 ```text
 before/after → scope → Evidence → NOT_RUN/limitations → findings
 → ACCEPT | NEEDS_CHANGES | REJECT | DEFER
 ```
 
-### J-006 — Protected delivery
+### J-006 — Защищённая доставка
 
 ```text
 protected scope → plan → human Risk Profile → authorized EXECUTE
 → independent VALIDATE → REVIEW → separate Commit/Push/Merge/Release
 ```
 
-### J-007 — Reference-driven reconstruction
+### J-007 — Reconstruction по reference
 
 ```text
 feature gap → narrow question → pinned snapshot → inspect evidence
 → classify → reject legacy complexity → update dossier → human decision
 ```
 
-## 10. Candidate MVP — PROPOSAL
+## 10. MVP-кандидат — PROPOSAL
 
 Safe entry/discovery, adaptive intake, Product Spec/Feature Passport, one Task Brief, separate Execution Authorization, scope/risk/human authority, one change, Evidence mapped to acceptance, human acceptance, compact handoff и lesson proposal.
 
-## 11. First vertical slice criteria
+## 11. Критерии первого vertical slice
 
 Slice решает identified user problem, даёт observable result, имеет described I/O/states/failures/recovery, executable acceptance/negative cases, работает без full Control Plane, имеет minimal dependencies, создаёт learning и не включает implicit Git delivery.
 
-## 12. Product acceptance model
+## 12. Модель product acceptance
 
 Feature documentation-ready, когда определены users, trigger, I/O, observable result, states, failures/recovery, non-goals, acceptance, negative cases, human decisions и research gaps.
 
 Product acceptance требует explicit human decision по exact revision.
 
-## 13. Candidate success indicators — PROPOSAL
+## 13. Кандидатные показатели успеха — PROPOSAL
 
 Time intent→Task Brief, clarification loops, scope drift, resume time, review time, false-green incidents, tasks without re-planning, lesson reuse, user understanding, Governance overhead и maintainability.
 
-## 14. Required product decisions
+## 14. Необходимые product decisions
 
 First segment/job/slice, Product Spec↔Feature Passport, Feature Registry, scenario/access/UX timing, interface, acceptance identity, install ownership, feature dispositions и metrics.

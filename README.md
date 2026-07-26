@@ -1,40 +1,68 @@
-# AOS Project: Documentation Base
+# AOS Project Knowledge Repository
 
-**ВНИМАНИЕ:** Цель данного репозитория — создание и хранение **исключительно проектной документации** для последующего воспроизведения системы AOS в другом (целевом) репозитории. 
+`NMF13579/notebook` — активное хранилище принятой проектной базы знаний для проектирования и будущей разработки AOS.
 
-Мы **не создаем** сам код AOS в этом репозитории. Здесь находится только проектная документация, которая выступает как единый источник истины (Single Source of Truth) для архитектурных и продуктовых решений.
+```yaml
+repository_role: ACTIVE_PROJECT_KNOWLEDGE_REPOSITORY
+baseline_revision: R4-RU
+source_snapshot_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+implementation_repository: UNASSIGNED
+implementation_authorization: NONE
+git_authorization: NONE
+```
 
-## 📖 Документация (Official Baseline)
+Сам runtime AOS в этом репозитории не создаётся без отдельного решения о target implementation repository.
 
-Вся актуальная и **утверждённая** проектная документация находится в папке `/docs`. 
+## Документация
 
-Документы структурированы по 7 основным направлениям:
-- [00_Core.md](docs/00_Core.md) — Идентичность, принципы и базовые правила безопасности.
-- [01_Product.md](docs/01_Product.md) — Продуктовые границы, целевая аудитория и проблемы.
-- [02_Architecture.md](docs/02_Architecture.md) — 6-слойная модульная архитектура системы.
-- [03_Development.md](docs/03_Development.md) — Процесс разработки, контракты и стадии.
-- [04_Lessons.md](docs/04_Lessons.md) — Реестр исторических ошибок и превентивных правил.
-- [05_Reference.md](docs/05_Reference.md) — Роутинг по историческому контексту.
-- [06_Features.md](docs/06_Features.md) — Детальный каталог из 30 семейств фич.
+Активная база знаний находится в `docs/` и состоит ровно из семи документов:
 
-> **Статус:** Вся документация в папке `docs/` имеет официальный статус `APPROVED` и `AUTHORITATIVE`. Исторические артефакты из прошлых итераций (AgentOS, AOS-FARM) удалены из репозитория для предотвращения конфликта контекстов у AI.
+- [00_Core.md](docs/00_Core.md) — identity, authority, source precedence и safety.
+- [01_Product.md](docs/01_Product.md) — пользователи, проблемы и product boundaries.
+- [02_Architecture.md](docs/02_Architecture.md) — architecture baseline и shared contracts.
+- [03_Development.md](docs/03_Development.md) — workflow, validation, review и Git boundaries.
+- [04_Lessons.md](docs/04_Lessons.md) — failures, lessons и regression catalog.
+- [05_Reference.md](docs/05_Reference.md) — provenance и targeted research routes.
+- [06_Features.md](docs/06_Features.md) — единый feature inventory и design-level dossiers.
 
-## 🚀 Назначение репозитория
+Обязательная точка входа для агента: `docs/00_Core.md`.
 
-Этот репозиторий используется разработчиками и AI-агентами исключительно в качестве **справочной (Reference) базы** для:
-1. Понимания продуктовых границ (что мы делаем, а что — нет).
-2. Ознакомления с архитектурными и safety-контрактами перед тем, как писать код **в другом целевом репозитории**.
-3. Экспорта и чтения детальных паспортов фич (Dossiers) для их реализации в основной кодовой базе AOS.
+## Статус и authority
 
-> **СТРОГОЕ ПРАВИЛО ДЛЯ AI-АГЕНТОВ:** Не пытайтесь разворачивать проект, создавать файлы с кодом продукта или настраивать CI/CD для самого AOS внутри этого репозитория. Ваша роль здесь — только чтение спецификаций и обновление проектной документации.
+Пакет принят человеком как knowledge baseline. Authority ограничена fact class конкретного документа и статусом конкретного утверждения.
 
-Любые изменения в официальную документацию вносятся только после явного согласования человеком (human decision record).
+```text
+Knowledge baseline ≠ implementation
+Feature inventory ≠ approved roadmap
+Documentation ≠ runtime Evidence
+PASS ≠ approval
+Evidence ≠ approval
+Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
+```
 
-## 🔗 Референсные репозитории (Historical References)
+Принятие документации не предоставляет implementation или Git authorization.
 
-Данная документация построена на базе исторического опыта. Если вам или ИИ-агенту потребуется глубоко изучить прошлые реализации кода, сырые логи чатов или старые концепты, вы можете обратиться к оригинальным архивам:
+## Инструкции для агентов
 
-- **AgentOS (Legacy):** `https://github.com/NMF13579/AgentOS`
-- **AOS-FARM:** `https://github.com/NMF13579/AOS-FARM`
+Repository-aware agents должны соблюдать [AGENTS.md](AGENTS.md).
 
-> **ПРАВИЛО:** Эти репозитории используются исключительно в режиме "только чтение" (read-only reference). Любой код, паттерны или структуры из них **не имеют авторитета (authority: NONE)** над новым проектом. Они могут переноситься в новый целевой репозиторий только после явного архитектурного проектирования и утверждения.
+Для Google Antigravity добавлено workspace rule:
+
+```text
+.agents/rules/aos-documentation-repository.md
+```
+
+Правило следует включить как `Always On` в настройках workspace.
+
+## Reference repositories
+
+Primary historical references:
+
+- AOS-FARM: https://github.com/NMF13579/AOS-FARM/tree/dev
+- AgentOS: https://github.com/NMF13579/AgentOS/tree/dev
+
+Они используются только read-only и только для targeted research. Их authority над target AOS — `NONE`. Exact snapshot и правила research указаны в `docs/05_Reference.md`.
+
+## Изменения документации
+
+Изменения должны быть bounded, сохранять семь fact-class owners, не создавать параллельные каталоги и не менять product/architecture/authority semantics без explicit human decision.

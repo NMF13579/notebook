@@ -1,103 +1,120 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: b978777097f08d544b9e02f08cf5716ea199998c
+active_path: docs/05_Reference.md
 document_language: ru
 technical_identifiers_language: en
 document_role: REFERENCE_AND_PROVENANCE_REGISTRY
-proposed_post_acceptance_role: REFERENCE_AND_PROVENANCE_REGISTRY
-proposed_authority_scope:
-  - source_provenance
-  - snapshot_identity
-  - targeted_research_routes
-source_files_bound_by_blob_sha: true
+authority_scope:
+- source_provenance
+- snapshot_identity
+- targeted_research_routes
+reference_authority_for_target_aos: NONE
 ---
 
 # 05 — Источники и provenance
 
 ## 1. Назначение
 
-Единый provenance и research-routing layer. Не является Product Contract, Architecture Contract или implementation authorization.
+Документ является единым provenance и research-routing layer. Он не является Product Contract, Architecture Contract, implementation authorization или источником полномочий legacy.
 
 ```text
 reference occurrence ≠ current implementation
 historical acceptance ≠ current acceptance
 source mapping ≠ target requirement
 stored PASS ≠ current PASS
+GitHub URL ≠ загруженный source ChatGPT Project
 ```
 
-## 2. Source classes and authority
+## 2. Классы источников и authority
 
-| Source class | Use | Authority |
+| Класс источника | Использование | Authority |
 |---|---|---|
-| Current project instructions | Agent behavior/safety | Behavior-scoped |
-| Explicit human decision | Exact boundary | Human-scoped |
-| Accepted project artifact | Fact class | Fact-class scoped |
-| Current repository observation | Snapshot facts | Observation only |
-| Historical repository | Behavior/failure/reference | None for target |
-| Chat summary/note | Intent/lessons/candidates | None |
-| Generated synthesis | Navigation/inference | None |
+| Current explicit human decision | Exact decision boundary | Human-scoped |
+| Accepted project artifact | Declared fact class | Fact-class scoped |
+| Current repository observation | Mutable snapshot facts | Observation only |
+| Historical repository snapshot | Behavior, failure, prior art | `NONE` for target |
+| Chat summary, note или report | Intent, lessons, candidates | `NONE` |
+| Generated synthesis | Navigation и inference | `NONE` |
 
-## 3. Bound source-file register
-
-| ID | Path | Роль |
-|---|---|---|
-| `SRC-AF-00..06` | `AOS-FARM/00_Core.md` … `06_Features.md` | Основной target synthesis и 30 full dossiers |
-| `SRC-AG-00..06` | `AgentOS/00_Core.md` … `06_Features.md` | AgentOS-specific evidence, paths, failures и feature crosswalk |
-| `REF-AF-REPO` | `NMF13579/AOS-FARM` | Historical implementation reference |
-| `REF-A02-REPO` | Historical AOS-02 | Strict loader/CLI/preview/failure reference |
-
-Exact blob SHA сохраняются в repository/audit record при принятии пакета.
-
-## 4. Source roles
-
-`AOS-FARM/` в notebook фактически описывает target AOS synthesis и служит основой объединения. `AgentOS/` содержит source-specific extraction и особенно полезен для Problem Interview, Feature Passport, concrete drift/idle/portability failures, registries и adapters. Ни один из них не имеет target authority автоматически.
-
-## 5. AgentOS path register
+## 3. Текущая принятая база знаний
 
 ```yaml
-repository: NMF13579/AgentOS
+repository: NMF13579/notebook
 branch: dev
-commit: e3a60a92fbd5e78e583cddb519d39527583f3433
-commit_date: 2026-06-05
-inspection_mode: static_read_only
-commands_tests_build: NOT_RUN
+audited_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+active_path: docs/
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+implementation_authorization: NONE
+git_authorization: NONE
 ```
 
-| ID | Historical paths | Evidence area |
-|---|---|---|
-| `AG-RP-01` | `README.md`, `INIT.md` | Identity/onboarding/discovery |
-| `AG-RP-02` | `llms.txt`, `ROUTES-REGISTRY.md` | Bootstrap/routes |
-| `AG-RP-03` | `core-rules/MAIN.md` | Authority |
-| `AG-RP-04` | `state/MAIN.md`, `HANDOFF.md`, `tasks/active-task.md` | State/handoff/idle |
-| `AG-RP-05` | `workflow/MAIN.md` | Scope/one-task/lessons |
-| `AG-RP-06` | `quality/MAIN.md`, `security/MAIN.md` | Verification/risk |
-| `AG-RP-07` | Problem Interview docs/checker | Interview/completeness |
-| `AG-RP-08` | Product Spec architecture | Product Spec/depth |
-| `AG-RP-09` | Spec-to-task docs/script | Task candidate generation |
-| `AG-RP-10` | Task schema/validator | Task/idle bypass |
-| `AG-RP-11` | Verification schema/report | Verification/demo |
-| `AG-RP-12` | Lessons registry | Incident-to-lesson |
-| `AG-RP-13` | RAG-light/index | Context index |
-| `AG-RP-14` | Honest PASS checker | False-PASS resistance |
-| `AG-RP-15` | Bounded retry | Retry limits |
-| `AG-RP-16` | Repo scan/drift reports | Hygiene/drift |
-| `AG-RP-17` | `repo-map.md` | Generated map |
-| `AG-RP-18` | UI/token docs | NOT_FOUND named artifacts |
-| `AG-RP-19` | Maintainability tools | NOT_FOUND dedicated tools |
-| `AG-RP-20` | Prompt packs/agent files | Adapter surfaces |
+Текущие семь документов являются активными owners своих fact classes. Состояние ветки после указанного commit должно проверяться непосредственно перед mutable repository claim.
 
-## 6. High-signal inspection order
+## 4. Provenance объединённого пакета
+
+До консолидации исходные synthesis-наборы находились в `AOS-FARM/` и `AgentOS/` внутри `notebook`. Они доступны через Git history, а не как live paths:
+
+```yaml
+historical_notebook_commit: a27a47ed0a1610115ff88f4da6a898a1aaff778b
+former_source_paths:
+  - AOS-FARM/00_Core.md ... AOS-FARM/06_Features.md
+  - AgentOS/00_Core.md ... AgentOS/06_Features.md
+live_status: REMOVED_AFTER_SYNTHESIS
+```
+
+Отсутствие этих paths в текущем tree является ожидаемым и не означает потерю provenance.
+
+## 5. Основные reference repositories
+
+### AOS-FARM
+
+```yaml
+url: https://github.com/NMF13579/AOS-FARM/tree/dev
+repository: NMF13579/AOS-FARM
+branch_label: dev
+pinned_snapshot_used_by_baseline: 71b87f3dfb9fe3735c7659c123cd86db3f577201
+mode: READ_ONLY_REFERENCE
+authority_for_target_aos: NONE
+```
+
+Использовать для targeted research по installer/doctor, preflight, validation, candidate identity, Git boundaries, closure, recovery, negative fixtures и environment hygiene.
+
+### AgentOS
+
+```yaml
+url: https://github.com/NMF13579/AgentOS/tree/dev
+repository: NMF13579/AgentOS
+branch_label: dev
+pinned_snapshot_used_by_baseline: e3a60a92fbd5e78e583cddb519d39527583f3433
+mode: READ_ONLY_REFERENCE
+authority_for_target_aos: NONE
+commands_tests_build_in_baseline_audit: NOT_RUN
+```
+
+Использовать для Problem Interview, Product Spec, Task Contract, validation, state/handoff, adapters, context-index experiments и concrete failure cases.
+
+`dev` является плавающей веткой. Новое research должно фиксировать actual commit/tree, даже если baseline уже содержит старый pinned snapshot.
+
+## 6. Secondary reference
+
+Historical AOS-02 допускается только для конкретных gaps вокруг strict loader, CLI semantics, preview, scope, atomicity и recovery. Он не входит в default research route и не имеет target authority.
+
+## 7. High-signal inspection order
 
 ```text
 user-facing docs/commands
@@ -107,7 +124,9 @@ user-facing docs/commands
 → reports/plans/recovery artifacts
 ```
 
-## 7. Targeted research record
+Historical report или README claim не считается current runtime Evidence без воспроизведения.
+
+## 8. Targeted research record
 
 ```yaml
 research_id:
@@ -131,28 +150,46 @@ limitations: []
 remaining_unknowns: []
 ```
 
-## 8. Research stop conditions
+## 9. Research stop conditions
 
-Stop when question answered, snapshot/path unavailable, conflict changes scope, permission/network expansion needed, protected decision found, research expands beyond selected feature или current state cannot be separated from memory.
+Остановить research, когда вопрос достаточно отвечен; snapshot/path недоступен; conflict меняет scope; требуется permission/network expansion; найдено protected architecture decision; исследование расширяется за selected feature; current state нельзя отделить от памяти.
 
-## 9. Feature-to-reference routing
+Недопустимые задачи:
 
-| Feature | Первые reference questions |
+```text
+понять весь AOS-FARM
+понять весь AgentOS
+извлечь всё полезное
+```
+
+## 10. Feature-to-reference routing
+
+| Feature range | Первые reference questions |
 |---|---|
-| `FTR-001..006` | Intake, discovery, spec, install, ADR, Task Brief/auth |
+| `FTR-001..006` | Intake, discovery, specification, install, ADR, Task Brief/auth |
 | `FTR-007..012` | Decomposition, status UX, preflight, execution, validation, review |
 | `FTR-013..018` | Freeze, recovery, Git closure, memory, search, routing |
 | `FTR-019..024` | Trust, Governance, drift, patterns, CI, release |
 | `FTR-025..030` | Incidents, plugins, domains, UI, packaging, internal tooling |
 
-## 10. Promotion model
+## 11. Promotion model
 
 ```text
-reference idea → feature entry → product-fit review → human disposition
-→ Feature Contract → DRAFT architecture → architecture decision
-→ Task Brief → Execution Authorization
+reference idea
+→ feature entry
+→ product-fit review
+→ item-scoped human disposition
+→ Feature Contract
+→ architecture decision when needed
+→ Task Brief
+→ Execution Authorization
 ```
 
-## 11. Current limitations
+## 12. Ограничения
 
-Byte-complete chat export, historical runtime execution, current test/CI reproduction, independent semantic validation и human canonicalization — `NOT_RUN/NOT_PROVIDED`. Implementation authorization — `NONE`.
+- Byte-complete chat export: `NOT_RUN`.
+- Historical runtime execution: `NOT_RUN`.
+- Current legacy test/CI reproduction: `NOT_RUN`.
+- Independent semantic validation: `NOT_RUN`.
+- GitHub links в ChatGPT Project являются routing pointers, а не автоматически импортированными sources.
+- Reference repositories не предоставляют approval, implementation или Git authority.

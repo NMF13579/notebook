@@ -1,29 +1,30 @@
 ---
-package: AOS_Integrated_Knowledge_Package
-package_revision: R3-RU
-updated: 2026-07-26
-status: APPROVED
-authority: AUTHORITATIVE
-human_review: REQUIRED
+package: AOS_Project_Knowledge_Baseline
+package_revision: R4-RU
+updated: '2026-07-26'
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
+human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
-self_audit: COMPLETED
+implementation_authorization: NONE
+git_authorization: NONE
+semantic_audit: COMPLETED_WITH_CORRECTIONS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
 source_branch: dev
+audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
+audited_source_blob_sha: c02141ea44840f88b10285e66d641d6508653989
+active_path: docs/00_Core.md
 document_language: ru
 technical_identifiers_language: en
-document_role: PROJECT_CONTROL_AND_SOURCE_PRECEDENCE
-proposed_post_acceptance_role: CANONICAL_PROJECT_CORE
-proposed_authority_scope:
-  - project_identity
-  - source_precedence
-  - status_semantics
-  - human_authority
-  - minimal_safety_invariants
-  - agent_usage_contract
-source_files_bound_by_blob_sha: true
+document_role: CANONICAL_PROJECT_CORE
+authority_scope:
+- project_identity
+- source_precedence
+- status_semantics
+- human_authority
+- minimal_safety_invariants
+- agent_usage_contract
 ---
 
 # 00 — Ядро проекта
@@ -33,24 +34,24 @@ source_files_bound_by_blob_sha: true
 Документ является единым владельцем сведений об идентичности проекта, иерархии источников, статусах утверждений, полномочиях человека, Minimal Safety Floor и правилах использования пакета агентом.
 
 ```yaml
-status: APPROVED
-authority: AUTHORITATIVE
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
+authority: FACT_CLASS_SCOPED
 human_acceptance: ACCEPTED
-implementation_authorization: AUTHORIZED
-git_authorization: AUTHORIZED
+implementation_authorization: NONE
+git_authorization: NONE
 ```
 
-Пакет допускается использовать для анализа, проектирования и targeted research. До явного принятия человеком он не является действующей policy и не разрешает изменение репозитория.
+Пакет принят человеком как текущая база знаний для анализа, проектирования и targeted research. Принятие knowledge baseline не разрешает mutation, implementation или Git delivery.
 
 ## 2. Идентичность проекта
 
 ```yaml
 project_name: AOS
 working_description: human-directed AI-assisted software development system
-current_work_mode: DOCUMENTATION_SYNTHESIS_AND_DESIGN_BASELINE
+current_work_mode: HUMAN_ACCEPTED_DOCUMENTATION_BASELINE
 knowledge_repository: NMF13579/notebook
 knowledge_branch_label: dev
-active_package_path_after_adoption: AOS/
+active_package_path: docs/
 implementation_repository: UNASSIGNED
 legacy_projects: [AOS-FARM, AgentOS, AOS-1, AOS-02]
 legacy_authority: NONE
@@ -95,7 +96,7 @@ Authority всегда ограничена fact class:
 1. current explicit human decision;
 2. human-accepted AOS artifact в declared scope;
 3. direct current repository observation для mutable facts;
-4. current APPROVED package как synthesis/proposal;
+4. DRAFT-разделы и явно помеченные proposals внутри принятого пакета;
 5. historical repository snapshot как reference;
 6. chat summary, note, report или assistant analysis;
 7. agent inference.
@@ -148,7 +149,7 @@ Legacy не предоставляет автоматически target archite
 legacy observation
 → targeted verification
 → requirement / lesson candidate
-→ APPROVED proposal
+→ DRAFT proposal
 → human decision
 → greenfield implementation
 ```
@@ -248,29 +249,29 @@ Product definition
 | `DIR-005` | Research выполняется по feature gap | Human-confirmed |
 | `DIR-006` | Feature dossiers понятны человеку и агенту | Human-confirmed |
 | `DIR-007` | Implementation repository — `UNASSIGNED` | Current safe state |
-| `DIR-008` | Один общий feature catalog | Synthesis proposal |
+| `DIR-008` | Один общий feature catalog | Human-accepted with baseline |
 
 ## 15. Открытые решения
 
 First Product Runtime domain, first vertical slice, interface, Product Spec/Feature Passport relation, Product Feature Registry, Project Memory persistence, human decision authenticity, Risk Profile vocabulary, language/toolchain/dependencies, compatibility scope, Governance packaging и provider/privacy/routing policy.
 
-## 16. Принятие пакета
-
-После explicit human acceptance пакет может получить:
+## 16. Текущий статус пакета
 
 ```yaml
 role: ACTIVE_PROJECT_KNOWLEDGE_BASELINE
-status: HUMAN_ACCEPTED
+status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
+implementation_authorization: NONE
+git_authorization: NONE
 ```
 
-До этого `authority: NONE`.
+Authority действует только в declared fact class. Принятие пакета не принимает каждую feature, не подтверждает runtime и не разрешает действия в implementation repository.
 
 ## 17. Контракт использования агентом
 
 ```yaml
 agent_usage_contract:
-  entrypoint: 00_Core.md
+  entrypoint: docs/00_Core.md
   rules:
     - читать только релевантные документы и разделы
     - считать authority ограниченной fact class
