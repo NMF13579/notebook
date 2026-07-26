@@ -16,12 +16,12 @@ git_authorization: NONE
 
 ## Обязательная точка входа
 
-Перед существенной задачей прочитай `AOS-3/00_Core.md`. Затем открывай только релевантные документы:
+Перед существенной задачей прочитай `docs/00_Core.md`. Затем открывай только релевантные документы:
 
-- Product: `AOS-3/01_Product.md` + relevant feature в `AOS-3/06_Features.md`.
-- Architecture: Product context → feature → `AOS-3/02_Architecture.md` → related lessons.
-- Development workflow: `AOS-3/03_Development.md` + relevant contracts/lessons.
-- Reference research: selected feature → `AOS-3/05_Reference.md` → exact paths.
+- Product: `docs/01_Product.md` + relevant feature в `docs/06_Features.md`.
+- Architecture: Product context → feature → `docs/02_Architecture.md` → related lessons.
+- Development workflow: `docs/03_Development.md` + relevant contracts/lessons.
+- Reference research: selected feature → `docs/05_Reference.md` → exact paths.
 
 Не загружай все семь документов и весь legacy repository без доказанной необходимости.
 
@@ -48,7 +48,7 @@ git_authorization: NONE
 - runtime verification;
 - permission на edit/commit/push/merge/release.
 
-`AOS-3/06_Features.md` — accepted inventory, но item-level `human_disposition` остаётся отдельным решением. Shared defaults в dossiers необходимо заменить feature-specific contract перед implementation planning.
+`docs/06_Features.md` — accepted inventory, но item-level `human_disposition` остаётся отдельным решением. Shared defaults в dossiers необходимо заменить feature-specific contract перед implementation planning.
 
 ## Reference repositories
 
@@ -103,7 +103,7 @@ NOT_RUN ≠ PASS
 
 Минимально проверь:
 
-1. В `AOS-3/` осталось ровно семь canonical `.md` files.
+1. В `docs/` осталось ровно семь canonical `.md` files.
 2. YAML frontmatter читается.
 3. Markdown fences и relative links корректны.
 4. `FTR-001..030` и `LES-001..042` остаются уникальными.

@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: c02141ea44840f88b10285e66d641d6508653989
-active_path: AOS-3/00_Core.md
+active_path: docs/00_Core.md
 document_language: ru
 technical_identifiers_language: en
 document_role: CANONICAL_PROJECT_CORE
@@ -51,7 +51,7 @@ working_description: human-directed AI-assisted software development system
 current_work_mode: HUMAN_ACCEPTED_DOCUMENTATION_BASELINE
 knowledge_repository: NMF13579/notebook
 knowledge_branch_label: dev
-active_package_path: AOS-3/
+active_package_path: docs/
 implementation_repository: UNASSIGNED
 legacy_projects: [AOS-FARM, AgentOS, AOS-1, AOS-02]
 legacy_authority: NONE
@@ -271,7 +271,7 @@ Authority действует только в declared fact class. Приняти
 
 ```yaml
 agent_usage_contract:
-  entrypoint: AOS-3/00_Core.md
+  entrypoint: docs/00_Core.md
   rules:
     - читать только релевантные документы и разделы
     - считать authority ограниченной fact class

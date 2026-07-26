@@ -7,6 +7,6 @@ status: DRAFT_ADAPTER
 authority: NONE
 ---
 
-Данный файл является тонким операционным адаптером (thin operational adapter). Он не является новым владельцем фактов (fact owner) и не заменяет `AOS-3/00_Core.md` или другие элементы knowledge baseline.
+Данный файл является тонким операционным адаптером (thin operational adapter). Он не является новым владельцем фактов (fact owner) и не заменяет `docs/00_Core.md` или другие элементы knowledge baseline.
 
 CHATGPT_PROJECT_INSTRUCTION_TEXT: NOT_IMPORTED

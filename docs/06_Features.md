@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: 5307c471efe8cc900c7348748294a60e73cd71fa
-active_path: AOS-3/06_Features.md
+active_path: docs/06_Features.md
 document_language: ru
 technical_identifiers_language: en
 document_role: AUTHORITATIVE_FEATURE_INVENTORY

@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: c60c39b4bee652cde2fd2e38f81dc12b498aa817
-active_path: AOS-3/03_Development.md
+active_path: docs/03_Development.md
 document_language: ru
 technical_identifiers_language: en
 document_role: CANONICAL_DEVELOPMENT_WORKFLOW

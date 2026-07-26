@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: c7eaa210dcb92733dbee7a31668878b135b1887f
-active_path: AOS-3/01_Product.md
+active_path: docs/01_Product.md
 document_language: ru
 technical_identifiers_language: en
 document_role: CANONICAL_PRODUCT_BASELINE

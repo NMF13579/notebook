@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: b978777097f08d544b9e02f08cf5716ea199998c
-active_path: AOS-3/05_Reference.md
+active_path: docs/05_Reference.md
 document_language: ru
 technical_identifiers_language: en
 document_role: REFERENCE_AND_PROVENANCE_REGISTRY
@@ -56,7 +56,7 @@ GitHub URL ≠ загруженный source ChatGPT Project
 repository: NMF13579/notebook
 branch: dev
 audited_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
-active_path: AOS-3/
+active_path: docs/
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 implementation_authorization: NONE
