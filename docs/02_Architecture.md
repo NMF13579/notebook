@@ -67,7 +67,7 @@ Authority checks, permission states, scope/path/Git boundaries, result semantics
 
 ### L5 — Knowledge / Reference
 
-Accepted documents, DRAFT Feature Passports, lessons, targeted findings, patterns и derived indexes.
+Accepted documents, APPROVED Feature Passports, lessons, targeted findings, patterns и derived indexes.
 
 ### L6 — Optional Extensions
 

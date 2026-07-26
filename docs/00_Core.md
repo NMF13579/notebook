@@ -95,7 +95,7 @@ Authority всегда ограничена fact class:
 1. current explicit human decision;
 2. human-accepted AOS artifact в declared scope;
 3. direct current repository observation для mutable facts;
-4. current DRAFT package как synthesis/proposal;
+4. current APPROVED package как synthesis/proposal;
 5. historical repository snapshot как reference;
 6. chat summary, note, report или assistant analysis;
 7. agent inference.
@@ -148,7 +148,7 @@ Legacy не предоставляет автоматически target archite
 legacy observation
 → targeted verification
 → requirement / lesson candidate
-→ DRAFT proposal
+→ APPROVED proposal
 → human decision
 → greenfield implementation
 ```

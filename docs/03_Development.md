@@ -37,7 +37,7 @@ source_files_bound_by_blob_sha: true
 accepted user problem/outcome
 → detailed Feature Passport
 → targeted reference research if needed
-→ DRAFT architecture decision
+→ APPROVED architecture decision
 → bounded Task Brief
 → repository preflight
 → explicit Execution Authorization

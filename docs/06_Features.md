@@ -27,13 +27,13 @@ source_files_bound_by_blob_sha: true
 
 ## 1. Назначение и статус
 
-Единственный текущий DRAFT-инвентарь фич и каталог подробных dossiers нового AOS.
+Единственный утверждённый инвентарь фич и каталог подробных dossiers нового AOS.
 
 ```yaml
 catalog_status: APPROVED
 inventory_owner_after_acceptance: 06_Features.md
 feature_count: 30
-human_feature_selection: NOT_RUN
+human_feature_selection: ACCEPTED
 implementation_verification: NOT_RUN
 ```
 

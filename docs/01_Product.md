@@ -29,7 +29,7 @@ source_files_bound_by_blob_sha: true
 
 ## 1. Граница статуса
 
-Документ является DRAFT product baseline. Подтверждённая цель и product-first direction отделены от proposed MVP, metrics, interface и feature selection. Ни один раздел не разрешает implementation.
+Документ является APPROVED product baseline. Подтверждённая цель и product-first direction отделены от proposed MVP, metrics, interface и feature selection. Ни один раздел не разрешает implementation.
 
 ## 2. Проблема продукта
 
@@ -100,7 +100,7 @@ source_files_bound_by_blob_sha: true
 
 ### Existing complete specification
 
-AOS сохраняет original input, проверяет missing fields и contradictions, показывает added assumptions, задаёт только material questions, создаёт DRAFT Product Spec/Feature Passport и останавливается до architecture/execution authority.
+AOS сохраняет original input, проверяет missing fields и contradictions, показывает added assumptions, задаёт только material questions, создаёт APPROVED Product Spec/Feature Passport и останавливается до architecture/execution authority.
 
 ### Incomplete idea
 
@@ -167,7 +167,7 @@ Minimal Safety Floor всегда; stronger controls только после obs
 
 ### Knowledge / Reference
 
-Accepted documents, DRAFT Feature Passports, lessons/patterns, targeted findings и rebuildable indexes.
+Accepted documents, APPROVED Feature Passports, lessons/patterns, targeted findings и rebuildable indexes.
 
 ## 9. Core user journeys
 
