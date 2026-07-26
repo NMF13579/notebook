@@ -14,7 +14,7 @@ source_repository: NMF13579/notebook
 source_branch: dev
 audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
 audited_source_blob_sha: a54de39bdd76994c0d3641a3008b688a1509984f
-active_path: docs/04_Lessons.md
+active_path: AOS-3/04_Lessons.md
 document_language: ru
 technical_identifiers_language: en
 document_role: AUTHORITATIVE_LESSONS_AND_FAILURE_INVENTORY
