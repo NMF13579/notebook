@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q062",
+    "display_order": 62,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u043f\u0440\u043e\u0445\u043e\u0434\u0438\u0442 \u0440\u0430\u0431\u043e\u0442\u0430?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u043f\u0440\u043e\u0445\u043e\u0434\u0438\u0442 \u0440\u0430\u0431\u043e\u0442\u0430?",
+    "source_line_start": 118,
+    "source_line_end": 118,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0438\u0441\u0430\u0442\u044c bounded operating loop \u0438 observable behavior AOS.",
+    "document_owner": "01_Product",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B009-Q062",
+    "question_id": "Q062",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/01_Product.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u043f\u0440\u043e\u0445\u043e\u0434\u0438\u0442 \u0440\u0430\u0431\u043e\u0442\u0430?",
+    "excerpt_sha256": "4200205d885b297e981518a90303f420db1f0aac3e391a15822c3148512faf4b",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

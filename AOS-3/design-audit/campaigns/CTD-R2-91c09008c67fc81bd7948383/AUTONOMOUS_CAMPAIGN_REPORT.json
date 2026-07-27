@@ -1,0 +1,13 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-AUTONOMOUS-CAMPAIGN-R2",
+  "stage": "AUTONOMOUS_EXECUTION",
+  "technical_result": "PASS",
+  "metrics": {
+    "batches_processed": 40,
+    "items_processed": 319,
+    "unprocessed_remaining": 0,
+    "compilation_executed": true
+  },
+  "stop": true,
+  "next_required_action": "HUMAN_AUTHORIZE_FINALIZE_CAMPAIGN"
+}

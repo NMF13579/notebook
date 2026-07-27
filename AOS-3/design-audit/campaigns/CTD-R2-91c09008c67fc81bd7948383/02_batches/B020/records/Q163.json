@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q163",
+    "display_order": 163,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0441\u0430\u043c AOS?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0441\u0430\u043c AOS?",
+    "source_line_start": 231,
+    "source_line_end": 231,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B020-Q163",
+    "question_id": "Q163",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0441\u0430\u043c AOS?",
+    "excerpt_sha256": "daa32fcbf50e24f7d157cbc73963fac3622765d09d6e84d8c51af2e0a514d703",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

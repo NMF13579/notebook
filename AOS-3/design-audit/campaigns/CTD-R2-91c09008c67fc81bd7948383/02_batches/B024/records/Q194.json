@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q194",
+    "display_order": 194,
+    "raw_text": "\u041a\u0430\u043a AOS \u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u0440\u0443\u0435\u0442 missing dependencies?",
+    "normalized_question": "\u041a\u0430\u043a AOS \u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u0440\u0443\u0435\u0442 missing dependencies?",
+    "source_line_start": 265,
+    "source_line_end": 265,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c installation, operation, recovery \u0438 update.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B024-Q194",
+    "question_id": "Q194",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a AOS \u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u0440\u0443\u0435\u0442 missing dependencies?",
+    "excerpt_sha256": "5218d3e1eaf1d67c4b4a0269202e94433db01df8fba9b3430b7e7f7871f78c58",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

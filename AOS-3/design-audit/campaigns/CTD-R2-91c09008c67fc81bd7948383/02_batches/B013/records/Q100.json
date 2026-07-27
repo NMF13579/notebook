@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q100",
+    "display_order": 100,
+    "raw_text": "\u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442 \u0440\u0430\u0431\u043e\u0442\u0443 \u043f\u043e\u0441\u043b\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u044f state?",
+    "normalized_question": "\u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442 \u0440\u0430\u0431\u043e\u0442\u0443 \u043f\u043e\u0441\u043b\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u044f state?",
+    "source_line_start": 159,
+    "source_line_end": 159,
+    "section_path": "\u0422\u0435\u043f\u0435\u0440\u044c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c state, artifacts, identity \u0438 persistence.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B013-Q100",
+    "question_id": "Q100",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442 \u0440\u0430\u0431\u043e\u0442\u0443 \u043f\u043e\u0441\u043b\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u044f state?",
+    "excerpt_sha256": "949609437c902163aa979b2cdfd929f2c03bc685e216b237fcfa012cc4af345f",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

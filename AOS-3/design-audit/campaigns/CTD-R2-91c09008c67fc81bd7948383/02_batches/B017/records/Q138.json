@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q138",
+    "display_order": 138,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Development Factory?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Development Factory?",
+    "source_line_start": 203,
+    "source_line_end": 203,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043c\u043e\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c architecture responsibilities, ports \u0438 dependencies.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B017-Q138",
+    "question_id": "Q138",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Development Factory?",
+    "excerpt_sha256": "ecaff206117f9084d16f8a05f299683bd9af201bea86b4bac8ae1629cc1c6323",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q054",
+    "display_order": 54,
+    "raw_text": "\u041a\u0430\u043a AOS \u043e\u0442\u0434\u0435\u043b\u044f\u0435\u0442 problem, desired outcome \u0438 proposed solution?",
+    "normalized_question": "\u041a\u0430\u043a AOS \u043e\u0442\u0434\u0435\u043b\u044f\u0435\u0442 problem, desired outcome \u0438 proposed solution?",
+    "source_line_start": 110,
+    "source_line_end": 110,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0438\u0441\u0430\u0442\u044c bounded operating loop \u0438 observable behavior AOS.",
+    "document_owner": "01_Product",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B008-Q054",
+    "question_id": "Q054",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/01_Product.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a AOS \u043e\u0442\u0434\u0435\u043b\u044f\u0435\u0442 problem, desired outcome \u0438 proposed solution?",
+    "excerpt_sha256": "d24e74ef156c30bd121a1f5a263d78970e9e91f3806d28892d08fee52317123a",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q208",
+    "display_order": 208,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 operations \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u043c\u0438 \u0432 degraded mode?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 operations \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u043c\u0438 \u0432 degraded mode?",
+    "source_line_start": 279,
+    "source_line_end": 279,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c installation, operation, recovery \u0438 update.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B026-Q208",
+    "question_id": "Q208",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 operations \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u043c\u0438 \u0432 degraded mode?",
+    "excerpt_sha256": "1aa1d2ebede795f8d052fd50b537c61ac296e6601f497f2247d8ef8c49b61237",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

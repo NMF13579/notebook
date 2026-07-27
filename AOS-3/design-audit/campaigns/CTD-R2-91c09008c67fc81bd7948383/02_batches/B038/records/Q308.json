@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q308",
+    "display_order": 308,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 reversal conditions \u0438\u043c\u0435\u0435\u0442 \u043a\u0440\u0443\u043f\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 reversal conditions \u0438\u043c\u0435\u0435\u0442 \u043a\u0440\u0443\u043f\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435?",
+    "source_line_start": 391,
+    "source_line_end": 391,
+    "section_path": "\u0412 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c evolution, compatibility, maintenance \u0438 acceptance.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B038-Q308",
+    "question_id": "Q308",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 reversal conditions \u0438\u043c\u0435\u0435\u0442 \u043a\u0440\u0443\u043f\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435?",
+    "excerpt_sha256": "7ae2f38f0b141e20ec369731d5cead136a4d6c7564de941213801569bc2d4251",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

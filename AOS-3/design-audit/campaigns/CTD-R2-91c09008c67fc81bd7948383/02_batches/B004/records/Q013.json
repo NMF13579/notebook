@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q013",
+    "display_order": 13,
+    "raw_text": "\u0435\u0441\u0442\u044c \u043b\u0438 conflict;",
+    "normalized_question": "\u0435\u0441\u0442\u044c \u043b\u0438 conflict;",
+    "source_line_start": 40,
+    "source_line_end": 40,
+    "section_path": "UNASSIGNED",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B004-Q013",
+    "question_id": "Q013",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u0435\u0441\u0442\u044c \u043b\u0438 conflict;",
+    "excerpt_sha256": "67998402aacaf713b0997370cc0829640e9099a663ee92afdf782ad1b3929d53",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

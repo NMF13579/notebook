@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q255",
+    "display_order": 255,
+    "raw_text": "\u041a\u0430\u043a \u043f\u0440\u0435\u0434\u043e\u0442\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044f schema/runtime drift?",
+    "normalized_question": "\u041a\u0430\u043a \u043f\u0440\u0435\u0434\u043e\u0442\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044f schema/runtime drift?",
+    "source_line_start": 332,
+    "source_line_end": 332,
+    "section_path": "\u0422\u0435\u043f\u0435\u0440\u044c \u043c\u043e\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c Development Scaffold \u0438 technical choices.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B032-Q255",
+    "question_id": "Q255",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a \u043f\u0440\u0435\u0434\u043e\u0442\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044f schema/runtime drift?",
+    "excerpt_sha256": "43656131e727b9cb21ccb48b16cd5d6bb443ae47858d2879accecdd57055497f",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

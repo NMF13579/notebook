@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q228",
+    "display_order": 228,
+    "raw_text": "\u041a\u0430\u043a\u043e\u0439 Product Contract \u043d\u0443\u0436\u0435\u043d \u0434\u043e implementation planning?",
+    "normalized_question": "\u041a\u0430\u043a\u043e\u0439 Product Contract \u043d\u0443\u0436\u0435\u043d \u0434\u043e implementation planning?",
+    "source_line_start": 302,
+    "source_line_end": 302,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c first slice \u0438 \u043e\u0442\u043b\u043e\u0436\u0435\u043d\u043d\u0443\u044e complexity.",
+    "document_owner": "06_Features",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B028-Q228",
+    "question_id": "Q228",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/06_Features.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u043e\u0439 Product Contract \u043d\u0443\u0436\u0435\u043d \u0434\u043e implementation planning?",
+    "excerpt_sha256": "f737aa3cc2d7553e8f2b71f44dc59a1b3f9828df228858cb5518bec001794995",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

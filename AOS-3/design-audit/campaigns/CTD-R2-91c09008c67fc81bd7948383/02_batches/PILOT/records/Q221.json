@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q221",
+    "display_order": 221,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 artifacts \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 artifacts \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b?",
+    "source_line_start": 295,
+    "source_line_end": 295,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c first slice \u0438 \u043e\u0442\u043b\u043e\u0436\u0435\u043d\u043d\u0443\u044e complexity.",
+    "document_owner": "06_Features",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-Q221",
+    "question_id": "Q221",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "71f6cf0d08d101a759fb3496020d34c8cc2db5f1",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 20,
+    "line_end": 22,
+    "excerpt": "Required artifacts include...",
+    "excerpt_sha256": "12e6b733ae135c6d877d736909a7579ee618b672ac0b0a325c69ec8b0ce171f3",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "PARTIAL",
+  "recommendation": "RESEARCH_MORE"
+}

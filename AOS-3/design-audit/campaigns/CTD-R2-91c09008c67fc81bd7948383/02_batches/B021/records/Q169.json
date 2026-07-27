@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q169",
+    "display_order": 169,
+    "raw_text": "\u041a\u0430\u043a AOS \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441 \u0440\u0430\u0437\u043d\u044b\u043c\u0438 coding-agent environments?",
+    "normalized_question": "\u041a\u0430\u043a AOS \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441 \u0440\u0430\u0437\u043d\u044b\u043c\u0438 coding-agent environments?",
+    "source_line_start": 237,
+    "source_line_end": 237,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B021-Q169",
+    "question_id": "Q169",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a AOS \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441 \u0440\u0430\u0437\u043d\u044b\u043c\u0438 coding-agent environments?",
+    "excerpt_sha256": "33030bba761e1fec54379647fb464817269bf36d715a827419eecc9489c6f202",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

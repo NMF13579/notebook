@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q075",
+    "display_order": 75,
+    "raw_text": "\u041a\u0430\u043a AOS \u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0435\u0442 bounded stage?",
+    "normalized_question": "\u041a\u0430\u043a AOS \u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0435\u0442 bounded stage?",
+    "source_line_start": 131,
+    "source_line_end": 131,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0438\u0441\u0430\u0442\u044c bounded operating loop \u0438 observable behavior AOS.",
+    "document_owner": "01_Product",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B010-Q075",
+    "question_id": "Q075",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/01_Product.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a AOS \u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0435\u0442 bounded stage?",
+    "excerpt_sha256": "e871a18b775be2573ee300cd10b7b746161f1155a376fa46b503ff1bfd30713b",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

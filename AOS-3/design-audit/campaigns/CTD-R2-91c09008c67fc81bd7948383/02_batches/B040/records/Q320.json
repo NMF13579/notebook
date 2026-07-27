@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q320",
+    "display_order": 320,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 Evidence \u043d\u0443\u0436\u043d\u044b \u0434\u043b\u044f acceptance first slice?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 Evidence \u043d\u0443\u0436\u043d\u044b \u0434\u043b\u044f acceptance first slice?",
+    "source_line_start": 403,
+    "source_line_end": 403,
+    "section_path": "\u0412 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c evolution, compatibility, maintenance \u0438 acceptance.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B040-Q320",
+    "question_id": "Q320",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 Evidence \u043d\u0443\u0436\u043d\u044b \u0434\u043b\u044f acceptance first slice?",
+    "excerpt_sha256": "1a5562450e7666538917f99fc1088a7fbde4a7a88e2d5d4eaa8f7e0d5ca15977",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

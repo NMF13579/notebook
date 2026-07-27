@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q182",
+    "display_order": 182,
+    "raw_text": "\u041a\u0430\u043a repository observation \u043e\u0442\u043b\u0438\u0447\u0430\u0435\u0442\u0441\u044f \u043e\u0442 accepted fact?",
+    "normalized_question": "\u041a\u0430\u043a repository observation \u043e\u0442\u043b\u0438\u0447\u0430\u0435\u0442\u0441\u044f \u043e\u0442 accepted fact?",
+    "source_line_start": 250,
+    "source_line_end": 250,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B023-Q182",
+    "question_id": "Q182",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a repository observation \u043e\u0442\u043b\u0438\u0447\u0430\u0435\u0442\u0441\u044f \u043e\u0442 accepted fact?",
+    "excerpt_sha256": "058735cfad7828cb0700744f7e87f9aa47ea88bdf03a93c06088d99a4f091ffa",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

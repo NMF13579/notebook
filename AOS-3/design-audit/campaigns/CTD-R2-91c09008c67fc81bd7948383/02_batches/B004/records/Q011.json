@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q011",
+    "display_order": 11,
+    "raw_text": "\u043a \u043a\u0430\u043a\u043e\u043c\u0443 \u0433\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0443 \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f \u0432\u043e\u043f\u0440\u043e\u0441;",
+    "normalized_question": "\u043a \u043a\u0430\u043a\u043e\u043c\u0443 \u0433\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0443 \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f \u0432\u043e\u043f\u0440\u043e\u0441;",
+    "source_line_start": 38,
+    "source_line_end": 38,
+    "section_path": "UNASSIGNED",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B004-Q011",
+    "question_id": "Q011",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u043a \u043a\u0430\u043a\u043e\u043c\u0443 \u0433\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0443 \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f \u0432\u043e\u043f\u0440\u043e\u0441;",
+    "excerpt_sha256": "61dde4bc90f2bb69eece523b79730abab5c1f6441df060fe345c9bd9b994cd43",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q170",
+    "display_order": 170,
+    "raw_text": "\u041a\u0430\u043a thin adapter \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0442 \u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u043d\u0435 \u043a\u043e\u043f\u0438\u0440\u0443\u044f Source of Truth?",
+    "normalized_question": "\u041a\u0430\u043a thin adapter \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0442 \u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u043d\u0435 \u043a\u043e\u043f\u0438\u0440\u0443\u044f Source of Truth?",
+    "source_line_start": 238,
+    "source_line_end": 238,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B021-Q170",
+    "question_id": "Q170",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a thin adapter \u043f\u043e\u043b\u0443\u0447\u0430\u0435\u0442 \u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u043d\u0435 \u043a\u043e\u043f\u0438\u0440\u0443\u044f Source of Truth?",
+    "excerpt_sha256": "c569040f6de02a22cbcdd8012791e8bc3a977472c2d68d1b7d9db1d9ae6db448",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

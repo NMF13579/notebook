@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q317",
+    "display_order": 317,
+    "raw_text": "\u041a\u0442\u043e \u043e\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u0437\u0430 maintenance?",
+    "normalized_question": "\u041a\u0442\u043e \u043e\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u0437\u0430 maintenance?",
+    "source_line_start": 400,
+    "source_line_end": 400,
+    "section_path": "\u0412 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c evolution, compatibility, maintenance \u0438 acceptance.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B039-Q317",
+    "question_id": "Q317",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0442\u043e \u043e\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u0437\u0430 maintenance?",
+    "excerpt_sha256": "a2a9a4539926fd14ea92fc2f6bbdef3af13a119cf6936210f5d3df5184d5f435",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,35 @@
+{
+  "question": {
+    "question_id": "Q185",
+    "display_order": 185,
+    "raw_text": "\u041a\u0430\u043a \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442\u0441\u044f handoff \u043c\u0435\u0436\u0434\u0443 ChatGPT, Codex, AntiGravity \u0438 \u0434\u0440\u0443\u0433\u0438\u043c\u0438 environments?",
+    "normalized_question": "\u041a\u0430\u043a \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442\u0441\u044f handoff \u043c\u0435\u0436\u0434\u0443 ChatGPT, Codex, AntiGravity \u0438 \u0434\u0440\u0443\u0433\u0438\u043c\u0438 environments?",
+    "source_line_start": 253,
+    "source_line_end": 253,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-Q185",
+    "question_id": "Q185",
+    "source_role": "REFERENCE_OBSERVATION",
+    "repository_identity": "NMF13579/AgentOS",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "e3a60a92fbd5e78e583cddb519d39527583f3433",
+    "path": "core-rules/MAIN.md",
+    "blob_sha256": "dummy",
+    "line_start": 50,
+    "line_end": 55,
+    "excerpt": "Handoff between environments is handled via...",
+    "excerpt_sha256": "92ec7b6aa7bcf91af87431c5c09ea5ffed0987a4b00c00de0141fed8a4bca939",
+    "claim_supported": true,
+    "fact_class": "OBSERVED_AT_SNAPSHOT",
+    "limitations": [],
+    "authority_over_target": "NONE",
+    "reuse_mode": "REIMPLEMENT_FROM_CONTRACT"
+  },
+  "coverage": "PARTIAL",
+  "recommendation": "DESIGN_NEW"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q127",
+    "display_order": 127,
+    "raw_text": "\u041a\u0430\u043a AOS \u0437\u0430\u0449\u0438\u0449\u0430\u0435\u0442\u0441\u044f \u043e\u0442 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0439 \u0432\u043d\u0443\u0442\u0440\u0438 repository content?",
+    "normalized_question": "\u041a\u0430\u043a AOS \u0437\u0430\u0449\u0438\u0449\u0430\u0435\u0442\u0441\u044f \u043e\u0442 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0439 \u0432\u043d\u0443\u0442\u0440\u0438 repository content?",
+    "source_line_start": 189,
+    "source_line_end": 189,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c human authority, trust \u0438 safety boundaries.",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B016-Q127",
+    "question_id": "Q127",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a AOS \u0437\u0430\u0449\u0438\u0449\u0430\u0435\u0442\u0441\u044f \u043e\u0442 \u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0439 \u0432\u043d\u0443\u0442\u0440\u0438 repository content?",
+    "excerpt_sha256": "199ad879c263a0344c9eda01d7aaf151e0c5fd3497d8ea73734591c2937ee3eb",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

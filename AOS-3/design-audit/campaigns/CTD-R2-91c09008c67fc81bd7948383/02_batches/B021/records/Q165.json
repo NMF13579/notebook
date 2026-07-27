@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q165",
+    "display_order": 165,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0437\u0430 \u0447\u0435\u043b\u043e\u0432\u0435\u043a\u043e\u043c?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0437\u0430 \u0447\u0435\u043b\u043e\u0432\u0435\u043a\u043e\u043c?",
+    "source_line_start": 233,
+    "source_line_end": 233,
+    "section_path": "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c integration \u0441 agent environments \u0438 repositories.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B021-Q165",
+    "question_id": "Q165",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u043e\u0441\u0442\u0430\u044e\u0442\u0441\u044f \u0437\u0430 \u0447\u0435\u043b\u043e\u0432\u0435\u043a\u043e\u043c?",
+    "excerpt_sha256": "e627999221eb4e24f68245db70c91e0b297ca7aac4a3609d30a699a4daef71e9",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

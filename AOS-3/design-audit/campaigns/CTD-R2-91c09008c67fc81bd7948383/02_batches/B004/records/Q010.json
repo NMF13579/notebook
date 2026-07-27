@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q010",
+    "display_order": 10,
+    "raw_text": "\u0433\u0434\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f Source of Truth;",
+    "normalized_question": "\u0433\u0434\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f Source of Truth;",
+    "source_line_start": 37,
+    "source_line_end": 37,
+    "section_path": "UNASSIGNED",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B004-Q010",
+    "question_id": "Q010",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u0433\u0434\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f Source of Truth;",
+    "excerpt_sha256": "c6bd2aee216b3b3cdea2019db14672ce0b371b9bd0e1840e86aa4510bbd64b61",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

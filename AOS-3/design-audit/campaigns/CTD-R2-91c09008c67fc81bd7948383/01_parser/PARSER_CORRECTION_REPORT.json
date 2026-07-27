@@ -1,0 +1,13 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-PARSER-CORRECTION-R2",
+  "stage": "PARSER_CORRECTION",
+  "technical_result": "PASS",
+  "corrections_applied": {
+    "AMBIGUOUS_ITEMS_FIXED": 25,
+    "UNASSIGNED_OWNERS_FIXED": 14,
+    "DUPLICATES_REMOVED": 4
+  },
+  "final_indexed_items": 346,
+  "next_required_action": "AUTHORIZE_PILOT",
+  "stop": true
+}

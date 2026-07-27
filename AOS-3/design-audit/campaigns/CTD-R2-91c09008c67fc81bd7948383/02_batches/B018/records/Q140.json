@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q140",
+    "display_order": 140,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Knowledge and State?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Knowledge and State?",
+    "source_line_start": 205,
+    "source_line_end": 205,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043c\u043e\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c architecture responsibilities, ports \u0438 dependencies.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B018-Q140",
+    "question_id": "Q140",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u043e\u0442\u043d\u043e\u0441\u044f\u0442\u0441\u044f \u043a Knowledge and State?",
+    "excerpt_sha256": "4da51030cd50db16fd857d9237220a975d98e4f4bc3625fecbc69fe63c396d56",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

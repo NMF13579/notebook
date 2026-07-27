@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q268",
+    "display_order": 268,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 positive scenarios \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 positive scenarios \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b?",
+    "source_line_start": 348,
+    "source_line_end": 348,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c validation, non-functional requirements \u0438 dogfood.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B033-Q268",
+    "question_id": "Q268",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 positive scenarios \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b?",
+    "excerpt_sha256": "b9ef8a70638c6ff0c607b7d14ee08e8a36db03c5d67f6de4e8ece2ed3d77a4c3",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q112",
+    "display_order": 112,
+    "raw_text": "\u041a \u043a\u0430\u043a\u043e\u043c\u0443 exact subject, revision \u0438 scope \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f authorization?",
+    "normalized_question": "\u041a \u043a\u0430\u043a\u043e\u043c\u0443 exact subject, revision \u0438 scope \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f authorization?",
+    "source_line_start": 174,
+    "source_line_end": 174,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c human authority, trust \u0438 safety boundaries.",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B014-Q112",
+    "question_id": "Q112",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a \u043a\u0430\u043a\u043e\u043c\u0443 exact subject, revision \u0438 scope \u043e\u0442\u043d\u043e\u0441\u0438\u0442\u0441\u044f authorization?",
+    "excerpt_sha256": "5476a5605d60a391fe8decf0c6d689a0192165a04bff8dd4b935d840c058d477",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

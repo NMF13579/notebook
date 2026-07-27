@@ -1,0 +1,24 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-CLEANUP-PREVIEW-R2",
+  "stage": "PLAN",
+  "technical_result": "PASS",
+  "preview_id": "PRV-R2-b98c751d6575251289dde269",
+  "pre_delete_manifest_sha256": "57706d4e85960be8282d0fbe12e69ad128003e0cc5491316fba0fd12706b8a6f",
+  "candidate_paths_count": 498,
+  "candidate_bytes": 1579914,
+  "unknown_paths_count": 0,
+  "tracked_paths_count": 0,
+  "untracked_paths_count": 498,
+  "symlink_paths_count": 0,
+  "new_root_pre_state": "ABSENT",
+  "deletion_performed": false,
+  "reference_writes": "NONE",
+  "git_operations": {
+    "commit": "NOT_RUN",
+    "push": "NOT_RUN",
+    "merge": "NOT_RUN",
+    "release": "NOT_RUN"
+  },
+  "next_required_action": "HUMAN_AUTHORIZE_CLEANUP_APPLY",
+  "stop": true
+}

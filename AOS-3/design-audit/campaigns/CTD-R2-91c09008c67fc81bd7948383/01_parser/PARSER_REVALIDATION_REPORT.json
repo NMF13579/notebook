@@ -1,0 +1,44 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-PARSER-REVALIDATION-R2",
+  "stage": "PARSER_REVALIDATION",
+  "technical_result": "PASS",
+  "findings": {
+    "INDEX_FINGERPRINT": {
+      "status": "OK",
+      "value": "fb219f8838ea2e06779d8c8482e611ee9988bec4627f42af4aa5bc051c76868f",
+      "description": "Index file read and fingerprint generated."
+    },
+    "STABLE_IDS": {
+      "status": "OK",
+      "count": 0,
+      "description": "All IDs are unique."
+    },
+    "QUESTION_BOUNDARIES": {
+      "status": "OK",
+      "count": 0,
+      "description": "Questions correctly bounded."
+    },
+    "DUPLICATE_REMOVALS": {
+      "status": "OK",
+      "count": 0,
+      "description": "No duplicate texts found."
+    },
+    "DOCUMENT_OWNER": {
+      "status": "OK",
+      "count": 0,
+      "description": "All items have assigned owners."
+    },
+    "REMAINING_AMBIGUITIES": {
+      "status": "OK",
+      "count": 0,
+      "description": "No items requiring parser review."
+    },
+    "REMAINING_UNASSIGNED": {
+      "status": "OK",
+      "count": 0,
+      "description": "No items marked UNASSIGNED."
+    }
+  },
+  "next_required_action": "AUTHORIZE_PILOT",
+  "stop": true
+}

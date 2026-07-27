@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q038",
+    "display_order": 38,
+    "raw_text": "\u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0440\u0435\u0448\u0430\u0435\u0442 \u044d\u0442\u0443 \u0437\u0430\u0434\u0430\u0447\u0443 \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
+    "normalized_question": "\u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0440\u0435\u0448\u0430\u0435\u0442 \u044d\u0442\u0443 \u0437\u0430\u0434\u0430\u0447\u0443 \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
+    "source_line_start": 91,
+    "source_line_end": 91,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c, \u0434\u043b\u044f \u043a\u043e\u0433\u043e \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 AOS \u0438 \u043a\u0430\u043a\u0443\u044e \u0440\u0430\u0431\u043e\u0442\u0443 \u043e\u043d \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442.",
+    "document_owner": "01_Product",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B002-Q038",
+    "question_id": "Q038",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/01_Product.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0440\u0435\u0448\u0430\u0435\u0442 \u044d\u0442\u0443 \u0437\u0430\u0434\u0430\u0447\u0443 \u0441\u0435\u0433\u043e\u0434\u043d\u044f?",
+    "excerpt_sha256": "fa85dd82139176dfc2babd3637d51b25701706bbc2f8d723ddda0b65e017726f",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

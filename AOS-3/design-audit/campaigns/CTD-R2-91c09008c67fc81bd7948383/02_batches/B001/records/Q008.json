@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q008",
+    "display_order": 8,
+    "raw_text": "\u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u0440\u0430\u0437\u043b\u0438\u0447\u0438\u044f \u043c\u0435\u0436\u0434\u0443 target AOS, Core v1, first Product Runtime slice \u0438 \u043f\u043e\u0437\u0434\u043d\u0438\u043c\u0438 extensions.",
+    "normalized_question": "\u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u0440\u0430\u0437\u043b\u0438\u0447\u0438\u044f \u043c\u0435\u0436\u0434\u0443 target AOS, Core v1, first Product Runtime slice \u0438 \u043f\u043e\u0437\u0434\u043d\u0438\u043c\u0438 extensions.",
+    "source_line_start": 26,
+    "source_line_end": 26,
+    "section_path": "UNASSIGNED",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B001-Q008",
+    "question_id": "Q008",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u0440\u0430\u0437\u043b\u0438\u0447\u0438\u044f \u043c\u0435\u0436\u0434\u0443 target AOS, Core v1, first Product Runtime slice \u0438 \u043f\u043e\u0437\u0434\u043d\u0438\u043c\u0438 extensions.",
+    "excerpt_sha256": "6dc13354e149d1c8555d62d13f2a63f0bc81b6767c10500327d34658d514b26f",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

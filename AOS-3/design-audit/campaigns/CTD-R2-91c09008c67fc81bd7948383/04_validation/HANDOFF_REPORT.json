@@ -1,0 +1,8 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-HUMAN-REVIEW-PACKAGE-R1",
+  "stage": "HANDOFF",
+  "technical_result": "PASS",
+  "handoff_package_path": "/Users/muhammed/Documents/GitHub/notebook/AOS-3/design-audit/campaigns/CTD-R2-91c09008c67fc81bd7948383/05_handoff/HUMAN_REVIEW_PACKAGE.md",
+  "next_required_action": "HUMAN_REVIEW_COMPLETE",
+  "stop": true
+}

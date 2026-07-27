@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q001",
+    "display_order": 1,
+    "raw_text": "--",
+    "normalized_question": "--",
+    "source_line_start": 1,
+    "source_line_end": 1,
+    "section_path": "UNASSIGNED",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B001-Q001",
+    "question_id": "Q001",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for --",
+    "excerpt_sha256": "cbb5b3741e5f3ef8a78fd2a64c5071bfd57d4bdd3378a7e04c9e55d9f8cfbd8b",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q310",
+    "display_order": 310,
+    "raw_text": "\u041a\u0430\u043a lessons \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u044e\u0442\u0441\u044f \u0432 regression cases?",
+    "normalized_question": "\u041a\u0430\u043a lessons \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u044e\u0442\u0441\u044f \u0432 regression cases?",
+    "source_line_start": 393,
+    "source_line_end": 393,
+    "section_path": "\u0412 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c evolution, compatibility, maintenance \u0438 acceptance.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B038-Q310",
+    "question_id": "Q310",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a lessons \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u044e\u0442\u0441\u044f \u0432 regression cases?",
+    "excerpt_sha256": "5acecdacd7e26473961a6f8e08e0e014b2a83790a6ed3547d75d26126d29ce93",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

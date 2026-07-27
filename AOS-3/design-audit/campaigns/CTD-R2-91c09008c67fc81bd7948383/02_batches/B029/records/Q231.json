@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q231",
+    "display_order": 231,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u043f\u043e\u043a\u0430\u0436\u0443\u0442, \u0447\u0442\u043e \u0432\u044b\u0431\u0440\u0430\u043d \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439 slice?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u043f\u043e\u043a\u0430\u0436\u0443\u0442, \u0447\u0442\u043e \u0432\u044b\u0431\u0440\u0430\u043d \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439 slice?",
+    "source_line_start": 305,
+    "source_line_end": 305,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c first slice \u0438 \u043e\u0442\u043b\u043e\u0436\u0435\u043d\u043d\u0443\u044e complexity.",
+    "document_owner": "06_Features",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B029-Q231",
+    "question_id": "Q231",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/06_Features.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u043f\u043e\u043a\u0430\u0436\u0443\u0442, \u0447\u0442\u043e \u0432\u044b\u0431\u0440\u0430\u043d \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439 slice?",
+    "excerpt_sha256": "972fb04e4eb56fdb6a4e128f97aba0cdf4d5f1cd462b1bbc74a2f921f8ec9563",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

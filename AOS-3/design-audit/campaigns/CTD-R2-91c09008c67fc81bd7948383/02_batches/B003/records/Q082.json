@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q082",
+    "display_order": 82,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 artifacts \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f canonical?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 artifacts \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f canonical?",
+    "source_line_start": 141,
+    "source_line_end": 141,
+    "section_path": "\u0422\u0435\u043f\u0435\u0440\u044c \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c state, artifacts, identity \u0438 persistence.",
+    "document_owner": "02_Architecture",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B003-Q082",
+    "question_id": "Q082",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/02_Architecture.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 artifacts \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f canonical?",
+    "excerpt_sha256": "c9bd42eb91ed175d8ae1213b5a9636d82b733b63ebeaddcbb705191fb672ea8a",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

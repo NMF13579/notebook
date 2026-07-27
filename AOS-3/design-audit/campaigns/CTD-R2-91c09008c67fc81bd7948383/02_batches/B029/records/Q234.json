@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q234",
+    "display_order": 234,
+    "raw_text": "\u041a\u0430\u043a\u043e\u0439 repository \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f implementation repository?",
+    "normalized_question": "\u041a\u0430\u043a\u043e\u0439 repository \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f implementation repository?",
+    "source_line_start": 311,
+    "source_line_end": 311,
+    "section_path": "\u0422\u0435\u043f\u0435\u0440\u044c \u043c\u043e\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c Development Scaffold \u0438 technical choices.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B029-Q234",
+    "question_id": "Q234",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u043e\u0439 repository \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f implementation repository?",
+    "excerpt_sha256": "a5ddacccda8d645c989553648e66ab127dc63403749be66cae27f26eb50ec45f",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q077",
+    "display_order": 77,
+    "raw_text": "\u041a\u0430\u043a operating loop \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 Development Factory \u0438 optional modules?",
+    "normalized_question": "\u041a\u0430\u043a operating loop \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 Development Factory \u0438 optional modules?",
+    "source_line_start": 133,
+    "source_line_end": 133,
+    "section_path": "\u041f\u043e\u0441\u043b\u0435 \u044d\u0442\u043e\u0433\u043e \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0438\u0441\u0430\u0442\u044c bounded operating loop \u0438 observable behavior AOS.",
+    "document_owner": "01_Product",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B011-Q077",
+    "question_id": "Q077",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/01_Product.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a operating loop \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 Development Factory \u0438 optional modules?",
+    "excerpt_sha256": "f665afe748ccedd8b13634fd7da47bd0e3755de1b672be3ea06cb643f778531b",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

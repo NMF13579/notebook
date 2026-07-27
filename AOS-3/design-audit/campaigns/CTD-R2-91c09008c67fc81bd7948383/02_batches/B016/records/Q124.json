@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q124",
+    "display_order": 124,
+    "raw_text": "\u041a\u0430\u043a\u0438\u0435 operations \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f protected?",
+    "normalized_question": "\u041a\u0430\u043a\u0438\u0435 operations \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f protected?",
+    "source_line_start": 186,
+    "source_line_end": 186,
+    "section_path": "\u0417\u0430\u0442\u0435\u043c \u043d\u0443\u0436\u043d\u043e \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c human authority, trust \u0438 safety boundaries.",
+    "document_owner": "00_Core",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B016-Q124",
+    "question_id": "Q124",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/00_Core.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a\u0438\u0435 operations \u044f\u0432\u043b\u044f\u044e\u0442\u0441\u044f protected?",
+    "excerpt_sha256": "c2dbb6105f8553b70a99f90413463864ac890857d92b67f008025fc14536424e",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

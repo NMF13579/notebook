@@ -1,0 +1,11 @@
+{
+  "task_id": "CHECKLIST-EXTRACTION-PREPARE-CAMPAIGN-R2",
+  "stage": "PREPARE_CAMPAIGN",
+  "technical_result": "PASS",
+  "campaign_id": "CTD-R2-91c09008c67fc81bd7948383",
+  "indexed_items": 350,
+  "parser_review_required_items": 27,
+  "unassigned_items": 16,
+  "next_required_action": "HUMAN_REVIEW_PARSER_AND_AUTHORIZE_PILOT",
+  "stop": true
+}

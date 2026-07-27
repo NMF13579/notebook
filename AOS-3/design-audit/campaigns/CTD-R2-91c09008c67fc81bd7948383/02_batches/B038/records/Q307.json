@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q307",
+    "display_order": 307,
+    "raw_text": "\u041a\u0430\u043a \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f drift \u043c\u0435\u0436\u0434\u0443 docs, schemas, runtime \u0438 adapters?",
+    "normalized_question": "\u041a\u0430\u043a \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f drift \u043c\u0435\u0436\u0434\u0443 docs, schemas, runtime \u0438 adapters?",
+    "source_line_start": 390,
+    "source_line_end": 390,
+    "section_path": "\u0412 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c evolution, compatibility, maintenance \u0438 acceptance.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B038-Q307",
+    "question_id": "Q307",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041a\u0430\u043a \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442\u0441\u044f drift \u043c\u0435\u0436\u0434\u0443 docs, schemas, runtime \u0438 adapters?",
+    "excerpt_sha256": "31915f45f936a22024e6b46ee1ed3feea3cac9cd8d14e798bdb73a94d28c1970",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}

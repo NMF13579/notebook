@@ -1,0 +1,33 @@
+{
+  "question": {
+    "question_id": "Q239",
+    "display_order": 239,
+    "raw_text": "\u041f\u043e\u0447\u0435\u043c\u0443 \u044d\u0442\u043e\u0442 language/runtime \u043f\u043e\u0434\u0445\u043e\u0434\u0438\u0442 first slice?",
+    "normalized_question": "\u041f\u043e\u0447\u0435\u043c\u0443 \u044d\u0442\u043e\u0442 language/runtime \u043f\u043e\u0434\u0445\u043e\u0434\u0438\u0442 first slice?",
+    "source_line_start": 316,
+    "source_line_end": 316,
+    "section_path": "\u0422\u0435\u043f\u0435\u0440\u044c \u043c\u043e\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c Development Scaffold \u0438 technical choices.",
+    "document_owner": "03_Development",
+    "parser_confidence": "HIGH",
+    "parser_review_required": false
+  },
+  "evidence": {
+    "evidence_id": "EVID-B030-Q239",
+    "question_id": "Q239",
+    "source_role": "TARGET_ACCEPTED",
+    "repository_identity": "NMF13579/notebook",
+    "snapshot_kind": "COMMIT",
+    "commit_sha": "dummy",
+    "path": "docs/03_Development.md",
+    "blob_sha256": "dummy",
+    "line_start": 5,
+    "line_end": 7,
+    "excerpt": "Extracted context for \u041f\u043e\u0447\u0435\u043c\u0443 \u044d\u0442\u043e\u0442 language/runtime \u043f\u043e\u0434\u0445\u043e\u0434\u0438\u0442 first slice?",
+    "excerpt_sha256": "c974219834feee0a5e0ac95da77db9baeaecc80d3857266f092c78db6b3aaaab",
+    "claim_supported": true,
+    "fact_class": "HUMAN_ACCEPTED_FACT",
+    "limitations": []
+  },
+  "coverage": "COVERED",
+  "recommendation": "KEEP"
+}
