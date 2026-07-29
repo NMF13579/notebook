@@ -1,0 +1,1371 @@
+{
+  "package_id": "AOS-INDIVIDUAL-FEATURES-AND-FUNCTIONS-R2",
+  "revision": "R2",
+  "status": "DRAFT",
+  "authority": "NONE",
+  "feature_documents": [
+    {
+      "id": "FTR-001",
+      "title": "Intent Intake, Problem Interview and Outcome Clarification",
+      "path": "features/FTR-001_intent-intake-problem-interview-and-outcome-clarification.md",
+      "sha256": "d8a9f765b07281c0294228a2a040065f1b720d103aa5a757ab870ca2b2762239",
+      "bytes": 23085
+    },
+    {
+      "id": "FTR-002",
+      "title": "Project Discovery, Capability Map, Gap and Conflict Discovery",
+      "path": "features/FTR-002_project-discovery-capability-map-gap-and-conflict-discovery.md",
+      "sha256": "5e69d48d76c285863320dbd822f64c07e6f422959d4af7642123ecb9cda31869",
+      "bytes": 20708
+    },
+    {
+      "id": "FTR-003",
+      "title": "Project Brief, Specification, Technical Interview and First Vertical Slice Selection",
+      "path": "features/FTR-003_project-brief-specification-technical-interview-and-first-vertical-slice-selection.md",
+      "sha256": "8f55a8d0a09cdc94e5501d56f2b0056adfac7e66a006f90fc90bc018935eaa5e",
+      "bytes": 20626
+    },
+    {
+      "id": "FTR-004",
+      "title": "Greenfield Scaffold, Safe Install/Update/Uninstall, First-Start and Onboarding",
+      "path": "features/FTR-004_greenfield-scaffold-safe-install-update-uninstall-first-start-and-onboarding.md",
+      "sha256": "aba1f258bcb414bdfc6af61d72391b1201e91caf9d7c60d88b68d26fff3f63a9",
+      "bytes": 19792
+    },
+    {
+      "id": "FTR-005",
+      "title": "Architecture Decision Support, Need Check, Option Comparison and ADR Builder",
+      "path": "features/FTR-005_architecture-decision-support-need-check-option-comparison-and-adr-builder.md",
+      "sha256": "f10d5894bdc3e98cb275ee26cb9d8bc9449cab57d7653ad78729f6972fdec733",
+      "bytes": 19423
+    },
+    {
+      "id": "FTR-006",
+      "title": "Task Brief Compiler, Scope Confirmation and One-Task-One-Document Model",
+      "path": "features/FTR-006_task-brief-compiler-scope-confirmation-and-one-task-one-document-model.md",
+      "sha256": "44745de2500de0810b961d8197c8d68ec3b300b2b03284521eec5611d53758b8",
+      "bytes": 19329
+    },
+    {
+      "id": "FTR-007",
+      "title": "Hierarchical Decomposition, Lazy Backlog, Dependency Graph, Queue and Bottom-Up Verification",
+      "path": "features/FTR-007_hierarchical-decomposition-lazy-backlog-dependency-graph-queue-and-bottom-up-verification.md",
+      "sha256": "b475b560cb7749549abfb54f8935bf253ee2f2c793d29930464ce830d39475b3",
+      "bytes": 18335
+    },
+    {
+      "id": "FTR-008",
+      "title": "AOS Chat Interaction Surface, Beginner Tutor, Status/Next/Details and Closure UX",
+      "path": "features/FTR-008_aos-chat-interaction-surface-beginner-tutor-status-next-details-and-closure-ux.md",
+      "sha256": "e6a059afddb037919bf9462d26e6a79e6428b3587609f38ffc707b6536107088",
+      "bytes": 19735
+    },
+    {
+      "id": "FTR-009",
+      "title": "Repository/Action Preflight and Exact Execution Preview",
+      "path": "features/FTR-009_repository-action-preflight-and-exact-execution-preview.md",
+      "sha256": "4601642f03a469bee93740431b380314d61b67c2e787f1fd6c4445fb22303e4c",
+      "bytes": 17183
+    },
+    {
+      "id": "FTR-010",
+      "title": "Scoped Execution Workflow, Controlled Guard and Safe Runner Kernels",
+      "path": "features/FTR-010_scoped-execution-workflow-controlled-guard-and-safe-runner-kernels.md",
+      "sha256": "6b32e791ff6fd8518162f73950da80f742370281e9c87d69064fb4a1f5abbc1e",
+      "bytes": 17594
+    },
+    {
+      "id": "FTR-011",
+      "title": "Unified Result Contract, AOS Validate, Doctor and Self-Test",
+      "path": "features/FTR-011_unified-result-contract-aos-validate-doctor-and-self-test.md",
+      "sha256": "ba9d284013cdfdcd1ed451463bbeb1035e73ab463f069fa41765b65bcd61beae",
+      "bytes": 17737
+    },
+    {
+      "id": "FTR-012",
+      "title": "Evidence Collection, Compact Human Review Package and Human Decision Record",
+      "path": "features/FTR-012_evidence-collection-compact-human-review-package-and-human-decision-record.md",
+      "sha256": "d78a362922305df42041d3ba7b96e7de65189825072c4bde7eb97d9bd07727fb",
+      "bytes": 18471
+    },
+    {
+      "id": "FTR-013",
+      "title": "Diff/Scope Reconciliation, Disposable Validation Subject and Immutable Candidate Freeze",
+      "path": "features/FTR-013_diff-scope-reconciliation-disposable-validation-subject-and-immutable-candidate-freeze.md",
+      "sha256": "e3f2925aff8c4fb8ac56b6b0287793c165ea0952155d374409e70af994818811",
+      "bytes": 17455
+    },
+    {
+      "id": "FTR-014",
+      "title": "Recovery, Resume, Rollback, Denied-Action Log and Session Handoff",
+      "path": "features/FTR-014_recovery-resume-rollback-denied-action-log-and-session-handoff.md",
+      "sha256": "83b5a541e0edb2b79398228012b1675748b3b7487754a510f9904c2fe17747e1",
+      "bytes": 18158
+    },
+    {
+      "id": "FTR-015",
+      "title": "Git Lifecycle Closure, Remote State and Separate Commit/Push/Merge/Release Authorization",
+      "path": "features/FTR-015_git-lifecycle-closure-remote-state-and-separate-commit-push-merge-release-authorization.md",
+      "sha256": "484585aa457b2bd76c23dd7952a5436dad8d9f2cd3a616c9790359407d87369a",
+      "bytes": 17162
+    },
+    {
+      "id": "FTR-016",
+      "title": "Project Memory, Session Continuity, Context Priority and Task-Scoped Context Pack",
+      "path": "features/FTR-016_project-memory-session-continuity-context-priority-and-task-scoped-context-pack.md",
+      "sha256": "c01b682ee87476a701012a3ff60779b8d9824b85a7a901cdc731caf48db114aa",
+      "bytes": 17791
+    },
+    {
+      "id": "FTR-017",
+      "title": "RAG-Light Context Index and Search",
+      "path": "features/FTR-017_rag-light-context-index-and-search.md",
+      "sha256": "f6a866e752976a41014c2d6de249c4dd2bc61899e719ca6775a696381da8c7c9",
+      "bytes": 16608
+    },
+    {
+      "id": "FTR-018",
+      "title": "Advisory Model Routing, Explicit Agent Roles, Routing Audit and Provider Evaluation",
+      "path": "features/FTR-018_advisory-model-routing-explicit-agent-roles-routing-audit-and-provider-evaluation.md",
+      "sha256": "52f586e44c3a06e33dbe56753afe61158694c9d0664401e2b2200cfb51440b70",
+      "bytes": 17543
+    },
+    {
+      "id": "FTR-019",
+      "title": "Action Trust Boundary, Permission-State Classifier and External-Content/Path/Command/Network Allowlists",
+      "path": "features/FTR-019_action-trust-boundary-permission-state-classifier-and-external-content-path-command-networ.md",
+      "sha256": "0b20c5f9464acb7468cab7472ee03e7e49979ca6d1442baaf945e7cde0c319a4",
+      "bytes": 18005
+    },
+    {
+      "id": "FTR-020",
+      "title": "Runtime Enforcement, Isolated Execution Environment and Progressive Governance Modes",
+      "path": "features/FTR-020_runtime-enforcement-isolated-execution-environment-and-progressive-governance-modes.md",
+      "sha256": "3f9cbab3f7c55ac704f56d0fbcadea0d714f27b97faaa902c8085cfbf2996652",
+      "bytes": 17906
+    },
+    {
+      "id": "FTR-021",
+      "title": "Registry/Drift Detection, Source-of-Truth Guard and Human-Decision Authenticity",
+      "path": "features/FTR-021_registry-drift-detection-source-of-truth-guard-and-human-decision-authenticity.md",
+      "sha256": "20fcf68d919edbba4945992e06ce1a130cb32fcaaf16e69c1ef50313334bf5ac",
+      "bytes": 18038
+    },
+    {
+      "id": "FTR-022",
+      "title": "Solution/Pattern Library, Fit Matrix and Reusable UX/Engineering Patterns",
+      "path": "features/FTR-022_solution-pattern-library-fit-matrix-and-reusable-ux-engineering-patterns.md",
+      "sha256": "1eb81b99a80070cd745189659c07636d2da7b4b4af5f127d3b599cd12f3c9b1d",
+      "bytes": 17361
+    },
+    {
+      "id": "FTR-023",
+      "title": "Advisory CI, CI Smoke, Safety Regression Fixtures and Quality Gates",
+      "path": "features/FTR-023_advisory-ci-ci-smoke-safety-regression-fixtures-and-quality-gates.md",
+      "sha256": "ccd0f7e14c771162fe16c51bb51bd8eb0aaa679ae46df6385d4809fd634fb7ff",
+      "bytes": 16898
+    },
+    {
+      "id": "FTR-024",
+      "title": "Release Checklist, Promotion Package, Version/Changelog/Tag and Rollback Assistant",
+      "path": "features/FTR-024_release-checklist-promotion-package-version-changelog-tag-and-rollback-assistant.md",
+      "sha256": "94e55192c844ab8b2ef31832e0eadbd88c816cef906120e7643450d72e389631",
+      "bytes": 17030
+    },
+    {
+      "id": "FTR-025",
+      "title": "Observability, Audit Log, Incident/Lessons Memory and Continuous Improvement",
+      "path": "features/FTR-025_observability-audit-log-incident-lessons-memory-and-continuous-improvement.md",
+      "sha256": "6d669063fbbb3f35050690735e381679519854a7d3c23fbcc4bbff405591e9ce",
+      "bytes": 16846
+    },
+    {
+      "id": "FTR-026",
+      "title": "Extension/Plugin/Capability Module Model",
+      "path": "features/FTR-026_extension-plugin-capability-module-model.md",
+      "sha256": "6042033b2dbe66489b27603b1f6626ba5702e53b336a91f18eea6bb285f09e19",
+      "bytes": 16410
+    },
+    {
+      "id": "FTR-027",
+      "title": "Domain Modules: Design and Medical",
+      "path": "features/FTR-027_domain-modules-design-and-medical.md",
+      "sha256": "6e5f030edde8586aebd7ff14f649d07110543739ffd5b5c1948eb7e18d243efa",
+      "bytes": 17053
+    },
+    {
+      "id": "FTR-028",
+      "title": "Workbench / SaaS UI for Onboarding, Status, Review and Collaboration",
+      "path": "features/FTR-028_workbench-saas-ui-for-onboarding-status-review-and-collaboration.md",
+      "sha256": "5a0a34260ad4e84104f854ec45d7747be55a8f254aa0f669bf693f49805b22ac",
+      "bytes": 16369
+    },
+    {
+      "id": "FTR-029",
+      "title": "Template Export, Prompt Packs, Cross-Repo Context, Localization and Policy Overlays",
+      "path": "features/FTR-029_template-export-prompt-packs-cross-repo-context-localization-and-policy-overlays.md",
+      "sha256": "ff2b8c9bbd1e862b8f0a86b0de00950ed809037ddb81af59527d2e878b4b70c1",
+      "bytes": 17180
+    },
+    {
+      "id": "FTR-030",
+      "title": "Internal Contract Tooling: Strict Loaders, Parser Sunset, Registry Audits and Drift Tests",
+      "path": "features/FTR-030_internal-contract-tooling-strict-loaders-parser-sunset-registry-audits-and-drift-tests.md",
+      "sha256": "d8f0fa02083359c26282f9d29f64169a7b1bdb4c79be85674c15da6ebe1ba6e7",
+      "bytes": 18331
+    },
+    {
+      "id": "FTR-031",
+      "title": "Project UX Skeleton → Human Review → Vertical Slices → Task Briefs → Code",
+      "path": "features/FTR-031_project-ux-skeleton-to-human-review-to-vertical-slices-to-task-briefs-to-code.md",
+      "sha256": "4068dbc4747f5bd14fe0bee92f8663c40001fc7db3839216e6b7be66bbb5b1be",
+      "bytes": 19530
+    },
+    {
+      "id": "FTR-032",
+      "title": "Repository Idea Bank and Controlled Idea → Feature/Task Promotion",
+      "path": "features/FTR-032_repository-idea-bank-and-controlled-idea-to-feature-task-promotion.md",
+      "sha256": "795eec9a614d4fbf4e068b9fddb00fff333231e039d25693aa491ed010a0ea12",
+      "bytes": 9412
+    },
+    {
+      "id": "FTR-033",
+      "title": "FPF Reasoning Integration: Evidence-Aware Claims, ADI Loop and Revalidation",
+      "path": "features/FTR-033_fpf-reasoning-integration-evidence-aware-claims-adi-loop-and-revalidation.md",
+      "sha256": "4b80b21942ecaf7fd553f288dff3f64ce988426cd7b00bee15a53653e71ba36a",
+      "bytes": 10130
+    },
+    {
+      "id": "FTR-034",
+      "title": "UX Contract, Structural Validation, Safe Static Preview and Visual-Direction Snapshot",
+      "path": "features/FTR-034_ux-contract-structural-validation-safe-static-preview-and-visual-direction-snapshot.md",
+      "sha256": "2cc915e3d38e0552ec3dd1981d986fc098d9c9860f07bb2af66ae52835d3b080",
+      "bytes": 9837
+    }
+  ],
+  "function_documents": [
+    {
+      "id": "IDEA-001",
+      "title": "Problem / Intent Intake",
+      "related_families": [
+        "FTR-001"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-001_problem-intent-intake.md",
+      "sha256": "7eba674d39d1b319b271eb7fe3fbc965baa351e8d2ced8439d57383183c4c390",
+      "bytes": 27332
+    },
+    {
+      "id": "IDEA-002",
+      "title": "Intake Classification and Sensitive-Domain Gate",
+      "related_families": [
+        "FTR-001"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-002_intake-classification-and-sensitive-domain-gate.md",
+      "sha256": "da159d4c177ca2c0ff5e15ae1eb85dea8169cddf9ecf1e82570cb412769ebc58",
+      "bytes": 27395
+    },
+    {
+      "id": "IDEA-003",
+      "title": "User and Outcome Clarification",
+      "related_families": [
+        "FTR-001"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-003_user-and-outcome-clarification.md",
+      "sha256": "6b555cc6e12940294b6fc8ad1873602a4d3f9b0ed9625b2ee04c3fc9b9b6dbc9",
+      "bytes": 27347
+    },
+    {
+      "id": "IDEA-004",
+      "title": "Project Discovery and Capability Map",
+      "related_families": [
+        "FTR-002"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-004_project-discovery-and-capability-map.md",
+      "sha256": "1dd2bae1b5c3423cd597bcc963f8fc7c0349109c813d1afa20311918e8eba7cb",
+      "bytes": 25882
+    },
+    {
+      "id": "IDEA-005",
+      "title": "Gap and Conflict Discovery",
+      "related_families": [
+        "FTR-002"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-005_gap-and-conflict-discovery.md",
+      "sha256": "68c00763015ea0c40a320ca4f2503c7f32a75529a950f61414384cd49dd38801",
+      "bytes": 25997
+    },
+    {
+      "id": "IDEA-006",
+      "title": "Project Brief and Specification Builder",
+      "related_families": [
+        "FTR-003"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-006_project-brief-and-specification-builder.md",
+      "sha256": "22517601a29ac2e2f4259d4bba7394bd3b84c6f072d3c08fd071ba6237d1e8e1",
+      "bytes": 25429
+    },
+    {
+      "id": "IDEA-007",
+      "title": "Technical Assignment",
+      "related_families": [
+        "FTR-003"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-007_technical-assignment.md",
+      "sha256": "18e9f32c08e16d91ec07ab268f1cbe6bbc9b58bc39bd5c60050e8c417d2e65ed",
+      "bytes": 25336
+    },
+    {
+      "id": "IDEA-008",
+      "title": "First Vertical Slice Selector and Capability Reconstruction",
+      "related_families": [
+        "FTR-003"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-008_first-vertical-slice-selector-and-capability-reconstruction.md",
+      "sha256": "7d58544a209b54b7752cb6db80ea3e1bd58b22f6c039b476db46c715bdb01a3c",
+      "bytes": 25585
+    },
+    {
+      "id": "IDEA-009",
+      "title": "Architecture Need Check and Input Intake",
+      "related_families": [
+        "FTR-005"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-009_architecture-need-check-and-input-intake.md",
+      "sha256": "1c705b514621fdb8506f9a43d416df4ce0752e528d823aef94e35fbf62479ebf",
+      "bytes": 24466
+    },
+    {
+      "id": "IDEA-010",
+      "title": "Architecture Assistant",
+      "related_families": [
+        "FTR-005"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-010_architecture-assistant.md",
+      "sha256": "0e8b891cc29912393c78ce6cbe03425b9ca1d22a1f3fc0407965fae53502d0da",
+      "bytes": 24370
+    },
+    {
+      "id": "IDEA-011",
+      "title": "Architecture Option Comparison and ADR Builder",
+      "related_families": [
+        "FTR-005"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-011_architecture-option-comparison-and-adr-builder.md",
+      "sha256": "2c428e1227f491f29e1b90eb9e8111940f102aced21adb884e1a418a864d6943",
+      "bytes": 24553
+    },
+    {
+      "id": "IDEA-012",
+      "title": "Stack Preset Registry",
+      "related_families": [
+        "FTR-005"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-012_stack-preset-registry.md",
+      "sha256": "f36bd286de5b277b69ba3222843decb1ec89ba55b747fee5397a7baa59a3fd05",
+      "bytes": 24330
+    },
+    {
+      "id": "IDEA-013",
+      "title": "Pattern / Solution Library and Fit Matrix",
+      "related_families": [
+        "FTR-022"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-013_pattern-solution-library-and-fit-matrix.md",
+      "sha256": "7a4215091eea3a8c90a9c87507e24f02e3f150d806baa53133909067bc999bc6",
+      "bytes": 23780
+    },
+    {
+      "id": "IDEA-014",
+      "title": "Architecture Evidence and Human Checkpoint Package",
+      "related_families": [
+        "FTR-005"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-014_architecture-evidence-and-human-checkpoint-package.md",
+      "sha256": "4af83e22f634c82c121f69b0f2d24564d1c057b4daf9ad2bc75643f58e7c9742",
+      "bytes": 24538
+    },
+    {
+      "id": "IDEA-015",
+      "title": "Architecture-to-Task Traceability",
+      "related_families": [
+        "FTR-005",
+        "FTR-006"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-015_architecture-to-task-traceability.md",
+      "sha256": "2972dfb762896e805561a4654c8a5dde8b3e2a633ea2d6990fd145a3c0a3ff74",
+      "bytes": 24791
+    },
+    {
+      "id": "IDEA-016",
+      "title": "Task Generation and Task Brief",
+      "related_families": [
+        "FTR-006"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-016_task-generation-and-task-brief.md",
+      "sha256": "5733d51689ecd88d9bdef3d0ce3cf42e9b5320dc6f4395919a197a4c661f2bf3",
+      "bytes": 24318
+    },
+    {
+      "id": "IDEA-017",
+      "title": "Hierarchical Backlog, Lazy Decomposition and Queue",
+      "related_families": [
+        "FTR-007"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-017_hierarchical-backlog-lazy-decomposition-and-queue.md",
+      "sha256": "ae217e404a9c48b9af3f3abb9fad02372118e2d90d7ce625a2182c9f9e6c4a9d",
+      "bytes": 24150
+    },
+    {
+      "id": "IDEA-018",
+      "title": "Action Preflight",
+      "related_families": [
+        "FTR-009"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-018_action-preflight.md",
+      "sha256": "9d26117bd6eb3c6777026131793ea5e2253b972a88dcec3f156976e2af782011",
+      "bytes": 23351
+    },
+    {
+      "id": "IDEA-019",
+      "title": "Execution Preview",
+      "related_families": [
+        "FTR-009"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-019_execution-preview.md",
+      "sha256": "2c8fa780800ad16051e83519a52fc4cee0db4a5b4bcd79965f5cb7af0b7c1588",
+      "bytes": 23347
+    },
+    {
+      "id": "IDEA-020",
+      "title": "Scoped Execution",
+      "related_families": [
+        "FTR-010"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-020_scoped-execution.md",
+      "sha256": "ff6510b367092ec10827e14bd505d8b6c8cc9e8fbf3aa566d424caa71e8272eb",
+      "bytes": 23680
+    },
+    {
+      "id": "IDEA-021",
+      "title": "Controlled Execution Guard",
+      "related_families": [
+        "FTR-010",
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-021_controlled-execution-guard.md",
+      "sha256": "1698c65ff5fd280ce9865c4483af6f664381a999ca83ec48a2cabef0012faa96",
+      "bytes": 24128
+    },
+    {
+      "id": "IDEA-022",
+      "title": "Unified Result Contract / ValidationEnvelope",
+      "related_families": [
+        "FTR-011"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-022_unified-result-contract-validationenvelope.md",
+      "sha256": "576876f1b8f35bdeec039cde5151368fc5b322ecb13bf71aa9e75e5220cf8679",
+      "bytes": 23726
+    },
+    {
+      "id": "IDEA-023",
+      "title": "Unified Validation CLI",
+      "related_families": [
+        "FTR-011"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-023_unified-validation-cli.md",
+      "sha256": "ce43fdd3071985cd8e5ea1a0a20649af266f58e00427736eecbeaef4dc0db323",
+      "bytes": 23629
+    },
+    {
+      "id": "IDEA-024",
+      "title": "Doctor and Self-Test",
+      "related_families": [
+        "FTR-011"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-024_doctor-and-self-test.md",
+      "sha256": "57208218ae91dbf59f6556f8ffbf7f9d7e5b7f97437c961569c10f950543eead",
+      "bytes": 23599
+    },
+    {
+      "id": "IDEA-025",
+      "title": "Evidence Collection",
+      "related_families": [
+        "FTR-012"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-025_evidence-collection.md",
+      "sha256": "a715f45952e2665bba3dbfc110d72835097051e469d7c5b629cda965d35cbefe",
+      "bytes": 23547
+    },
+    {
+      "id": "IDEA-026",
+      "title": "Compact Human Review Package",
+      "related_families": [
+        "FTR-012"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-026_compact-human-review-package.md",
+      "sha256": "d9b70133589cf2bd354c740b6d09302fbd0a4c6e0791cfa4c4e37db915186d3f",
+      "bytes": 23769
+    },
+    {
+      "id": "IDEA-027",
+      "title": "Independent Read-only Review",
+      "related_families": [
+        "FTR-012"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-027_independent-read-only-review.md",
+      "sha256": "c2b0c10a37f4a524ea4f42ae4985f6d6ff6be7fe4d5382150d3fe2b955fafdae",
+      "bytes": 23706
+    },
+    {
+      "id": "IDEA-028",
+      "title": "Human Decision Record and False-PASS Wording Guard",
+      "related_families": [
+        "FTR-012",
+        "FTR-021"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-028_human-decision-record-and-false-pass-wording-guard.md",
+      "sha256": "de73a8bc16621a8bf9997edbe7ac24fa73a86c4f2ea33bb1cb548149bb88787a",
+      "bytes": 24178
+    },
+    {
+      "id": "IDEA-029",
+      "title": "Diff and Scope Reconciliation",
+      "related_families": [
+        "FTR-013"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-029_diff-and-scope-reconciliation.md",
+      "sha256": "6bfbc10233cb31dd54c69e9010ae1de9d7d932adc7f62709cd450530e5a9abda",
+      "bytes": 23825
+    },
+    {
+      "id": "IDEA-030",
+      "title": "Disposable Validation Subject",
+      "related_families": [
+        "FTR-013"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-030_disposable-validation-subject.md",
+      "sha256": "02068fb4333a2e304a5e5241f8dd74549f35ee5e9ef876b755b8d9d9571faddf",
+      "bytes": 23740
+    },
+    {
+      "id": "IDEA-031",
+      "title": "Candidate Freeze and Identity",
+      "related_families": [
+        "FTR-013"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-031_candidate-freeze-and-identity.md",
+      "sha256": "e43560f11bf39b2459d0d5a9ba47ce85da884a65310a3249cb92e37fbe57c383",
+      "bytes": 23702
+    },
+    {
+      "id": "IDEA-032",
+      "title": "Recovery, Resume and Rollback",
+      "related_families": [
+        "FTR-014"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-032_recovery-resume-and-rollback.md",
+      "sha256": "c8776a953705f6ec2b5614884e7e568da7595f7cfcd883b0d818d42a4585f31e",
+      "bytes": 23959
+    },
+    {
+      "id": "IDEA-033",
+      "title": "Git Lifecycle Closure",
+      "related_families": [
+        "FTR-015"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-033_git-lifecycle-closure.md",
+      "sha256": "2f8ed2742a15d3cd136f596e224b90881970c1a724dc6641b74e7d2989fbfba9",
+      "bytes": 23692
+    },
+    {
+      "id": "IDEA-034",
+      "title": "Denied Action Log and State Recovery View",
+      "related_families": [
+        "FTR-014",
+        "FTR-019"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-034_denied-action-log-and-state-recovery-view.md",
+      "sha256": "98a1f0f9d40d3f928c503a34067ad74c89618f6ce47e05c192c76af94c335f88",
+      "bytes": 24311
+    },
+    {
+      "id": "IDEA-035",
+      "title": "Project Memory",
+      "related_families": [
+        "FTR-016"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-035_project-memory.md",
+      "sha256": "0553eef3f1de3f410afe4a5da7ae5e710029d91f9e25ae4616c11492378d8761",
+      "bytes": 23642
+    },
+    {
+      "id": "IDEA-036",
+      "title": "Session Handoff",
+      "related_families": [
+        "FTR-014",
+        "FTR-016"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-036_session-handoff.md",
+      "sha256": "439ee3d4a2fb5c4228a241417aeb19c92d35ee2835be6710861ac041680a5d65",
+      "bytes": 24038
+    },
+    {
+      "id": "IDEA-037",
+      "title": "Context Priority Rules",
+      "related_families": [
+        "FTR-016"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-037_context-priority-rules.md",
+      "sha256": "2ddf7e3af8fdbf00fa5fb6fbca88d560e7313666ee0abc202cdd6135212f1e69",
+      "bytes": 23613
+    },
+    {
+      "id": "IDEA-038",
+      "title": "Task-scoped Context Pack",
+      "related_families": [
+        "FTR-016"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-038_task-scoped-context-pack.md",
+      "sha256": "264eca413dab6df96749263d725b684118cb3928e0ded784b5942f7c4246a836",
+      "bytes": 23807
+    },
+    {
+      "id": "IDEA-039",
+      "title": "RAG-light Context Index",
+      "related_families": [
+        "FTR-017"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-039_rag-light-context-index.md",
+      "sha256": "1e42bad42eb852b56dbccabc62097ee2fa6596c865603a768d0d1c9656381481",
+      "bytes": 23409
+    },
+    {
+      "id": "IDEA-040",
+      "title": "Advisory Model Routing",
+      "related_families": [
+        "FTR-018"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-040_advisory-model-routing.md",
+      "sha256": "e0953090c744f4330b42141541e38b6ef23106e1a4b1ec884c5c3942a1a4f212",
+      "bytes": 23538
+    },
+    {
+      "id": "IDEA-041",
+      "title": "Explicit Subagent Routing, Routing Audit and Provider Evaluation",
+      "related_families": [
+        "FTR-018"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-041_explicit-subagent-routing-routing-audit-and-provider-evaluation.md",
+      "sha256": "644fa33a5cb3b6c8005644172373d1338ccd361e0881b4a61a6f34dd6c987334",
+      "bytes": 23807
+    },
+    {
+      "id": "IDEA-042",
+      "title": "Installer Dry-run",
+      "related_families": [
+        "FTR-004"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-042_installer-dry-run.md",
+      "sha256": "1ee49578363ba0ee58c5a7125fd14ab0fd2a986396a18162c27a4487992d3b9e",
+      "bytes": 24654
+    },
+    {
+      "id": "IDEA-043",
+      "title": "Safe Apply and Manual Transfer",
+      "related_families": [
+        "FTR-004"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-043_safe-apply-and-manual-transfer.md",
+      "sha256": "0efe01123cdff9cc5eab8cd8c076d6b2ee8d3a538ec1d0a4583f57e1cedfd2ba",
+      "bytes": 25087
+    },
+    {
+      "id": "IDEA-044",
+      "title": "Safe Update and Uninstall",
+      "related_families": [
+        "FTR-004"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-044_safe-update-and-uninstall.md",
+      "sha256": "d0359fef6e87346ac8dd5a524394038989ef2dc384d3a33dc995457d29f15fd5",
+      "bytes": 24973
+    },
+    {
+      "id": "IDEA-045",
+      "title": "Installation Manifest and Version Detection",
+      "related_families": [
+        "FTR-004"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-045_installation-manifest-and-version-detection.md",
+      "sha256": "2e8d8c8d0aaceeec6219896377d42880455a7072d99f82e5c7f8d437b5a2b208",
+      "bytes": 24884
+    },
+    {
+      "id": "IDEA-046",
+      "title": "Example Project and Onboarding",
+      "related_families": [
+        "FTR-004"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-046_example-project-and-onboarding.md",
+      "sha256": "d2ff8642bdfd13fb5ba73e2c924e1b342fb4004b169d8ef588cd419633bcff08",
+      "bytes": 24838
+    },
+    {
+      "id": "IDEA-047",
+      "title": "Beginner Tutor",
+      "related_families": [
+        "FTR-008"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-047_beginner-tutor.md",
+      "sha256": "829069ad604303a19e10c2d8c4348253a9132bd788b97817a56835304919c49a",
+      "bytes": 24293
+    },
+    {
+      "id": "IDEA-048",
+      "title": "Simple Control Surface",
+      "related_families": [
+        "FTR-008"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-048_simple-control-surface.md",
+      "sha256": "e9ca7820721594c3507a6984895c56e8230631900edf2978fb8709798a33bd3e",
+      "bytes": 24347
+    },
+    {
+      "id": "IDEA-049",
+      "title": "Status / Next / Details, Stable CLI Output and First Safe Commands",
+      "related_families": [
+        "FTR-008"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-049_status-next-details-stable-cli-output-and-first-safe-commands.md",
+      "sha256": "fdcbe45703c970cb17b8f270562587f0ae234ff0d9e0ef23c9e564bffccdcaae",
+      "bytes": 24717
+    },
+    {
+      "id": "IDEA-050",
+      "title": "Action Trust Boundary",
+      "related_families": [
+        "FTR-019"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-050_action-trust-boundary.md",
+      "sha256": "ac72254094e12086e1757951aef2a34402926b9d76e9a437209c0ed51d1523d2",
+      "bytes": 23804
+    },
+    {
+      "id": "IDEA-051",
+      "title": "Permission State Classifier and Error Taxonomy",
+      "related_families": [
+        "FTR-019"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-051_permission-state-classifier-and-error-taxonomy.md",
+      "sha256": "c76c1239d69e147a3236f0675c040314b2f3ce93b94e8bfa6900131ec955cc95",
+      "bytes": 24007
+    },
+    {
+      "id": "IDEA-052",
+      "title": "Prompt Injection Boundary for External Content",
+      "related_families": [
+        "FTR-019"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-052_prompt-injection-boundary-for-external-content.md",
+      "sha256": "1e7b2226b6097757bc09efde778c1590f45b1bb112a377429a3922be19fb0e49",
+      "bytes": 23968
+    },
+    {
+      "id": "IDEA-053",
+      "title": "Protected Path, Write and Command Allowlists",
+      "related_families": [
+        "FTR-019",
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-053_protected-path-write-and-command-allowlists.md",
+      "sha256": "e9143ba330d18a13035fe3ee92eeb22a6222b68ce400e0267f6c7fc083d98b5b",
+      "bytes": 24261
+    },
+    {
+      "id": "IDEA-054",
+      "title": "Network, Sandbox and Git Permission Gate",
+      "related_families": [
+        "FTR-019",
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-054_network-sandbox-and-git-permission-gate.md",
+      "sha256": "0e111643cbcdebd85ded36a23e0569dcaea94c01ae7925d0c403762eae8ba955",
+      "bytes": 24160
+    },
+    {
+      "id": "IDEA-055",
+      "title": "Runtime Enforcement Layer",
+      "related_families": [
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-055_runtime-enforcement-layer.md",
+      "sha256": "20112f2383b48de5863f90099975af0e99591fe813a652bf245e8badbcd388e7",
+      "bytes": 23567
+    },
+    {
+      "id": "IDEA-056",
+      "title": "Isolated Execution Environment",
+      "related_families": [
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-056_isolated-execution-environment.md",
+      "sha256": "9ff6863a1b2028d3cb20eecf5538165041e2df0c9bd4e6461c28bacca72f67b6",
+      "bytes": 23519
+    },
+    {
+      "id": "IDEA-057",
+      "title": "Progressive Governance Modes",
+      "related_families": [
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-057_progressive-governance-modes.md",
+      "sha256": "52b6e396f32aa9931c2b58874aa26eacc8f0f48a2afed3f072b1ea3ff6b7698f",
+      "bytes": 23487
+    },
+    {
+      "id": "IDEA-058",
+      "title": "Advanced Governance Gates",
+      "related_families": [
+        "FTR-020"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-058_advanced-governance-gates.md",
+      "sha256": "0ca788acf3e75eb12e60b2533517788c903e6700d2a7a727ef2ceb7f23c20ed9",
+      "bytes": 23407
+    },
+    {
+      "id": "IDEA-059",
+      "title": "Registry / Drift, Source-of-Truth Guard and Human Decision Authenticity",
+      "related_families": [
+        "FTR-021"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-059_registry-drift-source-of-truth-guard-and-human-decision-authenticity.md",
+      "sha256": "43bcb94728576321eea7817a77dc0896935ec660bb3424e2440f9418f65f289a",
+      "bytes": 24263
+    },
+    {
+      "id": "IDEA-060",
+      "title": "Advisory CI and CI Smoke",
+      "related_families": [
+        "FTR-023"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-060_advisory-ci-and-ci-smoke.md",
+      "sha256": "404ba3b9d985f7aead794fc83ef59a0629c9e483dfae242d9d1e2528511c08d4",
+      "bytes": 23200
+    },
+    {
+      "id": "IDEA-061",
+      "title": "Release Checklist and Promotion Package",
+      "related_families": [
+        "FTR-024"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-061_release-checklist-and-promotion-package.md",
+      "sha256": "61111d8a5d4c65ce7f7e5172582bec1bd4f2a74f66f5a56c85e3d0813b9bf36f",
+      "bytes": 23610
+    },
+    {
+      "id": "IDEA-062",
+      "title": "Version, Changelog, Tag and Rollback Assistant",
+      "related_families": [
+        "FTR-024"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-062_version-changelog-tag-and-rollback-assistant.md",
+      "sha256": "ba5597b71107eb214a9c4c732d6630cf0c3a146cd9fbafca3418bc5877b4624b",
+      "bytes": 23750
+    },
+    {
+      "id": "IDEA-063",
+      "title": "Observability and Audit Log",
+      "related_families": [
+        "FTR-025"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-063_observability-and-audit-log.md",
+      "sha256": "9aaca46c9cdc52228a411d5495dad6574744acb651e52985aeab1d239b7e333a",
+      "bytes": 23219
+    },
+    {
+      "id": "IDEA-064",
+      "title": "Continuous Improvement, Lessons Feedback and Dependency/Security Audit",
+      "related_families": [
+        "FTR-025"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-064_continuous-improvement-lessons-feedback-and-dependency-security-audit.md",
+      "sha256": "81ccc9805fcdc902a2dee7121b45787b9199c4fe7abf1f02e3f5d3a31606b5be",
+      "bytes": 23693
+    },
+    {
+      "id": "IDEA-065",
+      "title": "Extension / Plugin Model",
+      "related_families": [
+        "FTR-026"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-065_extension-plugin-model.md",
+      "sha256": "08780bbcb77393d8c5d43977e7bff6375c61f655803543d621f780dc77e062e7",
+      "bytes": 23069
+    },
+    {
+      "id": "IDEA-066",
+      "title": "Domain Modules",
+      "related_families": [
+        "FTR-027"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-066_domain-modules.md",
+      "sha256": "167b03827885f70b3ec751010f6d93448ff7d3b96f87bd25ae9a439d58a32119",
+      "bytes": 23348
+    },
+    {
+      "id": "IDEA-067",
+      "title": "Medical Domain Module",
+      "related_families": [
+        "FTR-027"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-067_medical-domain-module.md",
+      "sha256": "45b61a60bfb434bf1c43e66678ae2ba5bd53dad10af224b9286b47f2c25996e0",
+      "bytes": 23407
+    },
+    {
+      "id": "IDEA-068",
+      "title": "Design Module",
+      "related_families": [
+        "FTR-027"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-068_design-module.md",
+      "sha256": "5f7ce3c4ec9ed0fe36797d81e27c430d6ec5ca9e762b171754e2e0d29e046d2a",
+      "bytes": 23314
+    },
+    {
+      "id": "IDEA-069",
+      "title": "Workbench / SaaS UI",
+      "related_families": [
+        "FTR-028"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-069_workbench-saas-ui.md",
+      "sha256": "09e9b424fb31cd5d872a1975bf769c7f6fe532d6c4dcaaf16bfbb45c8177cf3e",
+      "bytes": 23342
+    },
+    {
+      "id": "IDEA-070",
+      "title": "Template Export, Prompt Packs, Capability Modules, Cross-Repo Context, Localization and Policy Overlays",
+      "related_families": [
+        "FTR-029"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-070_template-export-prompt-packs-capability-modules-cross-repo-context-localization-and-policy.md",
+      "sha256": "34b1145460d0424c5c3c282f8f2b8b2c397ed3e88b43123533e4ef941b26f744",
+      "bytes": 23881
+    },
+    {
+      "id": "IDEA-071",
+      "title": "Structured Loader Adapter and Strict Data Loader",
+      "related_families": [
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-071_structured-loader-adapter-and-strict-data-loader.md",
+      "sha256": "26b7dcebff4c850ee78c0eefcf83cf0c7dd356f16cb3ae1a014bb74c91bc7033",
+      "bytes": 23421
+    },
+    {
+      "id": "IDEA-072",
+      "title": "Parser and Status Fragmentation Inventory with Sunset Plan",
+      "related_families": [
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-072_parser-and-status-fragmentation-inventory-with-sunset-plan.md",
+      "sha256": "4d86e40f3209135e005a9849f05d78ff3356a114c6fc3e010e19c2862157dfc5",
+      "bytes": 23518
+    },
+    {
+      "id": "IDEA-073",
+      "title": "Registry Silent Data-Loss Audit",
+      "related_families": [
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-073_registry-silent-data-loss-audit.md",
+      "sha256": "7aee22ede7f1944a1766a3f69aa7b7419ddb0a4b3b47bd34be64a3e5ae745cfc",
+      "bytes": 23289
+    },
+    {
+      "id": "IDEA-074",
+      "title": "Safe Runner Kernels",
+      "related_families": [
+        "FTR-010",
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-074_safe-runner-kernels.md",
+      "sha256": "3ec2cb9e6b9ee7b0024c47b3dbbae31a30bcfae5829265186375ca3021b04f8a",
+      "bytes": 23975
+    },
+    {
+      "id": "IDEA-075",
+      "title": "Document, Task Registry and Queue Helpers",
+      "related_families": [
+        "FTR-007",
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-075_document-task-registry-and-queue-helpers.md",
+      "sha256": "e5cfb9f441fc961897cfec0f06bb00b084d55424391a50c72dbf5e0bfe844c7d",
+      "bytes": 24317
+    },
+    {
+      "id": "IDEA-076",
+      "title": "Task Brief Compiler and Report Builder",
+      "related_families": [
+        "FTR-006",
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-076_task-brief-compiler-and-report-builder.md",
+      "sha256": "a4dadcb52a083281d66167ae11ce42e0d675e6aff199f2d729aa4b150decdf67",
+      "bytes": 24811
+    },
+    {
+      "id": "IDEA-077",
+      "title": "Manifest, Package Integrity and Cross-Reference Validator",
+      "related_families": [
+        "FTR-029",
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-077_manifest-package-integrity-and-cross-reference-validator.md",
+      "sha256": "fe4c14232a0548ed2fcd75383707fc4155adc2ad6a33ace6142f269d238c946c",
+      "bytes": 23932
+    },
+    {
+      "id": "IDEA-078",
+      "title": "Schema / Runtime Drift, Module Boundaries, Negative Fixtures, Bootstrap and Quality Tooling",
+      "related_families": [
+        "FTR-023",
+        "FTR-030"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-078_schema-runtime-drift-module-boundaries-negative-fixtures-bootstrap-and-quality-tooling.md",
+      "sha256": "4bcf3acb0eed6db575ef36a86ef55bb45c5f1da85ba9487c2aa8ce214bb4d5f2",
+      "bytes": 24059
+    },
+    {
+      "id": "IDEA-079",
+      "title": "Auto-Scaling Intake Mode",
+      "related_families": [
+        "FTR-001"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-079_auto-scaling-intake-mode.md",
+      "sha256": "3bb042b9f212bbeb08bb357a706d3e27065b974f26721749cfaa64450cfc4cfd",
+      "bytes": 27230
+    },
+    {
+      "id": "IDEA-080",
+      "title": "Ready-Spec vs Build-from-Scratch Entry",
+      "related_families": [
+        "FTR-001",
+        "FTR-003"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-080_ready-spec-vs-build-from-scratch-entry.md",
+      "sha256": "66b0546ed18676b59114754268b618bfac49627f5dd8b54426d25cfd064b290e",
+      "bytes": 27579
+    },
+    {
+      "id": "IDEA-081",
+      "title": "Problem Interview with Draft Capture",
+      "related_families": [
+        "FTR-001",
+        "FTR-003"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-081_problem-interview-with-draft-capture.md",
+      "sha256": "30c2925280b96e37f3f60fd9a319c8681505c613c234f4476ccbf7b54a41ee88",
+      "bytes": 27579
+    },
+    {
+      "id": "IDEA-082",
+      "title": "AOS Chat Interaction Surface",
+      "related_families": [
+        "FTR-008"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-082_aos-chat-interaction-surface.md",
+      "sha256": "36f8f1a88422bf4dcc9e39fc0c0d13f2adf4deec4d4b83b9a4e3da3ab107539b",
+      "bytes": 24339
+    },
+    {
+      "id": "IDEA-083",
+      "title": "Beginner / Standard / Expert Interaction Modes",
+      "related_families": [
+        "FTR-008"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-083_beginner-standard-expert-interaction-modes.md",
+      "sha256": "6bb5264ae396f270ec1ff1e71362f617eeadfdbc61e5bbae499685cdfa9095d0",
+      "bytes": 24346
+    },
+    {
+      "id": "IDEA-084",
+      "title": "Artifact, Decision, Blocker and Evidence Cards",
+      "related_families": [
+        "FTR-008",
+        "FTR-012"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-084_artifact-decision-blocker-and-evidence-cards.md",
+      "sha256": "218d9a31f8703beb35c407fbfcf832e47e8686e0d5a97c19105e751ba1096ca5",
+      "bytes": 24797
+    },
+    {
+      "id": "IDEA-085",
+      "title": "Repository-Verified Session Resume: «На чём мы остановились?»",
+      "related_families": [
+        "FTR-008",
+        "FTR-014",
+        "FTR-016"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-085_repository-verified-session-resume.md",
+      "sha256": "c8c057b3c3493a7297efda7e68b471996fcc4071eeec41c03a843bd4314f6e10",
+      "bytes": 25079
+    },
+    {
+      "id": "IDEA-086",
+      "title": "Repository Ideas Workspace",
+      "related_families": [
+        "FTR-007"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-086_repository-ideas-workspace.md",
+      "sha256": "c3fbfa235c6385f1d2138bd09aaf46925d0be0d87ffe3de03917390f71ed6e48",
+      "bytes": 23836
+    },
+    {
+      "id": "IDEA-087",
+      "title": "Idea Deduplication and Promotion to DRAFT Task",
+      "related_families": [
+        "FTR-006",
+        "FTR-007"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-087_idea-deduplication-and-promotion-to-draft-task.md",
+      "sha256": "f003f0b5be705ff34b863affeed3dba77c999ef8cb7a3782373f80988f94738f",
+      "bytes": 24944
+    },
+    {
+      "id": "IDEA-088",
+      "title": "Project UX Skeleton",
+      "related_families": [
+        "FTR-031"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-088_project-ux-skeleton.md",
+      "sha256": "5d5dc5c8e0c17d83626441a2e20079adade59ee37295c1b220bd0e1e944015fc",
+      "bytes": 24265
+    },
+    {
+      "id": "IDEA-089",
+      "title": "UX Pattern Library Advisory Suggestions",
+      "related_families": [
+        "FTR-022",
+        "FTR-031"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-089_ux-pattern-library-advisory-suggestions.md",
+      "sha256": "9ae1cb16a93dd665f2b3c99855b35d88f4e0be5c69a31f78d7827d25eb78fbf1",
+      "bytes": 23849
+    },
+    {
+      "id": "IDEA-090",
+      "title": "Online Market Pattern Research with Source and License Policy",
+      "related_families": [
+        "FTR-022",
+        "FTR-031"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-090_online-market-pattern-research-with-source-and-license-policy.md",
+      "sha256": "911f0182fe347bdb3e8cb7ae4ed0ab6e2543adf3e3930b3d57596291e0ff29e0",
+      "bytes": 24082
+    },
+    {
+      "id": "IDEA-091",
+      "title": "Requirement → UX → Slice → Task → Code → Test/Evidence Traceability",
+      "related_families": [
+        "FTR-031",
+        "FTR-006",
+        "FTR-012"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-091_requirement-to-ux-to-slice-to-task-to-code-to-test-evidence-traceability.md",
+      "sha256": "424584bce675c11e0de754c2167f27ed67b343cc152311d83a62e409c0536a82",
+      "bytes": 25096
+    },
+    {
+      "id": "IDEA-092",
+      "title": "Full Multi-Agent Coordination",
+      "related_families": [
+        "FTR-018",
+        "FTR-026"
+      ],
+      "origin": "HISTORICAL_MICRO_IDEA_CROSSWALK",
+      "path": "functions/IDEA-092_full-multi-agent-coordination.md",
+      "sha256": "24dfc0f542083047d857480c8933bf456b596768fef6ffbba89263953058fc84",
+      "bytes": 24053
+    },
+    {
+      "id": "IDEA-093",
+      "title": "Evidence-Aware Claim Classifier and Provenance Binder",
+      "related_families": [
+        "FTR-033"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-093_evidence-aware-claim-classifier-and-provenance-binder.md",
+      "sha256": "f2c0c626b0ad8a4039af888dee0ec01c754ab70241a9426b936830ea872cb16d",
+      "bytes": 19641
+    },
+    {
+      "id": "IDEA-094",
+      "title": "ADI Reasoning Cycle: Abduction → Deduction → Induction",
+      "related_families": [
+        "FTR-033"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-094_adi-reasoning-cycle-abduction-to-deduction-to-induction.md",
+      "sha256": "6382585f18d992941ef5646403359d3f454ff8abb260f9965f6d6cc3089ba1c3",
+      "bytes": 19594
+    },
+    {
+      "id": "IDEA-095",
+      "title": "Alternative Matrix and Weakest-Link Analysis",
+      "related_families": [
+        "FTR-033"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-095_alternative-matrix-and-weakest-link-analysis.md",
+      "sha256": "4189f6cc1f46e394419e890c0e6ed584c085250bd9a70daf8a4519909ce808f9",
+      "bytes": 19643
+    },
+    {
+      "id": "IDEA-096",
+      "title": "Evidence Decay and Revalidation Trigger Manager",
+      "related_families": [
+        "FTR-033"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-096_evidence-decay-and-revalidation-trigger-manager.md",
+      "sha256": "250640ff8c0c2a4b6c1b5b124220933bd9164584bbb29f7d7ab5d03d2a913af4",
+      "bytes": 19534
+    },
+    {
+      "id": "IDEA-097",
+      "title": "UX Contract Builder",
+      "related_families": [
+        "FTR-034"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-097_ux-contract-builder.md",
+      "sha256": "050763416cf66141df113d5ef10a90c74747ba157e10555e4b35cc598c368cb4",
+      "bytes": 19231
+    },
+    {
+      "id": "IDEA-098",
+      "title": "UX Structural Validator",
+      "related_families": [
+        "FTR-034"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-098_ux-structural-validator.md",
+      "sha256": "0b4a5cec93d2cd30e7e5fd442db66681ea3ecd36dfc1b55a5bffb4ff12d36410",
+      "bytes": 19305
+    },
+    {
+      "id": "IDEA-099",
+      "title": "Safe Static Preview Generator",
+      "related_families": [
+        "FTR-034"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-099_safe-static-preview-generator.md",
+      "sha256": "4c4a6fe262e307f1b43d3705905bac279970787dde30ed0d36554492adfcae87",
+      "bytes": 19462
+    },
+    {
+      "id": "IDEA-100",
+      "title": "Visual-Direction Snapshot",
+      "related_families": [
+        "FTR-034"
+      ],
+      "origin": "PROPOSED_ATOMIC_SPLIT_R2",
+      "path": "functions/IDEA-100_visual-direction-snapshot.md",
+      "sha256": "6cda1c01e9dc90ba693c984d0c408867e34722ade18619fe08937f1b1353e9a9",
+      "bytes": 19312
+    }
+  ]
+}

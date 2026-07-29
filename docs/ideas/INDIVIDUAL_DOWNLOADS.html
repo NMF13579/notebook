@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AOS — Individual Feature and Function Documents R2</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:1100px;margin:40px auto;padding:0 22px;line-height:1.45;color:#171717}
+h1,h2{line-height:1.15} .note{background:#f3f4f6;padding:14px 18px;border-radius:8px} ul{columns:1;padding-left:22px} li{margin:8px 0;break-inside:avoid} a{color:#174ea6;text-decoration:none} a:hover{text-decoration:underline} code{font-size:.92em} @media(min-width:900px){ul.functions{columns:2}}
+</style>
+</head>
+<body>
+<h1>AOS — отдельные документы фич и функций, R2</h1>
+<p class="note"><strong>DRAFT / authority NONE.</strong> Каждая ссылка скачивает ровно один Markdown-документ. Feature families: 34. Atomic functions: 100. IDs IDEA-093…100 — proposed atomic split R2.</p>
+<h2>Feature families — 34 документа</h2>
+<ul><li><a download href="features/FTR-001_intent-intake-problem-interview-and-outcome-clarification.md"><code>FTR-001</code> — Intent Intake, Problem Interview and Outcome Clarification</a></li>
+<li><a download href="features/FTR-002_project-discovery-capability-map-gap-and-conflict-discovery.md"><code>FTR-002</code> — Project Discovery, Capability Map, Gap and Conflict Discovery</a></li>
+<li><a download href="features/FTR-003_project-brief-specification-technical-interview-and-first-vertical-slice-selection.md"><code>FTR-003</code> — Project Brief, Specification, Technical Interview and First Vertical Slice Selection</a></li>
+<li><a download href="features/FTR-004_greenfield-scaffold-safe-install-update-uninstall-first-start-and-onboarding.md"><code>FTR-004</code> — Greenfield Scaffold, Safe Install/Update/Uninstall, First-Start and Onboarding</a></li>
+<li><a download href="features/FTR-005_architecture-decision-support-need-check-option-comparison-and-adr-builder.md"><code>FTR-005</code> — Architecture Decision Support, Need Check, Option Comparison and ADR Builder</a></li>
+<li><a download href="features/FTR-006_task-brief-compiler-scope-confirmation-and-one-task-one-document-model.md"><code>FTR-006</code> — Task Brief Compiler, Scope Confirmation and One-Task-One-Document Model</a></li>
+<li><a download href="features/FTR-007_hierarchical-decomposition-lazy-backlog-dependency-graph-queue-and-bottom-up-verification.md"><code>FTR-007</code> — Hierarchical Decomposition, Lazy Backlog, Dependency Graph, Queue and Bottom-Up Verification</a></li>
+<li><a download href="features/FTR-008_aos-chat-interaction-surface-beginner-tutor-status-next-details-and-closure-ux.md"><code>FTR-008</code> — AOS Chat Interaction Surface, Beginner Tutor, Status/Next/Details and Closure UX</a></li>
+<li><a download href="features/FTR-009_repository-action-preflight-and-exact-execution-preview.md"><code>FTR-009</code> — Repository/Action Preflight and Exact Execution Preview</a></li>
+<li><a download href="features/FTR-010_scoped-execution-workflow-controlled-guard-and-safe-runner-kernels.md"><code>FTR-010</code> — Scoped Execution Workflow, Controlled Guard and Safe Runner Kernels</a></li>
+<li><a download href="features/FTR-011_unified-result-contract-aos-validate-doctor-and-self-test.md"><code>FTR-011</code> — Unified Result Contract, AOS Validate, Doctor and Self-Test</a></li>
+<li><a download href="features/FTR-012_evidence-collection-compact-human-review-package-and-human-decision-record.md"><code>FTR-012</code> — Evidence Collection, Compact Human Review Package and Human Decision Record</a></li>
+<li><a download href="features/FTR-013_diff-scope-reconciliation-disposable-validation-subject-and-immutable-candidate-freeze.md"><code>FTR-013</code> — Diff/Scope Reconciliation, Disposable Validation Subject and Immutable Candidate Freeze</a></li>
+<li><a download href="features/FTR-014_recovery-resume-rollback-denied-action-log-and-session-handoff.md"><code>FTR-014</code> — Recovery, Resume, Rollback, Denied-Action Log and Session Handoff</a></li>
+<li><a download href="features/FTR-015_git-lifecycle-closure-remote-state-and-separate-commit-push-merge-release-authorization.md"><code>FTR-015</code> — Git Lifecycle Closure, Remote State and Separate Commit/Push/Merge/Release Authorization</a></li>
+<li><a download href="features/FTR-016_project-memory-session-continuity-context-priority-and-task-scoped-context-pack.md"><code>FTR-016</code> — Project Memory, Session Continuity, Context Priority and Task-Scoped Context Pack</a></li>
+<li><a download href="features/FTR-017_rag-light-context-index-and-search.md"><code>FTR-017</code> — RAG-Light Context Index and Search</a></li>
+<li><a download href="features/FTR-018_advisory-model-routing-explicit-agent-roles-routing-audit-and-provider-evaluation.md"><code>FTR-018</code> — Advisory Model Routing, Explicit Agent Roles, Routing Audit and Provider Evaluation</a></li>
+<li><a download href="features/FTR-019_action-trust-boundary-permission-state-classifier-and-external-content-path-command-networ.md"><code>FTR-019</code> — Action Trust Boundary, Permission-State Classifier and External-Content/Path/Command/Network Allowlists</a></li>
+<li><a download href="features/FTR-020_runtime-enforcement-isolated-execution-environment-and-progressive-governance-modes.md"><code>FTR-020</code> — Runtime Enforcement, Isolated Execution Environment and Progressive Governance Modes</a></li>
+<li><a download href="features/FTR-021_registry-drift-detection-source-of-truth-guard-and-human-decision-authenticity.md"><code>FTR-021</code> — Registry/Drift Detection, Source-of-Truth Guard and Human-Decision Authenticity</a></li>
+<li><a download href="features/FTR-022_solution-pattern-library-fit-matrix-and-reusable-ux-engineering-patterns.md"><code>FTR-022</code> — Solution/Pattern Library, Fit Matrix and Reusable UX/Engineering Patterns</a></li>
+<li><a download href="features/FTR-023_advisory-ci-ci-smoke-safety-regression-fixtures-and-quality-gates.md"><code>FTR-023</code> — Advisory CI, CI Smoke, Safety Regression Fixtures and Quality Gates</a></li>
+<li><a download href="features/FTR-024_release-checklist-promotion-package-version-changelog-tag-and-rollback-assistant.md"><code>FTR-024</code> — Release Checklist, Promotion Package, Version/Changelog/Tag and Rollback Assistant</a></li>
+<li><a download href="features/FTR-025_observability-audit-log-incident-lessons-memory-and-continuous-improvement.md"><code>FTR-025</code> — Observability, Audit Log, Incident/Lessons Memory and Continuous Improvement</a></li>
+<li><a download href="features/FTR-026_extension-plugin-capability-module-model.md"><code>FTR-026</code> — Extension/Plugin/Capability Module Model</a></li>
+<li><a download href="features/FTR-027_domain-modules-design-and-medical.md"><code>FTR-027</code> — Domain Modules: Design and Medical</a></li>
+<li><a download href="features/FTR-028_workbench-saas-ui-for-onboarding-status-review-and-collaboration.md"><code>FTR-028</code> — Workbench / SaaS UI for Onboarding, Status, Review and Collaboration</a></li>
+<li><a download href="features/FTR-029_template-export-prompt-packs-cross-repo-context-localization-and-policy-overlays.md"><code>FTR-029</code> — Template Export, Prompt Packs, Cross-Repo Context, Localization and Policy Overlays</a></li>
+<li><a download href="features/FTR-030_internal-contract-tooling-strict-loaders-parser-sunset-registry-audits-and-drift-tests.md"><code>FTR-030</code> — Internal Contract Tooling: Strict Loaders, Parser Sunset, Registry Audits and Drift Tests</a></li>
+<li><a download href="features/FTR-031_project-ux-skeleton-to-human-review-to-vertical-slices-to-task-briefs-to-code.md"><code>FTR-031</code> — Project UX Skeleton → Human Review → Vertical Slices → Task Briefs → Code</a></li>
+<li><a download href="features/FTR-032_repository-idea-bank-and-controlled-idea-to-feature-task-promotion.md"><code>FTR-032</code> — Repository Idea Bank and Controlled Idea → Feature/Task Promotion</a></li>
+<li><a download href="features/FTR-033_fpf-reasoning-integration-evidence-aware-claims-adi-loop-and-revalidation.md"><code>FTR-033</code> — FPF Reasoning Integration: Evidence-Aware Claims, ADI Loop and Revalidation</a></li>
+<li><a download href="features/FTR-034_ux-contract-structural-validation-safe-static-preview-and-visual-direction-snapshot.md"><code>FTR-034</code> — UX Contract, Structural Validation, Safe Static Preview and Visual-Direction Snapshot</a></li></ul>
+<h2>Atomic functions — 100 документов</h2>
+<ul class="functions"><li><a download href="functions/IDEA-001_problem-intent-intake.md"><code>IDEA-001</code> — Problem / Intent Intake</a></li>
+<li><a download href="functions/IDEA-002_intake-classification-and-sensitive-domain-gate.md"><code>IDEA-002</code> — Intake Classification and Sensitive-Domain Gate</a></li>
+<li><a download href="functions/IDEA-003_user-and-outcome-clarification.md"><code>IDEA-003</code> — User and Outcome Clarification</a></li>
+<li><a download href="functions/IDEA-004_project-discovery-and-capability-map.md"><code>IDEA-004</code> — Project Discovery and Capability Map</a></li>
+<li><a download href="functions/IDEA-005_gap-and-conflict-discovery.md"><code>IDEA-005</code> — Gap and Conflict Discovery</a></li>
+<li><a download href="functions/IDEA-006_project-brief-and-specification-builder.md"><code>IDEA-006</code> — Project Brief and Specification Builder</a></li>
+<li><a download href="functions/IDEA-007_technical-assignment.md"><code>IDEA-007</code> — Technical Assignment</a></li>
+<li><a download href="functions/IDEA-008_first-vertical-slice-selector-and-capability-reconstruction.md"><code>IDEA-008</code> — First Vertical Slice Selector and Capability Reconstruction</a></li>
+<li><a download href="functions/IDEA-009_architecture-need-check-and-input-intake.md"><code>IDEA-009</code> — Architecture Need Check and Input Intake</a></li>
+<li><a download href="functions/IDEA-010_architecture-assistant.md"><code>IDEA-010</code> — Architecture Assistant</a></li>
+<li><a download href="functions/IDEA-011_architecture-option-comparison-and-adr-builder.md"><code>IDEA-011</code> — Architecture Option Comparison and ADR Builder</a></li>
+<li><a download href="functions/IDEA-012_stack-preset-registry.md"><code>IDEA-012</code> — Stack Preset Registry</a></li>
+<li><a download href="functions/IDEA-013_pattern-solution-library-and-fit-matrix.md"><code>IDEA-013</code> — Pattern / Solution Library and Fit Matrix</a></li>
+<li><a download href="functions/IDEA-014_architecture-evidence-and-human-checkpoint-package.md"><code>IDEA-014</code> — Architecture Evidence and Human Checkpoint Package</a></li>
+<li><a download href="functions/IDEA-015_architecture-to-task-traceability.md"><code>IDEA-015</code> — Architecture-to-Task Traceability</a></li>
+<li><a download href="functions/IDEA-016_task-generation-and-task-brief.md"><code>IDEA-016</code> — Task Generation and Task Brief</a></li>
+<li><a download href="functions/IDEA-017_hierarchical-backlog-lazy-decomposition-and-queue.md"><code>IDEA-017</code> — Hierarchical Backlog, Lazy Decomposition and Queue</a></li>
+<li><a download href="functions/IDEA-018_action-preflight.md"><code>IDEA-018</code> — Action Preflight</a></li>
+<li><a download href="functions/IDEA-019_execution-preview.md"><code>IDEA-019</code> — Execution Preview</a></li>
+<li><a download href="functions/IDEA-020_scoped-execution.md"><code>IDEA-020</code> — Scoped Execution</a></li>
+<li><a download href="functions/IDEA-021_controlled-execution-guard.md"><code>IDEA-021</code> — Controlled Execution Guard</a></li>
+<li><a download href="functions/IDEA-022_unified-result-contract-validationenvelope.md"><code>IDEA-022</code> — Unified Result Contract / ValidationEnvelope</a></li>
+<li><a download href="functions/IDEA-023_unified-validation-cli.md"><code>IDEA-023</code> — Unified Validation CLI</a></li>
+<li><a download href="functions/IDEA-024_doctor-and-self-test.md"><code>IDEA-024</code> — Doctor and Self-Test</a></li>
+<li><a download href="functions/IDEA-025_evidence-collection.md"><code>IDEA-025</code> — Evidence Collection</a></li>
+<li><a download href="functions/IDEA-026_compact-human-review-package.md"><code>IDEA-026</code> — Compact Human Review Package</a></li>
+<li><a download href="functions/IDEA-027_independent-read-only-review.md"><code>IDEA-027</code> — Independent Read-only Review</a></li>
+<li><a download href="functions/IDEA-028_human-decision-record-and-false-pass-wording-guard.md"><code>IDEA-028</code> — Human Decision Record and False-PASS Wording Guard</a></li>
+<li><a download href="functions/IDEA-029_diff-and-scope-reconciliation.md"><code>IDEA-029</code> — Diff and Scope Reconciliation</a></li>
+<li><a download href="functions/IDEA-030_disposable-validation-subject.md"><code>IDEA-030</code> — Disposable Validation Subject</a></li>
+<li><a download href="functions/IDEA-031_candidate-freeze-and-identity.md"><code>IDEA-031</code> — Candidate Freeze and Identity</a></li>
+<li><a download href="functions/IDEA-032_recovery-resume-and-rollback.md"><code>IDEA-032</code> — Recovery, Resume and Rollback</a></li>
+<li><a download href="functions/IDEA-033_git-lifecycle-closure.md"><code>IDEA-033</code> — Git Lifecycle Closure</a></li>
+<li><a download href="functions/IDEA-034_denied-action-log-and-state-recovery-view.md"><code>IDEA-034</code> — Denied Action Log and State Recovery View</a></li>
+<li><a download href="functions/IDEA-035_project-memory.md"><code>IDEA-035</code> — Project Memory</a></li>
+<li><a download href="functions/IDEA-036_session-handoff.md"><code>IDEA-036</code> — Session Handoff</a></li>
+<li><a download href="functions/IDEA-037_context-priority-rules.md"><code>IDEA-037</code> — Context Priority Rules</a></li>
+<li><a download href="functions/IDEA-038_task-scoped-context-pack.md"><code>IDEA-038</code> — Task-scoped Context Pack</a></li>
+<li><a download href="functions/IDEA-039_rag-light-context-index.md"><code>IDEA-039</code> — RAG-light Context Index</a></li>
+<li><a download href="functions/IDEA-040_advisory-model-routing.md"><code>IDEA-040</code> — Advisory Model Routing</a></li>
+<li><a download href="functions/IDEA-041_explicit-subagent-routing-routing-audit-and-provider-evaluation.md"><code>IDEA-041</code> — Explicit Subagent Routing, Routing Audit and Provider Evaluation</a></li>
+<li><a download href="functions/IDEA-042_installer-dry-run.md"><code>IDEA-042</code> — Installer Dry-run</a></li>
+<li><a download href="functions/IDEA-043_safe-apply-and-manual-transfer.md"><code>IDEA-043</code> — Safe Apply and Manual Transfer</a></li>
+<li><a download href="functions/IDEA-044_safe-update-and-uninstall.md"><code>IDEA-044</code> — Safe Update and Uninstall</a></li>
+<li><a download href="functions/IDEA-045_installation-manifest-and-version-detection.md"><code>IDEA-045</code> — Installation Manifest and Version Detection</a></li>
+<li><a download href="functions/IDEA-046_example-project-and-onboarding.md"><code>IDEA-046</code> — Example Project and Onboarding</a></li>
+<li><a download href="functions/IDEA-047_beginner-tutor.md"><code>IDEA-047</code> — Beginner Tutor</a></li>
+<li><a download href="functions/IDEA-048_simple-control-surface.md"><code>IDEA-048</code> — Simple Control Surface</a></li>
+<li><a download href="functions/IDEA-049_status-next-details-stable-cli-output-and-first-safe-commands.md"><code>IDEA-049</code> — Status / Next / Details, Stable CLI Output and First Safe Commands</a></li>
+<li><a download href="functions/IDEA-050_action-trust-boundary.md"><code>IDEA-050</code> — Action Trust Boundary</a></li>
+<li><a download href="functions/IDEA-051_permission-state-classifier-and-error-taxonomy.md"><code>IDEA-051</code> — Permission State Classifier and Error Taxonomy</a></li>
+<li><a download href="functions/IDEA-052_prompt-injection-boundary-for-external-content.md"><code>IDEA-052</code> — Prompt Injection Boundary for External Content</a></li>
+<li><a download href="functions/IDEA-053_protected-path-write-and-command-allowlists.md"><code>IDEA-053</code> — Protected Path, Write and Command Allowlists</a></li>
+<li><a download href="functions/IDEA-054_network-sandbox-and-git-permission-gate.md"><code>IDEA-054</code> — Network, Sandbox and Git Permission Gate</a></li>
+<li><a download href="functions/IDEA-055_runtime-enforcement-layer.md"><code>IDEA-055</code> — Runtime Enforcement Layer</a></li>
+<li><a download href="functions/IDEA-056_isolated-execution-environment.md"><code>IDEA-056</code> — Isolated Execution Environment</a></li>
+<li><a download href="functions/IDEA-057_progressive-governance-modes.md"><code>IDEA-057</code> — Progressive Governance Modes</a></li>
+<li><a download href="functions/IDEA-058_advanced-governance-gates.md"><code>IDEA-058</code> — Advanced Governance Gates</a></li>
+<li><a download href="functions/IDEA-059_registry-drift-source-of-truth-guard-and-human-decision-authenticity.md"><code>IDEA-059</code> — Registry / Drift, Source-of-Truth Guard and Human Decision Authenticity</a></li>
+<li><a download href="functions/IDEA-060_advisory-ci-and-ci-smoke.md"><code>IDEA-060</code> — Advisory CI and CI Smoke</a></li>
+<li><a download href="functions/IDEA-061_release-checklist-and-promotion-package.md"><code>IDEA-061</code> — Release Checklist and Promotion Package</a></li>
+<li><a download href="functions/IDEA-062_version-changelog-tag-and-rollback-assistant.md"><code>IDEA-062</code> — Version, Changelog, Tag and Rollback Assistant</a></li>
+<li><a download href="functions/IDEA-063_observability-and-audit-log.md"><code>IDEA-063</code> — Observability and Audit Log</a></li>
+<li><a download href="functions/IDEA-064_continuous-improvement-lessons-feedback-and-dependency-security-audit.md"><code>IDEA-064</code> — Continuous Improvement, Lessons Feedback and Dependency/Security Audit</a></li>
+<li><a download href="functions/IDEA-065_extension-plugin-model.md"><code>IDEA-065</code> — Extension / Plugin Model</a></li>
+<li><a download href="functions/IDEA-066_domain-modules.md"><code>IDEA-066</code> — Domain Modules</a></li>
+<li><a download href="functions/IDEA-067_medical-domain-module.md"><code>IDEA-067</code> — Medical Domain Module</a></li>
+<li><a download href="functions/IDEA-068_design-module.md"><code>IDEA-068</code> — Design Module</a></li>
+<li><a download href="functions/IDEA-069_workbench-saas-ui.md"><code>IDEA-069</code> — Workbench / SaaS UI</a></li>
+<li><a download href="functions/IDEA-070_template-export-prompt-packs-capability-modules-cross-repo-context-localization-and-policy.md"><code>IDEA-070</code> — Template Export, Prompt Packs, Capability Modules, Cross-Repo Context, Localization and Policy Overlays</a></li>
+<li><a download href="functions/IDEA-071_structured-loader-adapter-and-strict-data-loader.md"><code>IDEA-071</code> — Structured Loader Adapter and Strict Data Loader</a></li>
+<li><a download href="functions/IDEA-072_parser-and-status-fragmentation-inventory-with-sunset-plan.md"><code>IDEA-072</code> — Parser and Status Fragmentation Inventory with Sunset Plan</a></li>
+<li><a download href="functions/IDEA-073_registry-silent-data-loss-audit.md"><code>IDEA-073</code> — Registry Silent Data-Loss Audit</a></li>
+<li><a download href="functions/IDEA-074_safe-runner-kernels.md"><code>IDEA-074</code> — Safe Runner Kernels</a></li>
+<li><a download href="functions/IDEA-075_document-task-registry-and-queue-helpers.md"><code>IDEA-075</code> — Document, Task Registry and Queue Helpers</a></li>
+<li><a download href="functions/IDEA-076_task-brief-compiler-and-report-builder.md"><code>IDEA-076</code> — Task Brief Compiler and Report Builder</a></li>
+<li><a download href="functions/IDEA-077_manifest-package-integrity-and-cross-reference-validator.md"><code>IDEA-077</code> — Manifest, Package Integrity and Cross-Reference Validator</a></li>
+<li><a download href="functions/IDEA-078_schema-runtime-drift-module-boundaries-negative-fixtures-bootstrap-and-quality-tooling.md"><code>IDEA-078</code> — Schema / Runtime Drift, Module Boundaries, Negative Fixtures, Bootstrap and Quality Tooling</a></li>
+<li><a download href="functions/IDEA-079_auto-scaling-intake-mode.md"><code>IDEA-079</code> — Auto-Scaling Intake Mode</a></li>
+<li><a download href="functions/IDEA-080_ready-spec-vs-build-from-scratch-entry.md"><code>IDEA-080</code> — Ready-Spec vs Build-from-Scratch Entry</a></li>
+<li><a download href="functions/IDEA-081_problem-interview-with-draft-capture.md"><code>IDEA-081</code> — Problem Interview with Draft Capture</a></li>
+<li><a download href="functions/IDEA-082_aos-chat-interaction-surface.md"><code>IDEA-082</code> — AOS Chat Interaction Surface</a></li>
+<li><a download href="functions/IDEA-083_beginner-standard-expert-interaction-modes.md"><code>IDEA-083</code> — Beginner / Standard / Expert Interaction Modes</a></li>
+<li><a download href="functions/IDEA-084_artifact-decision-blocker-and-evidence-cards.md"><code>IDEA-084</code> — Artifact, Decision, Blocker and Evidence Cards</a></li>
+<li><a download href="functions/IDEA-085_repository-verified-session-resume.md"><code>IDEA-085</code> — Repository-Verified Session Resume: «На чём мы остановились?»</a></li>
+<li><a download href="functions/IDEA-086_repository-ideas-workspace.md"><code>IDEA-086</code> — Repository Ideas Workspace</a></li>
+<li><a download href="functions/IDEA-087_idea-deduplication-and-promotion-to-draft-task.md"><code>IDEA-087</code> — Idea Deduplication and Promotion to DRAFT Task</a></li>
+<li><a download href="functions/IDEA-088_project-ux-skeleton.md"><code>IDEA-088</code> — Project UX Skeleton</a></li>
+<li><a download href="functions/IDEA-089_ux-pattern-library-advisory-suggestions.md"><code>IDEA-089</code> — UX Pattern Library Advisory Suggestions</a></li>
+<li><a download href="functions/IDEA-090_online-market-pattern-research-with-source-and-license-policy.md"><code>IDEA-090</code> — Online Market Pattern Research with Source and License Policy</a></li>
+<li><a download href="functions/IDEA-091_requirement-to-ux-to-slice-to-task-to-code-to-test-evidence-traceability.md"><code>IDEA-091</code> — Requirement → UX → Slice → Task → Code → Test/Evidence Traceability</a></li>
+<li><a download href="functions/IDEA-092_full-multi-agent-coordination.md"><code>IDEA-092</code> — Full Multi-Agent Coordination</a></li>
+<li><a download href="functions/IDEA-093_evidence-aware-claim-classifier-and-provenance-binder.md"><code>IDEA-093</code> — Evidence-Aware Claim Classifier and Provenance Binder</a></li>
+<li><a download href="functions/IDEA-094_adi-reasoning-cycle-abduction-to-deduction-to-induction.md"><code>IDEA-094</code> — ADI Reasoning Cycle: Abduction → Deduction → Induction</a></li>
+<li><a download href="functions/IDEA-095_alternative-matrix-and-weakest-link-analysis.md"><code>IDEA-095</code> — Alternative Matrix and Weakest-Link Analysis</a></li>
+<li><a download href="functions/IDEA-096_evidence-decay-and-revalidation-trigger-manager.md"><code>IDEA-096</code> — Evidence Decay and Revalidation Trigger Manager</a></li>
+<li><a download href="functions/IDEA-097_ux-contract-builder.md"><code>IDEA-097</code> — UX Contract Builder</a></li>
+<li><a download href="functions/IDEA-098_ux-structural-validator.md"><code>IDEA-098</code> — UX Structural Validator</a></li>
+<li><a download href="functions/IDEA-099_safe-static-preview-generator.md"><code>IDEA-099</code> — Safe Static Preview Generator</a></li>
+<li><a download href="functions/IDEA-100_visual-direction-snapshot.md"><code>IDEA-100</code> — Visual-Direction Snapshot</a></li></ul>
+</body></html>
