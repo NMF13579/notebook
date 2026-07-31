@@ -1,0 +1,25 @@
+# Operating systems
+.DS_Store
+Thumbs.db
+
+# Editor temporary files
+*.swp
+*.swo
+*~
+
+# Python cache used by package validation
+__pycache__/
+*.py[cod]
+
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+
+# Local temporary output
+tmp/
+temp/
+.cache/
+
+# Local logs
+*.log

@@ -2,14 +2,14 @@
 artifact_id: AOS3-DPKG-DOC-007
 artifact_type: IMPLEMENTATION_HANDOFF
 package_id: AOS3-DEVELOPMENT-PACKAGE
-package_revision: DRAFT-R14
-revision: R12
-status: DRAFT_R14_ROUTE_A_TRACE_CORRECTION_HANDOFF_READY_FOR_SEPARATE_VALIDATE
+package_revision: DRAFT-R15
+revision: R13
+status: DRAFT_R15_TARGET_BOOTSTRAP_AND_TASK_DERIVATION_OWNER
 authority: PROPOSAL_AND_PORTABLE_ROUTING
-exact_subject: Portable development order, contract acceptance gate, repository binding, Task compilation, checks, recovery, and transfer into a future AOS Core v1 implementation repository
+exact_subject: Deterministic target bootstrap, feature contract, lazy Task derivation, target binding, readiness and authorization stop
 created: '2026-07-30'
-human_acceptance: C1_ACCEPTED_126_CURRENT_11_STALE_10_NEW_AC_AND_2_NEW_SCHEMA_DRAFT
-provenance:
+human_acceptance: NOT_RUN
+historical_r14_provenance:
   - path: ../../docs/00_Core.md
     use: source precedence and human authority
   - path: ../../docs/03_Development.md
@@ -26,20 +26,20 @@ provenance:
     use: exact C1 acceptance and accepted-subject manifest
   - path: decisions/DEC-CORR-001_Package_Local_Task_Namespace.md
     use: package-local Task namespace and bounded correction authority
-upstream_links:
+historical_r14_upstream_links:
   - 00_Control_and_Source_Precedence.md
   - 03_Architecture_and_Decisions.md
   - 04_Runtime_and_Data_Contracts.md
   - 05_Quality_Recovery_and_Security.md
   - 06_Traceability_and_Readiness.md
   - decisions/DEC-CORR-001_Package_Local_Task_Namespace.md
-downstream_links:
+historical_r14_downstream_links:
   - adapters/CODEX.md
   - tasks/TASK-TEMPLATE.md
   - tasks/TASK-GRAPH.md
   - tasks/AOS3-DPKG-TASK-001_Core_Scaffold.md
   - tasks/AOS3-DPKG-TASK-002_Local_Bootstrap.md
-limitations:
+historical_r14_limitations:
   - Implementation repository is deliberately UNASSIGNED; repository creation is not authorized.
   - Exact repository baseline, paths, dependencies, and commands remain unresolved.
   - Task template, graph, and two Task Briefs are DRAFT candidates and are not human-accepted.
@@ -47,11 +47,241 @@ limitations:
   - BLK-006 prevents canonical TechnicalResult/ResultEnvelope conformance and readiness claims until a separate canonical decision.
   - This handoff does not authorize implementation or any Git action.
 implementation_repository: UNASSIGNED
+current_state_owner: ../development-package-state/CURRENT.md
+portability_direction_owner: ../development-package-state/PORTABILITY_DIRECTION_2026-07-31.md
+feature_selection_template: ../templates/FIRST_VERTICAL_SLICE_SELECTION.template.md
+feature_contract_template: ../templates/FEATURE_CONTRACT.template.md
+portable_task_candidate_template: ../templates/PORTABLE_TASK_CANDIDATE.template.md
+target_binding_template: ../templates/TARGET_REPOSITORY_BINDING.template.md
+target_task_brief_template: ../templates/TASK_BRIEF.template.md
+execution_authorization_template: ../templates/EXECUTION_AUTHORIZATION.template.md
 implementation_authorization: NONE
 git_authorization: NONE
 ---
 
-# 07 — Implementation Handoff
+# 07 — DRAFT-R15 Target Bootstrap and Task Derivation
+
+## Active deterministic flow
+
+Этот document — единственный active owner bootstrap/task-derivation flow. Он
+не выбирает feature, architecture, repository, toolchain, dependencies, Risk
+Profile или permission.
+
+1. Copy entire `AOS-3/` into target repository.
+2. Start at [`AOS-3/AGENTS.md`](../AGENTS.md).
+3. Run `python3 AOS-3/validation/validate_portable_package.py`.
+4. Run read-only target repository preflight.
+5. Materialize Target Repository Binding from observations.
+6. Present protected unknowns and decisions to the human.
+7. Obtain exact first vertical slice selection.
+8. Create or update a feature-specific Product Contract.
+9. Obtain human decision on the exact Product Contract revision.
+10. Perform lazy task decomposition.
+11. Create Portable Task Candidates.
+12. Compile one selected candidate into a Target-Bound Task Brief.
+13. Run Task Readiness Validation.
+14. Obtain human decision on the exact Task Brief revision.
+15. Obtain a human-assigned Risk Profile.
+16. Obtain separate Execution Authorization.
+17. Execute one authorized stage.
+18. Stop and create a Stage Report.
+19. Run separate `VALIDATE`.
+20. Run `REVIEW` and obtain a human decision.
+21. Treat Commit, Push, Merge and Release as separate permissions.
+
+The flow is independent of target repository name, path and branch.
+
+## Package and target preflight
+
+Before target preflight, package state is:
+
+```yaml
+portable_binding_state: PORTABLE_UNBOUND
+implementation_repository: UNASSIGNED
+target_repository_facts: NOT_RUN
+human_feature_selection:
+  technical_result: NOT_RUN
+implementation_authorization: NONE
+git_authorization: NONE
+```
+
+Target preflight is observation only. Record through
+[`TARGET_REPOSITORY_BINDING.template.md`](../templates/TARGET_REPOSITORY_BINDING.template.md):
+
+```yaml
+required_observations:
+  - repository_root
+  - repository_identity
+  - branch
+  - HEAD
+  - baseline
+  - worktree_status
+  - staged_changes
+  - unstaged_changes
+  - untracked_changes
+  - remote
+  - nested_repositories
+  - symlinks
+  - available_toolchain
+  - dependency_state
+  - validation_entrypoints
+  - network_state
+  - sandbox_state
+  - observed_at
+  - observation_method
+binding_state_after_complete_observation: TARGET_BOUND_FOR_PLANNING
+mutation_effect: NONE
+authorization_effect: NONE
+```
+
+Never clean the worktree, install dependencies, probe the network without an
+exact need, create a repository or change repository role during preflight.
+
+## Human feature selection and Feature Contract
+
+Use
+[`FIRST_VERTICAL_SLICE_SELECTION.template.md`](../templates/FIRST_VERTICAL_SLICE_SELECTION.template.md).
+Until an exact human decision exists:
+
+```yaml
+portable_package_readiness:
+  readiness_state: READY
+feature_selection:
+  technical_result: NOT_RUN
+feature_contract_readiness:
+  readiness_state: NOT_APPLICABLE
+  reason: HUMAN_FEATURE_SELECTION_NOT_RUN
+task_derivation:
+  readiness_state: BLOCKED_BY_HUMAN_GATE
+  reason: FIRST_VERTICAL_SLICE_SELECTION_REQUIRED
+```
+
+After selection, create the feature-specific contract from
+[`FEATURE_CONTRACT.template.md`](../templates/FEATURE_CONTRACT.template.md).
+Generic shared defaults and dossiers require feature-specific review. A DRAFT
+contract cannot feed Task derivation.
+
+## Lazy task decomposition
+
+Decompose only an accepted feature-specific contract and only along a real
+boundary:
+
+- independently observable user outcome;
+- dependency that can be accepted separately;
+- independent acceptance and negative-test set;
+- distinct risk or protection boundary;
+- separate recovery contract;
+- separate validation boundary.
+
+Do not generate a full backlog for all features. Create the minimum portable
+candidate set needed for the selected vertical slice through
+[`PORTABLE_TASK_CANDIDATE.template.md`](../templates/PORTABLE_TASK_CANDIDATE.template.md).
+
+```yaml
+portable_candidate:
+  binding_state: PORTABLE_UNBOUND
+  task_candidate_role: DRAFT_PORTABLE_CANDIDATE
+  repository_paths: FORBIDDEN
+  branch_and_HEAD: FORBIDDEN
+  dependency_versions: FORBIDDEN
+  target_commands: FORBIDDEN
+  assigned_Risk_Profile: UNASSIGNED
+  human_acceptance: NOT_RUN
+  implementation_authorization: NONE
+```
+
+## Target-Bound Task Brief
+
+Compile only the selected portable candidate and current target binding into
+[`TASK_BRIEF.template.md`](../templates/TASK_BRIEF.template.md). The Task Brief
+is the single scope owner and must bind:
+
+- exact feature contract identity;
+- exact target binding and current baseline;
+- allowed and forbidden paths/operations;
+- acceptance IDs to executable checks and expected results;
+- negative scenario IDs to fixtures/commands and expected results;
+- recovery, rollback, stop conditions and Evidence.
+
+Compilation adds observed target facts; it creates no acceptance, Risk Profile
+or authorization.
+
+## Task Readiness Validation
+
+Run:
+
+```bash
+python3 AOS-3/validation/validate_portable_package.py \
+  --task-brief TARGET_TASK_BRIEF_PATH
+```
+
+The validator checks:
+
+1. exact human feature selection exists;
+2. exact accepted Product Contract exists;
+3. material ADRs are resolved;
+4. target binding is complete and current;
+5. allowed/forbidden paths and operations exist;
+6. acceptance maps to executable checks;
+7. negative tests have fixture/command/expected result;
+8. recovery and stop conditions exist;
+9. hidden product/architecture decisions are absent;
+10. human Task decision exists;
+11. authorization remains separate.
+
+A failure blocks only the dependent Task. Author self-check is mechanical
+Evidence with `independence: NONE`; it cannot accept a Task.
+
+## Existing R14 Task artifacts
+
+The exact file/Task classification is owned by
+[`SUBJECT_STATE_REGISTRY_R15.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R15.md).
+Summary:
+
+```yaml
+TASK-TEMPLATE.md:
+  task_candidate_role: SUPERSEDED_REFERENCE
+  dependency_state: NOT_APPLICABLE
+TASK-GRAPH.md:
+  task_candidate_role: SUPERSEDED_REFERENCE
+  dependency_state: HUMAN_DECISION_REQUIRED
+AOS3-DPKG-TASK-001:
+  task_candidate_role: SUPERSEDED_REFERENCE
+  dependency_state: CURRENT_ACCEPTED
+  executable: false
+AOS3-DPKG-TASK-002:
+  task_candidate_role: SUPERSEDED_REFERENCE
+  dependency_state: CURRENT_ACCEPTED
+  executable: false
+AOS3-DPKG-TASK-003_TO_007:
+  task_candidate_role: SUPERSEDED_REFERENCE
+  executable: false
+```
+
+No R14 Task has an exact human Task decision, target binding, assigned Risk
+Profile or Execution Authorization.
+
+## Authorization and stop
+
+Only a separate human-issued record based on
+[`EXECUTION_AUTHORIZATION.template.md`](../templates/EXECUTION_AUTHORIZATION.template.md)
+may create `EXECUTION_BOUND`.
+
+```yaml
+Task_Brief_is_authorization: false
+validation_PASS_is_authorization: false
+human_Task_acceptance_is_authorization: false
+Commit_authorization: NONE
+Push_authorization: NONE
+Merge_authorization: NONE
+Release_authorization: NONE
+```
+
+At every human gate, stop without selecting a default or broadening scope.
+
+<!-- HISTORICAL_R14_APPENDIX_BEGIN -->
+
+# Historical appendix — DRAFT-R14 handoff snapshot
 
 ## 1. Current handoff state
 
@@ -407,3 +637,5 @@ git_authorization: NONE
 next_required_action: AUTHORIZE_SEPARATE_VALIDATE_DRAFT_R14
 stop: true
 ```
+
+<!-- HISTORICAL_R14_APPENDIX_END -->

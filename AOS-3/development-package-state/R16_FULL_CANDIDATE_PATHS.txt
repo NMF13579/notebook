@@ -1,0 +1,16 @@
+ACTIVE_SUBJECTS_R16.txt
+AGENTS.md
+README.md
+ROOT_FILES_MANIFEST.yaml
+development-package-state/CURRENT.md
+development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256
+development-package-state/R16_AUTHOR_EXECUTION_REPORT.md
+development-package-state/R16_FULL_CANDIDATE_MANIFEST.sha256
+development-package-state/R16_FULL_CANDIDATE_PATHS.txt
+development-package-state/SUBJECT_STATE_REGISTRY_R16.md
+root/.agents/rules/aos.md
+root/.gitignore
+root/AGENTS.md
+root/README.md
+validation/test_validate_portable_package.py
+validation/validate_portable_package.py

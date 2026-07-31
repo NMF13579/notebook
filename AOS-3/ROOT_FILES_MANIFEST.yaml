@@ -1,0 +1,104 @@
+manifest_id: AOS-ROOT-FILES-MANIFEST-R2
+manifest_class: ROOT_PAYLOAD_COPY_CONTRACT
+package_revision: DRAFT-R16
+status: DRAFT
+
+target_repository_class:
+  supported: GREENFIELD_OR_EMPTY_ROOT
+  existing_repository_adoption: SEPARATE_HUMAN_DECISION_AND_TASK_REQUIRED
+
+source:
+  root_base: TARGET_REPOSITORY_ROOT
+  relative_path: AOS-3/root/
+
+target:
+  root_base: OBSERVED_TARGET_REPOSITORY_ROOT
+  relative_path: ./
+
+materialization:
+  mode: COPY
+  copy_semantics: RAW_BYTES
+  preserve_source: true
+  text_encoding: UTF-8
+  line_endings: PRESERVE_SOURCE_LF
+  create_missing_parent_directories: true
+  follow_symlinks: false
+  automatic_overwrite: FORBIDDEN
+  automatic_merge: FORBIDDEN
+  partial_materialization: FORBIDDEN
+
+materialization_transaction:
+  phase_1: PREFLIGHT_ALL_TARGET_PATHS
+  writes_before_full_preflight: FORBIDDEN
+  conflict_scope: WHOLE_ROOT_PAYLOAD
+  on_any_different_target: BLOCK_BEFORE_WRITE
+  phase_2: COPY_ONLY_MISSING_PATHS
+  identical_target_action: NOOP
+  post_copy_validation: REQUIRED
+  on_post_copy_failure:
+    rollback_required: true
+    remove_only_paths_created_by_this_run: true
+    modify_preexisting_paths: false
+    preserve_source_payload: true
+
+conflict_policy:
+  target_missing: COPY
+  target_exists_identical: NOOP
+  target_exists_different: BLOCKED
+  reason_code: ROOT_FILE_CONFLICT
+  human_review_required: true
+
+canonical_instruction_owner: AOS-3/AGENTS.md
+root_files_role: THIN_TARGET_ADAPTERS
+
+files:
+  - source: AGENTS.md
+    target: AGENTS.md
+    role: REPOSITORY_AGENT_ROUTER
+    required: true
+
+  - source: README.md
+    target: README.md
+    role: HUMAN_ENTRYPOINT
+    required: true
+
+  - source: .gitignore
+    target: .gitignore
+    role: MINIMAL_SHARED_IGNORE_BASE
+    required: true
+
+  - source: .agents/rules/aos.md
+    target: .agents/rules/aos.md
+    role: ANTIGRAVITY_WORKSPACE_RULE
+    required: true
+    activation_state:
+      technical_result: NOT_RUN
+      reason: HUMAN_WORKSPACE_VERIFICATION_REQUIRED
+
+excluded_root_paths:
+  - llms.txt
+  - GEMINI.md
+  - .github/**
+  - .codex/**
+
+deferred_artifact_classes:
+  - RUNTIME_MANIFEST
+  - TOOLCHAIN_MANIFEST
+  - CI_CONFIGURATION
+  - CLOUD_CONFIGURATION
+
+root_materialization_preconditions:
+  - ROOT_MATERIALIZATION_PREFLIGHT_COMPLETE
+  - DOCUMENTATION_MUTATION_AUTHORIZATION_GRANTED
+
+postconditions:
+  - SOURCE_PAYLOAD_PRESERVED
+  - TARGET_PATHS_MATCH_SOURCE_RAW_BYTES
+  - ROOT_AGENT_ROUTE_RESOLVES_TO_AOS_3
+  - ANTIGRAVITY_RULE_REFERENCES_RESOLVE
+  - NO_PARTIAL_MATERIALIZATION
+  - NO_IMPLEMENTATION_AUTHORIZATION_CREATED
+  - NO_GIT_AUTHORIZATION_CREATED
+
+implementation_authorization: NONE
+git_authorization: NONE

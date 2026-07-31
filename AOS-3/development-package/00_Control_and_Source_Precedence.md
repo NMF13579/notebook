@@ -2,24 +2,25 @@
 artifact_id: AOS3-DPKG-DOC-000
 artifact_type: CONTROL_AND_SOURCE_PRECEDENCE
 package_id: AOS3-DEVELOPMENT-PACKAGE
-package_revision: DRAFT-R14
-revision: R14
-status: DRAFT_R14_ROUTE_A_TRACE_CORRECTION_CANDIDATE_READY_FOR_SEPARATE_VALIDATE
+package_revision: DRAFT-R15
+revision: R15
+status: DRAFT_R15_PORTABLE_CONTROL_OWNER
 authority: PROPOSAL
-exact_subject: Portable contract-first package control, source precedence, accepted G1/G2/C1 decisions, Stage C Task candidate inventory, and agent entrypoint for AOS Core v1
+exact_subject: Active DRAFT-R15 package authority, source precedence, supersession, status axes, portability and authorization boundary
 created: '2026-07-30'
 document_language: ru
 technical_identifiers_language: en
-source_repository: NMF13579/notebook
-source_branch: dev
+source_repository_binding: NONE
+historical_r14_source_repository: NMF13579/notebook
+historical_r14_source_branch: dev
 source_head_at_stage_a_preflight: e1c3bd27f9417d99b365e88525b9a58a2563ec2a
 source_head_at_stage_b_preflight: e1c3bd27f9417d99b365e88525b9a58a2563ec2a
 source_head_at_stage_c_preflight: e1c3bd27f9417d99b365e88525b9a58a2563ec2a
-canonical_knowledge_path: docs/
+historical_r14_canonical_knowledge_path: docs/
 implementation_repository: UNASSIGNED
-human_acceptance: G1_G2_AND_C1_126_CURRENT_11_STALE_10_NEW_AC_AND_2_NEW_SCHEMA_DRAFT
-stage_state: CORRECTION_EXECUTE_DRAFT_R14_COMPLETED
-provenance:
+human_acceptance: NOT_RUN
+stage_state: EXECUTE_DRAFT_R15_AUTHOR_MUTATION
+historical_r14_provenance:
   - path: ../../docs/00_Core.md
     sha256: 96787a64585264e9f0d6beb1aab28bc717f80436003dfc6c093736541a95c34c
     use: project identity, authority, source precedence, and safety
@@ -44,13 +45,13 @@ provenance:
   - path: ../AOS_Core_Roadmap.md
     sha256: 03208f742a101819da93b2d215252243012e2fb586b3731a1f57e3bb33a93321
     use: DRAFT RMP-001 through RMP-008 documentation pipeline
-upstream_links:
+historical_r14_external_links:
   - ../../docs/00_Core.md
   - ../../docs/01_Product.md
   - ../../docs/03_Development.md
   - ../../docs/06_Features.md
   - ../AOS_Core_Roadmap.md
-downstream_links:
+historical_r14_subject_inventory:
   - 01_Product_and_Core_V1_Scope.md
   - 02_User_Journeys_and_Workflows.md
   - 03_Architecture_and_Decisions.md
@@ -69,7 +70,7 @@ downstream_links:
   - tasks/AOS3-DPKG-TASK-001_Core_Scaffold.md
   - tasks/AOS3-DPKG-TASK-002_Local_Bootstrap.md
   - adapters/CODEX.md
-limitations:
+historical_r14_limitations:
   - The package is a pilot-only DRAFT candidate.
   - G1 is bound to the exact Stage A aggregate SHA-256.
   - G2 decisions are bound to the exact Stage B aggregate SHA-256.
@@ -85,7 +86,7 @@ limitations:
   - DRAFT-R13 derived materialized Task projections from existing Task Brief `derived_from` fields and added the omitted Task-002 entry and existing CTR-002 zero-write Evidence path; its separate validation failed on `VAL-R13-001` and `VAL-R13-002`.
   - DRAFT-R14 route A removes the unsupported `REQ-ARCH-009 → CTR-002 → AOS3-DPKG-TASK-002` derivation, retains `REQ-ARCH-009` as a deferred `DEC-ARCH-008` compatibility boundary, and removes the non-derived materialized-Task note from the `REQ-WF-006` forward Task projection; independent validation remains NOT_RUN.
   - No implementation, independent validation, or Git operations are authorized.
-documentation_mutation_authorization:
+historical_r14_documentation_mutation_authorization:
   stage: CORRECTION_EXECUTE_DRAFT_R14_FOR_VAL_R13_001_AND_VAL_R13_002
   source: USER_EXACT_R14_ROUTE_A_CORRECTION_EXECUTE_AUTHORIZATION_2026-07-31
   received_at: '2026-07-31T04:38:14Z'
@@ -109,11 +110,215 @@ documentation_mutation_authorization:
   roadmap_mutation: FORBIDDEN
   independent_validation: FORBIDDEN
   consumed_for_this_candidate: true
+current_state_owner: ../development-package-state/CURRENT.md
+portability_direction_owner: ../development-package-state/PORTABILITY_DIRECTION_2026-07-31.md
+active_subject_registry: ../ACTIVE_SUBJECTS_R15.txt
+subject_state_registry: ../development-package-state/SUBJECT_STATE_REGISTRY_R15.md
+bootstrap_workflow_owner: 07_Implementation_Handoff.md
+r15_independent_validation: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 ---
 
-# 00 — Control and Source Precedence
+# 00 — DRAFT-R15 Control and Source Precedence
+
+## Active R15 authority contract
+
+Этот section является active owner. Appendix ниже сохраняет R14 text как
+`HISTORICAL_EVIDENCE`; его current-state, source-repository и next-action
+claims не являются active R15 facts.
+
+```text
+Documentation ≠ implementation
+Accepted R14 aggregate ≠ accepted R15 aggregate
+Unchanged path name ≠ unchanged subject identity
+Feature dossier ≠ implementation-ready contract
+Portable Task Candidate ≠ Target-Bound Task Brief
+Task Brief ≠ Execution Authorization
+PASS ≠ approval
+Readiness ≠ permission
+Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
+```
+
+## Source precedence
+
+```text
+current explicit human decision
+→ accepted subject owner in its exact fact class and acceptance scope
+→ latest applicable lifecycle sidecar/current-state route
+→ direct target repository observation for mutable target facts
+→ frozen candidate metadata as historical snapshot
+→ DRAFT/PROPOSAL
+→ reference Evidence
+→ inference
+```
+
+Rules:
+
+- newer timestamp creates no authority;
+- changed bytes inherit no acceptance;
+- path/name continuity does not prove subject identity;
+- supersession must name exact owner, subject and scope;
+- historical Evidence is not an active normative owner;
+- mutable target facts come only from target preflight;
+- `CONFLICT` or material `UNKNOWN` blocks only the affected claim/action.
+
+Current lifecycle routing is owned by
+[`CURRENT.md`](../development-package-state/CURRENT.md). The exact R14
+acceptance event remains in the unchanged
+[`R14_ACCEPTANCE_AND_DELIVERY.md`](../development-package-state/R14_ACCEPTANCE_AND_DELIVERY.md)
+and applies only to its bound R14 aggregate.
+
+## Portability and path contract
+
+Normative direction is owned by
+[`PORTABILITY_DIRECTION_2026-07-31.md`](../development-package-state/PORTABILITY_DIRECTION_2026-07-31.md).
+
+```yaml
+portable_root: AOS-3/
+copy_granularity: WHOLE_DIRECTORY
+required_external_operational_files: []
+required_source_repository_name: NONE
+required_source_branch: NONE
+required_source_commit: NONE
+target_repository_identity: OBSERVED_AT_TARGET_PREFLIGHT
+runtime_toolchain_binding: DEFERRED
+dependency_binding: DEFERRED
+implementation_authorization: NONE
+git_authorization: NONE
+logical_package_paths:
+  base: TARGET_REPOSITORY_ROOT
+  format: AOS-3/...
+markdown_links:
+  base: CONTAINING_FILE_DIRECTORY
+  format: RELATIVE_AND_RESOLVABLE
+absolute_operational_paths:
+  active_normative_content: FORBIDDEN
+```
+
+Binding states:
+
+- `PORTABLE_UNBOUND`: bootstrap allowed; repository-bound Task forbidden.
+- `TARGET_BOUND_FOR_PLANNING`: observed target facts recorded; mutation still
+  unauthorized.
+- `EXECUTION_BOUND`: exact accepted Task Brief plus separate valid Execution
+  Authorization bound to exact target subject.
+
+## Active status axes
+
+The exact current human prompt and the accepted project core agree on these
+active R15 axes:
+
+```yaml
+technical_result:
+  enum:
+    - CONTRACT_VIOLATION
+    - FAIL
+    - BLOCKED
+    - UNKNOWN
+    - NOT_RUN
+    - PASS
+    - HUMAN_REVIEW_REQUIRED
+human_decision:
+  enum:
+    - ACCEPT
+    - NEEDS_CHANGES
+    - REJECT
+    - DEFER
+feature_disposition:
+  enum:
+    - REQUIRED
+    - OPTIONAL
+    - DEFERRED
+    - REFERENCE_ONLY
+    - REJECTED
+    - UNDECIDED
+readiness_state:
+  enum:
+    - READY
+    - NOT_READY
+    - BLOCKED_BY_HUMAN_GATE
+    - NOT_APPLICABLE
+authorization_state:
+  enum:
+    - NONE
+    - GRANTED
+    - CONSUMED
+    - EXPIRED
+```
+
+Forbidden mixed tokens:
+
+```text
+PASS_OR_EXACT_LIMITATION
+NOT_APPLICABLE_UNTIL_SELECTION
+BLOCKED_BY_EXPECTED_HUMAN_GATE
+```
+
+Use a structured result instead:
+
+```yaml
+portable_package_integrity:
+  technical_result: PASS
+  limitations: []
+feature_contract_readiness:
+  readiness_state: NOT_APPLICABLE
+  reason: HUMAN_FEATURE_SELECTION_NOT_RUN
+```
+
+`BLK-006_CANONICAL_STATUS_AXIS_CONFLICT` is
+`RESOLVED_FOR_ACTIVE_DRAFT_R15_PACKAGE_SCOPE`: the active set uses the enum
+above and contains no competing owner. Canonical files outside `AOS-3/` are
+unchanged; historical R14 semantics remain historical Evidence and acquire no
+R15 conformance claim.
+
+## Acceptance and supersession
+
+```yaml
+r14_aggregate:
+  identity: EXACT_R14_AGGREGATE_ONLY
+  status: HUMAN_ACCEPTED_IN_DECLARED_SCOPE
+r15_aggregate:
+  status: DRAFT
+  human_acceptance: NOT_RUN
+new_or_modified_r15_subjects:
+  status: DRAFT
+  acceptance_inheritance: FORBIDDEN
+exact_byte_unchanged_r14_subjects:
+  default_role_without_exact_subject_proof: HISTORICAL_ACCEPTED_REFERENCE
+```
+
+The active/non-active classification owner is
+[`SUBJECT_STATE_REGISTRY_R15.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R15.md).
+The R15 candidate does not supersede accepted R14 until a separate exact human
+decision.
+
+## Conflict and authorization route
+
+For a conflict or material unknown:
+
+1. identify confirmed owners;
+2. state the exact conflict/unknown;
+3. identify the affected claim/action;
+4. block only that action;
+5. provide one human resolution step;
+6. do not fill the gap by inference.
+
+Package presence, author self-check `PASS`, target binding, Task readiness or
+human Task acceptance cannot create implementation or Git authority.
+
+```yaml
+r15_independent_validation: NOT_RUN
+r15_human_acceptance: NOT_RUN
+implementation_authorization: NONE
+git_authorization: NONE
+one_next_action: RUN_SEPARATE_READ_ONLY_INDEPENDENT_VALIDATE_OVER_FROZEN_DRAFT_R15
+stop: true
+```
+
+<!-- HISTORICAL_R14_APPENDIX_BEGIN -->
+
+# Historical appendix — DRAFT-R14 source snapshot
 
 ## 1. Назначение
 
@@ -666,3 +871,5 @@ Until a separate Stage D request binds the exact DRAFT-R14 package candidate:
 - do not install dependencies or execute runtime behavior;
 - do not begin Stage D automatically;
 - do not perform Commit, Push, Merge, or Release.
+
+<!-- HISTORICAL_R14_APPENDIX_END -->
