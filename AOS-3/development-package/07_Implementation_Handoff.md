@@ -2,11 +2,11 @@
 artifact_id: AOS3-DPKG-DOC-007
 artifact_type: IMPLEMENTATION_HANDOFF
 package_id: AOS3-DEVELOPMENT-PACKAGE
-package_revision: DRAFT-R15
-revision: R13
-status: DRAFT_R15_TARGET_BOOTSTRAP_AND_TASK_DERIVATION_OWNER
+package_revision: DRAFT-R17
+revision: R14
+status: DRAFT_R17_PRODUCT_TO_TARGET_TASK_DERIVATION_OWNER
 authority: PROPOSAL_AND_PORTABLE_ROUTING
-exact_subject: Deterministic target bootstrap, feature contract, lazy Task derivation, target binding, readiness and authorization stop
+exact_subject: Human-selected slice, accepted feature contract, portable Task derivation, later target binding, readiness and authorization stop
 created: '2026-07-30'
 human_acceptance: NOT_RUN
 historical_r14_provenance:
@@ -59,7 +59,7 @@ implementation_authorization: NONE
 git_authorization: NONE
 ---
 
-# 07 — DRAFT-R15 Target Bootstrap and Task Derivation
+# 07 — DRAFT-R17 Product-to-Target Task Derivation
 
 ## Active deterministic flow
 
@@ -67,45 +67,63 @@ git_authorization: NONE
 не выбирает feature, architecture, repository, toolchain, dependencies, Risk
 Profile или permission.
 
-1. Copy entire `AOS-3/` into target repository.
-2. Start at [`AOS-3/AGENTS.md`](../AGENTS.md).
-3. Run `python3 AOS-3/validation/validate_portable_package.py`.
-4. Run read-only target repository preflight.
-5. Materialize Target Repository Binding from observations.
-6. Present protected unknowns and decisions to the human.
-7. Obtain exact first vertical slice selection.
-8. Create or update a feature-specific Product Contract.
-9. Obtain human decision on the exact Product Contract revision.
-10. Perform lazy task decomposition.
-11. Create Portable Task Candidates.
-12. Compile one selected candidate into a Target-Bound Task Brief.
-13. Run Task Readiness Validation.
-14. Obtain human decision on the exact Task Brief revision.
-15. Obtain a human-assigned Risk Profile.
-16. Obtain separate Execution Authorization.
-17. Execute one authorized stage.
-18. Stop and create a Stage Report.
-19. Run separate `VALIDATE`.
-20. Run `REVIEW` and obtain a human decision.
-21. Treat Commit, Push, Merge and Release as separate permissions.
+```text
+human first vertical slice selection
+→ feature-specific Product/Feature Contract draft
+→ human acceptance of exact Feature Contract
+→ minimum Portable Task Candidate
+→ exact target repository assignment
+→ read-only target preflight and Target Repository Binding
+→ Target-Bound Task Brief
+→ human Task decision
+→ human-assigned Risk Profile
+→ separate Execution Authorization
+→ one bounded implementation stage
+```
 
-The flow is independent of target repository name, path and branch.
+1. Start at [`AOS-3/AGENTS.md`](../AGENTS.md) and current state.
+2. Run `python3 AOS-3/validation/validate_portable_package.py`.
+3. Obtain exact human first vertical slice selection.
+4. Create a feature-specific Product/Feature Contract draft.
+5. Obtain human acceptance of the exact Feature Contract revision.
+6. Perform lazy decomposition and create the minimum Portable Task Candidate.
+7. Obtain exact human target repository assignment.
+8. Run read-only target repository preflight.
+9. Materialize Target Repository Binding from direct observations.
+10. Compile the selected portable candidate into a Target-Bound Task Brief.
+11. Run Task Readiness Validation.
+12. Obtain human decision on the exact Task Brief revision.
+13. Obtain a human-assigned Risk Profile.
+14. Obtain separate Execution Authorization.
+15. Execute one authorized bounded implementation stage.
+16. Stop and create a Stage Report.
+17. Run separate `VALIDATE`.
+18. Run `REVIEW` and obtain a human decision.
+19. Treat Commit, Push, Merge and Release as separate permissions.
+
+Slice selection, portable Feature Contract and Portable Task Candidate are
+independent of target repository name, path and branch. Target-bound planning
+begins only after exact human repository assignment and read-only preflight.
+Root payload materialization remains a separate human-authorized bootstrap
+mutation and is not a prerequisite for product selection or portable drafting.
 
 ## Package and target preflight
 
-Before target preflight, package state is:
+Before target assignment and preflight, portable state is:
 
 ```yaml
 portable_binding_state: PORTABLE_UNBOUND
 implementation_repository: UNASSIGNED
 target_repository_facts: NOT_RUN
-human_feature_selection:
-  technical_result: NOT_RUN
+human_feature_selection: EXACT_HUMAN_DECISION_REQUIRED
+feature_contract: EXACT_HUMAN_ACCEPTANCE_REQUIRED
+portable_task_candidate: MINIMUM_SLICE_BOUND_CANDIDATE_REQUIRED
 implementation_authorization: NONE
 git_authorization: NONE
 ```
 
-Target preflight is observation only. Record through
+After exact human target repository assignment, target preflight is observation
+only. Record through
 [`TARGET_REPOSITORY_BINDING.template.md`](../templates/TARGET_REPOSITORY_BINDING.template.md):
 
 ```yaml
@@ -235,7 +253,7 @@ Evidence with `independence: NONE`; it cannot accept a Task.
 ## Existing R14 Task artifacts
 
 The exact file/Task classification is owned by
-[`SUBJECT_STATE_REGISTRY_R15.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R15.md).
+[`SUBJECT_STATE_REGISTRY_R17.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R17.md).
 Summary:
 
 ```yaml

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Author tests for the DRAFT-R16 portable-package validator."""
+"""Author tests for the DRAFT-R17 portable-package validator."""
 
 from __future__ import annotations
 
@@ -15,8 +15,17 @@ from pathlib import Path
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 VALIDATOR = PACKAGE_ROOT / "validation" / "validate_portable_package.py"
 FIXTURES = PACKAGE_ROOT / "validation" / "fixtures"
-REGISTRY = Path("ACTIVE_SUBJECTS_R16.txt")
-MANIFEST = Path("development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256")
+REGISTRY = Path("ACTIVE_SUBJECTS_R17.txt")
+MANIFEST = Path("development-package-state/R17_ACTIVE_CONTENT_MANIFEST.sha256")
+FULL_CANDIDATE_PATHS = Path(
+    "development-package-state/R17_FULL_CANDIDATE_PATHS.txt"
+)
+FULL_CANDIDATE_MANIFEST = Path(
+    "development-package-state/R17_FULL_CANDIDATE_MANIFEST.sha256"
+)
+COMPOSITE_MANIFEST = Path(
+    "development-package-state/R17_COMPOSITE_CONTENT_MANIFEST.sha256"
+)
 ROOT_MANIFEST = Path("ROOT_FILES_MANIFEST.yaml")
 ROOT_PAYLOAD_FILES = {
     "AGENTS.md": "AGENTS.md",
@@ -24,38 +33,64 @@ ROOT_PAYLOAD_FILES = {
     ".gitignore": ".gitignore",
     ".agents/rules/aos.md": ".agents/rules/aos.md",
 }
-EXPECTED_R16_CHANGED_PATHS = {
-    "ACTIVE_SUBJECTS_R16.txt",
+EXPECTED_R17_CHANGED_PATHS = {
+    "ACTIVE_SUBJECTS_R17.txt",
     "AGENTS.md",
-    "README.md",
     "ROOT_FILES_MANIFEST.yaml",
     "development-package-state/CURRENT.md",
-    "development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256",
-    "development-package-state/R16_AUTHOR_EXECUTION_REPORT.md",
-    "development-package-state/R16_FULL_CANDIDATE_MANIFEST.sha256",
-    "development-package-state/R16_FULL_CANDIDATE_PATHS.txt",
-    "development-package-state/SUBJECT_STATE_REGISTRY_R16.md",
-    "root/.agents/rules/aos.md",
-    "root/.gitignore",
-    "root/AGENTS.md",
+    "development-package-state/R17_ACTIVE_CONTENT_MANIFEST.sha256",
+    "development-package-state/R17_AUTHOR_EXECUTION_REPORT.md",
+    "development-package-state/R17_FULL_CANDIDATE_MANIFEST.sha256",
+    "development-package-state/R17_FULL_CANDIDATE_PATHS.txt",
+    "development-package-state/SUBJECT_STATE_REGISTRY_R17.md",
+    "development-package/00_Control_and_Source_Precedence.md",
+    "development-package/07_Implementation_Handoff.md",
     "root/README.md",
     "validation/test_validate_portable_package.py",
     "validation/validate_portable_package.py",
 }
-R15_EVIDENCE_SHA256 = {
-    "ACTIVE_SUBJECTS_R15.txt": (
-        "421337d25c261b417d43372d50eebbc38ca7a0ba56c4a9a4d0d53d9b7dd079f4"
+R16_EVIDENCE_SHA256 = {
+    "ACTIVE_SUBJECTS_R16.txt": (
+        "4267ae4dc485c8da314e6b0f41e1c6f677d3785f8f532e59936ff7e09d9186f2"
     ),
-    "development-package-state/R15_ACTIVE_CONTENT_MANIFEST.sha256": (
-        "74e2e54078fa36e8c5913c4ed3e254a795461e05df6b47243d13b25a0544dfc8"
+    "development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md": (
+        "a2d18ac32403e6a20ef39e261ca718d3f20481df13a95b07ac47240268e41416"
     ),
-    "development-package-state/R15_AUTHOR_EXECUTION_REPORT.md": (
-        "583c0694a339a3f2dfd869f3ceccf438794a0df32de2cdeb938ae5792f63b44a"
+    "development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md.sha256": (
+        "409401f44fc7dece76183666bb3dbca62fa39c6bdc791176a7ec74a90acd5e62"
     ),
-    "development-package-state/SUBJECT_STATE_REGISTRY_R15.md": (
-        "5486d792ba700904a6ceeddd85c68dc279ef2341396c8e85466459a6d8e3980d"
+    "development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256": (
+        "6f5603cbbca0553b2ec88794a5507064f001c542579c262329d48b4abbed8519"
+    ),
+    "development-package-state/R16_AUTHOR_EXECUTION_REPORT.md": (
+        "5176847f6861c8dcb1ecc4b2f0d2e5e8ab8ff9dfe7aca08a7b3c2c777626ed4d"
+    ),
+    "development-package-state/R16_COMPOSITE_CONTENT_MANIFEST.sha256": (
+        "5ac5b606960fc4f533cdfe7ca3bc95c879c62a3d8f95d1bc10270a469a286a61"
+    ),
+    "development-package-state/R16_FULL_CANDIDATE_MANIFEST.sha256": (
+        "cc66152658e37fd5879c1c4bd258a8ff9f6f5765f9a54862790a61a900eb1a07"
+    ),
+    "development-package-state/R16_FULL_CANDIDATE_PATHS.txt": (
+        "067d4945e0eabd60f50618f3bc911ea4a329e18b60c70d1028000c47408a4e6d"
+    ),
+    "development-package-state/SUBJECT_STATE_REGISTRY_R16.md": (
+        "99b57c57fee38c5cfaed26d05e37621910a117c0483578b9d0359d02a10eab07"
     ),
 }
+PRODUCT_TARGET_SEQUENCE = (
+    "human first vertical slice selection",
+    "→ feature-specific Product/Feature Contract draft",
+    "→ human acceptance of exact Feature Contract",
+    "→ minimum Portable Task Candidate",
+    "→ exact target repository assignment",
+    "→ read-only target preflight and Target Repository Binding",
+    "→ Target-Bound Task Brief",
+    "→ human Task decision",
+    "→ human-assigned Risk Profile",
+    "→ separate Execution Authorization",
+    "→ one bounded implementation stage",
+)
 
 
 def run_validator(package_root: Path, *extra_args: str) -> subprocess.CompletedProcess[str]:
@@ -73,17 +108,69 @@ def run_validator(package_root: Path, *extra_args: str) -> subprocess.CompletedP
     )
 
 
+def fenced_sequence(lines: tuple[str, ...]) -> str:
+    return "```text\n" + "\n".join(lines) + "\n```"
+
+
+PRODUCT_TARGET_BLOCK = fenced_sequence(PRODUCT_TARGET_SEQUENCE)
+
+
+def write_manifest(
+    package_root: Path,
+    manifest: Path,
+    paths: list[str],
+    excluded_paths: set[str] | None = None,
+) -> None:
+    excluded = excluded_paths or set()
+    records = []
+    for relative in sorted(paths, key=lambda value: value.encode("utf-8")):
+        if relative in excluded:
+            continue
+        digest = hashlib.sha256((package_root / relative).read_bytes()).hexdigest()
+        records.append(f"{digest}  {relative}\n")
+    (package_root / manifest).write_bytes("".join(records).encode("utf-8"))
+
+
 def regenerate_manifest(package_root: Path) -> None:
     paths = [
         line
         for line in (package_root / REGISTRY).read_text(encoding="utf-8").splitlines()
         if line
     ]
-    records = []
-    for relative in sorted(paths, key=lambda value: value.encode("utf-8")):
-        digest = hashlib.sha256((package_root / relative).read_bytes()).hexdigest()
-        records.append(f"{digest}  {relative}\n")
-    (package_root / MANIFEST).write_bytes("".join(records).encode("utf-8"))
+    write_manifest(package_root, MANIFEST, paths)
+
+
+def regenerate_full_candidate_manifest(package_root: Path) -> None:
+    paths = [
+        line
+        for line in (package_root / FULL_CANDIDATE_PATHS)
+        .read_text(encoding="utf-8")
+        .splitlines()
+        if line
+    ]
+    write_manifest(
+        package_root,
+        FULL_CANDIDATE_MANIFEST,
+        paths,
+        {FULL_CANDIDATE_MANIFEST.as_posix()},
+    )
+
+
+def regenerate_composite_manifest(package_root: Path) -> None:
+    records = (package_root / COMPOSITE_MANIFEST).read_text(encoding="utf-8")
+    paths = []
+    for line in records.splitlines():
+        match = re.fullmatch(r"[0-9a-f]{64}  (.+)", line)
+        if match is None:
+            raise AssertionError(f"invalid composite manifest record: {line!r}")
+        paths.append(match.group(1))
+    write_manifest(package_root, COMPOSITE_MANIFEST, paths)
+
+
+def regenerate_candidate_identity(package_root: Path) -> None:
+    regenerate_manifest(package_root)
+    regenerate_full_candidate_manifest(package_root)
+    regenerate_composite_manifest(package_root)
 
 
 def snapshot_payload(package_root: Path) -> dict[str, str]:
@@ -197,6 +284,113 @@ def simulate_root_materialization(
 
 
 class PortablePackageValidatorTests(unittest.TestCase):
+    def run_product_target_variant(
+        self, replacement_block: str, extra_prose: str = ""
+    ) -> subprocess.CompletedProcess[str]:
+        with tempfile.TemporaryDirectory(
+            prefix="aos3-r17-product-target-order-"
+        ) as raw_temp:
+            temp_root = Path(raw_temp) / "AOS-3"
+            shutil.copytree(PACKAGE_ROOT, temp_root)
+            agents_path = temp_root / "AGENTS.md"
+            original = agents_path.read_text(encoding="utf-8")
+            self.assertIn(PRODUCT_TARGET_BLOCK, original)
+            changed = original.replace(
+                PRODUCT_TARGET_BLOCK, replacement_block, 1
+            )
+            if extra_prose:
+                changed += f"\n{extra_prose}\n"
+            agents_path.write_bytes(changed.encode("utf-8"))
+            regenerate_candidate_identity(temp_root)
+            return run_validator(temp_root)
+
+    def test_product_target_order_ignores_misleading_prose_outside_fence(
+        self,
+    ) -> None:
+        misleading_prose = "\n".join(reversed(PRODUCT_TARGET_SEQUENCE))
+        result = self.run_product_target_variant(
+            PRODUCT_TARGET_BLOCK, misleading_prose
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertNotIn("E_PRODUCT_TARGET_ORDER", result.stdout)
+
+    def test_product_target_order_rejects_non_contiguous_active_sequences(
+        self,
+    ) -> None:
+        missing = PRODUCT_TARGET_SEQUENCE[:5] + PRODUCT_TARGET_SEQUENCE[6:]
+        reordered = list(PRODUCT_TARGET_SEQUENCE)
+        reordered[4], reordered[5] = reordered[5], reordered[4]
+        split = (
+            fenced_sequence(PRODUCT_TARGET_SEQUENCE[:5])
+            + "\n\n"
+            + fenced_sequence(PRODUCT_TARGET_SEQUENCE[5:])
+        )
+        inserted = (
+            PRODUCT_TARGET_SEQUENCE[:5]
+            + ("→ unauthorized inserted stage",)
+            + PRODUCT_TARGET_SEQUENCE[5:]
+        )
+        prose_only = (
+            fenced_sequence(PRODUCT_TARGET_SEQUENCE[:-1])
+            + "\n\n"
+            + "\n".join(PRODUCT_TARGET_SEQUENCE)
+        )
+        historical_only = (
+            fenced_sequence(PRODUCT_TARGET_SEQUENCE[:-1])
+            + "\n\n<!-- HISTORICAL_R14_APPENDIX_BEGIN -->\n"
+            + PRODUCT_TARGET_BLOCK
+            + "\n<!-- HISTORICAL_R14_APPENDIX_END -->"
+        )
+        variants = {
+            "missing": fenced_sequence(missing),
+            "reordered": fenced_sequence(tuple(reordered)),
+            "split": split,
+            "extra_inserted": fenced_sequence(inserted),
+            "prose_only": prose_only,
+            "historical_only": historical_only,
+        }
+        for name, replacement in variants.items():
+            with self.subTest(name=name):
+                result = self.run_product_target_variant(replacement)
+                self.assertNotEqual(
+                    result.returncode, 0, result.stdout + result.stderr
+                )
+                self.assertIn("E_PRODUCT_TARGET_ORDER", result.stdout)
+                self.assertIn("path: AGENTS.md", result.stdout)
+                self.assertNotIn("E_MANIFEST_DIGEST", result.stdout)
+                self.assertNotIn("E_COMPOSITE_DIGEST", result.stdout)
+
+    def test_r17_lifecycle_and_product_before_target_order(self) -> None:
+        current = (
+            PACKAGE_ROOT / "development-package-state" / "CURRENT.md"
+        ).read_text(encoding="utf-8")
+        handoff = (
+            PACKAGE_ROOT / "development-package" / "07_Implementation_Handoff.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("latest_human_accepted_revision: DRAFT-R16", current)
+        self.assertIn("current_candidate_revision: DRAFT-R17", current)
+        self.assertIn("DRAFT_R17_independent_validation: NOT_RUN", current)
+        self.assertIn(
+            "one_next_action: "
+            "RUN_SEPARATE_READ_ONLY_INDEPENDENT_VALIDATE_OVER_FROZEN_DRAFT_R17",
+            current,
+        )
+        self.assertLess(
+            handoff.index("Obtain exact human first vertical slice selection."),
+            handoff.index("Run read-only target repository preflight."),
+        )
+
+    def test_r17_validator_reports_composite_identity(self) -> None:
+        result = run_validator(PACKAGE_ROOT)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("active_path_count: 20", result.stdout)
+        self.assertIn("composite_path_count: 40", result.stdout)
+        self.assertRegex(
+            result.stdout,
+            r"composite_content_aggregate_sha256: [0-9a-f]{64}",
+        )
+        self.assertRegex(result.stdout, r"role_bound_aggregate_sha256: [0-9a-f]{64}")
+
     maxDiff = None
 
     def test_valid_package_passes(self) -> None:
@@ -226,7 +420,7 @@ class PortablePackageValidatorTests(unittest.TestCase):
         self.assertIn("portable_package_candidate:", text)
         self.assertIn("status: DRAFT", text)
         self.assertIn("readiness_state: BLOCKED_BY_HUMAN_GATE", text)
-        self.assertIn("reason: FIRST_VERTICAL_SLICE_SELECTION_REQUIRED", text)
+        self.assertIn("reason: ACCEPTED_FEATURE_CONTRACT_REQUIRED", text)
 
     def test_portable_unbound_is_not_failure(self) -> None:
         text = (
@@ -246,17 +440,17 @@ class PortablePackageValidatorTests(unittest.TestCase):
             text,
         )
         self.assertIn("candidate_internal_state_role: HISTORICAL_SNAPSHOT", text)
-        self.assertIn("latest_human_accepted_revision: DRAFT-R14", text)
-        self.assertIn("current_candidate_revision: DRAFT-R16", text)
+        self.assertIn("latest_human_accepted_revision: DRAFT-R16", text)
+        self.assertIn("current_candidate_revision: DRAFT-R17", text)
 
     def test_stored_pass_does_not_grant_acceptance_or_authority(self) -> None:
         text = (
             PACKAGE_ROOT / "development-package-state" / "CURRENT.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("revision: DRAFT-R15", text)
+        self.assertIn("revision: DRAFT-R16", text)
         self.assertIn("technical_result: PASS", text)
-        self.assertIn("DRAFT_R16_independent_validation: NOT_RUN", text)
-        self.assertIn("DRAFT_R16_human_acceptance: NOT_RUN", text)
+        self.assertIn("DRAFT_R17_independent_validation: NOT_RUN", text)
+        self.assertIn("DRAFT_R17_human_acceptance: NOT_RUN", text)
         self.assertIn("implementation_authorization: NONE", text)
         self.assertIn("git_authorization: NONE", text)
 
@@ -487,8 +681,8 @@ class RootPayloadContractTests(unittest.TestCase):
             ROOT_MANIFEST.as_posix(), changed, "E_ANTIGRAVITY_ACTIVATION"
         )
 
-    def test_r15_identity_evidence_is_preserved(self) -> None:
-        for relative, expected in R15_EVIDENCE_SHA256.items():
+    def test_r16_identity_evidence_is_preserved(self) -> None:
+        for relative, expected in R16_EVIDENCE_SHA256.items():
             self.assertEqual(
                 hashlib.sha256((PACKAGE_ROOT / relative).read_bytes()).hexdigest(),
                 expected,
@@ -520,12 +714,12 @@ class RootPayloadContractTests(unittest.TestCase):
         paths_file = (
             PACKAGE_ROOT
             / "development-package-state"
-            / "R16_FULL_CANDIDATE_PATHS.txt"
+            / "R17_FULL_CANDIDATE_PATHS.txt"
         )
         manifest_file = (
             PACKAGE_ROOT
             / "development-package-state"
-            / "R16_FULL_CANDIDATE_MANIFEST.sha256"
+            / "R17_FULL_CANDIDATE_MANIFEST.sha256"
         )
         payload = paths_file.read_bytes()
         self.assertNotIn(b"\r", payload)
@@ -533,7 +727,7 @@ class RootPayloadContractTests(unittest.TestCase):
         paths = payload.decode("utf-8").splitlines()
         self.assertEqual(paths, sorted(paths, key=lambda value: value.encode("utf-8")))
         self.assertEqual(len(paths), len(set(paths)))
-        self.assertEqual(set(paths), EXPECTED_R16_CHANGED_PATHS)
+        self.assertEqual(set(paths), EXPECTED_R17_CHANGED_PATHS)
         manifest_relative = manifest_file.relative_to(PACKAGE_ROOT).as_posix()
         expected_records = []
         for relative in paths:

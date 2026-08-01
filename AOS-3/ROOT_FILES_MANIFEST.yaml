@@ -1,6 +1,6 @@
-manifest_id: AOS-ROOT-FILES-MANIFEST-R2
+manifest_id: AOS-ROOT-FILES-MANIFEST-R3
 manifest_class: ROOT_PAYLOAD_COPY_CONTRACT
-package_revision: DRAFT-R16
+package_revision: DRAFT-R17
 status: DRAFT
 
 target_repository_class:

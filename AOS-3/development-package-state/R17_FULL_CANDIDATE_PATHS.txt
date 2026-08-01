@@ -1,0 +1,14 @@
+ACTIVE_SUBJECTS_R17.txt
+AGENTS.md
+ROOT_FILES_MANIFEST.yaml
+development-package-state/CURRENT.md
+development-package-state/R17_ACTIVE_CONTENT_MANIFEST.sha256
+development-package-state/R17_AUTHOR_EXECUTION_REPORT.md
+development-package-state/R17_FULL_CANDIDATE_MANIFEST.sha256
+development-package-state/R17_FULL_CANDIDATE_PATHS.txt
+development-package-state/SUBJECT_STATE_REGISTRY_R17.md
+development-package/00_Control_and_Source_Precedence.md
+development-package/07_Implementation_Handoff.md
+root/README.md
+validation/test_validate_portable_package.py
+validation/validate_portable_package.py

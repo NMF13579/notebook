@@ -1,8 +1,8 @@
 ---
-artifact_id: AOS3-R16-ENTRYPOINT
+artifact_id: AOS3-R17-ENTRYPOINT
 artifact_type: PORTABLE_PACKAGE_ENTRYPOINT
-package_revision: DRAFT-R16
-revision: R2
+package_revision: DRAFT-R17
+revision: R3
 status: DRAFT
 authority: ROUTING_ONLY
 portable_package_root: AOS-3/
@@ -34,7 +34,7 @@ frontmatter frozen artifact.
 - portability direction:
   [`development-package-state/PORTABILITY_DIRECTION_2026-07-31.md`](development-package-state/PORTABILITY_DIRECTION_2026-07-31.md);
 - active subject roles:
-  [`development-package-state/SUBJECT_STATE_REGISTRY_R16.md`](development-package-state/SUBJECT_STATE_REGISTRY_R16.md);
+  [`development-package-state/SUBJECT_STATE_REGISTRY_R17.md`](development-package-state/SUBJECT_STATE_REGISTRY_R17.md);
 - root payload copy contract:
   [`ROOT_FILES_MANIFEST.yaml`](ROOT_FILES_MANIFEST.yaml);
 - target root payload source: [`root/`](root/);
@@ -48,10 +48,10 @@ frontmatter frozen artifact.
 вне package, source repository name и chat history не являются operational
 dependencies.
 
-## Target bootstrap ordering
+## Separate target bootstrap
 
 Root payload materialization — отдельный target bootstrap stage, а не
-автоматически разрешённая mutation:
+автоматически разрешённая mutation или prerequisite для product selection:
 
 1. Скопируй весь `AOS-3/` в observed greenfield target repository.
 2. Запусти package author self-check.
@@ -61,24 +61,41 @@ Root payload materialization — отдельный target bootstrap stage, а �
 5. Копируй только missing paths raw bytes; identical paths являются `NOOP`.
    Любой differing path блокирует весь payload до записи. Post-copy failure
    откатывает только paths, созданные текущим run, и сохраняет source payload.
-6. После materialization отдельно выполни full target repository preflight до
-   feature binding, Product Contract finalization, Task Brief binding или
-   implementation mutation.
+6. После materialization отдельно проверь созданные paths. Full target
+   repository preflight остаётся отдельным read-only stage и требуется только
+   перед target binding, Target-Bound Task Brief или physical implementation
+   planning.
 
 Поддерживается только `GREENFIELD_OR_EMPTY_ROOT`. Existing repository adoption
 требует отдельного human decision и task. Root materialization preflight не
 является full target repository preflight.
 
-## Target use
-
-После full target repository preflight создай Target Repository Binding из
-direct observations. Не угадывай repository, branch, HEAD, paths, toolchain,
-dependencies или commands.
+## Product-to-target order
 
 Не выбирай feature или vertical slice. Запроси exact human decision через
 `FIRST_VERTICAL_SLICE_SELECTION.template.md`. Отсутствие выбора не является
-package failure: оно блокирует только feature contract finalization, Task
+package failure: оно блокирует только dependent Feature Contract, Task
 derivation и implementation planning.
+
+```text
+human first vertical slice selection
+→ feature-specific Product/Feature Contract draft
+→ human acceptance of exact Feature Contract
+→ minimum Portable Task Candidate
+→ exact target repository assignment
+→ read-only target preflight and Target Repository Binding
+→ Target-Bound Task Brief
+→ human Task decision
+→ human-assigned Risk Profile
+→ separate Execution Authorization
+→ one bounded implementation stage
+```
+
+Target repository не требуется для slice selection, portable Feature Contract
+или Portable Task Candidate. После exact human repository assignment выполни
+full read-only target preflight и создай Target Repository Binding только из
+direct observations. Не угадывай repository, branch, HEAD, paths, toolchain,
+dependencies или commands.
 
 ## Conflict and unknown route
 

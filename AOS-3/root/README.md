@@ -7,10 +7,17 @@
 1. Прочитайте [`AOS-3/AGENTS.md`](AOS-3/AGENTS.md).
 2. Проверьте [`AOS-3/development-package-state/CURRENT.md`](AOS-3/development-package-state/CURRENT.md).
 3. Запустите package validation, указанную в `AOS-3/AGENTS.md`.
-4. Выполните full target repository preflight.
-5. Зафиксируйте first vertical slice отдельным human decision.
-6. Подготовьте feature-specific Product Contract и bounded Task Brief.
-7. Не начинайте mutation без отдельной Execution Authorization.
+4. Зафиксируйте first vertical slice отдельным human decision.
+5. Подготовьте и отдельно примите exact feature-specific Product/Feature Contract.
+6. Сформируйте minimum Portable Task Candidate без target facts.
+7. Получите exact human target repository assignment.
+8. Выполните read-only target preflight и Target Repository Binding.
+9. Подготовьте Target-Bound Task Brief и получите отдельное human Task decision.
+10. Получите human-assigned Risk Profile.
+11. Не начинайте mutation без отдельной Execution Authorization.
+
+Root payload materialization остаётся отдельной human-authorized bootstrap
+mutation и не является prerequisite для slice selection или portable contract.
 
 ## Инструменты
 

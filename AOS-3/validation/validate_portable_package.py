@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the active DRAFT-R16 portable-package contract with stdlib only.
+"""Validate the active DRAFT-R17 portable-package contract with stdlib only.
 
 This helper performs deterministic mechanical author checks. It does not
 perform independent semantic validation, human acceptance, repository
@@ -19,13 +19,16 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 
-PACKAGE_REVISION = "DRAFT-R16"
-REGISTRY_PATH = Path("ACTIVE_SUBJECTS_R16.txt")
+PACKAGE_REVISION = "DRAFT-R17"
+REGISTRY_PATH = Path("ACTIVE_SUBJECTS_R17.txt")
 MANIFEST_PATH = Path(
-    "development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256"
+    "development-package-state/R17_ACTIVE_CONTENT_MANIFEST.sha256"
 )
 STATE_REGISTRY_PATH = Path(
-    "development-package-state/SUBJECT_STATE_REGISTRY_R16.md"
+    "development-package-state/SUBJECT_STATE_REGISTRY_R17.md"
+)
+COMPOSITE_MANIFEST_PATH = Path(
+    "development-package-state/R17_COMPOSITE_CONTENT_MANIFEST.sha256"
 )
 ROOT_MANIFEST_PATH = Path("ROOT_FILES_MANIFEST.yaml")
 ROOT_PAYLOAD_FILES = {
@@ -58,19 +61,49 @@ ROOT_MANIFEST_TOP_LEVEL_KEYS = {
     "implementation_authorization",
     "git_authorization",
 }
-R15_EVIDENCE_SHA256 = {
-    "ACTIVE_SUBJECTS_R15.txt": (
-        "421337d25c261b417d43372d50eebbc38ca7a0ba56c4a9a4d0d53d9b7dd079f4"
+R16_EVIDENCE_SHA256 = {
+    "ACTIVE_SUBJECTS_R16.txt": (
+        "4267ae4dc485c8da314e6b0f41e1c6f677d3785f8f532e59936ff7e09d9186f2"
     ),
-    "development-package-state/R15_ACTIVE_CONTENT_MANIFEST.sha256": (
-        "74e2e54078fa36e8c5913c4ed3e254a795461e05df6b47243d13b25a0544dfc8"
+    "development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md": (
+        "a2d18ac32403e6a20ef39e261ca718d3f20481df13a95b07ac47240268e41416"
     ),
-    "development-package-state/R15_AUTHOR_EXECUTION_REPORT.md": (
-        "583c0694a339a3f2dfd869f3ceccf438794a0df32de2cdeb938ae5792f63b44a"
+    "development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md.sha256": (
+        "409401f44fc7dece76183666bb3dbca62fa39c6bdc791176a7ec74a90acd5e62"
     ),
-    "development-package-state/SUBJECT_STATE_REGISTRY_R15.md": (
-        "5486d792ba700904a6ceeddd85c68dc279ef2341396c8e85466459a6d8e3980d"
+    "development-package-state/R16_ACTIVE_CONTENT_MANIFEST.sha256": (
+        "6f5603cbbca0553b2ec88794a5507064f001c542579c262329d48b4abbed8519"
     ),
+    "development-package-state/R16_AUTHOR_EXECUTION_REPORT.md": (
+        "5176847f6861c8dcb1ecc4b2f0d2e5e8ab8ff9dfe7aca08a7b3c2c777626ed4d"
+    ),
+    "development-package-state/R16_COMPOSITE_CONTENT_MANIFEST.sha256": (
+        "5ac5b606960fc4f533cdfe7ca3bc95c879c62a3d8f95d1bc10270a469a286a61"
+    ),
+    "development-package-state/R16_FULL_CANDIDATE_MANIFEST.sha256": (
+        "cc66152658e37fd5879c1c4bd258a8ff9f6f5765f9a54862790a61a900eb1a07"
+    ),
+    "development-package-state/R16_FULL_CANDIDATE_PATHS.txt": (
+        "067d4945e0eabd60f50618f3bc911ea4a329e18b60c70d1028000c47408a4e6d"
+    ),
+    "development-package-state/SUBJECT_STATE_REGISTRY_R16.md": (
+        "99b57c57fee38c5cfaed26d05e37621910a117c0483578b9d0359d02a10eab07"
+    ),
+}
+VALIDATION_SUPPORT_PATHS = {
+    "validation/fixtures/active_absolute_path.md",
+    "validation/fixtures/external_mandatory_link.md",
+    "validation/fixtures/modified_accepted_subject.md",
+    "validation/fixtures/self_authorized_task.md",
+    "validation/fixtures/status_axis_collision.md",
+    "validation/fixtures/unbound_repository_specific_task.md",
+    "validation/test_validate_portable_package.py",
+}
+R17_GENERATED_EVIDENCE_ROLES = {
+    "development-package-state/R17_ACTIVE_CONTENT_MANIFEST.sha256": "DETACHED_MANIFEST",
+    "development-package-state/R17_AUTHOR_EXECUTION_REPORT.md": "AUTHOR_EVIDENCE",
+    "development-package-state/R17_FULL_CANDIDATE_MANIFEST.sha256": "DETACHED_MANIFEST",
+    "development-package-state/R17_FULL_CANDIDATE_PATHS.txt": "DETACHED_MANIFEST",
 }
 HISTORICAL_BEGIN = "<!-- HISTORICAL_R14_APPENDIX_BEGIN -->"
 HISTORICAL_END = "<!-- HISTORICAL_R14_APPENDIX_END -->"
@@ -97,12 +130,12 @@ MANIFEST_LINE = re.compile(r"^([0-9a-f]{64})  (.+)$")
 
 REQUIRED_FILES = {
     "AGENTS.md",
-    "ACTIVE_SUBJECTS_R16.txt",
+    "ACTIVE_SUBJECTS_R17.txt",
     "README.md",
     "ROOT_FILES_MANIFEST.yaml",
     "development-package-state/CURRENT.md",
     "development-package-state/PORTABILITY_DIRECTION_2026-07-31.md",
-    "development-package-state/SUBJECT_STATE_REGISTRY_R16.md",
+    "development-package-state/SUBJECT_STATE_REGISTRY_R17.md",
     "development-package/00_Control_and_Source_Precedence.md",
     "development-package/07_Implementation_Handoff.md",
     "root/.agents/rules/aos.md",
@@ -279,6 +312,52 @@ def active_text(text: str, findings: List[Finding], relative: str) -> str:
     before, remainder = text.split(HISTORICAL_BEGIN, 1)
     _, after = remainder.split(HISTORICAL_END, 1)
     return before + "\n" + after
+
+
+def fenced_blocks(text: str) -> List[List[str]]:
+    blocks: List[List[str]] = []
+    current: Optional[List[str]] = None
+    fence_character: Optional[str] = None
+    fence_length = 0
+
+    for raw_line in text.splitlines():
+        stripped = raw_line.strip()
+        if current is None:
+            opening = re.match(r"^(`{3,}|~{3,})(.*)$", stripped)
+            if opening is not None:
+                fence = opening.group(1)
+                current = []
+                fence_character = fence[0]
+                fence_length = len(fence)
+            continue
+
+        if (
+            fence_character is not None
+            and len(stripped) >= fence_length
+            and set(stripped) == {fence_character}
+        ):
+            blocks.append(current)
+            current = None
+            fence_character = None
+            fence_length = 0
+            continue
+
+        if stripped:
+            current.append(stripped)
+
+    return blocks
+
+
+def contains_exact_contiguous_sequence(
+    block_lines: Sequence[str], ordered_tokens: Sequence[str]
+) -> bool:
+    if not ordered_tokens or len(block_lines) < len(ordered_tokens):
+        return False
+    sequence_length = len(ordered_tokens)
+    return any(
+        tuple(block_lines[start : start + sequence_length]) == tuple(ordered_tokens)
+        for start in range(len(block_lines) - sequence_length + 1)
+    )
 
 
 def parse_frontmatter(
@@ -478,6 +557,93 @@ def check_manifest(
             )
         )
     return sha256_bytes(payload)
+
+
+def check_composite_manifest(
+    package_root: Path, active_paths: Sequence[str], findings: List[Finding]
+) -> Tuple[Optional[str], Optional[str], int]:
+    manifest = package_root / COMPOSITE_MANIFEST_PATH
+    expected_roles: Dict[str, str] = {
+        relative: "ACTIVE_NORMATIVE" for relative in active_paths
+    }
+    expected_roles.update(
+        {relative: "VALIDATION_SUPPORT" for relative in VALIDATION_SUPPORT_PATHS}
+    )
+    expected_roles.update(
+        {
+            relative: "HISTORICAL_ACCEPTANCE_EVIDENCE"
+            for relative in R16_EVIDENCE_SHA256
+        }
+    )
+    expected_roles.update(R17_GENERATED_EVIDENCE_ROLES)
+    expected_paths = sorted(expected_roles, key=lambda value: value.encode("utf-8"))
+    if len(expected_paths) != 40:
+        findings.append(
+            Finding(
+                "E_COMPOSITE_ROLE_PARTITION",
+                STATE_REGISTRY_PATH.as_posix(),
+                f"expected role partition has {len(expected_paths)} paths, not 40",
+            )
+        )
+    if not manifest.is_file():
+        findings.append(
+            Finding("E_COMPOSITE_MISSING", COMPOSITE_MANIFEST_PATH.as_posix(), "not found")
+        )
+        return None, None, 0
+    payload = manifest.read_bytes()
+    try:
+        text = payload.decode("utf-8")
+    except UnicodeDecodeError as error:
+        findings.append(
+            Finding("E_COMPOSITE_UTF8", COMPOSITE_MANIFEST_PATH.as_posix(), str(error))
+        )
+        return None, None, 0
+    if "\r" in text or (text and not text.endswith("\n")):
+        findings.append(
+            Finding(
+                "E_COMPOSITE_LINE_ENDING",
+                COMPOSITE_MANIFEST_PATH.as_posix(),
+                "composite manifest must use LF and final LF",
+            )
+        )
+    records: List[Tuple[str, str]] = []
+    for line in text.splitlines():
+        match = MANIFEST_LINE.match(line)
+        if not match:
+            findings.append(
+                Finding(
+                    "E_COMPOSITE_FORMAT",
+                    COMPOSITE_MANIFEST_PATH.as_posix(),
+                    f"invalid record: {line}",
+                )
+            )
+            continue
+        records.append((match.group(1), match.group(2)))
+    record_paths = [relative for _, relative in records]
+    if record_paths != expected_paths:
+        findings.append(
+            Finding(
+                "E_COMPOSITE_PATH_SET",
+                COMPOSITE_MANIFEST_PATH.as_posix(),
+                "composite paths differ from exact 40-path role partition",
+            )
+        )
+    role_records: List[str] = []
+    for digest, relative in records:
+        path = package_root / relative
+        if not path.is_file():
+            findings.append(Finding("E_COMPOSITE_PATH_MISSING", relative, "not found"))
+            continue
+        actual = sha256_bytes(path.read_bytes())
+        if actual != digest:
+            findings.append(
+                Finding("E_COMPOSITE_DIGEST", relative, "raw-byte digest mismatch")
+            )
+        role = expected_roles.get(relative)
+        if role is not None:
+            role_records.append(f"{digest}  {role}  {relative}\n")
+    role_payload = "".join(role_records).encode("utf-8")
+    return sha256_bytes(payload), sha256_bytes(role_payload), len(records)
 
 
 def yaml_section(text: str, key: str) -> str:
@@ -731,9 +897,9 @@ def check_root_payload(package_root: Path, findings: List[Finding]) -> None:
             )
         )
     top_required = {
-        "manifest_id": "AOS-ROOT-FILES-MANIFEST-R2",
+        "manifest_id": "AOS-ROOT-FILES-MANIFEST-R3",
         "manifest_class": "ROOT_PAYLOAD_COPY_CONTRACT",
-        "package_revision": "DRAFT-R16",
+        "package_revision": "DRAFT-R17",
         "status": "DRAFT",
         "canonical_instruction_owner": "AOS-3/AGENTS.md",
         "root_files_role": "THIN_TARGET_ADAPTERS",
@@ -940,14 +1106,14 @@ def check_root_payload(package_root: Path, findings: List[Finding]) -> None:
             )
         )
 
-    for relative, expected in R15_EVIDENCE_SHA256.items():
+    for relative, expected in R16_EVIDENCE_SHA256.items():
         path = package_root / relative
         if not path.is_file() or sha256_bytes(path.read_bytes()) != expected:
             findings.append(
                 Finding(
-                    "E_R15_EVIDENCE_DRIFT",
+                    "E_R16_EVIDENCE_DRIFT",
                     relative,
-                    "R15 named registry/manifest/report bytes changed",
+                    "immutable R16 acceptance Evidence bytes changed",
                 )
             )
 
@@ -1246,12 +1412,15 @@ def check_task_brief(path: Path, findings: List[Finding]) -> None:
 
 def validate_package(
     package_root: Path, write: bool, task_brief: Optional[Path]
-) -> Tuple[List[Finding], Optional[str], int]:
+) -> Tuple[List[Finding], Optional[str], int, Optional[str], Optional[str], int]:
     findings: List[Finding] = []
     package_root = package_root.resolve()
     if not package_root.is_dir():
         return (
             [Finding("E_PACKAGE_ROOT", package_root.as_posix(), "not a directory")],
+            None,
+            0,
+            None,
             None,
             0,
         )
@@ -1270,6 +1439,11 @@ def validate_package(
         write_manifest(package_root, paths)
 
     aggregate = check_manifest(package_root, paths, findings) if paths else None
+    composite_aggregate, role_bound_aggregate, composite_path_count = (
+        check_composite_manifest(package_root, paths, findings)
+        if paths
+        else (None, None, 0)
+    )
 
     state_registry = package_root / STATE_REGISTRY_PATH
     registry_text = (
@@ -1335,25 +1509,29 @@ def validate_package(
     if current.exists():
         current_text = current.read_text(encoding="utf-8")
         for required in (
-            "latest_human_accepted_revision: DRAFT-R14",
-            "current_candidate_revision: DRAFT-R16",
-            "working_baseline_revision: DRAFT-R15",
-            "working_baseline_disposition: USE_AS_EXACT_WORKING_BASELINE",
+            "latest_human_accepted_revision: DRAFT-R16",
+            "latest_acceptance_sidecar: AOS-3/development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md",
+            "accepted_composite_sha256: 5ac5b606960fc4f533cdfe7ca3bc95c879c62a3d8f95d1bc10270a469a286a61",
+            "current_candidate_revision: DRAFT-R17",
+            "working_baseline_revision: DRAFT-R16",
+            "working_baseline_disposition: USE_AS_EXACT_HUMAN_ACCEPTED_BASELINE",
             "previous_independent_validation:",
-            "revision: DRAFT-R15",
+            "revision: DRAFT-R16",
             "technical_result: PASS",
             "candidate_internal_state_role: HISTORICAL_SNAPSHOT",
             "portable_state: PORTABLE_UNBOUND",
-            "active_subject_registry: AOS-3/ACTIVE_SUBJECTS_R16.txt",
+            "active_subject_registry: AOS-3/ACTIVE_SUBJECTS_R17.txt",
             "root_payload_manifest: AOS-3/ROOT_FILES_MANIFEST.yaml",
             "root_payload_target_class: GREENFIELD_OR_EMPTY_ROOT",
             "root_materialization_authorization: SEPARATE_HUMAN_DECISION_REQUIRED",
-            "DRAFT_R16_independent_validation: NOT_RUN",
-            "DRAFT_R16_human_acceptance: NOT_RUN",
+            "DRAFT_R17_independent_validation: NOT_RUN",
+            "DRAFT_R17_human_acceptance: NOT_RUN",
+            "human_first_vertical_slice_selection: NOT_RUN",
             "reason: HUMAN_WORKSPACE_VERIFICATION_REQUIRED",
             "reason: HUMAN_FEATURE_SELECTION_NOT_RUN",
             "readiness_state: BLOCKED_BY_HUMAN_GATE",
-            "reason: FIRST_VERTICAL_SLICE_SELECTION_REQUIRED",
+            "reason: ACCEPTED_FEATURE_CONTRACT_REQUIRED",
+            "one_next_action: RUN_SEPARATE_READ_ONLY_INDEPENDENT_VALIDATE_OVER_FROZEN_DRAFT_R17",
         ):
             if required not in current_text:
                 findings.append(
@@ -1364,10 +1542,78 @@ def validate_package(
                     )
                 )
 
+    handoff = package_root / "development-package/07_Implementation_Handoff.md"
+    root_readme = package_root / "root/README.md"
+    agents = package_root / "AGENTS.md"
+    ordered_tokens = (
+        "human first vertical slice selection",
+        "→ feature-specific Product/Feature Contract draft",
+        "→ human acceptance of exact Feature Contract",
+        "→ minimum Portable Task Candidate",
+        "→ exact target repository assignment",
+        "→ read-only target preflight and Target Repository Binding",
+        "→ Target-Bound Task Brief",
+        "→ human Task decision",
+        "→ human-assigned Risk Profile",
+        "→ separate Execution Authorization",
+        "→ one bounded implementation stage",
+    )
+    for path in (agents, handoff):
+        if not path.is_file():
+            continue
+        active_document = active_text(
+            path.read_text(encoding="utf-8"),
+            findings,
+            path.relative_to(package_root).as_posix(),
+        )
+        has_valid_sequence = any(
+            contains_exact_contiguous_sequence(block, ordered_tokens)
+            for block in fenced_blocks(active_document)
+        )
+        if not has_valid_sequence:
+            findings.append(
+                Finding(
+                    "E_PRODUCT_TARGET_ORDER",
+                    path.relative_to(package_root).as_posix(),
+                    "product-to-target sequence is missing or out of order",
+                )
+            )
+    if root_readme.is_file():
+        text = root_readme.read_text(encoding="utf-8")
+        slice_position = text.find("first vertical slice")
+        preflight_position = text.find("read-only target preflight")
+        if slice_position < 0 or preflight_position < 0 or slice_position > preflight_position:
+            findings.append(
+                Finding(
+                    "E_PRODUCT_TARGET_ORDER",
+                    root_readme.relative_to(package_root).as_posix(),
+                    "slice selection must precede target preflight",
+                )
+            )
+
+    acceptance_sidecar = (
+        package_root / "development-package-state/R17_ACCEPTANCE_AND_DELIVERY.md"
+    )
+    if acceptance_sidecar.exists():
+        findings.append(
+            Finding(
+                "E_PREMATURE_R17_ACCEPTANCE",
+                acceptance_sidecar.relative_to(package_root).as_posix(),
+                "R17 acceptance sidecar is forbidden before human decision",
+            )
+        )
+
     if task_brief is not None:
         check_task_brief(task_brief.resolve(), findings)
 
-    return findings, aggregate, len(paths)
+    return (
+        findings,
+        aggregate,
+        len(paths),
+        composite_aggregate,
+        role_bound_aggregate,
+        composite_path_count,
+    )
 
 
 def print_result(
@@ -1375,11 +1621,22 @@ def print_result(
     findings: Iterable[Finding],
     aggregate: Optional[str],
     path_count: int,
+    composite_aggregate: Optional[str],
+    role_bound_aggregate: Optional[str],
+    composite_path_count: int,
 ) -> int:
     findings = list(findings)
     print(f"package_root: {package_root.resolve().as_posix()}")
     print(f"active_path_count: {path_count}")
-    print(f"aggregate_sha256: {aggregate or 'NOT_AVAILABLE'}")
+    print(f"active_content_aggregate_sha256: {aggregate or 'NOT_AVAILABLE'}")
+    print(f"composite_path_count: {composite_path_count}")
+    print(
+        "composite_content_aggregate_sha256: "
+        f"{composite_aggregate or 'NOT_AVAILABLE'}"
+    )
+    print(
+        f"role_bound_aggregate_sha256: {role_bound_aggregate or 'NOT_AVAILABLE'}"
+    )
     print(f"technical_result: {'FAIL' if findings else 'PASS'}")
     print("evidence_class: AUTHOR_SELF_CHECK")
     print("independence: NONE")
@@ -1410,10 +1667,25 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="write the non-recursive active-content manifest before checking it",
     )
     args = parser.parse_args(argv)
-    findings, aggregate, path_count = validate_package(
+    (
+        findings,
+        aggregate,
+        path_count,
+        composite_aggregate,
+        role_bound_aggregate,
+        composite_path_count,
+    ) = validate_package(
         args.package_root, args.write_manifest, args.task_brief
     )
-    return print_result(args.package_root, findings, aggregate, path_count)
+    return print_result(
+        args.package_root,
+        findings,
+        aggregate,
+        path_count,
+        composite_aggregate,
+        role_bound_aggregate,
+        composite_path_count,
+    )
 
 
 if __name__ == "__main__":

@@ -2,11 +2,11 @@
 artifact_id: AOS3-DPKG-DOC-000
 artifact_type: CONTROL_AND_SOURCE_PRECEDENCE
 package_id: AOS3-DEVELOPMENT-PACKAGE
-package_revision: DRAFT-R15
-revision: R15
-status: DRAFT_R15_PORTABLE_CONTROL_OWNER
+package_revision: DRAFT-R17
+revision: R16
+status: DRAFT_R17_CORRECTION_CONTROL_OWNER
 authority: PROPOSAL
-exact_subject: Active DRAFT-R15 package authority, source precedence, supersession, status axes, portability and authorization boundary
+exact_subject: Active DRAFT-R17 package authority, accepted R16 baseline, source precedence, product-before-target order, status axes, portability and authorization boundary
 created: '2026-07-30'
 document_language: ru
 technical_identifiers_language: en
@@ -19,7 +19,7 @@ source_head_at_stage_c_preflight: e1c3bd27f9417d99b365e88525b9a58a2563ec2a
 historical_r14_canonical_knowledge_path: docs/
 implementation_repository: UNASSIGNED
 human_acceptance: NOT_RUN
-stage_state: EXECUTE_DRAFT_R15_AUTHOR_MUTATION
+stage_state: EXECUTE_DRAFT_R17_AUTHOR_MUTATION
 historical_r14_provenance:
   - path: ../../docs/00_Core.md
     sha256: 96787a64585264e9f0d6beb1aab28bc717f80436003dfc6c093736541a95c34c
@@ -112,25 +112,25 @@ historical_r14_documentation_mutation_authorization:
   consumed_for_this_candidate: true
 current_state_owner: ../development-package-state/CURRENT.md
 portability_direction_owner: ../development-package-state/PORTABILITY_DIRECTION_2026-07-31.md
-active_subject_registry: ../ACTIVE_SUBJECTS_R15.txt
-subject_state_registry: ../development-package-state/SUBJECT_STATE_REGISTRY_R15.md
+active_subject_registry: ../ACTIVE_SUBJECTS_R17.txt
+subject_state_registry: ../development-package-state/SUBJECT_STATE_REGISTRY_R17.md
 bootstrap_workflow_owner: 07_Implementation_Handoff.md
-r15_independent_validation: NOT_RUN
+r17_independent_validation: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 ---
 
-# 00 — DRAFT-R15 Control and Source Precedence
+# 00 — DRAFT-R17 Control and Source Precedence
 
-## Active R15 authority contract
+## Active R17 authority contract
 
-Этот section является active owner. Appendix ниже сохраняет R14 text как
-`HISTORICAL_EVIDENCE`; его current-state, source-repository и next-action
-claims не являются active R15 facts.
+Этот section является active owner. Appendix ниже сохраняет R14 text
+byte-exact как `HISTORICAL_EVIDENCE`; его current-state, source-repository и
+next-action claims не являются active R17 facts.
 
 ```text
 Documentation ≠ implementation
-Accepted R14 aggregate ≠ accepted R15 aggregate
+Accepted R16 aggregate ≠ accepted R17 aggregate
 Unchanged path name ≠ unchanged subject identity
 Feature dossier ≠ implementation-ready contract
 Portable Task Candidate ≠ Target-Bound Task Brief
@@ -164,10 +164,11 @@ Rules:
 - `CONFLICT` or material `UNKNOWN` blocks only the affected claim/action.
 
 Current lifecycle routing is owned by
-[`CURRENT.md`](../development-package-state/CURRENT.md). The exact R14
-acceptance event remains in the unchanged
-[`R14_ACCEPTANCE_AND_DELIVERY.md`](../development-package-state/R14_ACCEPTANCE_AND_DELIVERY.md)
-and applies only to its bound R14 aggregate.
+[`CURRENT.md`](../development-package-state/CURRENT.md). The exact R16
+acceptance event remains in the immutable
+[`R16_ACCEPTANCE_AND_DELIVERY.md`](../development-package-state/R16_ACCEPTANCE_AND_DELIVERY.md)
+and applies only to its bound 35-path R16 composite with content aggregate
+`5ac5b606960fc4f533cdfe7ca3bc95c879c62a3d8f95d1bc10270a469a286a61`.
 
 ## Portability and path contract
 
@@ -206,8 +207,8 @@ Binding states:
 
 ## Active status axes
 
-The exact current human prompt and the accepted project core agree on these
-active R15 axes:
+The exact current human authorization and the accepted project core agree on
+these active R17 axes:
 
 ```yaml
 technical_result:
@@ -267,7 +268,7 @@ feature_contract_readiness:
 ```
 
 `BLK-006_CANONICAL_STATUS_AXIS_CONFLICT` is
-`RESOLVED_FOR_ACTIVE_DRAFT_R15_PACKAGE_SCOPE`: the active set uses the enum
+`RESOLVED_FOR_ACTIVE_DRAFT_R17_PACKAGE_SCOPE`: the active set uses the enum
 above and contains no competing owner. Canonical files outside `AOS-3/` are
 unchanged; historical R14 semantics remain historical Evidence and acquire no
 R15 conformance claim.
@@ -275,23 +276,24 @@ R15 conformance claim.
 ## Acceptance and supersession
 
 ```yaml
-r14_aggregate:
-  identity: EXACT_R14_AGGREGATE_ONLY
+r16_aggregate:
+  identity: EXACT_R16_35_PATH_COMPOSITE_ONLY
+  composite_content_aggregate_sha256: 5ac5b606960fc4f533cdfe7ca3bc95c879c62a3d8f95d1bc10270a469a286a61
   status: HUMAN_ACCEPTED_IN_DECLARED_SCOPE
-r15_aggregate:
+r17_aggregate:
   status: DRAFT
   human_acceptance: NOT_RUN
-new_or_modified_r15_subjects:
+new_or_modified_r17_subjects:
   status: DRAFT
   acceptance_inheritance: FORBIDDEN
-exact_byte_unchanged_r14_subjects:
-  default_role_without_exact_subject_proof: HISTORICAL_ACCEPTED_REFERENCE
+exact_R16_acceptance_evidence:
+  role: IMMUTABLE_HISTORICAL_ACCEPTANCE_EVIDENCE
 ```
 
 The active/non-active classification owner is
-[`SUBJECT_STATE_REGISTRY_R15.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R15.md).
-The R15 candidate does not supersede accepted R14 until a separate exact human
-decision.
+[`SUBJECT_STATE_REGISTRY_R17.md`](../development-package-state/SUBJECT_STATE_REGISTRY_R17.md).
+The R17 candidate does not supersede accepted R16 until separate read-only
+validation and a separate exact human decision.
 
 ## Conflict and authorization route
 
@@ -308,11 +310,11 @@ Package presence, author self-check `PASS`, target binding, Task readiness or
 human Task acceptance cannot create implementation or Git authority.
 
 ```yaml
-r15_independent_validation: NOT_RUN
-r15_human_acceptance: NOT_RUN
+r17_independent_validation: NOT_RUN
+r17_human_acceptance: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
-one_next_action: RUN_SEPARATE_READ_ONLY_INDEPENDENT_VALIDATE_OVER_FROZEN_DRAFT_R15
+one_next_action: RUN_SEPARATE_READ_ONLY_INDEPENDENT_VALIDATE_OVER_FROZEN_DRAFT_R17
 stop: true
 ```
 
