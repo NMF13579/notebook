@@ -1,13 +1,13 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 4
+state_revision: 5
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-02T00:47:18.895+05:00'
+  recorded_at: '2026-08-02T01:05:30.755+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: INT-DOC-001B-DELIVERY-001
+  task_id: INT-DOC-001B-PROFILE-ACTIVATION-001
   basis_refs:
     - path: planning/AOS_Documentation_Task_Sequence_R9.md
       sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -15,6 +15,8 @@ state_update:
       sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
     - path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Acceptance_Record.md
       sha256: 1792cde65901aadd8654f77c1dda28ee5d14e13f5d4b9a58157b25c1e4bcee54
+    - path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Activation_Record.md
+      sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 active_roadmap:
   path: planning/AOS_Documentation_Task_Sequence_R9.md
   sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -24,7 +26,7 @@ active_roadmap:
 active_interval:
   interval_id: INT-DOC-001B
   interval_instance_id: INT-DOC-001B
-  lifecycle_status: COMPLETED_AWAITING_PROFILE_ACTIVATION
+  lifecycle_status: COMPLETED_PROFILE_ACTIVE_NEXT_INTERVAL_INACTIVE
 INT-DOC-001A:
   lifecycle_status: COMPLETED
   human_acceptance: ACCEPT
@@ -34,11 +36,11 @@ INT-DOC-001A:
   push: PERFORMED
   integration_to_dev: PERFORMED
 current_stage:
-  task_id: INT-DOC-001B-DELIVERY-001
+  task_id: INT-DOC-001B-PROFILE-ACTIVATION-001
   stage: EXECUTE
   stage_status: COMPLETED
   active_stage: NONE
-  next_stage: PROFILE_ACTIVATION_EXECUTE
+  next_stage: NONE
   next_stage_authorization: NONE
 INT-DOC-001B:
   activation: PERFORMED
@@ -56,8 +58,12 @@ INT-DOC-001B:
     acceptance_record:
       path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Acceptance_Record.md
       sha256: 1792cde65901aadd8654f77c1dda28ee5d14e13f5d4b9a58157b25c1e4bcee54
-  profile_lifecycle: HUMAN_ACCEPTED_INACTIVE
-  profile_activation: NOT_RUN
+  profile_lifecycle: HUMAN_ACCEPTED_ACTIVE
+  profile_activation:
+    status: PERFORMED
+    activation_record:
+      path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Activation_Record.md
+      sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 current_subject:
   subject_id: POST-STOP-DOCUMENTATION-VALIDATION-CONTRACT-R1
   kind: HUMAN_ACCEPTED_DOCUMENTATION_ARTIFACT
@@ -73,13 +79,26 @@ current_subject:
     path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
     sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
     applicability_class: POST_STOP_DOCUMENTATION
-    lifecycle_state: HUMAN_ACCEPTED_INACTIVE
+    lifecycle_state: HUMAN_ACCEPTED_ACTIVE
+active_validation_profiles:
+  - applicability_class: POST_STOP_DOCUMENTATION
+    profile_identity:
+      profile_id: POST_STOP_DOCUMENTATION
+      revision: R6
+      path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+      sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
+    acceptance_record_identity:
+      path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Acceptance_Record.md
+      sha256: 1792cde65901aadd8654f77c1dda28ee5d14e13f5d4b9a58157b25c1e4bcee54
+    activation_record_identity:
+      path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Activation_Record.md
+      sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  observation_scope: PRE_DELIVERY_BASELINE
+  observation_scope: PRE_ACTIVATION_DELIVERY_BASELINE
   branch: docs/int-doc-001b-post-stop-validation-contract
-  base_HEAD: 07b7fe75012c80590bf8a42d9b5bdddf60d831b2
-  candidate_git_state: UNTRACKED_NEW_FILE
+  base_HEAD: 9d9047815a904d4f498255698b6d18e5c79d4fab
+  candidate_git_state: TRACKED_UNCHANGED
   all_other_paths_clean: true
   staging_area_empty: true
   reobservation_required: true
@@ -95,8 +114,7 @@ last_terminal_result:
 authorization_default: DENY_UNLESS_EXACT_ACTIVE_RECORD
 active_authorizations: []
 prohibited_operations:
-  - PROFILE_ACTIVATION_WITHOUT_SEPARATE_AUTHORIZATION
-  - NEXT_INTERVAL_ACTIVATION
+  - NEXT_INTERVAL_ACTIVATION_WITHOUT_SEPARATE_AUTHORIZATION
   - MERGE
   - RELEASE
   - IMPLEMENTATION
@@ -125,7 +143,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: HUMAN_AUTHORIZE_POST_STOP_DOCUMENTATION_PROFILE_ACTIVATION
+next_bounded_action: HUMAN_DECIDE_INT_DOC_010_ACTIVATION
 ---
 
 # Current persisted workflow state
