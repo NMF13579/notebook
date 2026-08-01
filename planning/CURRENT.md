@@ -1,18 +1,20 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 3
+state_revision: 4
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-01T16:19:56+05:00'
+  recorded_at: '2026-08-02T00:47:18.895+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: INT-DOC-001B-ACTIVATE
+  task_id: INT-DOC-001B-DELIVERY-001
   basis_refs:
-    - path: planning/AOS_Authoritative_Owner_Map_R1.md
-      sha256: 21d256eda56b528c3eb93aaf2120ee73ab5345d162906e2774a647e23b232909
-    - path: planning/AOS_Authoritative_Owner_Map_R1_Acceptance_Record.md
-      sha256: 37a989a7ce5a3e13b145e61727fb838cd2ee60bb75864a0ba44ff088ffafcfe7
+    - path: planning/AOS_Documentation_Task_Sequence_R9.md
+      sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
+    - path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+      sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
+    - path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Acceptance_Record.md
+      sha256: 1792cde65901aadd8654f77c1dda28ee5d14e13f5d4b9a58157b25c1e4bcee54
 active_roadmap:
   path: planning/AOS_Documentation_Task_Sequence_R9.md
   sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -22,7 +24,7 @@ active_roadmap:
 active_interval:
   interval_id: INT-DOC-001B
   interval_instance_id: INT-DOC-001B
-  lifecycle_status: ACTIVATED
+  lifecycle_status: COMPLETED_AWAITING_PROFILE_ACTIVATION
 INT-DOC-001A:
   lifecycle_status: COMPLETED
   human_acceptance: ACCEPT
@@ -32,53 +34,75 @@ INT-DOC-001A:
   push: PERFORMED
   integration_to_dev: PERFORMED
 current_stage:
-  task_id: INT-DOC-001B-ACTIVATE
-  stage: ACTIVATE
+  task_id: INT-DOC-001B-DELIVERY-001
+  stage: EXECUTE
   stage_status: COMPLETED
   active_stage: NONE
-  next_stage: EXECUTE
-  next_stage_authorization: ACTIVE_ONE_SHOT
+  next_stage: PROFILE_ACTIVATION_EXECUTE
+  next_stage_authorization: NONE
 INT-DOC-001B:
   activation: PERFORMED
-  execution: NOT_RUN
+  execution: PASS
+  validation:
+    task_id: INT-DOC-001B-VALIDATE-008
+    level: L2
+    mode: READ_ONLY_NEW_RUN
+    technical_result: PASS
+    readiness: READY_FOR_HUMAN_REVIEW
+    claim_class: REPORTED
+  human_acceptance:
+    decision: ACCEPT
+    accepted_subject_sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
+    acceptance_record:
+      path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Acceptance_Record.md
+      sha256: 1792cde65901aadd8654f77c1dda28ee5d14e13f5d4b9a58157b25c1e4bcee54
+  profile_lifecycle: HUMAN_ACCEPTED_INACTIVE
+  profile_activation: NOT_RUN
 current_subject:
   subject_id: POST-STOP-DOCUMENTATION-VALIDATION-CONTRACT-R1
-  kind: PLANNED_DOCUMENTATION_ARTIFACT
+  kind: HUMAN_ACCEPTED_DOCUMENTATION_ARTIFACT
   paths:
     - planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
   identity:
-    type: PRE_CREATION_PATH_ABSENCE
-    value: NOT_CREATED
+    type: SHA256
+    revision: R6
+    value: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
+  validation_profile_identity:
+    profile_id: POST_STOP_DOCUMENTATION
+    revision: R6
+    path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+    sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
+    applicability_class: POST_STOP_DOCUMENTATION
+    lifecycle_state: HUMAN_ACCEPTED_INACTIVE
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  local_dev_HEAD: 179af6a4f1cabdcfa16f2d5247e343bfc934c683
-  origin_dev_HEAD: 179af6a4f1cabdcfa16f2d5247e343bfc934c683
+  observation_scope: PRE_DELIVERY_BASELINE
+  branch: docs/int-doc-001b-post-stop-validation-contract
+  base_HEAD: 07b7fe75012c80590bf8a42d9b5bdddf60d831b2
+  candidate_git_state: UNTRACKED_NEW_FILE
+  all_other_paths_clean: true
+  staging_area_empty: true
   reobservation_required: true
 last_terminal_result:
-  task_id: INT-DOC-001A
-  stage: REVIEW
+  task_id: INT-DOC-001B-VALIDATE-008
+  stage: VALIDATE
   technical_result: PASS
+  readiness: READY_FOR_HUMAN_REVIEW
   claim_class: REPORTED
-  report_ref:
-    path: planning/AOS_Authoritative_Owner_Map_R1_Acceptance_Record.md
-    sha256: 37a989a7ce5a3e13b145e61727fb838cd2ee60bb75864a0ba44ff088ffafcfe7
+  subject:
+    path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+    sha256: b35bf89e503c2cd86393c983ef26108858a5c1e697c09db5d497b8830ca122b9
 authorization_default: DENY_UNLESS_EXACT_ACTIVE_RECORD
-active_authorizations:
-  - authorization_id: INT-DOC-001B-EXECUTE-001
-    operation: BOUNDED_DOCUMENTATION_WRITE
-    output_path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
-    branch: docs/int-doc-001b-post-stop-validation-contract
-    one_shot: true
-    status: ACTIVE
+active_authorizations: []
 prohibited_operations:
-  - COMMIT_DURING_INTERVAL_EXECUTE
-  - PUSH_DURING_INTERVAL_EXECUTE
+  - PROFILE_ACTIVATION_WITHOUT_SEPARATE_AUTHORIZATION
+  - NEXT_INTERVAL_ACTIVATION
   - MERGE
   - RELEASE
   - IMPLEMENTATION
   - AUTOMATIC_VALIDATE_DISPATCH
 finding_disposition:
-  stale_CURRENT_conflict: RESOLVED_BY_CURRENT_UPDATE
+  stale_CURRENT_conflict: RESOLVED_BY_AUTHORIZED_CURRENT_RECONCILIATION
 blocking_findings:
   - finding_id: PWS-BF-002
     classification: NOT_FOUND
@@ -101,7 +125,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: EXECUTE_INT_DOC_001B
+next_bounded_action: HUMAN_AUTHORIZE_POST_STOP_DOCUMENTATION_PROFILE_ACTIVATION
 ---
 
 # Current persisted workflow state
