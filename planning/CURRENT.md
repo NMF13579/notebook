@@ -1,13 +1,13 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 2
+state_revision: 3
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-01T14:18:29+05:00'
+  recorded_at: '2026-08-01T16:19:56+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
+  task_id: INT-DOC-001B-ACTIVATE
   basis_refs:
     - path: planning/AOS_Authoritative_Owner_Map_R1.md
       sha256: 21d256eda56b528c3eb93aaf2120ee73ab5345d162906e2774a647e23b232909
@@ -20,8 +20,10 @@ active_roadmap:
     path: planning/AOS_Documentation_Task_Sequence_R9_Activation_Record.md
     sha256: e2f609302d5bea5a51b033d93adf9cb685d6c068eef5aba2e04b40bb085296e3
 active_interval:
-  interval_id: INT-DOC-001A
-  interval_instance_id: INT-DOC-001A
+  interval_id: INT-DOC-001B
+  interval_instance_id: INT-DOC-001B
+  lifecycle_status: ACTIVATED
+INT-DOC-001A:
   lifecycle_status: COMPLETED
   human_acceptance: ACCEPT
   commit:
@@ -30,27 +32,27 @@ active_interval:
   push: PERFORMED
   integration_to_dev: PERFORMED
 current_stage:
-  task_id: INT-DOC-001A
-  stage: REVIEW
+  task_id: INT-DOC-001B-ACTIVATE
+  stage: ACTIVATE
   stage_status: COMPLETED
   active_stage: NONE
-  next_interval_id: INT-DOC-001B
-  next_interval_activation: NOT_RUN
+  next_stage: EXECUTE
+  next_stage_authorization: ACTIVE_ONE_SHOT
 INT-DOC-001B:
-  activation: NOT_RUN
+  activation: PERFORMED
   execution: NOT_RUN
 current_subject:
-  subject_id: AOS-AUTHORITATIVE-OWNER-MAP-R1
-  kind: DOCUMENTATION_ARTIFACT
+  subject_id: POST-STOP-DOCUMENTATION-VALIDATION-CONTRACT-R1
+  kind: PLANNED_DOCUMENTATION_ARTIFACT
   paths:
-    - planning/AOS_Authoritative_Owner_Map_R1.md
+    - planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
   identity:
-    type: SHA256
-    value: 21d256eda56b528c3eb93aaf2120ee73ab5345d162906e2774a647e23b232909
+    type: PRE_CREATION_PATH_ABSENCE
+    value: NOT_CREATED
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  local_dev_HEAD: 498f474b37592d8e6c2efec0cce92299dfd34bb3
-  origin_dev_HEAD: 498f474b37592d8e6c2efec0cce92299dfd34bb3
+  local_dev_HEAD: 179af6a4f1cabdcfa16f2d5247e343bfc934c683
+  origin_dev_HEAD: 179af6a4f1cabdcfa16f2d5247e343bfc934c683
   reobservation_required: true
 last_terminal_result:
   task_id: INT-DOC-001A
@@ -61,40 +63,20 @@ last_terminal_result:
     path: planning/AOS_Authoritative_Owner_Map_R1_Acceptance_Record.md
     sha256: 37a989a7ce5a3e13b145e61727fb838cd2ee60bb75864a0ba44ff088ffafcfe7
 authorization_default: DENY_UNLESS_EXACT_ACTIVE_RECORD
-active_authorizations: []
+active_authorizations:
+  - authorization_id: INT-DOC-001B-EXECUTE-001
+    operation: BOUNDED_DOCUMENTATION_WRITE
+    output_path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+    branch: docs/int-doc-001b-post-stop-validation-contract
+    one_shot: true
+    status: ACTIVE
 prohibited_operations:
-  - operation: INT-DOC-001B_ACTIVATION
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: INT-DOC-001B_EXECUTION
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: IMPLEMENTATION
-    scope: ALL
-    basis_refs:
-      - docs/00_Core.md
-  - operation: PATH_MUTATION
-    scope: OUTSIDE_PLANNING_CURRENT_MD
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: COMMIT
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: PUSH
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: MERGE
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
-  - operation: RELEASE
-    scope: ALL
-    basis_refs:
-      - CURRENT_EXPLICIT_HUMAN_DECISION:AOS-PERSISTED-WORKFLOW-STATE-CORRECTION-001
+  - COMMIT_DURING_INTERVAL_EXECUTE
+  - PUSH_DURING_INTERVAL_EXECUTE
+  - MERGE
+  - RELEASE
+  - IMPLEMENTATION
+  - AUTOMATIC_VALIDATE_DISPATCH
 finding_disposition:
   stale_CURRENT_conflict: RESOLVED_BY_CURRENT_UPDATE
 blocking_findings:
@@ -119,7 +101,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: INDEPENDENT_VALIDATE_EXACT_CORRECTED_WORKFLOW_STATE
+next_bounded_action: EXECUTE_INT_DOC_001B
 ---
 
 # Current persisted workflow state
