@@ -1,0 +1,42 @@
+{
+  "task_id": "TASK-LOCAL-AUTONOMY-HUMAN-REVIEW-VALIDATE-001-MECH",
+  "request_id": "TLA-HR-VAL-001-MECH",
+  "parent_task_id": "TASK-LOCAL-AUTONOMY",
+  "task_class": "VALIDATE_READ_ONLY_MECHANICAL_L0",
+  "role": "mechanical_checker",
+  "model": "gpt-5.6-luna",
+  "reasoning": "Read-only verification of canonical manifest, exact subject members, lifecycle fields, and repository identity.",
+  "exact_subject": "Canonical manifest SHA-256 924f380332b1dc5eb0791a6c1227917266af92effcaed9ad2cdf411362191732; 445 bytes. All three member hashes and lengths match.",
+  "source_boundary": "Exact manifest and three members, CURRENT, AGENTS.md, canonical documentation, and direct owner/profile artifacts.",
+  "sources": "All required sources available.",
+  "methods": "Hash/length verification, manifest reconstruction, YAML parsing, fence/link checks, lifecycle/auth scans, canonical counts, Git identity/status.",
+  "classified_claims": [
+    "OBSERVED_AT_SNAPSHOT: canonical manifest and members reproduce exactly.",
+    "OBSERVED_AT_SNAPSHOT: CURRENT identity matches supplied hash; branch and HEAD match.",
+    "OBSERVED_AT_SNAPSHOT: YAML parses and fences are balanced.",
+    "OBSERVED_AT_SNAPSHOT: no premature task-output acceptance or next-task activation.",
+    "OBSERVED_AT_SNAPSHOT: implementation/Git authorization remains NONE.",
+    "OBSERVED_AT_SNAPSHOT: FTR/LES inventories complete.",
+    "OBSERVED_AT_SNAPSHOT: validator performed no writes."
+  ],
+  "conflicts": [],
+  "unknowns": [],
+  "recommendations": "READY_FOR_HUMAN_REVIEW",
+  "checks_run": "All requested mechanical checks completed.",
+  "checks_not_run": "Semantic acceptance, Commit, Push, Merge, Release.",
+  "limitations": "Mechanical role only; pre-existing CURRENT modification observed.",
+  "model_binding": "STATIC_CONFIGURATION_BINDING; preferred_model=gpt-5.3-codex-spark; configured_model=gpt-5.6-luna; Spark absent from configuration-time catalog; not runtime fallback.",
+  "repository_mutations": 0,
+  "Git_operations": {
+    "status": "READ_ONLY",
+    "commit": "NOT_RUN",
+    "push": "NOT_RUN",
+    "merge": "NOT_RUN",
+    "release": "NOT_RUN"
+  },
+  "result": "PASS",
+  "readiness": "READY_FOR_HUMAN_REVIEW",
+  "human_decision": null,
+  "next_required_action": "HUMAN_REVIEW_OF_EXACT_HASH_BOUND_SUBJECT",
+  "stop": true
+}

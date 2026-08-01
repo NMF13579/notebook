@@ -1,0 +1,269 @@
+task_id: TASK-LOCAL-AUTONOMY-HUMAN-REVIEW-VALIDATE-002-SEM
+request_id: TLA-HR-VAL-002-SEM
+parent_task_id: TASK-LOCAL-AUTONOMY
+task_class: VALIDATE_READ_ONLY_SEMANTIC_L1_L2
+role: semantic_reviewer
+model: gpt-5.6-sol
+reasoning: high
+exact_subject:
+  claim_class: OBSERVED_AT_SNAPSHOT
+  manifest:
+    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_SUBJECT_R1.manifest
+    sha256: 924f380332b1dc5eb0791a6c1227917266af92effcaed9ad2cdf411362191732
+    byte_length: 445
+  members:
+    - path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md
+      sha256: bca8f3c4785a9d4c23fa656826cd764fdab80018819b04427ea62badd10dc736
+      byte_length: 29488
+    - path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Acceptance_Record.md
+      sha256: a07217355d46ae5e934b99eb4ade046b4082eff591d27f66bea41c199f1e56ee
+      byte_length: 1785
+    - path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md
+      sha256: 7e28142b3208636bef46533ac3ca3965550938312572739c93cff914192ca5c0
+      byte_length: 4395
+  authority_context:
+    path: planning/CURRENT.md
+    state_revision: 11
+    sha256: c3631d5d15b3f2a1c004f39d5445ed18c26508898528fe7f0e5b1b8cdc279acf
+    byte_length: 15321
+    subject_membership: EXCLUDED
+source_boundary:
+  claim_class: OBSERVED_AT_SNAPSHOT
+  included:
+    - exact manifest and three immutable members
+    - planning/CURRENT.md revision 11
+    - both exact durable R1 validation reports
+    - AGENTS.md
+    - docs/00_Core.md
+    - planning/AOS_Documentation_Task_Sequence_R9.md
+    - planning/AOS_Authoritative_Owner_Map_R1.md
+    - active post-stop profile and accepted activation records where required
+  scope_expansion: NOT_RUN
+sources:
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_SUBJECT_R1.manifest
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Acceptance_Record.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/CURRENT.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION_MECHANICAL_R1.yaml
+    sha256: 74c14d4cd4312bac43046049471dabfaee8803e66c6b6697f60e8927c8e745cb
+    byte_length: 2308
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION_SEMANTIC_R1.yaml
+    sha256: 3bbe87be95b077c6f70698d4de09a5c6414a9614acb025fe2b29af45f92dd1aa
+    byte_length: 11197
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: docs/00_Core.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/AOS_Authoritative_Owner_Map_R1.md
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1.md
+methods:
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    method: independent manifest, member, CURRENT and durable-report identity verification
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    method: fresh repository root, branch, HEAD, worktree and staging inspection
+  - claim_class: SYNTHESIZED
+    method: explicit closure review of TLA-HR-SEM-003
+  - claim_class: SYNTHESIZED
+    method: L1 authority, status, acceptance and Git-boundary review
+  - claim_class: SYNTHESIZED
+    method: L2 reproducibility, replay, expiry, ownership and routing review
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    method: final zero-write and identity verification
+classified_claims:
+  - id: TLA-HR2-SEM-001
+    claim_class: OBSERVED_AT_SNAPSHOT
+    prior_finding: TLA-HR-SEM-003
+    closure: CLOSED
+    finding: >
+      NEEDS_CHANGES no longer appears as a technical result. CURRENT records the
+      prior semantic result as canonical technical FAIL with readiness NOT_READY,
+      while human_decision_on_task_output remains null.
+    evidence:
+      - planning/CURRENT.md:123-151
+      - planning/CURRENT.md:169-171
+      - planning/CURRENT.md:214-225
+      - planning/CURRENT.md:249-257
+  - id: TLA-HR2-SEM-002
+    claim_class: OBSERVED_AT_SNAPSHOT
+    finding: >
+      Both prior R1 validation reports now exist as exact durable files and CURRENT
+      binds each by path, byte length and SHA-256. Their PASS and FAIL results are
+      preserved without reclassification.
+    evidence:
+      - planning/CURRENT.md:123-151
+      - planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION_MECHANICAL_R1.yaml:1-42
+      - planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION_SEMANTIC_R1.yaml:1-280
+  - id: TLA-HR2-SEM-003
+    claim_class: SYNTHESIZED
+    finding: >
+      The immutable three-file subject remains exactly reproducible and stable.
+      CURRENT revision 11 remains separately hash-bound authority context, so state
+      correction did not alter or silently rebind subject membership.
+    evidence:
+      - planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_SUBJECT_R1.manifest:1-5
+      - planning/CURRENT.md:152-190
+  - id: TLA-HR2-SEM-004
+    claim_class: OBSERVED_AT_SNAPSHOT
+    finding: >
+      The original task-local mandate remains EXPIRED with cold-start replay
+      authorization NONE. Two correction cycles are consumed, one remains, and
+      no other task or interval receives reuse authority.
+    evidence:
+      - planning/CURRENT.md:91-103
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md:30-41
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md:72-99
+  - id: TLA-HR2-SEM-005
+    claim_class: OBSERVED_AT_SNAPSHOT
+    finding: >
+      Human decision on this task output remains null. Prior contract acceptance
+      is not promoted into acceptance of the current human-review package.
+    evidence:
+      - planning/CURRENT.md:169-171
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Acceptance_Record.md:29-51
+  - id: TLA-HR2-SEM-006
+    claim_class: SYNTHESIZED
+    finding: >
+      CURRENT remains the sole durable lifecycle owner. Validation reports are
+      exact Evidence, not competing progress owners or sources of acceptance,
+      implementation authority or Git authorization.
+    evidence:
+      - planning/CURRENT.md:283-313
+      - planning/AOS_Authoritative_Owner_Map_R1.md:315-325
+  - id: TLA-HR2-SEM-007
+    claim_class: SYNTHESIZED
+    finding: >
+      No Control Plane, general engine, cascade, recursive self-heal, automatic
+      next task, implementation authority or Git authority is introduced.
+    evidence:
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md:57-74
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md:112-128
+      - planning/CURRENT.md:226-248
+      - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md:80-112
+  - id: TLA-HR2-SEM-008
+    claim_class: OBSERVED_AT_SNAPSHOT
+    finding: >
+      Repository root, dev branch, HEAD, six expected untracked task-local files,
+      modified CURRENT and empty staging match CURRENT revision 11's snapshot.
+    evidence:
+      - planning/CURRENT.md:204-213
+  - id: TLA-HR2-SEM-009
+    claim_class: NOT_RUN
+    finding: >
+      Human review and acceptance of this exact task output remain unperformed;
+      this PASS creates neither decision.
+conflicts: []
+unknowns: []
+recommendations:
+  - claim_class: SYNTHESIZED
+    priority: 1
+    action: >
+      Persist this exact R2 semantic report at the authorized durable path and bind
+      its exact byte length and SHA-256 in CURRENT.
+  - claim_class: SYNTHESIZED
+    priority: 2
+    action: >
+      After both required R2 validation reports are durably bound, present the
+      unchanged three-file subject for human review.
+  - claim_class: SYNTHESIZED
+    priority: 3
+    action: >
+      Do not infer task-output acceptance, implementation authority, Git authority
+      or activation of another task or interval from technical PASS/readiness.
+checks_run:
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: canonical manifest SHA-256 and byte length
+    result: PASS
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: all three member hashes and lengths
+    result: PASS
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: CURRENT revision 11 hash and byte length
+    result: PASS
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: both durable R1 report paths, hashes and lengths
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: TLA-HR-SEM-003 status-axis correction
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: immutable subject versus mutable authority-context separation
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: mandate expiry, replay and correction-cycle accounting
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: acceptance versus activation versus task-output decision
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: sole durable owner and fail-closed routing
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: absence of engine, cascade, self-heal and next-task activation
+    result: PASS
+  - claim_class: SYNTHESIZED
+    check: implementation and Git authority boundaries
+    result: PASS
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: root, branch, HEAD, worktree and staging
+    result: PASS
+  - claim_class: OBSERVED_AT_SNAPSHOT
+    check: final exact-subject, CURRENT and R1 report hashes unchanged
+    result: PASS
+checks_not_run:
+  - claim_class: NOT_RUN
+    check: human review of task output
+  - claim_class: NOT_RUN
+    check: human acceptance of task output
+  - claim_class: NOT_RUN
+    check: durable persistence of this R2 semantic report
+  - claim_class: NOT_RUN
+    check: implementation
+  - claim_class: NOT_RUN
+    check: Commit
+  - claim_class: NOT_RUN
+    check: Push
+  - claim_class: NOT_RUN
+    check: Merge
+  - claim_class: NOT_RUN
+    check: Release
+limitations:
+  - claim_class: SYNTHESIZED
+    detail: This is documentation/state semantic validation, not runtime proof.
+  - claim_class: NOT_RUN
+    detail: No report persistence, state update, Git mutation or human decision occurred.
+  - claim_class: NOT_RUN
+    detail: Separate R2 mechanical validation was not substituted by this semantic role.
+model_binding:
+  claim_class: REPORTED
+  requested_model: gpt-5.6-sol
+  reasoning: high
+  binding_kind: STATIC_REQUESTED_BINDING
+  materially_insufficient: false
+  runtime_fallback: NOT_RUN
+  retry: NOT_RUN
+repository_mutations: 0
+Git_operations:
+  status_inspection:
+    claim_class: OBSERVED_AT_SNAPSHOT
+    mode: READ_ONLY
+  add: NOT_RUN
+  commit: NOT_RUN
+  push: NOT_RUN
+  merge: NOT_RUN
+  release: NOT_RUN
+  reset: NOT_RUN
+  checkout: NOT_RUN
+  branch_mutation: NOT_RUN
+result: PASS
+readiness: READY_FOR_HUMAN_REVIEW
+human_decision: null
+next_required_action: PERSIST_EXACT_R2_VALIDATION_REPORTS_THEN_HUMAN_REVIEW
+stop: true
