@@ -1,13 +1,13 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 14
+state_revision: 22
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-02T06:39:10+05:00'
+  recorded_at: '2026-08-02T07:57:00+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: TASK-LOCAL-AUTONOMY-INTEGRATION-CLOSURE-001
+  task_id: INT-DOC-010-ACCEPTANCE-001
   basis_refs:
     - path: planning/AOS_Documentation_Task_Sequence_R9.md
       sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -25,6 +25,8 @@ state_update:
       sha256: 7e28142b3208636bef46533ac3ca3965550938312572739c93cff914192ca5c0
     - path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_SUBJECT_R1_Acceptance_Record.md
       sha256: bc74b50acb53f6812b3eae77a972ba84aee8e5ee3b68e12e0562a1e7635b1bde
+    - path: planning/INT_DOC_010_Acceptance_Record.md
+      sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
 active_roadmap:
   path: planning/AOS_Documentation_Task_Sequence_R9.md
   sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -34,7 +36,7 @@ active_roadmap:
 active_interval:
   interval_id: NONE
   interval_instance_id: NONE
-  previous_completed_interval: INT-DOC-001B
+  previous_completed_interval: INT-DOC-010
   lifecycle_status: NO_ACTIVE_R9_INTERVAL
 INT-DOC-001A:
   lifecycle_status: COMPLETED
@@ -45,7 +47,7 @@ INT-DOC-001A:
   push: PERFORMED
   integration_to_dev: PERFORMED
 current_stage:
-  task_id: TASK-LOCAL-AUTONOMY
+  task_id: INT-DOC-010
   stage: REVIEW
   stage_status: COMPLETED
   active_stage: NONE
@@ -74,10 +76,204 @@ INT-DOC-001B:
       path: planning/verification/POST_STOP_DOCUMENTATION_VALIDATION_CONTRACT_R1_Activation_Record.md
       sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 INT-DOC-010:
-  activation: PAUSED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
-  execution: NOT_RUN
-  validation: NOT_RUN
-  human_acceptance: NOT_RUN
+  activation: PERFORMED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
+  execution: PASS
+  lifecycle_status: COMPLETED_HUMAN_ACCEPTED
+  validation:
+    task_id: INT-DOC-010-VALIDATE-003-SEM
+    technical_result: HUMAN_REVIEW_REQUIRED
+    readiness: READY_FOR_HUMAN_REVIEW
+    claim_class: OBSERVED_AT_SNAPSHOT
+  human_acceptance:
+    decision: ACCEPT
+    decision_source: CURRENT_EXPLICIT_HUMAN_DECISION
+    accepted_subject_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+    acceptance_record:
+      path: planning/INT_DOC_010_Acceptance_Record.md
+      byte_length: 3804
+      sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
+  task_local_autonomy:
+    mandate_id: INT-DOC-010-TASK-LOCAL-MANDATE-001
+    authority_basis: CURRENT_EXPLICIT_HUMAN_DECISION
+    human_command_locator: CODEX_CURRENT_THREAD_CURRENT_USER_MESSAGE
+    human_command_sha256: UNAVAILABLE_AT_RUNTIME
+    contract:
+      path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md
+      sha256: bca8f3c4785a9d4c23fa656826cd764fdab80018819b04427ea62badd10dc736
+    normalized_mandate:
+      byte_length: 2392
+      sha256: 81dd8869793e71ebb707bd72b51adb46cbcdf976d930e3f730a4ae51bdb7dff7
+      human_identity_marker: UNAVAILABLE_AT_RUNTIME
+      replay_scope: LIVE_UNINTERRUPTED_SESSION_ONLY
+    validator_selector:
+      role: semantic_reviewer
+      configured_model: gpt-5.6-sol
+      reasoning: high
+      read_only: true
+      runtime_fallback: FORBIDDEN
+      selector_sha256: e6da008c39174b2309e8ce3fe2ac59703338db2c0bf833bd2540c55da10c8a7e
+    mechanical_validator_binding:
+      role: mechanical_checker
+      configured_model: gpt-5.6-luna
+      binding_kind: STATIC_CONFIGURATION_TIME_BINDING
+      binding_reason: GPT_5_3_CODEX_SPARK_ABSENT_FROM_CONFIGURATION_TIME_MODEL_CATALOG
+      runtime_fallback: NOT_APPLICABLE
+    starting_identity:
+      repository_root: NMF13579/notebook
+      branch_or_detached: dev
+      head_sha: 4e58f2f323c47cdc7e1ef9a332c82cd1e62e00e4
+      output_set: ABSENT
+    allowed_paths:
+      - planning/AOS_Documentation_Task_Manifest_R1.md
+      - planning/AOS_Gate_Status_Usage_Profile_R1.md
+      - planning/AOS_Feature_Coverage_Ledger_R1.md
+      - planning/AOS_Portable_Task_Candidate_Contract_R1.md
+      - planning/AOS_Target_Binding_And_Task_Conversion_Protocol_R1.md
+      - planning/AOS_Documentation_Progress_Checklist_R2.md
+      - planning/CURRENT.md
+    forbidden_operations: [DELETE, RENAME, IMPLEMENTATION, COMMIT, PUSH, MERGE, RELEASE, NEXT_TASK_ACTIVATION]
+    correction_cycles_consumed: 2
+    correction_cycles_remaining: 1
+    subject_generation: 3
+    subject_manifest_sha256_or_absent_marker: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+    report_chain:
+      - report_id: INT-DOC-010-PLAN-001
+        stage: PLAN
+        result: PASS
+        claim_class: OBSERVED_AT_SNAPSHOT
+        checks_run:
+          - exact six-path absence prewrite gate
+          - authoritative input path and SHA-256 binding
+          - roadmap start-condition and authority-boundary review
+          - exact scope, validation matrix and stop-condition derivation
+        checks_not_run: [EXECUTE, VALIDATE, REVIEW, COMMIT, PUSH, MERGE, RELEASE]
+        next_required_action: EXECUTE_EXACT_INT_DOC_010_OUTPUT_SET
+        stop: true
+      - report_id: INT-DOC-010-EXECUTE-001
+        stage: EXECUTE
+        result: PASS
+        claim_class: OBSERVED_AT_SNAPSHOT
+        exact_report:
+          representation: INLINE_UTF8_BASE64_CAPTURED_OUTSIDE_REPOSITORY
+          byte_length: 3728
+          sha256: 96cd9071637a5ebee4124ac3531f37cbfae878392be062bee4c50f0ad1832590
+        output_subject_manifest:
+          byte_length: 780
+          sha256: 593a1c14d9f0a1832e8122c7cbe16a688ab0cc4462af928aa3e384d11849aa50
+        internal_corrections:
+          - finding_id: INT-DOC-010-INTERNAL-001
+            disposition: CORRECTED_BEFORE_FREEZE
+            cycle_budget_effect: NONE
+        final_candidate_frozen: true
+        checks_run:
+          - complete internal check before freeze
+          - complete repeated internal check after in-run correction
+        checks_not_run: [VALIDATE, REVIEW, HUMAN_ACCEPTANCE, COMMIT, PUSH, MERGE, RELEASE]
+        next_required_action: INDEPENDENT_VALIDATE_EXACT_INT_DOC_010_OUTPUT_SET
+        stop: true
+      - report_id: INT-DOC-010-VALIDATE-001-SEM
+        stage: VALIDATE
+        result: FAIL
+        claim_class: OBSERVED_AT_SNAPSHOT
+        model_binding: GPT_5_6_SOL_EXACT_BOUND_MODEL
+        repository_mutations: 0
+        findings:
+          - INT-DOC-010-SEM-F001
+          - INT-DOC-010-SEM-F002
+          - INT-DOC-010-SEM-F003
+          - INT-DOC-010-SEM-F004
+          - INT-DOC-010-SEM-F005
+          - INT-DOC-010-SEM-F006
+          - INT-DOC-010-SEM-F007
+        finding_boundary: SAME_SCOPE_TECHNICAL_CORRECTION
+        next_required_action: CORRECT_EXACT_ADMITTED_FINDINGS
+        stop: true
+      - report_id: INT-DOC-010-CORRECTION-001
+        stage: EXECUTE
+        result: PASS
+        claim_class: OBSERVED_AT_SNAPSHOT
+        exact_report:
+          representation: INLINE_UTF8_BASE64_CAPTURED_OUTSIDE_REPOSITORY
+          byte_length: 6729
+          sha256: 277540314a09475ee4f05f5cfe3d2a7c8f08efa5d291ead82f91682282f1d559
+        input_subject_manifest_sha256: 593a1c14d9f0a1832e8122c7cbe16a688ab0cc4462af928aa3e384d11849aa50
+        output_subject_manifest_sha256: f34e1f6a0122803ce99cae87ff7c7f3ecd43aa39997768c12ba6796533bb0c48
+        resolved_finding_ids:
+          - INT-DOC-010-SEM-F001
+          - INT-DOC-010-SEM-F002
+          - INT-DOC-010-SEM-F003
+          - INT-DOC-010-SEM-F004
+          - INT-DOC-010-SEM-F005
+          - INT-DOC-010-SEM-F006
+          - INT-DOC-010-SEM-F007
+        next_required_action: INDEPENDENT_VALIDATE_EXACT_INT_DOC_010_CORRECTED_OUTPUT_SET
+        stop: true
+      - report_id: INT-DOC-010-VALIDATE-002-SEM
+        stage: VALIDATE
+        result: FAIL
+        claim_class: OBSERVED_AT_SNAPSHOT
+        model_binding: GPT_5_6_SOL_EXACT_BOUND_MODEL
+        repository_mutations: 0
+        findings:
+          - INT-DOC-010-SEM-R2-F001
+          - INT-DOC-010-SEM-R2-F002
+        finding_boundary: SAME_SCOPE_TECHNICAL_CORRECTION
+        closed_findings:
+          - INT-DOC-010-SEM-F003
+          - INT-DOC-010-SEM-F004
+          - INT-DOC-010-SEM-F005
+          - INT-DOC-010-SEM-F006
+          - INT-DOC-010-SEM-F007
+        next_required_action: CORRECT_EXACT_ADMITTED_R2_FINDINGS
+        stop: true
+      - report_id: INT-DOC-010-CORRECTION-002
+        stage: EXECUTE
+        result: PASS
+        claim_class: OBSERVED_AT_SNAPSHOT
+        exact_report:
+          representation: INLINE_UTF8_BASE64_CAPTURED_OUTSIDE_REPOSITORY
+          byte_length: 5510
+          sha256: cb20f5ffb01b923cf7c945ec1e4c91ca59845c3b9b0748ed7f8b11d6f1bd35d3
+        input_subject_manifest_sha256: f34e1f6a0122803ce99cae87ff7c7f3ecd43aa39997768c12ba6796533bb0c48
+        output_subject_manifest_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+        resolved_finding_ids:
+          - INT-DOC-010-SEM-R2-F001
+          - INT-DOC-010-SEM-R2-F002
+        state_owner_update: NOT_RUN
+        next_required_action: INDEPENDENT_VALIDATE_EXACT_INT_DOC_010_CYCLE_2_OUTPUT_SET
+        stop: true
+      - report_id: INT-DOC-010-VALIDATE-003-MECH
+        stage: VALIDATE
+        result: PASS
+        readiness: NOT_READY
+        claim_class: OBSERVED_AT_SNAPSHOT
+        model_binding: GPT_5_6_LUNA_STATIC_CONFIGURATION_TIME_BINDING
+        repository_mutations: 0
+        subject_manifest_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+        next_required_action: PARENT_ISSUE_TERMINAL_VALIDATION_REPORT
+        stop: true
+      - report_id: INT-DOC-010-VALIDATE-003-SEM
+        stage: VALIDATE
+        result: HUMAN_REVIEW_REQUIRED
+        readiness: READY_FOR_HUMAN_REVIEW
+        claim_class: OBSERVED_AT_SNAPSHOT
+        exact_report_capture:
+          representation: EXACT_TRANSPORT_PAYLOAD_BASE64
+          byte_length: 2738
+          sha256: a24f62a2a97978dfad462856bf4dec34c578479f0e034cc107ff71c2d9a73646
+          payload_base64: dGFza19pZDogSU5ULURPQy0wMTAtVkFMSURBVEUtMDAzLVNFTQpyZXF1ZXN0X2lkOiBJTlQtRE9DLTAxMC1WQUxJREFURS0wMDMtU0VNLVJFUQpwYXJlbnRfdGFza19pZDogSU5ULURPQy0wMTAKdGFza19jbGFzczogRE9DVU1FTlRBVElPTl9WQUxJREFUSU9OCnJvbGU6IHNlbWFudGljX3Jldmlld2VyCm1vZGVsOiBncHQtNS42LXNvbApyZWFzb25pbmc6IGhpZ2gKZXhhY3Rfc3ViamVjdDoKICBzdWJqZWN0X3NldF9tYW5pZmVzdF9ieXRlX2xlbmd0aDogNzgwCiAgc3ViamVjdF9zZXRfc2hhMjU2OiA0Yzc5MjUwOGQ4MDNkMzJmYTY3MTRjZGU1Y2ExOThhZDdlMDlhNGQ4OTRlOTgyOTU2ZjlmMjg5YjZmMGExYTUwCiAgc3RhZ2VfcmVwb3J0X2J5dGVfbGVuZ3RoOiA1NTEwCiAgc3RhZ2VfcmVwb3J0X3NoYTI1NjogY2IyMGY1ZmZiMDFiOTIzY2Y3Yzk0NWVjMWU0YzkxY2E1OTg0NWMzYjliMDc0OGVkN2Y4YjExZDZmMWJkMzVkMwpzb3VyY2VfYm91bmRhcnk6IFJFQURfT05MWV9FWEFDVF9ERUNMQVJFRF9GSUxFUwpzb3VyY2VzOgogIC0gZG9jcy8wMF9Db3JlLm1kIHRocm91Z2ggZG9jcy8wNl9GZWF0dXJlcy5tZAogIC0gcGxhbm5pbmcvQU9TX0RvY3VtZW50YXRpb25fVGFza19TZXF1ZW5jZV9SOS5tZAogIC0gcGxhbm5pbmcvQU9TX0F1dGhvcml0YXRpdmVfT3duZXJfTWFwX1IxLm1kCiAgLSBwbGFubmluZy92ZXJpZmljYXRpb24vUE9TVF9TVE9QX0RPQ1VNRU5UQVRJT05fVkFMSURBVElPTl9DT05UUkFDVF9SMS5tZAogIC0gcGxhbm5pbmcvVEFTS19MT0NBTF9BVVRPTk9NWV9DT05UUkFDVF9SMS5tZAptZXRob2RzOgogIC0gcmF3LWJ5dGUgaWRlbnRpdHkgcmVjb25zdHJ1Y3Rpb24KICAtIGluZGVwZW5kZW50IFIyLUYwMDEgYW5kIFIyLUYwMDIgcmV0ZXN0CiAgLSBGMDAzLUYwMDcgcmVncmVzc2lvbgogIC0gUjkgY29tcGxldGlvbiBhbmQgY29sZC1zdGFydCByZXZpZXcKICAtIGJlZm9yZS9hZnRlciB6ZXJvLXdyaXRlIGNvbXBhcmlzb24KY2xhc3NpZmllZF9jbGFpbXM6CiAgLSBjbGFzc2lmaWNhdGlvbjogT0JTRVJWRURfQVRfU05BUFNIT1QKICAgIHN0YXRlbWVudDogRXhhY3Qgc3ViamVjdCBhbmQgU3RhZ2UgUmVwb3J0IGlkZW50aXRpZXMgbWF0Y2hlZC4KICAtIGNsYXNzaWZpY2F0aW9uOiBPQlNFUlZFRF9BVF9TTkFQU0hPVAogICAgc3RhdGVtZW50OiBSMi1GMDAxIGFuZCBSMi1GMDAyIGFyZSByZXNvbHZlZC4KICAtIGNsYXNzaWZpY2F0aW9uOiBPQlNFUlZFRF9BVF9TTkFQU0hPVAogICAgc3RhdGVtZW50OiBGMDAzLUYwMDcgcmVtYWluIHJlc29sdmVkLgogIC0gY2xhc3NpZmljYXRpb246IE9CU0VSVkVEX0FUX1NOQVBTSE9UCiAgICBzdGF0ZW1lbnQ6IFI5IGNvbXBsZXRpb24sIGdyYXBoLCBkaXNwb3NpdGlvbi1mcmVlIGNvdmVyYWdlLCBwb3J0YWJsZSB0YXJnZXQgbm9uLWludmVudGlvbiwgYXV0aG9yaXR5IGFuZCBjb2xkLXN0YXJ0IGNoZWNrcyBwYXNzLgogIC0gY2xhc3NpZmljYXRpb246IFNZTlRIRVNJWkVECiAgICBzdGF0ZW1lbnQ6IEFwcGxpY2FibGUgaHVtYW4gcmV2aWV3IHJlbWFpbnM7IGFnZ3JlZ2F0aW9uIGlzIEhVTUFOX1JFVklFV19SRVFVSVJFRCBhbmQgcmVhZGluZXNzIFJFQURZX0ZPUl9IVU1BTl9SRVZJRVcuCmNvbmZsaWN0czogW10KdW5rbm93bnM6CiAgLSBwcm92aWRlci1sZXZlbCByYXcgdmFsaWRhdG9yIHRyYW5zcG9ydCBmcmFtaW5nIHdhcyBub3QgZXhwb3NlZAogIC0gbm9ybWFsaXplZCB3cml0ZXIgcGFja2V0IGJ5dGVzIHdlcmUgdW5hdmFpbGFibGUgdG8gdGhlIHZhbGlkYXRvcgpyZWNvbW1lbmRhdGlvbnM6CiAgLSByZWNvcmQgdGhpcyByZXN1bHQgdGhyb3VnaCBzZXBhcmF0ZSBTVEFURV9SRUNPUkQKICAtIHJvdXRlIGV4YWN0IHN1YmplY3QgdG8gaHVtYW4gcmV2aWV3CmNoZWNrc19ydW46CiAgLSBpZGVudGl0eTogUEFTUwogIC0gc2VtYW50aWMgY29ycmVjdGlvbiByZWdyZXNzaW9uOiBQQVNTCiAgLSBSOSBjb21wbGV0aW9uOiBQQVNTCiAgLSBhdXRob3JpdHkgYW5kIHRyYWNlYWJpbGl0eTogUEFTUwogIC0gY29sZC1zdGFydCB1c2FiaWxpdHk6IFBBU1MKICAtIHplcm8td3JpdGU6IFBBU1MKY2hlY2tzX25vdF9ydW46CiAgLSBodW1hbiBhY2NlcHRhbmNlCiAgLSBpbXBsZW1lbnRhdGlvbgogIC0gQ29tbWl0CiAgLSBQdXNoCiAgLSBNZXJnZQogIC0gUmVsZWFzZQpsaW1pdGF0aW9uczoKICAtIGF1dGhvcmluZyBleGVjdXRpb24gcmV2aWV3ZWQgZnJvbSBleGFjdCBTdGFnZSBSZXBvcnQKICAtIHJhdyBwcm92aWRlciB0cmFuc3BvcnQgZnJhbWluZyB1bmF2YWlsYWJsZQptb2RlbF9iaW5kaW5nOiBHUFRfNV82X1NPTF9FWEFDVF9CT1VORF9NT0RFTApyZXBvc2l0b3J5X211dGF0aW9uczogMApHaXRfb3BlcmF0aW9uczoKICBjb21taXQ6IE5PVF9SVU4KICBwdXNoOiBOT1RfUlVOCiAgbWVyZ2U6IE5PVF9SVU4KICByZWxlYXNlOiBOT1RfUlVOCnJlc3VsdDogSFVNQU5fUkVWSUVXX1JFUVVJUkVECnJlYWRpbmVzczogUkVBRFlfRk9SX0hVTUFOX1JFVklFVwpodW1hbl9kZWNpc2lvbjogbnVsbApodW1hbl9hY2NlcHRhbmNlOiBOT1RfUlVOCmltcGxlbWVudGF0aW9uX2F1dGhvcml6YXRpb246IE5PTkUKZ2l0X2F1dGhvcml6YXRpb246IE5PTkUKbmV4dF9yZXF1aXJlZF9hY3Rpb246IEhVTUFOX1JFVklFV19FWEFDVF9TVUJKRUNUXzRDNzkyNTA4RDgwM0QzMkZBNjcxNENERTVDQTE5OEFEN0UwOUE0RDg5NEU5ODI5NTZGOUYyODlCNkYwQTFBNTAKc3RvcDogdHJ1ZQo=
+        model_binding: GPT_5_6_SOL_EXACT_BOUND_MODEL
+        repository_mutations: 0
+        conflicts: []
+        unknowns:
+          - PROVIDER_LEVEL_RAW_TRANSPORT_FRAMING_NOT_EXPOSED
+          - NORMALIZED_WRITER_PACKET_BYTES_NOT_RECONSTRUCTED_BY_VALIDATOR
+        next_required_action: HUMAN_REVIEW_EXACT_SUBJECT_4C792508
+        stop: true
+    pending_stage: NONE
+    readiness: READY_FOR_HUMAN_REVIEW
+    mandate_status: EXPIRED
+    expiry_reason: READY_FOR_HUMAN_REVIEW_REACHED
 TASK-LOCAL-AUTONOMY:
   lifecycle_status: HUMAN_ACCEPTED_INTEGRATED_TO_DEV
   contract:
@@ -207,25 +403,33 @@ TASK-LOCAL-AUTONOMY:
   implementation_authorization: NONE
   git_authorization: CONSUMED_FOR_COMPLETED_BOUNDED_DELIVERY
 current_subject:
-  subject_id: TASK-LOCAL-AUTONOMY-HUMAN-REVIEW-SUBJECT-R1
-  kind: EXACT_REPRODUCIBLE_THREE_FILE_TASK_SUBJECT
+  subject_id: INT-DOC-010-DOCUMENTATION-CONTROL-FOUNDATION-R1
+  kind: EXACT_SIX_FILE_DOCUMENTATION_SUBJECT
   paths:
-    - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md
-    - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Acceptance_Record.md
-    - planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1_Activation_Record.md
+    - planning/AOS_Documentation_Task_Manifest_R1.md
+    - planning/AOS_Gate_Status_Usage_Profile_R1.md
+    - planning/AOS_Feature_Coverage_Ledger_R1.md
+    - planning/AOS_Portable_Task_Candidate_Contract_R1.md
+    - planning/AOS_Target_Binding_And_Task_Conversion_Protocol_R1.md
+    - planning/AOS_Documentation_Progress_Checklist_R2.md
   identity:
     type: SUBJECT_SET_SHA256
     revision: R1
-    value: 924f380332b1dc5eb0791a6c1227917266af92effcaed9ad2cdf411362191732
+    value: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
   manifest:
-    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_SUBJECT_R1.manifest
-    byte_length: 445
-    sha256: 924f380332b1dc5eb0791a6c1227917266af92effcaed9ad2cdf411362191732
+    format: AOS-SUBJECT-SET-MANIFEST-V1
+    representation: RECONSTRUCTIBLE_FROM_ACCEPTANCE_RECORD_ARTIFACT_ENTRIES
+    byte_length: 780
+    sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+  human_acceptance:
+    decision: ACCEPT
+    acceptance_record:
+      path: planning/INT_DOC_010_Acceptance_Record.md
+      byte_length: 3804
+      sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
   authority_context:
     path: planning/CURRENT.md
-    validated_state_revision: 11
-    validated_sha256: c3631d5d15b3f2a1c004f39d5445ed18c26508898528fe7f0e5b1b8cdc279acf
-    current_state_revision: 14
+    current_state_revision: 22
     subject_membership: EXCLUDED_STATE_OWNER_CONTEXT
     final_state_record_is_nonrecursive: true
 active_validation_profiles:
@@ -243,31 +447,49 @@ active_validation_profiles:
       sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  observation_scope: TASK_LOCAL_AUTONOMY_INTEGRATION_CLOSURE_001
+  observation_scope: INT_DOC_010_HUMAN_ACCEPTANCE_001
   branch: dev
-  base_HEAD: 6b36aab2a3b3918334b77b71e989c9e1b9b9e787
-  candidate_git_state: TRACKED_CLEAN_BEFORE_CURRENT_ONLY_CLOSURE_UPDATE
+  base_HEAD: 4e58f2f323c47cdc7e1ef9a332c82cd1e62e00e4
+  candidate_git_state: TRACKED_CURRENT_MODIFIED_AND_SEVEN_UNTRACKED_AUTHORIZED_PATHS
   state_owner_git_state_after_update: TRACKED_MODIFIED
-  all_other_paths_clean: true
+  exact_untracked_paths:
+    - planning/AOS_Documentation_Task_Manifest_R1.md
+    - planning/AOS_Gate_Status_Usage_Profile_R1.md
+    - planning/AOS_Feature_Coverage_Ledger_R1.md
+    - planning/AOS_Portable_Task_Candidate_Contract_R1.md
+    - planning/AOS_Target_Binding_And_Task_Conversion_Protocol_R1.md
+    - planning/AOS_Documentation_Progress_Checklist_R2.md
+    - planning/INT_DOC_010_Acceptance_Record.md
+  unrelated_paths_clean: true
   staging_area_empty: true
   reobservation_required: true
 last_terminal_result:
-  task_id: TASK-LOCAL-AUTONOMY-HUMAN-REVIEW-VALIDATE-002-SEM
+  task_id: INT-DOC-010-VALIDATE-003-SEM
   stage: VALIDATE
-  technical_result: PASS
+  technical_result: HUMAN_REVIEW_REQUIRED
   readiness: READY_FOR_HUMAN_REVIEW
   claim_class: OBSERVED_AT_SNAPSHOT
   subject:
-    subject_set_sha256: 924f380332b1dc5eb0791a6c1227917266af92effcaed9ad2cdf411362191732
+    subject_set_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
   exact_report:
-    path: planning/verification/TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION_SEMANTIC_R2.yaml
-    byte_length: 10739
-    sha256: bc068deb103535dac95cd84540f7e2abf16bd9efcd92f7dd7d653756276c53d8
+    representation: EXACT_TRANSPORT_PAYLOAD_BASE64
+    byte_length: 2738
+    sha256: a24f62a2a97978dfad462856bf4dec34c578479f0e034cc107ff71c2d9a73646
+last_human_decision:
+  task_id: INT-DOC-010-ACCEPTANCE-001
+  decision: ACCEPT
+  accepted_subject_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+  acceptance_record:
+    path: planning/INT_DOC_010_Acceptance_Record.md
+    byte_length: 3804
+    sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
 authorization_default: DENY_UNLESS_EXACT_ACTIVE_RECORD
 active_authorizations: []
 prohibited_operations:
   - NEXT_INTERVAL_ACTIVATION_WITHOUT_SEPARATE_AUTHORIZATION
   - TASK_LOCAL_AUTONOMY_ACTIVATION_WITHOUT_SEPARATE_AUTHORIZATION
+  - COMMIT
+  - PUSH
   - MERGE
   - RELEASE
   - IMPLEMENTATION
@@ -284,6 +506,8 @@ finding_disposition:
   TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION: PASS_WITH_EXACT_DURABLE_R2_REPORTS
   TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_924F3803
   TASK_LOCAL_AUTONOMY_INTEGRATION_TO_DEV: PERFORMED_FAST_FORWARD_NO_MERGE_COMMIT
+  INT_DOC_010_VALIDATION_FINDINGS: CLOSED_AFTER_TWO_BOUNDED_CORRECTION_VALIDATION_CYCLES
+  INT_DOC_010_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_4C792508
 blocking_findings:
   - finding_id: PWS-BF-002
     classification: NOT_FOUND
@@ -306,7 +530,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: HUMAN_SELECT_AND_ACTIVATE_NEXT_EXACT_TASK
+next_bounded_action: HUMAN_DECIDE_EXACT_INT_DOC_100_FOUNDATION_SCOPE
 ---
 
 # Current persisted workflow state
