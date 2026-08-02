@@ -1,13 +1,13 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 13
+state_revision: 14
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-02T03:02:49+05:00'
+  recorded_at: '2026-08-02T06:39:10+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: TASK-LOCAL-AUTONOMY-HUMAN-ACCEPTANCE-001
+  task_id: TASK-LOCAL-AUTONOMY-INTEGRATION-CLOSURE-001
   basis_refs:
     - path: planning/AOS_Documentation_Task_Sequence_R9.md
       sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -49,7 +49,7 @@ current_stage:
   stage: REVIEW
   stage_status: COMPLETED
   active_stage: NONE
-  next_stage: INTEGRATE_TO_DEV
+  next_stage: NONE
   next_stage_authorization: NONE
 INT-DOC-001B:
   activation: PERFORMED
@@ -79,7 +79,7 @@ INT-DOC-010:
   validation: NOT_RUN
   human_acceptance: NOT_RUN
 TASK-LOCAL-AUTONOMY:
-  lifecycle_status: HUMAN_ACCEPTED
+  lifecycle_status: HUMAN_ACCEPTED_INTEGRATED_TO_DEV
   contract:
     path: planning/TASK_LOCAL_AUTONOMY_CONTRACT_R1.md
     sha256: bca8f3c4785a9d4c23fa656826cd764fdab80018819b04427ea62badd10dc736
@@ -191,13 +191,21 @@ TASK-LOCAL-AUTONOMY:
   contract_lifecycle_status: HUMAN_ACCEPTED_AVAILABLE_FOR_SEPARATE_EXACT_TASK_ACTIVATION
   delivery_authorization:
     source: CURRENT_EXPLICIT_HUMAN_DECISION
-    commit: AUTHORIZED_SINGLE_USE
-    push: AUTHORIZED_NORMAL_WORKING_BRANCH_SINGLE_USE
-    merge_to_dev: NONE
+    commit: CONSUMED_BY_EXACT_DELIVERY_COMMIT
+    push: CONSUMED_BY_NORMAL_WORKING_BRANCH_AND_DEV_PUSH
+    merge_to_dev: CONSUMED_BY_FAST_FORWARD_INTEGRATION
     release: NONE
     replay_after_success: FORBIDDEN
+  integration_to_dev:
+    status: PERFORMED
+    mode: FAST_FORWARD_NO_MERGE_COMMIT
+    previous_dev_sha: 418f750f0ce6d083f93bebf70a74feeac1b1e8f7
+    exact_integrated_commit: 6b36aab2a3b3918334b77b71e989c9e1b9b9e787
+    local_dev_after_exact_integration: 6b36aab2a3b3918334b77b71e989c9e1b9b9e787
+    remote_dev_after_exact_integration: 6b36aab2a3b3918334b77b71e989c9e1b9b9e787
+  next_task_readiness: READY_FOR_SEPARATE_EXACT_TASK_ACTIVATION
   implementation_authorization: NONE
-  git_authorization: COMMIT_AND_NORMAL_PUSH_WORKING_BRANCH_ONLY
+  git_authorization: CONSUMED_FOR_COMPLETED_BOUNDED_DELIVERY
 current_subject:
   subject_id: TASK-LOCAL-AUTONOMY-HUMAN-REVIEW-SUBJECT-R1
   kind: EXACT_REPRODUCIBLE_THREE_FILE_TASK_SUBJECT
@@ -217,7 +225,7 @@ current_subject:
     path: planning/CURRENT.md
     validated_state_revision: 11
     validated_sha256: c3631d5d15b3f2a1c004f39d5445ed18c26508898528fe7f0e5b1b8cdc279acf
-    current_state_revision: 13
+    current_state_revision: 14
     subject_membership: EXCLUDED_STATE_OWNER_CONTEXT
     final_state_record_is_nonrecursive: true
 active_validation_profiles:
@@ -235,10 +243,10 @@ active_validation_profiles:
       sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  observation_scope: TASK_LOCAL_AUTONOMY_HUMAN_ACCEPTANCE_PRE_DELIVERY_001
-  branch: agent/task-local-autonomy
-  base_HEAD: 418f750f0ce6d083f93bebf70a74feeac1b1e8f7
-  candidate_git_state: NINE_UNTRACKED_TASK_LOCAL_FILES
+  observation_scope: TASK_LOCAL_AUTONOMY_INTEGRATION_CLOSURE_001
+  branch: dev
+  base_HEAD: 6b36aab2a3b3918334b77b71e989c9e1b9b9e787
+  candidate_git_state: TRACKED_CLEAN_BEFORE_CURRENT_ONLY_CLOSURE_UPDATE
   state_owner_git_state_after_update: TRACKED_MODIFIED
   all_other_paths_clean: true
   staging_area_empty: true
@@ -275,6 +283,7 @@ finding_disposition:
   TLA-HR-SEM-003: CLOSED_BY_CANONICAL_TECHNICAL_RESULT_AND_INDEPENDENT_REVALIDATION_PASS
   TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_VALIDATION: PASS_WITH_EXACT_DURABLE_R2_REPORTS
   TASK_LOCAL_AUTONOMY_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_924F3803
+  TASK_LOCAL_AUTONOMY_INTEGRATION_TO_DEV: PERFORMED_FAST_FORWARD_NO_MERGE_COMMIT
 blocking_findings:
   - finding_id: PWS-BF-002
     classification: NOT_FOUND
@@ -297,7 +306,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: HUMAN_DECIDE_TASK_LOCAL_AUTONOMY_INTEGRATION_TO_DEV
+next_bounded_action: HUMAN_SELECT_AND_ACTIVATE_NEXT_EXACT_TASK
 ---
 
 # Current persisted workflow state
