@@ -2,8 +2,8 @@
 document_id: AOS-DOCUMENTATION-ROUTING-R3-DETERMINISTIC-HARNESS-PLAN
 document_type: IMPLEMENTATION_PLAN
 revision: R1
-status: DRAFT_CANDIDATE
-authority: NONE_UNTIL_EXACT_ARTIFACT_HUMAN_ACCEPTANCE
+status: REFERENCE_ONLY
+authority: NONE
 task_id: ROUTING-R3-DETERMINISTIC-HARNESS-PLAN
 stage: PLAN
 selected_architecture: DETERMINISTIC_EXECUTABLE_HARNESS
@@ -12,6 +12,7 @@ routing_activation: NOT_GRANTED
 safe_pilot: NOT_RUN
 git_authorization: NONE
 output_path: docs/superpowers/plans/2026-08-03-aos-documentation-routing-r3-deterministic-executable-harness.md
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
 ---
 
 # AOS Documentation Routing R3 Deterministic Executable Harness Implementation Plan

@@ -1,3 +1,9 @@
+---
+status: REFERENCE_ONLY
+authority: NONE
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
+---
+
 # AOS Documentation Routing R3 — Reliability First Implementation Plan (Superseded Mechanical Approach)
 
 > **Supersession boundary — 2026-08-03:** The instruction-only/no-script

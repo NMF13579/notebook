@@ -1,3 +1,9 @@
+---
+status: REFERENCE_ONLY
+authority: NONE
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
+---
+
 # AOS Documentation Agent Routing Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task-by-task. `superpowers:subagent-driven-development` is not permitted for implementation because the design requires `SINGLE_WRITER`; subagents may participate only in later read-only pilot and validation stages.

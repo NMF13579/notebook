@@ -3,8 +3,8 @@ document_id: AOS-DOCUMENTATION-ROUTING-R3-RELIABILITY-FIRST-DESIGN
 document_type: APPROVED_DESIGN_SPEC_CANDIDATE
 revision: R3
 design_target_revision: ROUTING_R3
-status: DRAFT_CANDIDATE
-authority: NONE_UNTIL_EXACT_ARTIFACT_HUMAN_ACCEPTANCE
+status: REFERENCE_ONLY
+authority: NONE
 task_id: ROUTING-R3-DESIGN-SPEC-EXECUTE-001
 stage: EXECUTE
 operation: WRITE_APPROVED_DESIGN_SPEC_AND_SELF_REVIEW_ONLY
@@ -73,6 +73,7 @@ source_snapshot:
     - {path: .codex/agents/mechanical-checker.toml, sha256: cc8006cd2b73135bc53bb820b0b6217b3ec912f3eb2447709e2b68f18de30b10}
     - {path: .codex/agents/reference-explorer.toml, sha256: 2ff0cd9503ae91a202ea6710ecdd4bbcd14dd0a1ea5ad539147f745bfd2218e6}
     - {path: .codex/agents/semantic-reviewer.toml, sha256: 7a082f510b59529d5f07e95d7a8ff2dd98b5b000b21b8bfa3cf9f9ca8fc7dd3f}
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
 ---
 
 # AOS Documentation Routing R3 — Reliability First

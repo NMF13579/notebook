@@ -1,3 +1,9 @@
+---
+status: REFERENCE_ONLY
+authority: NONE
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
+---
+
 # AOS Documentation Routing R3 Harness Subject-Binding Recovery Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

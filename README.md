@@ -27,10 +27,16 @@ git_authorization: NONE
 
 Обязательная точка входа для агента: `docs/00_Core.md`.
 
-### Рабочая область проектирования (AOS-3)
+### Архив
 
-В репозитории также присутствует директория `archive/AOS-3/`.
-Её цель — **собрать систематизированный материал** из официальной базы (`docs/`) и обсуждений (чатов) для проектирования новой документации. В дальнейшем эта "продуктовая папка" будет экспортирована и использована как активный источник знаний для применения в новом целевом репозитории. Материалы в `archive/AOS-3/` являются рабочими (drafts) и не переопределяют официальный baseline.
+Исторические материалы прежнего процесса находятся в [`archive/aos-archive/`](archive/aos-archive/README.md).
+
+```yaml
+status: REFERENCE_ONLY
+authority: NONE
+```
+
+Архив не определяет текущий процесс, план, требования или разрешения. Активной принятой базой знаний остаются ровно семь документов `docs/00_Core.md`–`docs/06_Features.md`.
 
 ## Статус и authority
 
@@ -51,13 +57,7 @@ Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
 
 Repository-aware agents должны соблюдать [AGENTS.md](AGENTS.md).
 
-Для Google Antigravity добавлено workspace rule:
-
-```text
-archive/.agents/rules/aos-documentation-repository.md
-```
-
-Правило следует включить как `Always On` в настройках workspace.
+Архивные `.agents/rules/**` являются `REFERENCE_ONLY` и не должны включаться как `Always On`.
 
 ## Reference repositories
 

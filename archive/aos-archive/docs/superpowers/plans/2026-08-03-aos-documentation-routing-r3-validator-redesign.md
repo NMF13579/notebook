@@ -1,3 +1,9 @@
+---
+status: REFERENCE_ONLY
+authority: NONE
+archived_reason: SUPERSEDED_BY_SIMPLIFIED_PLANNING_MODEL
+---
+
 # AOS Documentation Routing R3 Validator Result-Sealing Redesign Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use
