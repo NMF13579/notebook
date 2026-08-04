@@ -36,7 +36,7 @@ implementation_planning_readiness: REQUIRES_FEATURE_SPECIFIC_CONTRACT
 catalog_status: HUMAN_ACCEPTED_INVENTORY
 inventory_owner_after_acceptance: 06_Features.md
 feature_count: 30
-human_feature_selection: NOT_RUN
+human_feature_selection: PARTIALLY_DECIDED_FOR_X1
 implementation_verification: NOT_RUN
 ```
 
@@ -46,7 +46,7 @@ implementation_verification: NOT_RUN
 
 ```text
 Решение человека:
-REQUIRED | OPTIONAL | DEFERRED | REFERENCE_ONLY | REJECTED | UNDECIDED
+SELECT_FOR_X1 | SUPPORTING_CONTROL_ONLY | REQUIRED | OPTIONAL | DEFERRED | REFERENCE_ONLY | REJECTED | UNDECIDED
 
 Рекомендация синтеза:
 KEEP | SIMPLIFY | DEFER | REFERENCE_ONLY
@@ -75,19 +75,19 @@ feature dossier ≠ execution authorization
 
 | ID | Семейство фич | Слой | Рекомендация | Решение человека |
 |---|---|---|---|---|
-| `FTR-001` | Приём намерения, проблемное интервью и уточнение результата | Product Runtime | `KEEP` | `UNDECIDED` |
+| `FTR-001` | Приём намерения, проблемное интервью и уточнение результата | Product Runtime | `KEEP` | `SELECT_FOR_X1` |
 | `FTR-002` | Read-only исследование проекта, карта возможностей и реестр gaps/conflicts | Product Runtime | `KEEP` | `UNDECIDED` |
-| `FTR-003` | Спецификация продукта, паспорт фичи и выбор первого вертикального среза | Product Runtime | `KEEP` | `UNDECIDED` |
+| `FTR-003` | Спецификация продукта, паспорт фичи и выбор первого вертикального среза | Product Runtime | `KEEP` | `SELECT_FOR_X1` |
 | `FTR-004` | Управляемый bootstrap, безопасная установка/обновление/удаление и First-Start | Product Runtime / Installation Boundary | `KEEP` | `UNDECIDED` |
-| `FTR-005` | Проверка необходимости архитектуры, сравнение вариантов, ADR и traceability | Product Runtime Support / Architecture Boundary | `KEEP` | `UNDECIDED` |
-| `FTR-006` | Task Brief, подтверждение scope, Execution Authorization и Stage Report | Product Runtime / Development Factory Boundary | `KEEP` | `UNDECIDED` |
+| `FTR-005` | Проверка необходимости архитектуры, сравнение вариантов, ADR и traceability | Product Runtime Support / Architecture Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` |
+| `FTR-006` | Task Brief, подтверждение scope, Execution Authorization и Stage Report | Product Runtime / Development Factory Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` |
 | `FTR-007` | Иерархический backlog, lazy decomposition, кандидаты задач и queue | Development Factory | `DEFER` | `UNDECIDED` |
 | `FTR-008` | Простая панель управления: Status / Next / Details, tutor и closure UX | Product Runtime | `KEEP` | `UNDECIDED` |
 | `FTR-009` | Preflight репозитория и действий с точным execution preview | Development Factory / Safety Boundary | `KEEP` | `UNDECIDED` |
 | `FTR-010` | Scoped execution workflow, Controlled Guard и безопасные runner kernels | Development Factory | `SIMPLIFY` | `UNDECIDED` |
-| `FTR-011` | Единый Result Contract, Unified Validate, Doctor и Self-Test | Product Runtime Support / Development Factory | `KEEP` | `UNDECIDED` |
-| `FTR-012` | Сбор Evidence, компактный human review, semantic guard и Human Decision Record | Product Runtime / Review Boundary | `KEEP` | `UNDECIDED` |
-| `FTR-013` | Сверка diff/scope, изолированный validation subject и candidate freeze | Development Factory / Validation Boundary | `KEEP` | `UNDECIDED` |
+| `FTR-011` | Единый Result Contract, Unified Validate, Doctor и Self-Test | Product Runtime Support / Development Factory | `KEEP` | `SUPPORTING_CONTROL_ONLY` |
+| `FTR-012` | Сбор Evidence, компактный human review, semantic guard и Human Decision Record | Product Runtime / Review Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` |
+| `FTR-013` | Сверка diff/scope, изолированный validation subject и candidate freeze | Development Factory / Validation Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` |
 | `FTR-014` | Recovery, resume, rollback, denied-action log и session handoff | Product Runtime / Development Factory Boundary | `KEEP` | `UNDECIDED` |
 | `FTR-015` | Завершение Git lifecycle, remote state и независимые permissions Commit/Push/Merge/Release | Development Factory / Delivery Boundary | `KEEP` | `UNDECIDED` |
 | `FTR-016` | Project Memory, непрерывность sessions и task-scoped Context Pack | Product Runtime / Development Factory Boundary | `KEEP` | `UNDECIDED` |
@@ -115,8 +115,8 @@ feature dossier ≠ execution authorization
 feature_id: FTR-001
 layer: Product Runtime
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SELECT_FOR_X1
+product_scope_effect: X1_PRIMARY_PRODUCT_BEHAVIOR
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -354,8 +354,8 @@ Snapshot-bound inventory, capability map, gaps, conflicts, unknowns и candidate
 feature_id: FTR-003
 layer: Product Runtime
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SELECT_FOR_X1
+product_scope_effect: X1_PRIMARY_PRODUCT_BEHAVIOR
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -601,8 +601,8 @@ Preview-first installation with ownership classes, exact apply, verification, re
 feature_id: FTR-005
 layer: Product Runtime Support / Architecture Boundary
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SUPPORTING_CONTROL_ONLY
+product_scope_effect: X1_SUPPORTING_CONTROL_ONLY
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -722,8 +722,8 @@ Decision-ready ADR process: need check, distinct options, tradeoffs, human choic
 feature_id: FTR-006
 layer: Product Runtime / Development Factory Boundary
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SUPPORTING_CONTROL_ONLY
+product_scope_effect: X1_SUPPORTING_CONTROL_ONLY
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -1324,8 +1324,8 @@ Thin executor consuming exact authorization/preview, journaling writes and recon
 feature_id: FTR-011
 layer: Product Runtime Support / Development Factory
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SUPPORTING_CONTROL_ONLY
+product_scope_effect: X1_SUPPORTING_CONTROL_ONLY
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -1443,8 +1443,8 @@ One ValidationEnvelope and official entrypoint preserving NOT_RUN, limitations a
 feature_id: FTR-012
 layer: Product Runtime / Review Boundary
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SUPPORTING_CONTROL_ONLY
+product_scope_effect: X1_SUPPORTING_CONTROL_ONLY
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE
@@ -1561,8 +1561,8 @@ One candidate-bound review package plus separate explicit Human Decision Record.
 feature_id: FTR-013
 layer: Development Factory / Validation Boundary
 synthesis_recommendation: KEEP
-human_disposition: UNDECIDED
-product_scope_effect: NONE_UNTIL_HUMAN_DECISION
+human_disposition: SUPPORTING_CONTROL_ONLY
+product_scope_effect: X1_SUPPORTING_CONTROL_ONLY
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
 dossier_readiness: DESIGN_CANDIDATE

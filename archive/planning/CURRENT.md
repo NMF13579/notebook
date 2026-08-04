@@ -1,13 +1,13 @@
 ---
 document_type: PERSISTED_WORKFLOW_STATE
 schema_version: 1
-state_revision: 22
+state_revision: 30
 recorded_state_status: CURRENT
 state_update:
-  recorded_at: '2026-08-02T07:57:00+05:00'
+  recorded_at: '2026-08-03T18:09:43+05:00'
   actor_class: PRIMARY_DOCUMENTATION_WRITER
   authorization_basis: CURRENT_EXPLICIT_HUMAN_DECISION
-  task_id: INT-DOC-010-ACCEPTANCE-001
+  task_id: X1-DOCUMENTATION-DECISIONS-PERSIST-ACCEPTANCE-RECORD-001
   basis_refs:
     - path: planning/AOS_Documentation_Task_Sequence_R9.md
       sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -27,6 +27,28 @@ state_update:
       sha256: bc74b50acb53f6812b3eae77a972ba84aee8e5ee3b68e12e0562a1e7635b1bde
     - path: planning/INT_DOC_010_Acceptance_Record.md
       sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
+    - path: planning/INT_DOC_100_Acceptance_Record.md
+      sha256: b0dddc1893ccca84ff50c335ea0968ab1d8231440e11cab48c3bda7a0fb1acab
+    - path: planning/INT_DOC_200_Activation_Record.md
+      sha256: d6225cb9be1d4413eff4aaf4e39729ea4e73efca697e2695f650fe869b1a52e6
+    - path: planning/INT_DOC_200_First_Slice_Decision_Record.md
+      sha256: 5057afd7120b3624a4d1b859cba04f7ecb6c2f204b99bd59c955550e3903e449
+    - path: planning/INT_DOC_210_Activation_Record.md
+      sha256: 322fffb169cd22bba3691f387c18e0227f2c9b730793885e011986be37a4abae
+    - path: planning/INT_DOC_210_Interaction_Surface_Decision_Record.md
+      sha256: 1049b38901a424748708e85879896cc9139dc389d16ae8918d54cedc3a394dcb
+    - path: planning/INT_DOC_210_Acceptance_Record.md
+      sha256: 5990de7951db6067bf9b2c1b4a16c2cc76fd6e945a464ebce66f6bbcc3fa9f37
+    - path: planning/first-slice/AOS_X1_Documentation_Closure_Package_R1.md
+      sha256: ee9c0ba2fff2163a2b8783f36b59ffe2d2d282b1ab160a20ccab486f58873999
+    - path: planning/first-slice/AOS_First_Slice_Contract_Package_R1.md
+      sha256: 8c8169d5b45ebce7e6feacb49e9f058f3d08d0de2dea5ebee96cc3b73f4d85f0
+    - path: planning/X1_Documentation_Decision_Record_R1.md
+      sha256: 6aed802f59fa522ce5bf21efd4de3ee50f6912e9b733dec63d4677db05b25eca
+    - path: docs/06_Features.md
+      sha256: 276381e4cfaf565e691fd8098a0f1c4d648b65071f306c476f79cd3ae52fe923
+    - path: planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+      sha256: 4e6c1b42cbd0248f497974ccfe5b925f55ec80d30f5e81b31954d9680eff3730
 active_roadmap:
   path: planning/AOS_Documentation_Task_Sequence_R9.md
   sha256: be91cbffcd2c79a0a632b661157e5e2e7fb7a68d1056ba1c9684f2ea1b549ee7
@@ -36,8 +58,8 @@ active_roadmap:
 active_interval:
   interval_id: NONE
   interval_instance_id: NONE
-  previous_completed_interval: INT-DOC-010
-  lifecycle_status: NO_ACTIVE_R9_INTERVAL
+  previous_completed_interval: INT-DOC-210
+  lifecycle_status: NO_ACTIVE_INTERVAL_X1_DECISIONS_VALIDATED_HUMAN_ACCEPTED
 INT-DOC-001A:
   lifecycle_status: COMPLETED
   human_acceptance: ACCEPT
@@ -47,11 +69,11 @@ INT-DOC-001A:
   push: PERFORMED
   integration_to_dev: PERFORMED
 current_stage:
-  task_id: INT-DOC-010
-  stage: REVIEW
-  stage_status: COMPLETED
+  task_id: X1-DOCUMENTATION-DECISIONS-PERSIST-ACCEPTANCE-RECORD-001
+  stage: EXECUTE
+  stage_status: COMPLETED_INTERNAL_VALIDATION_PASS_HUMAN_ACCEPTED
   active_stage: NONE
-  next_stage: NONE
+  next_stage: HUMAN_DECIDE_EXACT_COMPOSITE_C_002_FEATURE_ID
   next_stage_authorization: NONE
 INT-DOC-001B:
   activation: PERFORMED
@@ -402,34 +424,240 @@ TASK-LOCAL-AUTONOMY:
   next_task_readiness: READY_FOR_SEPARATE_EXACT_TASK_ACTIVATION
   implementation_authorization: NONE
   git_authorization: CONSUMED_FOR_COMPLETED_BOUNDED_DELIVERY
+INT-DOC-100:
+  execution: PASS
+  execution_claim_class: REPORTED
+  lifecycle_status: COMPLETED_HUMAN_ACCEPTED
+  foundation_scope_decision:
+    decision: SCOPE-A_CONTRACT_ONLY
+    decision_source: CURRENT_EXPLICIT_HUMAN_DECISION
+    runtime_turn_id: 019fc222-6932-7aa3-9495-ccf27ac667da
+    sha256: 8fe85f2b5a1d518ea32a0912f32aecdb3502ba5a7fc0e2e67fad58907c4a769a
+  validation:
+    task_id: INT-DOC-100-VALIDATE-003-SEM
+    technical_result: HUMAN_REVIEW_REQUIRED
+    readiness: READY_FOR_HUMAN_REVIEW
+    claim_class: OBSERVED_AT_SNAPSHOT
+    final_packet_identity_sha256: 01d539c625ccdc7c240daac328823e39b05694efaa48f678db63c91767482e31
+    report_persistence: NOT_RUN
+  human_acceptance:
+    decision: ACCEPT
+    decision_source: CURRENT_EXPLICIT_HUMAN_DECISION
+    accepted_subject_sha256: aba036501bdf97e660bf894c8b40ccce2ceec6db9103bc30569bd66ca1e78350
+    acceptance_record:
+      path: planning/INT_DOC_100_Acceptance_Record.md
+      byte_length: 4657
+      sha256: b0dddc1893ccca84ff50c335ea0968ab1d8231440e11cab48c3bda7a0fb1acab
+  authorization_effects:
+    next_interval_activation: NONE
+    first_slice_decision: NONE
+    implementation: NONE
+    git: NONE
+INT-DOC-200:
+  activation: PERFORMED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
+  activation_record:
+    path: planning/INT_DOC_200_Activation_Record.md
+    byte_length: 3102
+    sha256: d6225cb9be1d4413eff4aaf4e39729ea4e73efca697e2695f650fe869b1a52e6
+  lifecycle_status: COMPLETED_HUMAN_FIRST_SLICE_SELECTED
+  primary_result: DECISION_READY_FIRST_SLICE_SELECTION_PACKAGE
+  expected_output:
+    path: planning/first-slice/AOS_First_Slice_Decision_Package_R1.md
+    state: PRESENT_FROZEN
+    byte_length: 27968
+    sha256: 7cb6abc358afa5aaa11f8a48553cfedc6ce975ced7496aa30065aac9825df280
+    subject_set_sha256: 0235e1f00c637f940546732fff392a70042ffe60e41aa869e022b772f89668e6
+  feature_refs: [FTR-001, FTR-002, FTR-003, FTR-005]
+  execution: PASS
+  execution_authorization: CONSUMED
+  task_local_mandate: NONE
+  validation:
+    validation_id: INT-DOC-200-VALIDATE-002
+    technical_result: HUMAN_REVIEW_REQUIRED
+    readiness: READY_FOR_HUMAN_REVIEW
+    claim_class: OBSERVED_AT_SNAPSHOT
+    profile: POST_STOP_DOCUMENTATION
+    profile_sha256: d24e01ea9332ff20152a0502568df678229a350013aaa067b14da57984c9b11a
+    corrected_stage_report_sha256: 6373f8d5823538a8f146b0771e02dbceb2dd82346514ceea6270511a09f07ebd
+    authoritative_dependency_set_sha256: d1c0e44863da57fd53092b3dbaf1038c91d04b69ae5e9b962f3463068d002ba4
+    report_persistence: NOT_RUN
+  human_first_slice_decision:
+    decision: SELECT
+    selected_candidate: FS-CAND-001
+    segment: NONPROGRAMMER_OR_DOMAIN_EXPERT_WITH_A_NEW_PRODUCT_IDEA
+    job: TURN_AN_ORDINARY_LANGUAGE_PRODUCT_PROBLEM_INTO_A_BOUNDED_REVIEWABLE_FIRST_FEATURE_DEFINITION
+    observable_outcome: VERSIONED_INTENT_RECORD_PLUS_ONE_DRAFT_FEATURE_PASSPORT_READY_FOR_HUMAN_REVIEW
+    decision_turn_id: 019fc2b0-da44-7d71-bdc4-2228eddbccfd
+    decision_sha256: b483ebad4bb0025ee675b4cfddcfd65f4c3df500a7ec413eec1f306b9f64835b
+    decision_record:
+      path: planning/INT_DOC_200_First_Slice_Decision_Record.md
+      byte_length: 5467
+      sha256: 5057afd7120b3624a4d1b859cba04f7ecb6c2f204b99bd59c955550e3903e449
+  next_interval:
+    interval_id: INT-DOC-210
+    start_condition: SATISFIED
+    activation: PERFORMED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
+  implementation_authorization: NONE
+  git_authorization: NONE
+INT-DOC-210:
+  activation: PERFORMED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
+  activation_record:
+    path: planning/INT_DOC_210_Activation_Record.md
+    byte_length: 3705
+    sha256: 322fffb169cd22bba3691f387c18e0227f2c9b730793885e011986be37a4abae
+  lifecycle_status: COMPLETED_HUMAN_ACCEPTED
+  primary_result: IMPLEMENTATION_HANDOFF_READY_DOCUMENTATION_PACKAGE_FOR_EXACT_HUMAN_SELECTED_FIRST_SLICE
+  expected_output:
+    path: planning/first-slice/AOS_First_Slice_Contract_Package_R1.md
+    state: PRESENT_FROZEN_HUMAN_ACCEPTED
+    byte_length: 47582
+    sha256: 8c8169d5b45ebce7e6feacb49e9f058f3d08d0de2dea5ebee96cc3b73f4d85f0
+    subject_set_sha256: 3856446ba36dadb5022d14440d0a20c408993e28c9cc6461b80575c4816cb0a8
+  selected_first_slice:
+    candidate_id: FS-CAND-001
+    segment: NONPROGRAMMER_OR_DOMAIN_EXPERT_WITH_A_NEW_PRODUCT_IDEA
+    job: TURN_AN_ORDINARY_LANGUAGE_PRODUCT_PROBLEM_INTO_A_BOUNDED_REVIEWABLE_FIRST_FEATURE_DEFINITION
+    observable_outcome: VERSIONED_INTENT_RECORD_PLUS_ONE_DRAFT_FEATURE_PASSPORT_READY_FOR_HUMAN_REVIEW
+    decision_record:
+      path: planning/INT_DOC_200_First_Slice_Decision_Record.md
+      byte_length: 5467
+      sha256: 5057afd7120b3624a4d1b859cba04f7ecb6c2f204b99bd59c955550e3903e449
+  interaction_surface_decision:
+    decision: SELECT
+    selected_surface: SURFACE-A_PROVIDER_NEUTRAL_GUIDED_CONVERSATION
+    decision_sha256: b1e937261dd9f8fa5a60d1d7239ef4cad72ac179b04a31491b43c336f11cff29
+    decision_record:
+      path: planning/INT_DOC_210_Interaction_Surface_Decision_Record.md
+      byte_length: 4695
+      sha256: 1049b38901a424748708e85879896cc9139dc389d16ae8918d54cedc3a394dcb
+    provider_binding: NONE
+    concrete_transport: UNDECIDED
+    UI_framework: UNDECIDED
+    artifact_serialization: UNDECIDED
+    persistence_backend: UNDECIDED
+    human_decision_authenticity_mechanism: UNDECIDED
+  feature_refs: [FTR-003, FTR-005, FTR-006, FTR-011, FTR-012, FTR-013]
+  execution: PASS
+  execution_authorization: CONSUMED
+  execution_attempt_1:
+    task_id: INT-DOC-210-EXECUTE-001
+    technical_result: BLOCKED
+    repository_mutations: 0
+    output_state: NOT_FOUND
+    finding_id: INT-DOC-210-EXECUTE-001-F001
+    finding_disposition: RESOLVED_BY_CURRENT_EXPLICIT_HUMAN_DECISION
+    blocked_on: MATERIAL_HUMAN_PRODUCT_ARCHITECTURE_DECISION_REQUIRED
+    checks_not_run: [CONTRACT_AUTHORING, CANDIDATE_FREEZE, INDEPENDENT_VALIDATE]
+    authorization_consumed: true
+    stop: true
+  validation:
+    validation_id: INT-DOC-210-VALIDATE-012
+    technical_result: PASS
+    reason_code: NONE
+    readiness: READY_FOR_HUMAN_REVIEW
+    claim_class: REPORTED
+    profile: POST_STOP_DOCUMENTATION
+    required_gates:
+      mechanical: INT-DOC-210-VALIDATE-012-MECH
+      contract: INT-DOC-210-VALIDATE-012-CONTRACT
+      semantic: INT-DOC-210-VALIDATE-012-SEM
+    unresolved_material_findings: []
+    stage_report_sha256: 5ac4f26608318e047958af273e8a73679bbe5c6ec886d43cc1ea9aba36ff60d4
+    report_persistence: NOT_RUN
+  human_acceptance:
+    decision: ACCEPT
+    decision_source: CURRENT_EXPLICIT_HUMAN_DECISION
+    decision_sha256: 84c445ab960eb9058e175e1f246d9dcf25e8fc83da67e4357422d62ccd729f7b
+    accepted_subject_sha256: 3856446ba36dadb5022d14440d0a20c408993e28c9cc6461b80575c4816cb0a8
+    acceptance_record:
+      path: planning/INT_DOC_210_Acceptance_Record.md
+      byte_length: 5498
+      sha256: 5990de7951db6067bf9b2c1b4a16c2cc76fd6e945a464ebce66f6bbcc3fa9f37
+  task_local_mandate: NONE
+  architecture_decision: NONE
+  dependency_decision: NONE
+  implementation_repository_assignment: NONE
+  implementation_authorization: NONE
+  git_authorization: NONE
+X1-DOCUMENTATION-DECISIONS:
+  persistence_task:
+    task_id: X1-DOCUMENTATION-DECISIONS-PERSIST-001
+    stage: EXECUTE
+    authorization: CONSUMED
+    internal_validation: PASS
+    independent_validation: PASS
+  closure_package:
+    path: planning/first-slice/AOS_X1_Documentation_Closure_Package_R1.md
+    byte_length: 37434
+    sha256: ee9c0ba2fff2163a2b8783f36b59ffe2d2d282b1ab160a20ccab486f58873999
+    human_decision: ACCEPT
+  decision_record:
+    path: planning/X1_Documentation_Decision_Record_R1.md
+    byte_length: 9288
+    sha256: 6aed802f59fa522ce5bf21efd4de3ee50f6912e9b733dec63d4677db05b25eca
+    status: HUMAN_DECISIONS_RECORDED
+    decision_subject_set_sha256: 387c15eb76184f7f620d531e0ba7176f5a94f4e82607dbfee0323e06f8dd259a
+  acceptance_record:
+    path: planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+    byte_length: 4594
+    sha256: 4e6c1b42cbd0248f497974ccfe5b925f55ec80d30f5e81b31954d9680eff3730
+    human_decision: ACCEPT
+    validation_result_envelope_sha256: 0da5bc6dacaf3880ca75543b743d2e98f589890409128e0a6b52430c24491514
+  decisions:
+    X1-PD-001: ACCEPTED_COMPOSITE_FTR_001_PLUS_FTR_003
+    X1-PD-002:
+      FTR-001: SELECT_FOR_X1
+      FTR-003: SELECT_FOR_X1
+      FTR-005: SUPPORTING_CONTROL_ONLY
+      FTR-006: SUPPORTING_CONTROL_ONLY
+      FTR-011: SUPPORTING_CONTROL_ONLY
+      FTR-012: SUPPORTING_CONTROL_ONLY
+      FTR-013: SUPPORTING_CONTROL_ONLY
+    X1-PD-003: PRESERVE_ACCEPTED_FS_CAND_001
+    X1-AD-001: NO_ADR_REQUIRED_WITH_EXPLICIT_RATIONALE
+    X1-AD-002: ACCEPT_CURRENT_C001_C002_OWNERSHIP
+  contract_boundary:
+    accepted_contract_R1:
+      path: planning/first-slice/AOS_First_Slice_Contract_Package_R1.md
+      sha256: 8c8169d5b45ebce7e6feacb49e9f058f3d08d0de2dea5ebee96cc3b73f4d85f0
+      mutation: NONE
+    CORE_SLICE_001_relation: REFERENCE_PROPOSAL_NOT_MERGED
+    concrete_composite_C_002_feature_id: NOT_FOUND
+    successor_Product_Contract: NOT_RUN
+  implementation_repository_assignment: NONE
+  implementation_authorization: NONE
+  git_authorization: NONE
 current_subject:
-  subject_id: INT-DOC-010-DOCUMENTATION-CONTROL-FOUNDATION-R1
-  kind: EXACT_SIX_FILE_DOCUMENTATION_SUBJECT
+  subject_id: X1-DOCUMENTATION-DECISIONS-PERSISTED-SUBJECT-R1
+  kind: DECISION_RECORD_PLUS_CANONICAL_FEATURE_OWNER_PROJECTION
   paths:
-    - planning/AOS_Documentation_Task_Manifest_R1.md
-    - planning/AOS_Gate_Status_Usage_Profile_R1.md
-    - planning/AOS_Feature_Coverage_Ledger_R1.md
-    - planning/AOS_Portable_Task_Candidate_Contract_R1.md
-    - planning/AOS_Target_Binding_And_Task_Conversion_Protocol_R1.md
-    - planning/AOS_Documentation_Progress_Checklist_R2.md
+    - docs/06_Features.md
+    - planning/X1_Documentation_Decision_Record_R1.md
   identity:
     type: SUBJECT_SET_SHA256
     revision: R1
-    value: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+    value: 5d338cf0d2a163e37ec875f76b173c1821a79e22220e56b9e9c51f1845e3b3b2
   manifest:
-    format: AOS-SUBJECT-SET-MANIFEST-V1
-    representation: RECONSTRUCTIBLE_FROM_ACCEPTANCE_RECORD_ARTIFACT_ENTRIES
-    byte_length: 780
-    sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
-  human_acceptance:
-    decision: ACCEPT
+    format: AOS-X1-PERSISTED-SUBJECT-MANIFEST-V1
+    representation: RECONSTRUCTIBLE_FROM_SORTED_PATH_BYTE_LENGTH_SHA256_ROWS
+    byte_length: 247
+    sha256: 5d338cf0d2a163e37ec875f76b173c1821a79e22220e56b9e9c51f1845e3b3b2
+  validation:
+    internal_validation: PASS
+    independent_validation: PASS
+    validation_id: X1-DOCUMENTATION-DECISIONS-PERSIST-VALIDATE-001
+    validation_result_envelope_sha256: 0da5bc6dacaf3880ca75543b743d2e98f589890409128e0a6b52430c24491514
+    readiness: HUMAN_ACCEPTED
+  human_decision:
+    decisions_recorded: [X1-CLOSURE-ACCEPT, X1-PD-001, X1-PD-002, X1-PD-003, X1-AD-001, X1-AD-002]
+    persisted_subject_acceptance: ACCEPT
     acceptance_record:
-      path: planning/INT_DOC_010_Acceptance_Record.md
-      byte_length: 3804
-      sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
+      path: planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+      byte_length: 4594
+      sha256: 4e6c1b42cbd0248f497974ccfe5b925f55ec80d30f5e81b31954d9680eff3730
   authority_context:
     path: planning/CURRENT.md
-    current_state_revision: 22
+    current_state_revision: 30
     subject_membership: EXCLUDED_STATE_OWNER_CONTEXT
     final_state_record_is_nonrecursive: true
 active_validation_profiles:
@@ -447,42 +675,44 @@ active_validation_profiles:
       sha256: 197dfb6f20bfa77cd01c28d8adadb795a9236535da0dc206165c707295c6baaa
 repository_observation:
   classification: OBSERVED_AT_SNAPSHOT
-  observation_scope: INT_DOC_010_HUMAN_ACCEPTANCE_001
+  observation_scope: X1_DOCUMENTATION_DECISIONS_PERSIST_ACCEPTANCE_RECORD_001
   branch: dev
-  base_HEAD: 4e58f2f323c47cdc7e1ef9a332c82cd1e62e00e4
-  candidate_git_state: TRACKED_CURRENT_MODIFIED_AND_SEVEN_UNTRACKED_AUTHORIZED_PATHS
+  base_HEAD: d733eeb037a517634ecc37e8b19c8421c2d20530
+  worktree_status_sha256: 69dd0b0c20402358d3d58ace3050c02a5b9354e1f2b31021546df008705fa350
+  staging_status_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  acceptance_record_git_state_after_update: UNTRACKED_PRESENT
   state_owner_git_state_after_update: TRACKED_MODIFIED
-  exact_untracked_paths:
-    - planning/AOS_Documentation_Task_Manifest_R1.md
-    - planning/AOS_Gate_Status_Usage_Profile_R1.md
-    - planning/AOS_Feature_Coverage_Ledger_R1.md
-    - planning/AOS_Portable_Task_Candidate_Contract_R1.md
-    - planning/AOS_Target_Binding_And_Task_Conversion_Protocol_R1.md
-    - planning/AOS_Documentation_Progress_Checklist_R2.md
-    - planning/INT_DOC_010_Acceptance_Record.md
-  unrelated_paths_clean: true
+  allowed_paths_changed:
+    - planning/CURRENT.md
+    - planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+  out_of_scope_paths: PRESERVED_UNCHANGED_BY_THIS_OPERATION
   staging_area_empty: true
   reobservation_required: true
 last_terminal_result:
-  task_id: INT-DOC-010-VALIDATE-003-SEM
-  stage: VALIDATE
-  technical_result: HUMAN_REVIEW_REQUIRED
-  readiness: READY_FOR_HUMAN_REVIEW
+  task_id: X1-DOCUMENTATION-DECISIONS-PERSIST-ACCEPTANCE-RECORD-001
+  stage: EXECUTE
+  technical_result: PASS
+  readiness: HUMAN_ACCEPTED
   claim_class: OBSERVED_AT_SNAPSHOT
-  subject:
-    subject_set_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
-  exact_report:
-    representation: EXACT_TRANSPORT_PAYLOAD_BASE64
-    byte_length: 2738
-    sha256: a24f62a2a97978dfad462856bf4dec34c578479f0e034cc107ff71c2d9a73646
+  repository_mutations: 2
+  changed_paths:
+    - planning/CURRENT.md
+    - planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+  subject_set_sha256: 5d338cf0d2a163e37ec875f76b173c1821a79e22220e56b9e9c51f1845e3b3b2
+  independent_validation: PASS
+  human_acceptance: ACCEPT
+  stop: true
 last_human_decision:
-  task_id: INT-DOC-010-ACCEPTANCE-001
+  task_id: X1-DOCUMENTATION-DECISIONS-PERSIST-ACCEPTANCE-RECORD-001
   decision: ACCEPT
-  accepted_subject_sha256: 4c792508d803d32fa6714cde5ca198ad7e09a4d894e982956f9f289b6f0a1a50
+  decision_source: CURRENT_EXPLICIT_HUMAN_DECISION
+  exact_message_utf8_byte_length: 388
+  exact_message_sha256: 48efe9409aae7af73e4512bafdbf6e7ac095a867970447e4c2bc8dbe53f030ce
+  accepted_subject_sha256: 5d338cf0d2a163e37ec875f76b173c1821a79e22220e56b9e9c51f1845e3b3b2
   acceptance_record:
-    path: planning/INT_DOC_010_Acceptance_Record.md
-    byte_length: 3804
-    sha256: 1e8add0d3c7afdaf22aff7464eecb32e011cce749fa0c9f3e9b05edea377a900
+    path: planning/X1_Documentation_Decision_Record_R1_Acceptance_Record.md
+    byte_length: 4594
+    sha256: 4e6c1b42cbd0248f497974ccfe5b925f55ec80d30f5e81b31954d9680eff3730
 authorization_default: DENY_UNLESS_EXACT_ACTIVE_RECORD
 active_authorizations: []
 prohibited_operations:
@@ -508,6 +738,29 @@ finding_disposition:
   TASK_LOCAL_AUTONOMY_INTEGRATION_TO_DEV: PERFORMED_FAST_FORWARD_NO_MERGE_COMMIT
   INT_DOC_010_VALIDATION_FINDINGS: CLOSED_AFTER_TWO_BOUNDED_CORRECTION_VALIDATION_CYCLES
   INT_DOC_010_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_4C792508
+  INT_DOC_100_VALIDATION_PROVENANCE_FINDINGS: CLOSED_BY_EXACT_HUMAN_SCOPE_DECISION_AND_BOUNDED_PROVENANCE_CORRECTION
+  INT_DOC_100_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_ABA03650
+  INT_DOC_100_STALE_CURRENT_FINDING: RESOLVED_BY_AUTHORIZED_ACCEPTANCE_STATE_RECONCILIATION
+  INT_DOC_200_ACTIVATION: PERFORMED_AND_SUPERSEDED_BY_COMPLETED_INTERVAL
+  INT_DOC_200_EXECUTE_STAGE_REPORT_FINDINGS: CLOSED_BY_EXACT_INLINE_STAGE_REPORT_CORRECTION
+  INT_DOC_200_VALIDATION: HUMAN_REVIEW_REQUIRED_FOR_EXACT_SUBJECT_0235E1F0
+  INT_DOC_200_HUMAN_FIRST_SLICE_DECISION: SELECT_FS_CAND_001
+  INT_DOC_200_STALE_CURRENT_FINDING: RESOLVED_BY_AUTHORIZED_DECISION_STATE_RECONCILIATION
+  INT_DOC_210_ACTIVATION: PERFORMED_AWAITING_SEPARATE_EXECUTION_AUTHORIZATION
+  INT_DOC_210_EXECUTE_001_F001: RESOLVED_BY_HUMAN_INTERACTION_SURFACE_DECISION
+  INT_DOC_210_INTERACTION_SURFACE_DECISION: SELECT_SURFACE_A_PROVIDER_NEUTRAL_GUIDED_CONVERSATION
+  INT_DOC_210_VALIDATE_009_F001: CLOSED_BY_AUTHORIZED_ADDITIONAL_CORRECTION_AND_REVALIDATION
+  INT_DOC_210_VALIDATION: PASS_FOR_EXACT_SUBJECT_3856446B
+  INT_DOC_210_HUMAN_REVIEW_DECISION: ACCEPT_FOR_EXACT_SUBJECT_3856446B
+  INT_DOC_210_STALE_CURRENT_FINDING: RESOLVED_BY_AUTHORIZED_ACCEPTANCE_STATE_RECONCILIATION
+  X1_DOCUMENTATION_CLOSURE_PACKAGE_DECISION: ACCEPT_FOR_EXACT_SUBJECT_EE9C0BA2
+  X1_PD_001_FEATURE_MAPPING: ACCEPTED_COMPOSITE_FTR_001_PLUS_FTR_003
+  X1_PD_002_FEATURE_DISPOSITIONS: RECORDED_IN_CANONICAL_FEATURE_OWNER
+  X1_PD_003_CONTRACT_SCOPE: PRESERVE_ACCEPTED_FS_CAND_001
+  X1_AD_001_TARGET_UNBOUND_ARCHITECTURE_ROUTE: NO_ADR_REQUIRED_WITH_EXPLICIT_RATIONALE
+  X1_AD_002_LOGICAL_OWNER_BOUNDARY: ACCEPT_CURRENT_C001_C002_OWNERSHIP
+  X1_DOCUMENTATION_DECISIONS_INDEPENDENT_VALIDATION: PASS_FOR_EXACT_SUBJECT_5D338CF0
+  X1_DOCUMENTATION_DECISIONS_HUMAN_ACCEPTANCE: ACCEPT_FOR_EXACT_SUBJECT_5D338CF0
 blocking_findings:
   - finding_id: PWS-BF-002
     classification: NOT_FOUND
@@ -530,7 +783,7 @@ invalidation_conditions:
   - an authorization expires, is consumed, revoked, superseded, or loses subject binding
   - a new blocking finding or competing progress owner is discovered
 invalidated_by: []
-next_bounded_action: HUMAN_DECIDE_EXACT_INT_DOC_100_FOUNDATION_SCOPE
+next_bounded_action: HUMAN_DECIDE_EXACT_COMPOSITE_C_002_FEATURE_ID
 ---
 
 # Current persisted workflow state
