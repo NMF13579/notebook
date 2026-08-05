@@ -1,294 +1,671 @@
 ---
 document_type: PLANNING_WORKSPACE
-revision: DRAFT-R2
+revision: DRAFT-R3
 status: DRAFT
+claim_class: SYNTHESIZED_PROPOSAL
 authority: NONE
-human_acceptance: NOT_REQUESTED
+human_acceptance: NOT_RUN
+implementation_readiness: BLOCKED_PENDING_DECISIONS
 implementation_authorization: NONE
 git_authorization: NONE
-repository: NMF13579/notebook
-target_branch: dev
-repository_path: planning/WORKSPACE.md
+knowledge_repository: NMF13579/notebook
+implementation_repository: UNASSIGNED
 updated: 2026-08-04
+supersedes: planning/WORKSPACE.md DRAFT-R2
+documentation_detail_plan: planning/AOS_DOCUMENTATION_PRODUCTION_PLAN_DRAFT_R1.md
+agent_instruction_draft: planning/AGENTS_DRAFT_R1.md
 ---
 
-# AOS-3 — общий план создания системы
+# AOS-3 — исправленный общий план создания проекта
 
-## 1. Назначение
+## 1. Вывод
 
-Этот файл — единое рабочее место для общего плана AOS-3. Он показывает, **что создаётся, в какой очередности и как крупные части соединяются друг с другом**.
-
-План объединяет:
-
-1. строительные леса для будущей разработки;
-2. постоянную базовую инфраструктуру AOS;
-3. основной pipeline движения проекта;
-4. завершающую сборку инструкций для агента.
-
-Это `DRAFT`: рабочий план не является canonical project knowledge, Task Brief, architecture acceptance или разрешением на реализацию.
-
-## 2. Границы владения
-
-| Что | Владелец |
-|---|---|
-| Принятые сведения о проекте | `docs/00_Core.md` — `docs/06_Features.md` |
-| Общий рабочий план | `planning/WORKSPACE.md` |
-| Будущий принятый versioned plan | Отдельный artifact в `planning/` после human review |
-| Состояние активной задачи | `planning/CURRENT.md` |
-| Исполнимая задача | Отдельный `Task-xxx.md` после выбора bounded slice |
-
-`WORKSPACE.md` связывает authoritative owners, но не заменяет их.
-
-## 3. Общая последовательность
+AOS-3 создаётся последовательно в пяти крупных этапах:
 
 ```text
-0. Принять необходимые product и architecture decisions
-→ 1. Создать строительные леса
-→ 2. Создать базовую инфраструктуру: первоочередное ядро
-→ 3. Запустить основной pipeline из трёх частей
-→ 4. Подключать вторую группу базовой инфраструктуры перед её первым использованием
-→ 5. Уточнить AGENTS.md для работы агента по собранной системе
+1. Принять исходные решения и подготовить bootstrap-инструкции агенту
+→ 2. Создать строительные леса
+→ 3. Создать постоянное рабочее ядро
+→ 4. Создать pipeline по трём частям
+→ 5. Провести dogfood, расширить только доказанно нужное и финализировать AGENTS.md
 ```
 
-Важно: вторая группа базовой инфраструктуры не обязательно реализуется одним пакетом после первой. Каждый компонент подключается перед первым сценарием, который от него зависит. Например, `Recovery / Resume / Rollback` обязателен до первой записывающей product-операции.
+Главное исправление относительно `DRAFT-R2`: базовая инфраструктура больше не делится на «обязательную сейчас» и единый этап «подключить потом». Каждый компонент создаётся **до первого шага, который не может безопасно работать без него**.
 
-## 4. Этап 0 — необходимые решения до реализации
+Этот документ показывает порядок создания проекта и связи между этапами. Он не является исполнимым roadmap, выбором конкретной feature, Task Brief, Execution Authorization или разрешением на Git-действия.
 
-До создания runtime-кода человек должен определить минимум:
+## 2. Как читать план
 
-- implementation repository;
-- первый Product Runtime domain и первый vertical slice;
-- основной interface: CLI, local UI или другое;
-- язык, framework, package manager и поддерживаемые версии;
-- способ хранения Project Memory;
-- supported environments;
-- границы первого read-only пользовательского маршрута.
+Этот файл является владельцем общей последовательности создания AOS-3. Подробный маршрут подготовки документации для передачи coding agent вынесен в `planning/AOS_DOCUMENTATION_PRODUCTION_PLAN_DRAFT_R1.md`. Черновой operating contract будущего coding agent находится в `planning/AGENTS_DRAFT_R1.md`.
 
-Пока решения отсутствуют, безопасная детализация документов может продолжаться, но реализация имеет статус `BLOCKED` или `NOT_RUN` в соответствующей boundary.
+Эти связанные документы раскрывают общий план, но не меняют его authority и не предоставляют implementation или Git authorization.
 
-## 5. Этап 1 — строительные леса
+### 2.1. Крупный этап
+
+Крупный этап создаёт самостоятельный проверяемый результат, необходимый следующему этапу.
+
+### 2.2. Подэтап
+
+Подэтап — ограниченная часть работы внутри крупного этапа. Для его последующей реализации должен быть подготовлен отдельный contract в формате:
+
+```text
+input → action → output → dependency gate → owner
+→ acceptance → negative tests → failure/recovery → next transition
+```
+
+### 2.3. Gate
+
+Gate — условие, без которого зависимый шаг не начинается. Пояснение в тексте не заменяет machine-checkable gate.
+
+## 3. Единая модель владения состоянием
+
+Чтобы разные агенты не восстанавливали разные версии состояния, для каждого fact class устанавливается один owner.
+
+| Fact class | Единственный owner | Что не является owner |
+|---|---|---|
+| Product truth | Human-accepted Product Spec / Feature Contract | Registry, UI, Context Pack |
+| Scope одной задачи | Exact `Task Brief` | Project Memory, Stage Report |
+| Execution permission | Exact `Execution Authorization Record` | Task Brief, кнопка UI, technical `PASS` |
+| Текущее durable lifecycle state | `Project Memory` | Task Brief, Registry, dashboard |
+| Текущее представление Project Memory в `notebook` | `planning/CURRENT.md` | Параллельный task-local state file |
+| Факт конкретного запуска | Immutable `Stage Report` / Execution Record | Current-state dashboard |
+| Evidence | Immutable subject-bound Evidence Record | Human decision |
+| Human decision | Human-authored/verified Decision Record | Agent recommendation |
+| Навигация и трассировка | Rebuildable Registry | Product truth или lifecycle state |
+| Отображение состояния | Derived `Status / Next / Details` | Durable lifecycle state |
+| Контекст агента | Temporary task-scoped Context Pack | Вторая постоянная память |
+
+`Task Brief` после подтверждения scope не хранит изменяющийся stage. `Project Memory` ссылается на Task Brief и Stage Reports, но не переписывает их историю.
+
+## 4. Общая карта зависимостей
+
+```text
+Решения человека
+  ↓
+Bootstrap AGENTS_DRAFT
+  ↓
+Строительные леса
+  ↓
+Contracts + Statuses + Authority + Project Memory + Evidence
+  ↓
+Doctor + Status / Next / Details
+  ↓
+Registry + Context Pack
+  ↓
+Pipeline Part 1: Product Spec → Feature Contract → Task Brief → Preview
+  ↓ отдельное Execution Authorization
+Product Recovery + Scoped Executor + Validation Foundation
+  ↓
+Pipeline Part 2: Execute → Evidence → Freeze → VALIDATE → Review Package
+  ↓ решение человека
+Pipeline Part 3: Decision → отдельно разрешённые state/Git actions → Handoff
+  ↓
+Dogfood → corrections → final thin AGENTS.md
+```
+
+## 5. Крупный этап 1 — исходные решения и bootstrap агента
 
 ### Цель
 
-Один раз подготовить воспроизводимую и безопасную среду, чтобы coding agent не создавал структуру проекта, команды, проверки и правила записи на ходу.
+Убрать решения, которые coding agent не вправе принимать сам, и дать ему минимальную временную инструкцию для создания следующих этапов.
 
-### Состав
+### Подэтап 1.1 — единый decision package
 
-1. Зафиксировать технические решения и exact scope лесов.
-2. Создать каркас репозитория и границы модулей.
-3. Закрепить toolchain, package manager и зависимости.
-4. Создать единый command surface: `setup`, `run`, `test`, `check`, `format`, `build`, `doctor`, `self-test`.
-5. Подготовить typed configuration и разделение environments.
-6. Создать минимальную запускаемую оболочку без product behavior.
-7. Создать test harness и negative fixtures.
-8. Настроить formatter, linter, type/schema checks и fail-closed aggregation.
-9. Создать минимальный CI, вызывающий те же команды, что и local environment.
-10. Подготовить каркас Registry и его read-only validator.
-11. Подготовить минимальные technical contracts и templates.
-12. Добавить repository preflight, allowed paths и проверку actual diff.
-13. Создать безопасный development bootstrap с dry-run, idempotency и partial-write detection.
-14. Добавить scaffold-level `doctor` и `self-test`.
-15. Проверить леса из clean checkout и сформировать Evidence.
+Человек получает один компактный пакет связанных решений, а не серию технических вопросов.
 
-### Результат
+Нужно определить:
 
-Готовая среда для реализации первого real vertical slice: она воспроизводимо устанавливается, запускается, проверяется и диагностируется.
+1. implementation repository;
+2. первый user problem и первый smallest vertical slice;
+3. основной interface первого цикла: CLI, local UI или другой;
+4. язык, framework, package manager и закреплённые версии;
+5. модель данных первого цикла: file/no-DB/DB;
+6. supported environments;
+7. способ persistence для Project Memory;
+8. primary agent environment;
+9. границу первого read-only маршрута;
+10. item-level disposition только для `FTR-*`, необходимых ближайшему этапу.
 
-### Граница
+Агент должен предложить рекомендуемые defaults, trade-offs, affected decisions и один preferred вариант. Не относящиеся к текущему этапу решения остаются `UNDECIDED`.
 
-Строительные леса не являются Product Runtime, consumer installer, полной Governance, release automation или реализацией product features.
+### Подэтап 1.2 — bootstrap `AGENTS_DRAFT`
 
-## 6. Этап 2 — базовая инфраструктура
+До scaffolding создаётся короткий временный operating contract для coding agent. Он содержит только:
 
-Базовая инфраструктура — постоянные механизмы AOS, которые обслуживают весь pipeline. Она делится на две группы.
+- роль и objective;
+- routing к `docs/00_Core.md` и релевантным owners;
+- обязательные safety boundaries;
+- startup/preflight algorithm;
+- task-local autonomy, ask/stop rules;
+- одного owner текущего состояния;
+- запрет durable writes без exact authorization;
+- placeholders для ещё не созданных commands и paths.
 
-### 6.1. Первоочередное ядро
+Он не дублирует весь pipeline, contracts и Stage Report из `00_Core.md`–`03_Development.md`.
 
-| ID | Компонент | Роль |
+### Подэтап 1.3 — принять exact scaffolding scope
+
+Подготовить первый bounded Task Brief только для строительных лесов. Отдельно получить Execution Authorization на exact repository, paths и operations.
+
+### Результат этапа
+
+- приняты необходимые исходные решения;
+- существует thin bootstrap-инструкция агенту;
+- подготовлен и отдельно разрешён exact scaffolding task.
+
+### Gate перехода
+
+Нельзя начинать реализацию scaffolding, пока implementation repository, toolchain, first interface boundary и exact authorization имеют состояние, допускающее действие.
+
+## 6. Крупный этап 2 — строительные леса
+
+### Цель
+
+Создать воспроизводимую среду, в которой агент реализует продуктовые компоненты одинаковым способом, а не проектирует структуру и проверки заново для каждой задачи.
+
+### Подэтап 2.1 — topology и toolchain
+
+1. Создать modular-monorepo skeleton.
+2. Разделить Product Runtime, Development Factory, Safety и Knowledge boundaries.
+3. Закрепить язык, runtime, package manager и зависимости.
+4. Создать typed configuration и environment separation.
+5. Зафиксировать ownership каталогов и protected paths.
+
+### Подэтап 2.2 — единый command surface
+
+Подготовить согласованные команды:
+
+```text
+setup | run | test | check | format | build | doctor | self-test
+```
+
+Команды должны иметь стабильные exit codes, `--help` без writes и одинаковое поведение локально и в CI.
+
+### Подэтап 2.3 — минимальная техническая оболочка
+
+1. Создать запускаемую оболочку без product behavior.
+2. Добавить test harness и negative fixtures.
+3. Настроить formatter, linter, type/schema checks.
+4. Настроить fail-closed aggregation результатов.
+5. Добавить минимальный CI, вызывающий локальные команды.
+
+### Подэтап 2.4 — safeguards для разработки
+
+1. Repository preflight.
+2. Allowed-path и actual-diff checks.
+3. Safe temp boundary.
+4. Secrets/redaction check.
+5. Atomic/journaled scaffold writes.
+6. Idempotent development bootstrap.
+7. Partial-write detection и scaffold-level recovery.
+
+Это recovery самих лесов, а не реализация Product Runtime `FTR-014`.
+
+### Подэтап 2.5 — scaffold diagnostics
+
+1. Scaffold-level `doctor`.
+2. Scaffold-level `self-test`.
+3. Clean-checkout setup.
+4. Повторный запуск setup без повреждения состояния.
+5. Intentional interruption и безопасное resume.
+6. Evidence выполненных и `NOT_RUN` проверок.
+
+### Результат этапа
+
+Из чистого checkout агент может установить среду, запустить оболочку, выполнить единые проверки, диагностировать проблему и добавить тестовый модуль по установленному шаблону.
+
+### Gate перехода
+
+Все scaffold acceptance и negative checks проходят на exact candidate; human decision и Git delivery оформлены отдельно.
+
+## 7. Крупный этап 3 — постоянное рабочее ядро AOS
+
+### Цель
+
+Создать минимальные постоянные механизмы, на которых будут работать все три части pipeline.
+
+### Подэтап 3.1 — contracts, statuses и authority
+
+Создать и проверить:
+
+1. versioned data contracts и strict loaders;
+2. ортогональные оси `Task stage`, `Technical result`, `Human decision`, `Permission`;
+3. fail-closed Result Contract;
+4. Authority Resolver;
+5. permission classifier и Action Trust Boundary;
+6. запрет превращать Evidence, UI action или generated text в approval.
+
+Не вводить дополнительные free-form readiness statuses. До отдельного принятия readiness axis используются существующие `HUMAN_REVIEW_REQUIRED` и `HUMAN_AUTHORIZATION_REQUIRED` в своих осях.
+
+### Подэтап 3.2 — Project Memory как один current-state owner
+
+Создать:
+
+1. schema Project Memory;
+2. атомарную загрузку/запись;
+3. freshness и repository-identity checks;
+4. ссылки на immutable Task Brief, candidate, Stage Reports и decisions;
+5. blockers, authorization state и one next action;
+6. resume после новой session без истории чата.
+
+В `notebook` current implementation этого contract представляется `planning/CURRENT.md` до отдельного решения о target path.
+
+### Подэтап 3.3 — Evidence и immutable event records
+
+Создать Evidence Record и Stage Report foundation с exact subject identity, checks run/not run, limitations, changed paths и stop reason.
+
+### Подэтап 3.4 — read-only пользовательская оболочка
+
+Создать минимальный маршрут:
+
+```text
+run → doctor → status → next → details
+```
+
+Surface читает Project Memory и contracts, но не изменяет lifecycle state.
+
+### Подэтап 3.5 — Product-level Doctor / Self-Test
+
+Проверять:
+
+- доступность и валидность owners;
+- status vocabulary;
+- Project Memory freshness;
+- repository identity;
+- отсутствие conflicting owners;
+- возможность безопасно продолжить;
+- честные `UNKNOWN`, `NOT_RUN` и `BLOCKED`.
+
+### Подэтап 3.6 — Registry и Context Pack
+
+До создания implementation tasks необходимо реализовать минимально:
+
+1. Product Feature Registry как rebuildable index;
+2. Execution/Verification Registry как rebuildable index;
+3. связи `feature → function → task → contract → tests`;
+4. minimal task-scoped Context Pack;
+5. freshness/provenance explanation;
+6. rebuild без утраты product truth или lifecycle state.
+
+Registry и Context Pack не получают authority и не становятся второй памятью.
+
+### Подэтап 3.7 — task-local coordinator contract
+
+Coordinator читает terminal record и может открыть только разрешённый следующий run. Он не получает mutation authority и не выбирает следующую task.
+
+| Terminal state | Следующий run | Условие |
 |---|---|---|
-| `BI-08` | Общие data contracts и strict loaders | Единые форматы и fail-closed validation |
-| `BI-09` | Статусы и Result Contract | Разделение `PASS`, `FAIL`, `BLOCKED`, `UNKNOWN`, `NOT_RUN` |
-| `BI-10` | Authority и permissions | Разделение facts, decisions и разрешений |
-| `BI-05` | Минимальный Project Memory | Durable state, решения, blockers и next action |
-| `BI-13` | Минимальные Evidence и technical logs | Доказательство выполненных действий и проверок |
-| `BI-01` | UX-оболочка | Единая точка взаимодействия пользователя с AOS |
-| `BI-02` | `Status / Next / Details` | Простое отображение текущего состояния |
-| `BI-11` | Product-level Doctor и Self-Test | Диагностика contracts, state и возможности продолжения |
+| `PLAN + HUMAN_AUTHORIZATION_REQUIRED` | Нет | Нужен exact human authorization |
+| `EXECUTE + PASS + candidate frozen` | `VALIDATE` | Только read-only; предусмотрено Task Brief/risk |
+| `EXECUTE + FAIL/BLOCKED/UNKNOWN` | Нет | Report, stop, one next action |
+| `VALIDATE + PASS` | `REVIEW` | Exact candidate не изменён |
+| `VALIDATE + finding` | Нет | Отдельная correction boundary |
+| `REVIEW` | Нет | Нужен human decision |
 
-Первый пользовательский маршрут:
+Ни один terminal state не активирует автоматически следующую task или vertical slice.
 
-```text
-запуск → doctor → status → next → details
-```
+### Результат этапа
 
-Результат: пользователь видит честное состояние, проблему и одно следующее действие; технический `PASS` не смешивается с human acceptance или permission.
+AOS умеет честно хранить и показывать текущее состояние, проверять своё ядро, восстанавливать task-scoped context и координировать безопасные read-only transitions.
 
-### 6.2. Подключить позже
+### Gate перехода
 
-| ID | Компонент | Обязательный момент подключения |
-|---|---|---|
-| `BI-12` | Recovery / Resume / Rollback | До первой записывающей product-операции |
-| `BI-04` | Installer / updater | После выбора packaging и способа установки; updater/uninstaller — после стабилизации install |
-| `BI-03` | First Start и Tutor | После стабилизации основного UX и first-start route |
-| `BI-07` | Registry `feature → function → module → contract → tests` | До формирования implementation tasks и трассировки pipeline |
-| `BI-06` | Context Manager / Context Pack | До полноценной работы coding agent с task-scoped context |
-| `BI-14` | Knowledge, lessons и patterns | После появления реальных повторяемых задач; patterns остаются `REFERENCE_ONLY` |
-| `BI-15` | Agent adapters | Первый — при подключении первого agent environment; следующие — по измеренной потребности |
+До формирования первого real Task Brief должны быть готовы и проверены Registry, minimal Context Pack, Project Memory, Result/Authority contracts и repository preflight foundation.
 
-«Позже» означает не необязательность, а **отсроченную реализацию до появления конкретного потребителя и проверяемого сценария**.
+## 8. Крупный этап 4 — создание pipeline по трём частям
 
-### 6.3. Правила совместимости
+Этап 4 создаётся в той же последовательности, в которой пользователь будет проходить pipeline.
 
-- Project Memory хранит текущее durable state.
-- Registry индексирует связи и не становится owner product truth.
-- `Status / Next / Details` только отображает производное состояние.
-- Evidence и audit фиксируют действия и проверки, но не создают approval.
-- Context Pack является временной минимальной выборкой из owners, а не второй памятью.
-- UI и agent adapters не добавляют permissions и не копируют authority.
-- Scaffold-level `doctor` проверяет среду разработки; Product-level Doctor проверяет runtime contracts и state. Оба используют общий Result Contract, но разные профили проверок.
+## 8.1. Часть 1 — проектирование и подготовка задачи
 
-## 7. Этап 3 — основной pipeline из трёх частей
+### Цель
 
-Pipeline показывает пользовательский путь от идеи или готового ТЗ до принятого результата и следующего vertical slice.
+Превратить идею или готовое ТЗ в одну ближайшую исполнимую задачу.
 
-### Часть 1. Проектирование и подготовка задачи
+### Подэтап 4.1.1 — intake и discovery
 
-Превращает исходный intent в одну исполнимую задачу.
+1. Сохранить original request.
+2. Определить actor, problem, desired outcome и current workaround.
+3. Зафиксировать constraints, non-goals, assumptions и unknowns.
+4. Задать только material questions.
 
-Составные части:
+### Подэтап 4.1.2 — Product Spec и карта поведения
 
-1. Приём идеи или готового ТЗ с сохранением original request.
-2. Уточнение problem, actor, desired outcome, constraints, non-goals, assumptions и unknowns.
-3. Формирование `Product Spec`.
-4. Выделение фич, функций и пользовательских journeys.
-5. Создание UX-скелета, если slice затрагивает интерфейс.
-6. Выбор человеком ближайшего vertical slice.
-7. Формирование feature-specific `Feature Contract`: actors, trigger, I/O, states, main flow, failures/recovery, dependencies, acceptance и negative scenarios.
-8. Targeted research и `ADR` только при наличии конкретного material gap.
-9. Облегчённая lazy decomposition только выбранного slice.
-10. Создание одного bounded `Task Brief`.
-11. Repository preflight и preview будущих изменений.
+1. Сформировать Product Spec.
+2. Выделить features, functions и journeys.
+3. При необходимости создать UX-skeleton: scenarios, access, objects, screen map и user review.
 
-Результат: задача, готовая к отдельному `Execution Authorization`.
+### Подэтап 4.1.3 — выбор vertical slice и Feature Contract
 
-Граница: полный backlog всего проекта, автоматическая очередь и активация следующих задач в первый цикл не входят.
+Человек выбирает smallest user-visible slice. Для него создаётся exact Feature Contract: actors, trigger, I/O, states, transitions, main flow, failures/recovery, dependencies, constraints, acceptance и negative scenarios.
 
-### Часть 2. Выполнение и проверка результата
+### Подэтап 4.1.4 — targeted research и ADR
 
-Превращает отдельно разрешённую задачу в exact candidate с Evidence.
-
-Составные части:
-
-1. Получение отдельного `Execution Authorization`.
-2. Проверка актуальности task, baseline, paths, operations и permissions.
-3. Выполнение минимального изменения внутри allowed scope.
-4. Targeted tests и обязательные negative tests.
-5. Проверка actual diff и отсутствия scope creep.
-6. Формирование Evidence и `Stage Report`.
-7. Freeze exact candidate.
-8. Отдельный read-only `VALIDATE`, если его требует риск.
-9. Сверка acceptance criteria и relevant regression cases.
-10. Формирование `Review Package`.
-
-Результат: exact candidate, готовый к human review.
-
-Граница: technical `PASS` не означает approval или acceptance.
-
-### Часть 3. Принятие, завершение и продолжение
-
-Закрывает задачу и создаёт безопасную точку продолжения.
-
-Составные части:
-
-1. Human review exact candidate.
-2. Явное решение: `ACCEPT`, `NEEDS_CHANGES`, `REJECT` или `DEFER`.
-3. При `NEEDS_CHANGES` — новая bounded correction task и возврат в соответствующую часть pipeline.
-4. Отдельное разрешение на каждое действие `Commit`, `Push`, `Merge` или `Release`.
-5. Выполнение только разрешённых Git-действий.
-6. Обновление Project Memory.
-7. Обновление Registry и связей `feature → function → task → tests`.
-8. Фиксация актуальных statuses, blockers, checks и Evidence.
-9. Создание lesson/pattern proposal при необходимости.
-10. Определение одного следующего действия или следующего vertical slice.
-
-Результат: закрытая задача, актуальное состояние проекта и понятная точка продолжения.
-
-### 7.1. Непрерывная схема
+Только при material gap:
 
 ```text
-Часть 1. Спроектировать и подготовить задачу
-→ отдельное Execution Authorization
-→ Часть 2. Выполнить и проверить результат
-→ решение человека
-→ Часть 3. Завершить и продолжить
-↺ следующий vertical slice
+selected feature → narrow question → exact repo/ref/commit/path
+→ high-signal evidence → classified finding → remaining unknown
 ```
 
-Внутри трёх пользовательских частей сохраняются обязательные границы:
+Architecture decision создаётся только если Feature Contract не позволяет выбрать реализацию без скрытого product/architecture решения.
+
+### Подэтап 4.1.5 — облегчённая декомпозиция
+
+Создаётся только одна ближайшая задача:
 
 ```text
-Task Brief ≠ Execution Authorization
-PASS ≠ Acceptance
-Acceptance ≠ Commit ≠ Push ≠ Merge ≠ Release
+Goal → Stage → Sub-stage только при material boundary → executable Task
 ```
 
-## 8. Этап 4 — итоговый AGENTS.md
+Полный hierarchical backlog, автоматическая очередь и автозапуск следующей задачи не входят в первый цикл.
 
-После стабилизации строительных лесов, базовой инфраструктуры и pipeline уточняется `AGENTS.md`, который объясняет агенту:
+### Подэтап 4.1.6 — Task Brief, validation matrix и preview
 
-- где находятся authoritative owners;
-- как определить текущую часть pipeline;
-- как получать task-scoped context;
-- как формировать ближайший bounded `Task Brief`;
-- как проверять authorization перед mutation;
-- как завершать stage отчётом и stop;
-- как обновлять state без создания параллельного owner;
-- какие действия всегда требуют отдельного решения человека.
+1. Скомпилировать exact Task Brief.
+2. Проверить связь с Feature Contract и Registry.
+3. Сформировать acceptance/negative validation matrix.
+4. Провести repository preflight.
+5. Показать planned paths, operations, conflicts и exact execution preview.
+6. Сформировать compact decision package.
 
-`AGENTS.md` связывает уже определённые contracts и не должен создавать новую product architecture или отдельный workflow.
+В одном пользовательском package можно показать выбор slice, Feature Contract, Task Brief и authorization form, но эти сущности остаются отдельными records.
 
-## 9. Что вынесено за границы первого цикла
+### Результат части 1
 
-- подключение AOS к уже разрабатываемому проекту;
-- расширенный mechanism Doctor для такого подключения;
-- полный hierarchical backlog и автоматическая очередь;
-- multi-agent orchestration;
-- full RAG/vector backend;
-- сложный Workbench/SaaS UI;
-- plugin marketplace;
-- автоматические Git-действия;
-- progressive Governance и enforcement без измеренной потребности.
+Exact Task Brief и preview; Permission state — `HUMAN_AUTHORIZATION_REQUIRED`.
 
-Эти направления могут стать отдельными модулями после проверки greenfield pipeline на реальных задачах.
+### Hard gates
 
-## 10. Решения человека, зафиксированные в рабочем плане
+- Registry и minimal Context Pack готовы до Task Brief.
+- Task Brief не изменяет Project Memory без отдельной authorized operation.
+- Execution не начинается без exact Execution Authorization.
 
-| ID | Дата | Решение | Boundary |
+## 8.2. Часть 2 — выполнение и проверка результата
+
+### Цель
+
+Превратить отдельно разрешённую задачу в frozen exact candidate с Evidence.
+
+### Подэтап 4.2.0 — hard gate до первой Product Runtime write
+
+До любой write-capable product operation создать и проверить:
+
+1. Product Recovery Contract;
+2. operation journal;
+3. partial-write detection;
+4. intended/actual reconciliation;
+5. idempotent retry только при неизменных scope, identity и permission;
+6. bounded resume/rollback;
+7. denied-action log;
+8. post-recovery validation;
+9. thin scoped executor consuming exact authorization;
+10. freeze и validation boundary.
+
+Destructive rollback требует отдельного human authorization.
+
+### Подэтап 4.2.1 — authorization и re-preflight
+
+1. Получить exact Execution Authorization.
+2. Проверить task, repository, worktree, branch, HEAD, baseline и candidate identity.
+3. Сверить allowed operations/paths, expiry и consumption.
+4. При stale identity или material unknown остановиться.
+
+### Подэтап 4.2.2 — smallest scoped execution
+
+1. Выполнить только разрешённую causal change.
+2. Journal каждую durable mutation.
+3. Не исправлять unrelated defects.
+4. При scope expansion остановиться и запросить новую boundary.
+
+### Подэтап 4.2.3 — tests, Evidence и diff
+
+1. Targeted positive tests.
+2. Обязательные negative tests.
+3. Relevant regression/smoke checks.
+4. Actual diff и changed-file allowlist.
+5. Security/release blockers в требуемом scope.
+6. Evidence с exact subject identity и `NOT_RUN` limitations.
+
+### Подэтап 4.2.4 — Stage Report и freeze
+
+Сформировать immutable Stage Report, зафиксировать exact candidate и остановить `EXECUTE`.
+
+### Подэтап 4.2.5 — отдельный VALIDATE
+
+Read-only validation:
+
+1. проверяет exact frozen candidate;
+2. не исправляет findings;
+3. повторяет только необходимые проверки;
+4. сверяет acceptance, negative cases, scope и regression;
+5. останавливается при finding.
+
+### Подэтап 4.2.6 — Review Package
+
+Один компактный документ показывает before/after, user impact, exact paths, Evidence, `NOT_RUN`, limitations, findings, decision options и one next action.
+
+### Результат части 2
+
+Frozen exact candidate и Review Package. Technical `PASS` не является human acceptance.
+
+## 8.3. Часть 3 — принятие, завершение и продолжение
+
+### Цель
+
+Получить явное решение человека, безопасно зафиксировать разрешённые последствия и оставить одну точку продолжения.
+
+### Подэтап 4.3.1 — human review
+
+Человек выбирает:
+
+```text
+ACCEPT | NEEDS_CHANGES | REJECT | DEFER
+```
+
+Decision Record bind к exact candidate. Agent recommendation не создаёт decision.
+
+### Подэтап 4.3.2 — correction loop
+
+При `NEEDS_CHANGES` создаётся отдельная bounded correction task. Старое authorization не переносится автоматически. После correction создаётся новый candidate и повторяется требуемая validation/review boundary.
+
+### Подэтап 4.3.3 — отдельно разрешённые durable state updates
+
+Обновление Project Memory, Registry или любого lifecycle record является mutation и должно быть:
+
+- включено в exact `allowed_operations/allowed_paths`; или
+- выполнено отдельной authorized state-transition task.
+
+Если authorization отсутствует, агент формирует read-only proposed update и останавливается. `Status / Next / Details` никогда не мутирует state.
+
+### Подэтап 4.3.4 — отдельно разрешённый Git lifecycle
+
+Каждое действие имеет отдельное решение и повторный preflight:
+
+```text
+Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
+```
+
+Acceptance не разрешает Git delivery автоматически.
+
+### Подэтап 4.3.5 — handoff, lesson и one next action
+
+1. Сформировать compact handoff.
+2. Обновить разрешённые derived indexes.
+3. Создать lesson/pattern proposal при реальном повторяемом сигнале.
+4. Показать одно следующее действие.
+5. Не активировать автоматически следующий vertical slice.
+
+### Результат части 3
+
+Задача имеет явное human decision, разрешённые state/Git consequences выполнены или честно `NOT_RUN`, а Project Memory показывает одну безопасную точку продолжения.
+
+## 9. Крупный этап 5 — dogfood, условное расширение и финализация
+
+### Цель
+
+Проверить не только компоненты по отдельности, но и весь greenfield путь глазами непрограммиста; затем оставить только доказанно полезную automation.
+
+### Подэтап 5.1 — сквозной manual dogfood
+
+Выполнить несколько полных циклов:
+
+```text
+idea → Product Spec → Feature Contract → Task Brief → authorization
+→ execution → Evidence → VALIDATE → review → decision → handoff
+```
+
+Проверить interruption/resume на границах writes и переходы между sessions/agent environments.
+
+### Подэтап 5.2 — измерение
+
+Измерять:
+
+- time intent → Task Brief;
+- количество material clarification loops;
+- scope drift;
+- resume time;
+- time to Evidence/review;
+- authority confusion;
+- false-green incidents;
+- handoff quality;
+- долю задач без повторного planning;
+- Governance overhead.
+
+### Подэтап 5.3 — bounded corrections
+
+Исправлять только повторяемые проблемы с известной причиной, acceptance, negative cases и recovery. Не строить full platform по единичному случаю.
+
+### Подэтап 5.4 — capability-on-demand
+
+Следующие компоненты создаются только перед первым подтверждённым consumer scenario:
+
+| Capability | Момент подключения |
+|---|---|
+| Consumer installer/update | После принятия packaging/ownership contract и до первого consumer install |
+| First-Start/Tutor | После стабилизации основного UX и до первого неподготовленного пользователя |
+| Дополнительный agent adapter | Перед подключением конкретной среды |
+| Knowledge/pattern library | После появления повторяемых lessons |
+| Advanced registry drift guard | После измеренного drift problem |
+| RAG-light | После измеренной проблемы поиска/контекста |
+| CI/release expansion | После стабилизации checks и release route |
+
+Подключение AOS к уже разрабатываемому проекту и расширенный Doctor для такого подключения остаются отдельным будущим модулем. Greenfield pipeline сначала должен пройти dogfood.
+
+### Подэтап 5.5 — final thin root `AGENTS.md`
+
+После dogfood bootstrap draft сокращается и уточняется до root-инструкции, которая:
+
+1. направляет к owners;
+2. содержит только non-negotiable boundaries;
+3. знает реальные commands и paths;
+4. использует exact Project Memory contract;
+5. содержит coordinator/stop rules;
+6. не дублирует документацию pipeline;
+7. получает отдельный semantic audit и human acceptance.
+
+### Результат этапа
+
+Есть проверенный greenfield workflow, измеренные ограничения, thin root `AGENTS.md` и ясный список capability-on-demand без преждевременной платформизации.
+
+## 10. Traceability базовой инфраструктуры
+
+Все строки ниже имеют статус `PROPOSAL`. Mapping не означает item-level selection: в `06_Features.md` соответствующие `human_disposition` остаются `UNDECIDED`, пока человек не примет exact feature revision.
+
+| BI | Постоянный механизм | Связанные feature families | Первый consumer / gate |
 |---|---|---|---|
-| `DEC-W-001` | 2026-08-04 | Создать единое рабочее пространство общего плана в `notebook` | Planning only |
-| `DEC-W-002` | 2026-08-04 | Сохранить отдельный этап строительных лесов без изменения его принятого состава | General plan structure |
-| `DEC-W-003` | 2026-08-04 | Разделить базовую инфраструктуру на первоочередное ядро и подключаемую позже группу | General plan structure |
-| `DEC-W-004` | 2026-08-04 | Показывать основной pipeline в трёх частях; более мелкие блоки оставить внутренней детализацией | General plan structure |
+| `BI-01` | UX-оболочка | `FTR-008` | Read-only core route |
+| `BI-02` | `Status / Next / Details` | `FTR-008` | Первый status request |
+| `BI-03` | First-Start / Tutor | `FTR-004`, `FTR-008` | Первый неподготовленный пользователь |
+| `BI-04` | Installer / updater | `FTR-004` | Первый consumer install |
+| `BI-05` | Project Memory | `FTR-016` | Первый durable lifecycle state |
+| `BI-06` | Context Pack | `FTR-016` | Первый Task Brief coding agent |
+| `BI-07` | Registries / traceability | `FTR-003`, `FTR-006`, `FTR-016` | Первый Task Brief |
+| `BI-08` | Data contracts / strict loaders | `FTR-011` | Первый persistent contract |
+| `BI-09` | Result/status contract | `FTR-011` | Первый reported result |
+| `BI-10` | Authority / permissions | `FTR-006`, `FTR-019` | Первый authorization request |
+| `BI-11` | Doctor / Self-Test | `FTR-011` | Первый resumable core route |
+| `BI-12` | Recovery / Resume / Rollback | `FTR-014` | До первой Product Runtime write |
+| `BI-13` | Evidence / technical log | `FTR-012` | Первый technical claim |
+| `BI-14` | Knowledge / lessons / patterns | `FTR-022`, `FTR-025` | Первый repeatable lesson |
+| `BI-15` | Agent adapters | `FTR-016`, `FTR-029` | Первый дополнительный agent environment |
 
-Эти записи фиксируют текущие human-confirmed directions в рабочем плане, но не заменяют отдельную human acceptance будущего versioned artifact.
-
-## 11. Текущий статус
-
-| Блок | Планирование | Реализация |
-|---|---|---|
-| Строительные леса | Состав проработан; включён в общий план | `NOT_RUN` |
-| Базовая инфраструктура | Разделена на две группы; состав проработан | `NOT_RUN` |
-| Pipeline | Разделён на три пользовательские части; внутренний flow описан | `NOT_RUN` |
-| Итоговый `AGENTS.md` | Ожидает стабилизации общего плана | `NOT_RUN` |
-
-Открыты product и architecture decisions из раздела 4. Implementation repository остаётся `UNASSIGNED`.
-
-## 12. Следующий bounded action
-
-Отдельно проработать **часть 1 pipeline — «Проектирование и подготовка задачи»** в формате:
+Для каждого выбранного mapping до implementation дополнительно создаётся строка:
 
 ```text
-input → action → output → human gate → failure/recovery → owner → related contracts/tests
+BI → accepted FTR disposition → contract owner → exact first consumer
+→ acceptance criteria → negative tests → implementation Task Brief
 ```
 
-После этого связать её с первоочередным ядром и определить первый planning slice, не переходя к runtime implementation.
+## 11. Человеческое участие: минимальное, но достаточное
+
+Агент не спрашивает человека о безопасных обратимых технических деталях внутри принятого scope. Человеку показываются компактные decision-ready packages в ключевых точках:
+
+| Точка | Что можно показать вместе | Что остаётся раздельным по смыслу |
+|---|---|---|
+| До scaffolding | Repository, toolchain, interface, first slice, persistence | Каждое принятое decision field |
+| После Part 1 | Slice, Feature Contract, Task Brief, preview, authorization form | Product decision, Task Brief и Execution Authorization |
+| После Part 2 | Candidate, Evidence, limitations, recommendation | Technical result и human decision |
+| После acceptance | Proposed state update и Git options | State authorization, Commit, Push, Merge, Release |
+
+Агент самостоятельно выполняет preflight, технический выбор внутри принятых границ, checks и bounded correction cycles только пока не меняются product behavior, architecture, scope, authority или risk.
+
+## 12. Границы первого цикла
+
+Не входят в foundation первого greenfield цикла:
+
+- полный hierarchical backlog и автоматическая очередь;
+- автоматическая активация следующей task;
+- multi-agent cascade;
+- full RAG/vector DB;
+- full Control Plane и progressive enforcement без measured need;
+- Workbench/SaaS UI;
+- plugin marketplace;
+- предметные regulated-domain modules;
+- automatic Commit/Push/Merge/Release;
+- самостоятельное подключение к существующему разрабатываемому проекту.
+
+## 13. Статус крупных этапов
+
+| Этап | Планирование | Реализация | Текущий blocker |
+|---|---|---|---|
+| 1. Решения и bootstrap | Исправленный состав предложен | `NOT_RUN` | Exact human decisions |
+| 2. Строительные леса | Подробный DRAFT существует | `NOT_RUN` | Stage 1 + Task Brief + authorization |
+| 3. Постоянное ядро | Последовательность исправлена | `NOT_RUN` | Scaffolding + selected contracts/features |
+| 4. Pipeline | Три части и gates описаны | `NOT_RUN` | Core prerequisites + feature contracts |
+| 5. Dogfood/finalization | Состав определён | `NOT_RUN` | Работающий pipeline |
+
+## 14. Что исправлено по итогам аудита
+
+| Finding | Исправление в DRAFT-R3 |
+|---|---|
+| `F-01` | Открытые implementation decisions вынесены в Stage 1; inference запрещён |
+| `F-02` | `BI-*` привязаны к exact first-consumer gates; поздний общий infrastructure stage удалён |
+| `F-03` | Project Memory назначен единственным owner current lifecycle state |
+| `F-04` | Любая durable lifecycle/Registry mutation требует exact authorization |
+| `F-05` | Добавлен минимальный coordinator transition contract |
+| `F-06` | План требует thin bootstrap/final `AGENTS.md`; подробный pipeline остаётся вне root |
+| `F-07` | Новые readiness statuses не используются без отдельного accepted contract |
+| `F-08` | Добавлена `BI ↔ FTR ↔ first consumer` traceability |
+| `F-09` | Bootstrap agent instructions перенесены до scaffolding; final root оставлен после dogfood |
+| `F-10` | Для будущих stage contracts задан обязательный executable template |
+| `F-11` | Human choices группируются в compact decision packages без смешения records |
+
+## 15. Следующий bounded action
+
+Провести human review последовательности пяти этапов и Stage 1 decision package. После подтверждения:
+
+1. создать `planning/AGENTS_DRAFT_R2.md` как thin bootstrap candidate;
+2. подготовить один decision-ready package по открытым choices Stage 1;
+3. не начинать implementation до exact Task Brief и Execution Authorization.
+
+```yaml
+plan_status: DRAFT
+macro_sequence: CORRECTED_PROPOSAL
+human_acceptance: NOT_RUN
+implementation_readiness: BLOCKED_PENDING_DECISIONS
+implementation_authorization: NONE
+git_authorization: NONE
+next_action: HUMAN_REVIEW_MACRO_SEQUENCE_AND_STAGE_1_DECISIONS
+stop: true
+```
