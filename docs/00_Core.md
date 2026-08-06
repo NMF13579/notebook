@@ -1,19 +1,20 @@
 ---
 package: AOS_Project_Knowledge_Baseline
-package_revision: R4-RU
-updated: '2026-07-26'
-status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
-authority: FACT_CLASS_SCOPED
-human_review: COMPLETED_FOR_ACCEPTED_CONTENT
-human_acceptance: ACCEPTED
+package_revision: R5-CORRECTION-CANDIDATE
+updated: '2026-08-06'
+status: HUMAN_REVIEW_REQUIRED
+authority: DERIVED_FROM_ACCEPTED_FACT_CLASS_OWNERS
+human_review: REQUIRED_FOR_THIS_REVISION
+human_acceptance: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
+focused_package_validation: PASS
 independent_semantic_validation: NOT_RUN
 source_repository: NMF13579/notebook
-source_branch: dev
-audited_source_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
-audited_source_blob_sha: c02141ea44840f88b10285e66d641d6508653989
+source_branch: agent/aos-3-documentation-package
+audited_source_commit: 9fa079964ea86b33425337ba1706bd3da5bea7b8
+supersedes_revision: R4-RU
 active_path: docs/00_Core.md
 document_language: ru
 technical_identifiers_language: en
@@ -34,28 +35,34 @@ authority_scope:
 Документ является единым владельцем сведений об идентичности проекта, иерархии источников, статусах утверждений, полномочиях человека, Minimal Safety Floor и правилах использования пакета агентом.
 
 ```yaml
-status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
-authority: FACT_CLASS_SCOPED
-human_acceptance: ACCEPTED
+status: HUMAN_REVIEW_REQUIRED
+authority: DERIVED_FROM_ACCEPTED_FACT_CLASS_OWNERS
+human_acceptance: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 ```
 
-Пакет принят человеком как текущая база знаний для анализа, проектирования и targeted research. Принятие knowledge baseline не разрешает mutation, implementation или Git delivery.
+Revision `R5-CORRECTION-CANDIDATE` устраняет semantic drift между ранее принятым baseline, позднейшими решениями `H1` и current lifecycle state. До exact human acceptance эта revision является review candidate; принятые факты сохраняют authority только через свои существующие owner/acceptance records. Даже после принятия knowledge baseline не разрешает mutation, implementation или Git delivery.
 
 ## 2. Идентичность проекта
 
 ```yaml
 project_name: AOS
 working_description: human-directed AI-assisted software development system
-current_work_mode: HUMAN_ACCEPTED_DOCUMENTATION_BASELINE
+current_work_mode: DOCUMENTATION_CORRECTION_HUMAN_REVIEW
 knowledge_repository: NMF13579/notebook
-knowledge_branch_label: dev
+knowledge_branch_label: agent/aos-3-documentation-package
 active_package_path: docs/
-implementation_repository: UNASSIGNED
+implementation_repository:
+  decision: NMF13579/aos-3
+  decision_status: HUMAN_ACCEPTED
+  creation: NOT_RUN
+  remote_assignment: NOT_RUN
 legacy_projects: [AOS-FARM, AgentOS, AOS-1, AOS-02]
 legacy_authority: NONE
 ```
+
+Target repository decision и physical repository state — разные fact classes. `NMF13579/aos-3` принят как target, но это не доказывает, что repository создан, доступен или имеет нужный baseline. Эти mutable facts требуют fresh read-only observation перед любым implementation planning или execution.
 
 ## 3. Подтверждённое направление
 
@@ -236,7 +243,7 @@ Product definition
 
 ## 13. Защищённые решения человека
 
-Только человек утверждает product scope/priority, target name, first segment, first vertical slice, architecture, dependencies, implementation repository, Source of Truth, human acceptance format, Risk Profile, protected/destructive actions, compatibility target, execution и Git/release actions.
+Только человек утверждает product scope/priority, target name, first segment, first vertical slice, architecture, dependencies, implementation repository, Source of Truth, human acceptance format, Risk Profile, protected/destructive actions, compatibility target, execution и Git/release actions. Уже принятые exact решения читаются через их owner и не возвращаются в `UNDECIDED` из-за stale summary.
 
 ## 14. Текущие направления
 
@@ -248,30 +255,58 @@ Product definition
 | `DIR-004` | Exhaustive extraction прекращена | Human-confirmed |
 | `DIR-005` | Research выполняется по feature gap | Human-confirmed |
 | `DIR-006` | Feature dossiers понятны человеку и агенту | Human-confirmed |
-| `DIR-007` | Implementation repository — `UNASSIGNED` | Current safe state |
+| `DIR-007` | Target implementation repository — `NMF13579/aos-3`; physical creation/assignment — `NOT_RUN` | Human-accepted target + unobserved mutable state |
 | `DIR-008` | Один общий feature catalog | Human-accepted with baseline |
+| `DIR-009` | First Product Runtime slice — `INTAKE_TO_REVIEWABLE_INTENT_R1` | Human-accepted H1 decision |
+| `DIR-010` | X1 required boundaries — `FTR-001`, `FTR-008`, `FTR-011`, `FTR-016`, `FTR-019` | Human-accepted H1 dispositions |
 
 ## 15. Открытые решения
 
-First Product Runtime domain, first vertical slice, interface, Product Spec/Feature Passport relation, Product Feature Registry, Project Memory persistence, human decision authenticity, Risk Profile vocabulary, language/toolchain/dependencies, compatibility scope, Governance packaging и provider/privacy/routing policy.
+Physical repository creation/visibility/default branch, root `AGENTS.md` activation, fresh target baseline, exact first write `Risk_Profile`, execution authorization и Git permissions остаются отдельными решениями/наблюдениями.
+
+Для later scope остаются открыты: Product Spec/Feature Passport final relation, Product Feature Registry, compatibility beyond first-cycle matrix, Governance packaging, provider/privacy/routing policy и dispositions всех feature кроме `FTR-001`, `FTR-008`, `FTR-011`, `FTR-016`, `FTR-019`.
 
 ## 16. Текущий статус пакета
 
 ```yaml
-role: ACTIVE_PROJECT_KNOWLEDGE_BASELINE
-status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
-authority: FACT_CLASS_SCOPED
+role: PROJECT_KNOWLEDGE_BASELINE_CORRECTION_CANDIDATE
+status: HUMAN_REVIEW_REQUIRED
+authority: DERIVED_FROM_ACCEPTED_FACT_CLASS_OWNERS
+human_acceptance: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 ```
 
-Authority действует только в declared fact class. Принятие пакета не принимает каждую feature, не подтверждает runtime и не разрешает действия в implementation repository.
+Authority действует только через declared fact-class owners и exact acceptance records. Эта revision не становится accepted автоматически. Принятие пакета не подтверждает runtime и не разрешает действия в implementation repository.
 
-## 17. Контракт использования агентом
+## 17. Canonical reading route
+
+Для независимого agent без истории чатов действует один маршрут:
+
+```text
+docs/00_Core.md
+→ planning/CURRENT.md
+→ DEVELOPER_HANDOFF_R2.md
+→ exact active Task/DSP
+→ exact contract and accepted decision owners
+→ fresh repository observation for mutable facts
+```
+
+Routing rules:
+
+1. `planning/CURRENT.md` владеет только persisted lifecycle state и одним next action.
+2. `DEVELOPER_HANDOFF_R2.md` — derived navigation/identity layer; он не заменяет contracts.
+3. Для первого implementation step agent читает только `Task-001-Scaffolding.md`, `DSP-001.md`, `AOS_SCAFFOLDING_CONTRACT_R1.md` и перечисленный ими context.
+4. Product Runtime документы не расширяют `Task-001`; `Task-002-Intake-to-Reviewable-Intent` становится current только после завершения/принятия scaffold и fresh baseline binding.
+5. Несовпадение digest/revision/status останавливает affected action; agent не выбирает удобный source самостоятельно.
+
+## 18. Контракт использования агентом
 
 ```yaml
 agent_usage_contract:
   entrypoint: docs/00_Core.md
+  current_state: planning/CURRENT.md
+  handoff: DEVELOPER_HANDOFF_R2.md
   rules:
     - читать только релевантные документы и разделы
     - считать authority ограниченной fact class
@@ -280,6 +315,8 @@ agent_usage_contract:
     - не выводить approval из PASS, Evidence или stored reports
     - использовать 05_Reference.md для provenance и targeted research
     - считать 06_Features.md inventory и проверять disposition каждой feature
+    - считать AOS_IMPLEMENTATION_DECISIONS_R1.md владельцем H1-001…H1-011
+    - не смешивать Task-001 scaffolding и Task-002 Product Runtime
     - проверять mutable repository facts непосредственно перед planning/execution
     - сообщать conflicts и блокировать только affected action
     - никогда не считать каталог authorization для execution или Git delivery

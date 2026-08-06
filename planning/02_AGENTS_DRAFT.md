@@ -1,11 +1,11 @@
 ---
 document_type: AGENT_OPERATING_INSTRUCTIONS_DRAFT
-revision: DRAFT-R3
-status: DRAFT
-authority: NONE
-task_id: DOC-003
+revision: DRAFT-R4-CORRECTION-CANDIDATE
+status: HUMAN_REVIEW_REQUIRED
+authority: NONE_UNTIL_HUMAN_ACCEPTANCE_AND_ROOT_ACTIVATION
+task_id: DOC-CORR-001
 technical_result: PASS
-readiness: READY_FOR_HUMAN_REVIEW
+readiness: READY_FOR_INDEPENDENT_REVIEW
 human_acceptance: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
@@ -17,9 +17,9 @@ decision_owner_sha256: 4cda4efcdd4611bf0b1cb6478151d1160799472c98442e1440c5c97f0
 decision_acceptance_record: planning/05_IMPLEMENTATION_DECISIONS_ACCEPTANCE_RECORD.md
 autonomy_model: TASK_LOCAL_BOUNDED
 human_interaction_model: CRITICAL_CHECKPOINTS_ONLY
-updated: 2026-08-05
+updated: 2026-08-06
 active_path: planning/02_AGENTS_DRAFT.md
-supersedes: planning/02_AGENTS_DRAFT.md@DRAFT-R2
+supersedes: planning/02_AGENTS_DRAFT.md@DRAFT-R3
 parent_plan: planning/00_WORKSPACE.md
 documentation_detail_plan: planning/01_DOCUMENTATION_PRODUCTION_PLAN.md
 current_state_owner: planning/CURRENT.md
@@ -72,10 +72,13 @@ NMF13579/aos-3/AGENTS.md
 | Accepted first-cycle implementation decisions | `AOS_IMPLEMENTATION_DECISIONS_R1.md` + `planning/05_IMPLEMENTATION_DECISIONS_ACCEPTANCE_RECORD.md` |
 | Documentation sequence | `planning/01_DOCUMENTATION_PRODUCTION_PLAN.md` |
 | Current documentation lifecycle | `planning/CURRENT.md` |
+| Current implementation sequence and task context | `DEVELOPER_HANDOFF_R2.md` → current Task/DSP |
 | Future runtime continuity | `.aos/state/project-memory.json` |
 | Current executable scope | exact human-selected Task Brief |
 
 При переносе в implementation repository пути к knowledge owners должны быть явно локализованы как `<AOS_KNOWLEDGE_ROOT>/...`; до принятия exact localization path не угадывай его. Mutable repository facts всегда перепроверяй direct observation.
+
+Canonical route is `docs/00_Core.md → planning/CURRENT.md → DEVELOPER_HANDOFF_R2.md → current Task/DSP → owners`. `Task-001-Scaffolding` is first. `Task-002-Intake-to-Reviewable-Intent` is a later subject and cannot be promoted before an accepted Task-001 result and fresh baseline rebinding.
 
 Reference repositories, chats, reports и generated summaries — не authority. Targeted research выполняй только для exact gap и возвращай finding с provenance.
 
@@ -251,7 +254,7 @@ Report не создаёт human decision и не мутирует lifecycle с�
 - repository tree, module names и protected paths;
 - exact `uv`/dependency versions и repository commands после fresh preflight;
 - schema owners, Registry location и recovery journal;
-- exact `Risk_Profile` vocabulary до первой write-capable implementation task;
+- human assignment of exact `Risk_Profile` for the current write-capable implementation task;
 - candidate freeze mechanism и execution/network/provider policies.
 
 Не угадывай эти bindings и не блокируй работу, которая от них не зависит.
@@ -272,11 +275,11 @@ Report не создаёт human decision и не мутирует lifecycle с�
 ## 15. Current candidate status
 
 ```yaml
-DOC-003:
+DOC-CORR-001:
   technical_result: PASS
-  readiness: READY_FOR_HUMAN_REVIEW
+  readiness: READY_FOR_INDEPENDENT_REVIEW
   human_acceptance: NOT_RUN
-DOC-004: NOT_RUN
+root_activation: NOT_RUN
 implementation_repository_creation: NOT_RUN
 runtime_implementation: NOT_RUN
 implementation_authorization: NONE
@@ -285,6 +288,6 @@ Git_operations:
   push: NOT_RUN
   merge: NOT_RUN
   release: NOT_RUN
-next_required_action: HUMAN_REVIEW_EXACT_DOC-003_CANDIDATE
+next_required_action: RUN_INDEPENDENT_READ_ONLY_VALIDATION
 stop: true
 ```
