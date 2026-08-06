@@ -1,24 +1,30 @@
 ---
 document_type: DOCUMENTATION_PRODUCTION_PLAN
-revision: DRAFT-R1
+revision: DRAFT-R2
 status: DRAFT
 claim_class: SYNTHESIZED_PROPOSAL
 authority: NONE
 human_acceptance: NOT_RUN
+documentation_plan_readiness: READY_FOR_HUMAN_REVIEW
 implementation_readiness: NOT_READY
 implementation_authorization: NONE
 git_authorization: NONE
 knowledge_repository: NMF13579/notebook
 implementation_repository: UNASSIGNED
-parent_plan: planning/WORKSPACE.md
+active_path: planning/01_DOCUMENTATION_PRODUCTION_PLAN.md
+supersedes: planning/AOS_DOCUMENTATION_PRODUCTION_PLAN_DRAFT_R1.md@DRAFT-R1
+parent_plan: planning/00_WORKSPACE.md
+agent_instruction_draft: planning/02_AGENTS_DRAFT.md
+current_state_owner: planning/CURRENT.md
 created: 2026-08-04
+updated: 2026-08-04
 ---
 
 # AOS-3 — план создания документации для передачи coding agent
 
 ## 1. Вывод
 
-Этот план раскрывает `planning/WORKSPACE.md` до уровня, на котором documentation agent способен последовательно подготовить документацию для coding agent без использования истории чатов.
+Этот план раскрывает `planning/00_WORKSPACE.md` до уровня, на котором documentation agent способен последовательно подготовить документацию для coding agent без использования истории чатов.
 
 Документация создаётся в той же последовательности, в которой должен создаваться проект:
 
@@ -208,8 +214,8 @@ input inventory
 - `docs/02_Architecture.md` §§3–16;
 - `docs/03_Development.md` §§2–22;
 - `docs/06_Features.md` inventory;
-- `planning/WORKSPACE.md`;
-- `planning/AGENTS_DRAFT_R1.md` как proposal, не active instruction;
+- `planning/00_WORKSPACE.md`;
+- `planning/02_AGENTS_DRAFT.md` как proposal, не active instruction;
 - current explicit human decisions;
 - fresh read-only repository observations, если implementation repository уже назначен.
 
@@ -279,7 +285,7 @@ human_decision: NOT_RUN
 
 ### 6.6. Подэтап D1.4 — thin documentation-agent instructions
 
-Подготовить `planning/AGENTS_DRAFT_R2.md` как thin bootstrap candidate.
+Переработать `planning/02_AGENTS_DRAFT.md` в следующую exact revision как thin bootstrap candidate.
 
 Он должен содержать только:
 
@@ -294,7 +300,7 @@ human_decision: NOT_RUN
 - terminal report format;
 - placeholders только для ещё не принятых real commands/paths.
 
-Подробные contracts остаются в owners, а не копируются в `AGENTS_DRAFT_R2.md`.
+Подробные contracts остаются в owners, а не копируются в `planning/02_AGENTS_DRAFT.md`.
 
 ### 6.7. D1 acceptance
 
@@ -1304,7 +1310,7 @@ D-stage → selected FTR disposition → exact contract revision
 |---|---|---|---|
 | `DOC-001` | Decision gaps + compact decision package | Human decision-ready package | Required decisions answered |
 | `DOC-002` | Implementation Decision Record | Accepted exact decision candidate | Human review exact revision |
-| `DOC-003` | Thin `AGENTS_DRAFT_R2` | Bootstrap instruction candidate | Semantic audit |
+| `DOC-003` | Следующая revision `02_AGENTS_DRAFT.md` | Bootstrap instruction candidate | Semantic audit |
 | `DOC-004` | Scaffolding Contract | Full scaffold behavior | No material unknowns |
 | `DOC-005` | Task-001 + DSP-001 | Developer-ready scaffold package | Human review + authorization separately |
 | `DOC-006` | Core Contract C1–C2 | Contracts/authority package | C1–C2 documentation PASS |
@@ -1402,9 +1408,11 @@ documentation_ready_check:
 
 Допустимо оставить dependency outlines и capability-on-demand gates без implementation details.
 
-## 20. Первый bounded action
+## 20. Следующий bounded action
 
-Запустить `DOC-001` в `PLAN / read-only`:
+Провести human review exact revision этого документа вместе с `planning/00_WORKSPACE.md`; exact identities зафиксированы в `planning/CURRENT.md`. Не запускать `DOC-001` в рамках review или acceptance.
+
+После отдельного exact human acceptance следующим bounded action становится `DOC-001` в `PLAN / read-only`:
 
 ```text
 На основании docs/00_Core.md и только релевантных sections 01–06
@@ -1422,13 +1430,14 @@ AOS_SCAFFOLDING_CONTRACT_R1 и выбрать первый vertical slice.
 ```yaml
 plan_status: DRAFT
 parent_plan_status: DRAFT
-documentation_sequence: PROPOSED
+documentation_sequence: READY_FOR_HUMAN_REVIEW
 documentation_execution: NOT_RUN
+DOC-001: NOT_RUN
 developer_handoff: NOT_RUN
 human_acceptance: NOT_RUN
 implementation_readiness: NOT_READY
 implementation_authorization: NONE
 git_authorization: NONE
-next_required_action: HUMAN_REVIEW_DOCUMENTATION_PRODUCTION_SEQUENCE
+next_required_action: HUMAN_REVIEW_EXACT_DOCUMENTATION_PLAN_REVISION
 stop: true
 ```

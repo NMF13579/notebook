@@ -1,19 +1,22 @@
 ---
 document_type: PLANNING_WORKSPACE
-revision: DRAFT-R3
+revision: DRAFT-R4
 status: DRAFT
 claim_class: SYNTHESIZED_PROPOSAL
 authority: NONE
 human_acceptance: NOT_RUN
+documentation_plan_readiness: READY_FOR_HUMAN_REVIEW
 implementation_readiness: BLOCKED_PENDING_DECISIONS
 implementation_authorization: NONE
 git_authorization: NONE
 knowledge_repository: NMF13579/notebook
 implementation_repository: UNASSIGNED
 updated: 2026-08-04
-supersedes: planning/WORKSPACE.md DRAFT-R2
-documentation_detail_plan: planning/AOS_DOCUMENTATION_PRODUCTION_PLAN_DRAFT_R1.md
-agent_instruction_draft: planning/AGENTS_DRAFT_R1.md
+active_path: planning/00_WORKSPACE.md
+supersedes: planning/WORKSPACE.md@DRAFT-R3
+documentation_detail_plan: planning/01_DOCUMENTATION_PRODUCTION_PLAN.md
+agent_instruction_draft: planning/02_AGENTS_DRAFT.md
+current_state_owner: planning/CURRENT.md
 ---
 
 # AOS-3 — исправленный общий план создания проекта
@@ -36,7 +39,7 @@ AOS-3 создаётся последовательно в пяти крупны
 
 ## 2. Как читать план
 
-Этот файл является владельцем общей последовательности создания AOS-3. Подробный маршрут подготовки документации для передачи coding agent вынесен в `planning/AOS_DOCUMENTATION_PRODUCTION_PLAN_DRAFT_R1.md`. Черновой operating contract будущего coding agent находится в `planning/AGENTS_DRAFT_R1.md`.
+Этот файл является владельцем общей последовательности создания AOS-3. Подробный маршрут подготовки документации для передачи coding agent вынесен в `planning/01_DOCUMENTATION_PRODUCTION_PLAN.md`. Черновой operating contract будущего coding agent находится в `planning/02_AGENTS_DRAFT.md`. Текущее durable состояние документационного процесса хранится только в `planning/CURRENT.md`.
 
 Эти связанные документы раскрывают общий план, но не меняют его authority и не предоставляют implementation или Git authorization.
 
@@ -653,19 +656,27 @@ BI → accepted FTR disposition → contract owner → exact first consumer
 
 ## 15. Следующий bounded action
 
-Провести human review последовательности пяти этапов и Stage 1 decision package. После подтверждения:
+Провести human review exact revision активного planning package, зафиксированного в `planning/CURRENT.md`. Предмет review ограничен порядком создания проекта, последовательностью документационных задач и связанными planning guidance.
 
-1. создать `planning/AGENTS_DRAFT_R2.md` как thin bootstrap candidate;
-2. подготовить один decision-ready package по открытым choices Stage 1;
-3. не начинать implementation до exact Task Brief и Execution Authorization.
+Этот review не включает и не разрешает:
+
+1. запуск `DOC-001`;
+2. выбор implementation repository, first vertical slice, interface, toolchain или feature dispositions;
+3. активацию `planning/02_AGENTS_DRAFT.md` как root `AGENTS.md`;
+4. runtime implementation;
+5. `Commit`, `Push`, `Merge` или `Release`.
+
+После exact human acceptance отдельным следующим действием может быть запуск `DOC-001` для подготовки единого decision-ready package checkpoint `H1`.
 
 ```yaml
 plan_status: DRAFT
 macro_sequence: CORRECTED_PROPOSAL
+documentation_plan_readiness: READY_FOR_HUMAN_REVIEW
 human_acceptance: NOT_RUN
+DOC-001: NOT_RUN
 implementation_readiness: BLOCKED_PENDING_DECISIONS
 implementation_authorization: NONE
 git_authorization: NONE
-next_action: HUMAN_REVIEW_MACRO_SEQUENCE_AND_STAGE_1_DECISIONS
+next_action: HUMAN_REVIEW_EXACT_DOCUMENTATION_PLAN_REVISION
 stop: true
 ```
