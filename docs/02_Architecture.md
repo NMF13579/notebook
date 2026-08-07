@@ -133,7 +133,13 @@ Derived index, UI, adapter, validator или report не создают authorit
 
 ## 6. Общие классы contracts
 
-### C-001 — Intent Record
+Контракты строго разделены на архитектурные (формируются на этапе проектирования) и инженерные (используются исключительно при реализации).
+
+### Архитектурные контракты (Architecture Contracts)
+
+Используются в процессе проектирования документации. Определяют WHAT и не требуют `Execution Authorization`.
+
+#### C-001 — Intent Record
 
 ```yaml
 actor:
@@ -149,7 +155,7 @@ sensitive_domain_flags: []
 source:
 ```
 
-### C-002 — Feature Passport / Feature Contract
+#### C-002 — Feature Passport / Feature Contract
 
 ```yaml
 feature_id:
@@ -174,11 +180,11 @@ evidence_status:
 human_disposition:
 ```
 
-### C-003 — Product Spec
+#### C-003 — Product Spec
 
 Product-level problem, users, journeys, scope, non-goals, constraints, metrics, dependencies, acceptance и open decisions. Не разрешает execution.
 
-### C-004 — Architecture Decision Record
+#### C-004 — Architecture Decision Record
 
 ```yaml
 question:
@@ -193,7 +199,11 @@ consequences: []
 reversal_conditions: []
 ```
 
-### C-005 — Task Brief
+### Инженерные контракты (Engineering Contracts)
+
+Применяются только при runtime-реализации и не требуются для редактирования документации.
+
+#### C-005 — Task Brief
 
 ```yaml
 task_id:
@@ -219,7 +229,7 @@ validation_matrix: []
 stop_conditions: []
 ```
 
-### C-006 — Execution Authorization Record
+#### C-006 — Execution Authorization Record
 
 ```yaml
 authorization_id:
@@ -234,35 +244,35 @@ expires_at:
 consumed: false
 ```
 
-### C-007 — Preflight / Preview
+#### C-007 — Preflight / Preview
 
 Exact repository/worktree/branch/HEAD/baseline/status/diff, planned actions, paths, conflicts, permissions и preview identity.
 
-### C-008 — Execution Record
+#### C-008 — Execution Record
 
 Starting identity, authorization identity, actual mutations, changed paths, side effects, checks, ending identity, limitations и stop reason.
 
-### C-009 — ValidationEnvelope
+#### C-009 — ValidationEnvelope
 
 Stable result vocabulary, required/optional checks, `NOT_RUN`, limitations, exact subject identity и fail-closed aggregation.
 
-### C-010 — Evidence Record
+#### C-010 — Evidence Record
 
 Evidence kind, method/command, subject identity, output summary, locator/digest, result, limitations и redaction.
 
-### C-011 — Human Review / Decision
+#### C-011 — Human Review / Decision
 
 Review subject, user impact, Evidence, findings, options, explicit human decision, actor/date и exact binding. Generated decision invalid.
 
-### C-012 — Project Memory / Handoff
+#### C-012 — Project Memory / Handoff
 
 Repository identity, stage, baseline/candidate, accepted decisions, findings, blockers, checks, authorization state и one next action.
 
-### C-013 — Install / Update Manifest
+#### C-013 — Install / Update Manifest
 
 Package identity, ownership classes, operations, conflicts, preview binding, recovery и post-apply verification.
 
-### C-014 — Git Delivery Record
+#### C-014 — Git Delivery Record
 
 Separate records for Commit, Push, Merge и Release.
 

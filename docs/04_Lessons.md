@@ -408,6 +408,37 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
 
+## Процесс проектирования документации
+
+### LES-043 — Отсутствие разделения Workspace и Deliverable
+
+- **Problem:** Черновики и чистовики смешивались, усложняя review и передачу агенту.
+- **Root Cause:** Работа велась прямо в базовых документах без песочницы.
+- **Rule:** Черновики создаются в `workspace/`, чистовики публикуются в `AOS/`.
+- **Regression Prevention:** Проверка путей при попытке прямой записи в `AOS/` без стадии Publish.
+
+### LES-044 — Применение runtime ceremony к документации
+
+- **Problem:** Единый процесс для кода и текста парализовал работу над документацией.
+- **Root Cause:** Требование Execution Authorization и Task Brief для Markdown-правок.
+- **Rule:** Разделять Documentation Edit и Runtime Mutation; Markdown не требует EXECUTE-процесса.
+- **Regression Prevention:** Проверка использования упрощённого маршрута для Markdown-изменений.
+
+### LES-045 — Отсутствие Global Design Freeze
+
+- **Problem:** Бесконечный refinement loop и вечное переписывание требований.
+- **Root Cause:** Мутация пакета документации не останавливалась перед этапом реализации.
+- **Rule:** Фиксировать документацию через Global Design Freeze до начала реализации.
+- **Regression Prevention:** Любое изменение в пакете после фриза требует формальной процедуры Reopen.
+
+### LES-046 — Смешение WHAT и HOW
+
+- **Problem:** Преждевременное написание псевдокода в архитектуре.
+- **Root Cause:** Отсутствие чёткой границы между Architecture (WHAT) и Engineering (HOW).
+- **Rule:** Архитектурные документы останавливаются на контрактах. Выбор конкретной реализации делает coding agent.
+- **Regression Prevention:** Проверка наличия псевдокода (HOW) при Structural Review.
+
+
 ## 3. Successful patterns to retain
 
 Product-first sequencing; Compact Safe Path; one run/one stage; independent validation where material; exact identity binding; isolated worktree; fail-closed semantics; one next action; one-document review; targeted findings; beginner status explanation; manual dogfood; strict adapter before parser replacement; negative fixtures; rebuildable indexes; thin adapters; risk-scaled ceremony; Feature Passport before planning.

@@ -221,7 +221,23 @@ NOT_RUN ≠ PASS
 - wholesale legacy Governance;
 - domain medical behavior in core.
 
-## 12. Стратегическая последовательность
+## 12. Уровни проектирования документации
+
+AOS использует строгую иерархию уровней детализации (Documentation Levels). Документация определяет WHAT, а coding agent определяет reversible HOW:
+
+1. **Concept**: Идея, целевые пользователи, границы.
+2. **Architecture Contract**: Структура, слои, контракты I/O.
+3. **Engineering Design (Implementation)**: Детали реализации, выбор библиотек, псевдокод (HOW). К этому уровню относятся: алгоритмы реализации, внутренние структуры данных, внутреннее представление состояния, runtime state layout, helper APIs, implementation classes, lock protocols, CAS, retry strategies, persistence mechanisms, journals, thread synchronization и другие обратимые инженерные решения. Подобные решения не являются частью архитектурной документации уровня Concept или Architecture Contract и принимаются coding agent во время реализации.
+
+**WHAT / HOW boundary**: Пакет AOS останавливается до стадии Engineering Design. Документация не должна содержать детали реализации, псевдокод или иные элементы Engineering Design (HOW). Coding agent отвечает за обратимую техническую реализацию.
+
+## 13. Жизненный цикл проектирования и мутации
+
+- **Documentation Edit ≠ Runtime Mutation**: Редактирование текстового черновика (Documentation Edit) не является выполнением кода (Runtime Mutation) и не требует применения тяжелых инженерных проверок (Execution Authorization, Task Brief) до этапа реализации.
+- **Global Design Freeze**: Состояние, при котором мутация пакета документации останавливается, и он признаётся Deliverable для стадии реализации. Любые изменения после фриза запрещены без явного Reopen.
+- **Условия Reopen**: Если реализация заходит в тупик или обнаруживает критический изъян в архитектуре, процесс возвращается в стадию проектирования через явную процедуру Reopen.
+
+## 14. Стратегическая последовательность
 
 ```text
 Product definition
@@ -234,11 +250,11 @@ Product definition
 → later enforcement / routing / RAG / UI / domain modules
 ```
 
-## 13. Защищённые решения человека
+## 15. Защищённые решения человека
 
 Только человек утверждает product scope/priority, target name, first segment, first vertical slice, architecture, dependencies, implementation repository, Source of Truth, human acceptance format, Risk Profile, protected/destructive actions, compatibility target, execution и Git/release actions.
 
-## 14. Текущие направления
+## 16. Текущие направления
 
 | ID | Направление | Статус |
 |---|---|---|
@@ -251,11 +267,11 @@ Product definition
 | `DIR-007` | Implementation repository — `UNASSIGNED` | Current safe state |
 | `DIR-008` | Один общий feature catalog | Human-accepted with baseline |
 
-## 15. Открытые решения
+## 17. Открытые решения
 
 First Product Runtime domain, first vertical slice, interface, Product Spec/Feature Passport relation, Product Feature Registry, Project Memory persistence, human decision authenticity, Risk Profile vocabulary, language/toolchain/dependencies, compatibility scope, Governance packaging и provider/privacy/routing policy.
 
-## 16. Текущий статус пакета
+## 18. Текущий статус пакета
 
 ```yaml
 role: ACTIVE_PROJECT_KNOWLEDGE_BASELINE
@@ -267,7 +283,7 @@ git_authorization: NONE
 
 Authority действует только в declared fact class. Принятие пакета не принимает каждую feature, не подтверждает runtime и не разрешает действия в implementation repository.
 
-## 17. Контракт использования агентом
+## 19. Контракт использования агентом
 
 ```yaml
 agent_usage_contract:
