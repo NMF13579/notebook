@@ -243,3 +243,13 @@ Time intent→Task Brief, clarification loops, scope drift, resume time, review 
 ## 14. Необходимые product decisions
 
 First segment/job/slice, Product Spec↔Feature Passport, Feature Registry, scenario/access/UX timing, interface, acceptance identity, install ownership, feature dispositions и metrics.
+
+## 15. Жизненный цикл внедрения (Project Roadmap)
+
+Стратегия реализации ядра AOS основана на последовательных вертикальных срезах (Vertical Slices), покрывающих Runtime Pipeline:
+
+- **Foundation:** Базовый репозиторий, CLI skeleton и Logger.
+- **Slice 1 (Intake & Definition):** Приём намерения и формализация контрактов (Intent Contract).
+- **Slice 2 (Bounded Execution):** Безопасное выполнение задачи в изолированной среде без скрытого изменения глобального состояния.
+- **Slice 3 (Verification & Evidence):** Сбор независимых и неизменяемых доказательств работоспособности.
+- **Slice 4 (Decision & Integration):** Механизм явного Human Decision и перенос изменений в глобальное состояние после аппрува.

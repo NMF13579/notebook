@@ -201,13 +201,21 @@ shared_defaults_present: true
 
 ### Обязательные негативные сценарии
 
-- Пустой запрос остаётся CLARIFYING
-- Prompt injection не меняет user goal
-- Generated approval rejected
+- **Пустой запрос:** Возврат в состояние `CLARIFYING`, артефакт не создаётся.
+- **Prompt Injection:** Исходная цель не меняется, инъекция изолируется.
+- **Смешанный запрос:** (например, "напиши скрипт на Python чтобы качать файлы") — проблема и решение (solution) явно разделяются, неизвестные параметры фиксируются.
 
-### Минимальная модель реализации — кандидат
+### Минимальная модель реализации (Architecture & Steps)
 
-Начать с Markdown/YAML/JSON contracts и тонких deterministic tools. База данных, distributed services, широкая orchestration и full Governance не являются зависимостями по умолчанию.
+**Архитектура:**
+- **Intent Classifier:** Модуль разбора свободного текста (отделение problem от solution, извлечение unknowns).
+- **State Guard:** Жёсткая блокировка автоматического перехода к Execution, возврат управления человеку.
+
+**Шаги реализации:**
+1. Разработать шаблон для Intent Record (обязательные поля: status, problem, outcome, unknowns, next_route).
+2. Реализовать логику классификации запроса (Intent Classifier).
+3. Добавить логику формирования material questions.
+4. Внедрить State Guard (WAITING_FOR_HUMAN_APPROVAL).
 
 ### Точечное исследование перед реализацией
 
@@ -221,6 +229,7 @@ shared_defaults_present: true
 - Скрытое расширение scope или permissions
 - Автоматические Commit, Push, Merge или Release
 - Полный импорт legacy topology
+- Написание кода оркестратора или интеграция с БД
 
 ### Связь с AgentOS и legacy
 
