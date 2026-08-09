@@ -105,9 +105,62 @@ Pinned baseline, inventory, protected paths, explicit authorization, rollback, E
 
 Stop-before-action, least privilege, data/provider boundary, recovery plan и explicit human decision.
 
-## 6. Reconstruction через feature
+## 6. Feature-specific documentation package
 
-1. Выбрать feature из `06_Features.md`.
+Для feature, чей exact `feature_id` выбран человеком либо явно привязан к документационной задаче current human instruction или human-accepted artifact, применяется bounded authoring-механика внутри этого canonical workflow:
+
+```text
+Selected Feature
+↓
+Skeleton
+↓
+Saturation
+↓
+Harmonization / Review
+↓
+READY_FOR_HUMAN_REVIEW
+```
+
+Это не отдельный lifecycle, не замена Global Design workflow из раздела 11 и не Runtime stage. Механика создаёт reviewable feature-specific documentation package, но не принимает feature или architecture, не разрешает implementation и не предоставляет Git authority.
+
+### Граница package
+
+До authoring агент bind exact `feature_id`, текущий human disposition, цель package, upstream owners/sources, allowed paths и material gaps. Ядро package — feature-specific Feature Contract / Feature Passport. Отдельный Architecture Contract нужен при material boundary/state/ownership или external contract, DRAFT ADR — при decision-ready выборе между значимыми вариантами, engineering handoff/brief — когда принятые product/architecture contracts требуется передать будущей реализации. Product crosswalk или любой из этих элементов выделяется в отдельный artifact только при distinct fact class/owner, independent review boundary или потере однозначности внутри ядра. Один artifact может совмещать несколько логических разделов, но не может смешивать их authority.
+
+Package map, index или review summary остаются derived navigation/Evidence и не становятся владельцами product или architecture facts. DRAFT ADR может подготовить вопрос, варианты, trade-offs и Evidence, но `selected_option` остаётся незаполненным до exact human decision. Engineering artifact может фиксировать принятые contract shapes, examples, constraints, acceptance и negative cases; он не выбирает repository, toolchain, internal structures, storage, adapters, algorithms или иное implementation HOW без accepted upstream decision и не является Execution Authorization.
+
+### Skeleton
+
+Сначала создать целостный каркас всего package: inventory artifacts/sections, role и fact owner каждого элемента, source/provenance, связи, expected outputs, review criteria и видимые `UNKNOWN`/gaps. Каркас должен покрывать обязательные поля feature dossier и требуемые conditional artifacts до глубокой детализации. Пустое место помечается `UNKNOWN`, `NOT_APPLICABLE` или explicit decision request, а не заполняется предположением.
+
+### Saturation
+
+Затем насыщать каркас в порядке authority: current human decisions → accepted canonical sources → current repository observations в разрешённой boundary → targeted research/reference findings → явно помеченные synthesis/inference. Заполнять purpose/users, trigger/preconditions, behavior, I/O, flow/states, failures/recovery, dependencies, constraints, acceptance и negative scenarios только до необходимой feature-specific глубины. Legacy используется read-only для exact gap и не переносит автоматически topology, status, approval или implementation HOW.
+
+### Harmonization / Review
+
+После насыщения снова рассматривать exact artifacts как один package. Проверить vocabulary, provenance, owner boundaries, cross-links, traceability `intent → behavior → contracts → acceptance/negative cases`, согласованность состояний и отсутствие скрытого HOW или authority expansion. Внутри той же authorized documentation task агент может исправлять только bounded defects: терминологию, ссылки, дублирование, formatting и пропуски, однозначно восполнимые из уже authoritative upstream source. Новый scope, material conflict, отсутствующее human-only решение или новая architecture choice требуют explicit finding/decision и не исправляются догадкой.
+
+Harmonization / Review является authoring-фазой, а не независимым `VALIDATE`: bounded corrections здесь допустимы. Если risk требует separate validation, после authoring фиксируется exact candidate, а validator работает read-only и не исправляет subject.
+
+### Readiness gate
+
+Package получает outcome `READY_FOR_HUMAN_REVIEW`, только если:
+
+1. exact subject, inventory, owners, sources и связи определены;
+2. обязательные feature-specific fields достаточно насыщены для заявленной human review;
+3. необходимость или отсутствие отдельных Architecture/ADR/Engineering artifacts обоснованы;
+4. material contradictions отсутствуют, а remaining unknowns видимы и ограничивают только зависимые claims;
+5. semantic, cross-document и focused mechanical checks прошли;
+6. report перечисляет Evidence, findings, unknowns, `NOT_RUN` и одно следующее human action.
+
+Минимальные checks охватывают exact feature/disposition binding, обязательные dossier fields, owner/source/status markers, rationale conditional artifacts, traceability, explicit unknown/decision requests, Markdown links/fences и отсутствие скрытых authority grants или implementation HOW. Незакрытое human-only decision совместимо с `READY_FOR_HUMAN_REVIEW` только когда package делает exact decision request и не заявляет зависимый от решения вывод; иначе readiness остаётся `BLOCKED` или `UNKNOWN` в затронутой boundary.
+
+`READY_FOR_HUMAN_REVIEW` — package-readiness outcome, а не новый owner document maturity: artifacts сохраняют canonical maturity/status до human decision. Technical `PASS` — Evidence проверки. `PASS ≠ approval`; `READY_FOR_HUMAN_REVIEW ≠ HUMAN_ACCEPTED`; ни один из этих результатов не означает implementation readiness, Execution Authorization или Git permission.
+
+### Targeted reconstruction через feature
+
+1. Bind feature из `06_Features.md`, уже выбранную или явно названную человеком; не изменять её disposition агентом.
 2. Подтвердить user/problem/outcome/disposition.
 3. Сформулировать exact gaps.
 4. Bind legacy repository/ref/SHA/paths read-only.
