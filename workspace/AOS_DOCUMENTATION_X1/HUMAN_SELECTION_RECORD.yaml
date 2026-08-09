@@ -1,0 +1,62 @@
+record_format: AOS_PROGRAM_HUMAN_SELECTION_R1
+value: ACCEPT
+program_contract_revision: R6
+program_contract_identity: sha256:4fb2f220b28f2bbbf45a902b64889fd20bf032efc5cb54a62f7110352d90062d
+repository:
+  name: NMF13579/notebook
+  branch: dev
+  observed_HEAD_at_selection: 90186b5c1bd0f66496cd742dc6a581dbd6f8ba7c
+controller_path: workspace/AOS_DOCUMENTATION_PROGRAM.md
+selected_writable_boundaries:
+  - workspace/AOS_DOCUMENTATION_PROGRAM.md
+  - workspace/AOS_DOCUMENTATION_X1/**
+  - workspace/audits/AOS_DOCUMENTATION_X1_*.md
+selected_allowed_run_kinds:
+  - AUTHORING_RUN
+  - AUDIT_RUN
+  - CORRECTION_RUN
+  - RE_AUDIT_RUN
+selected_start_run_kind: AUTHORING_RUN
+documentation_edit_authorization:
+  status: AUTHORIZED
+  identity: sha256:ee5c4639a7fb3e86a54d9c2bd305fac44919383ca58d2060c3ddd6ace7728cfc
+  identity_subject: RAW_HUMAN_SELECTION_MESSAGE_BYTES
+  allowed_paths:
+    - workspace/AOS_DOCUMENTATION_PROGRAM.md
+    - workspace/AOS_DOCUMENTATION_X1/**
+    - workspace/audits/AOS_DOCUMENTATION_X1_*.md
+  allowed_run_kinds:
+    - AUTHORING_RUN
+    - AUDIT_RUN
+    - CORRECTION_RUN
+    - RE_AUDIT_RUN
+  start_run_kind: AUTHORING_RUN
+  exact_permissions:
+    AUTHORING_RUN: DOCUMENTATION_WRITE_WITHIN_SELECTED_WRITABLE_BOUNDARIES
+    AUDIT_RUN: READ_ONLY_SUBJECT_INSPECTION_AND_AUDIT_OUTPUT_WRITE_WITHIN_SELECTED_WRITABLE_BOUNDARIES
+    CORRECTION_RUN: EXACT_FINDING_CORRECTION_WRITE_WITHIN_SELECTED_WRITABLE_BOUNDARIES
+    RE_AUDIT_RUN: READ_ONLY_SUBJECT_INSPECTION_AND_AUDIT_OUTPUT_WRITE_WITHIN_SELECTED_WRITABLE_BOUNDARIES
+implementation_authorization: NONE
+git_authorization: NONE
+decision_source:
+  kind: RUNTIME_USER_MESSAGE
+  locator: RUNTIME_TURN_ID:019fe536-6f21-7b22-b49a-67627bc89e26
+  response_item_id: msg_019fe536-72cd-73a1-b63a-20b8433f339d
+  raw_message_bytes: 27
+  raw_message_sha256: ee5c4639a7fb3e86a54d9c2bd305fac44919383ca58d2060c3ddd6ace7728cfc
+  exact_text: ACCEPT R6 — AUTHORING_RUN
+audit_evidence:
+  technical_result: PASS
+  audit_findings: []
+  subject_full_file_bytes: 33512
+  subject_full_file_sha256: bc71ab014f47b76503a9da5ceca0bbf04df0253127852280e62748229b3be6f7
+  subject_program_contract_bytes: 28026
+  subject_program_contract_sha256: 4fb2f220b28f2bbbf45a902b64889fd20bf032efc5cb54a62f7110352d90062d
+  source_kind: RUNTIME_USER_MESSAGE
+  source_locator: RUNTIME_TURN_ID:019fe52e-c1ec-7f43-96f1-c7b0d64c5250
+  source_response_item_id: msg_019fe52e-c58c-7c60-8183-c94ad36f36f2
+  source_raw_message_bytes: 9366
+  source_raw_message_sha256: 4358e9c03c3d87bd10b7970c9d703f41ec514a873be7f6e083c8035ae5b84c3a
+decision_provenance:
+  selection_context: EXPLICIT_OPTION_SELECTED_AFTER_EXACT_R6_AUDIT_PASS
+  record_prepared_by: CODEX_FROM_EXPLICIT_HUMAN_SELECTION

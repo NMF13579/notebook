@@ -1,0 +1,37 @@
+binding_format: AOS_PROGRAM_RUN_BINDING_R1
+active_run_id: AOS-DOC-X1-R6-AUTHORING-001
+run_kind: AUTHORING_RUN
+program_contract_revision: R6
+program_contract_identity: sha256:4fb2f220b28f2bbbf45a902b64889fd20bf032efc5cb54a62f7110352d90062d
+human_selection_record_path: workspace/AOS_DOCUMENTATION_X1/HUMAN_SELECTION_RECORD.yaml
+human_selection_record_identity: sha256:8827f35cd336f8fcaeb2bc4f61808e8254c61e186fe0e2b029cb16b325216616
+human_selection_confirmation:
+  source_locator: RUNTIME_TURN_ID:019fe53a-adae-7e63-9d3d-fa97511b300f
+  response_item_id: msg_019fe53a-b124-7001-954d-003a1cdb5439
+  raw_message_bytes: 86
+  raw_message_sha256: d4135a253ef581d628e8ddaa0704435bb189c8bb3b50fe766539ded180a6ab92
+repository:
+  name: NMF13579/notebook
+  branch: dev
+  HEAD: 90186b5c1bd0f66496cd742dc6a581dbd6f8ba7c
+controller_path: workspace/AOS_DOCUMENTATION_PROGRAM.md
+program_scope:
+  label: X1_DOCUMENTATION
+  selected_subjects:
+    - FTR-001
+    - FTR-003
+selected_writable_boundaries:
+  - workspace/AOS_DOCUMENTATION_PROGRAM.md
+  - workspace/AOS_DOCUMENTATION_X1/**
+  - workspace/audits/AOS_DOCUMENTATION_X1_*.md
+selected_allowed_run_kinds:
+  - AUTHORING_RUN
+  - AUDIT_RUN
+  - CORRECTION_RUN
+  - RE_AUDIT_RUN
+selected_start_run_kind: AUTHORING_RUN
+documentation_edit_authorization:
+  status: AUTHORIZED
+  identity: sha256:ee5c4639a7fb3e86a54d9c2bd305fac44919383ca58d2060c3ddd6ace7728cfc
+implementation_authorization: NONE
+git_authorization: NONE

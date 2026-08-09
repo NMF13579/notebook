@@ -1,0 +1,75 @@
+record_format: AOS_PROGRAM_HUMAN_DECISION_R1
+value: ACCEPT
+subject_candidate_identity: sha256:1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d
+candidate_manifest:
+  path: workspace/AOS_DOCUMENTATION_X1/CANDIDATE_MANIFEST.txt
+  format: AOS_CANDIDATE_MANIFEST_R1
+  bytes: 5535
+  sha256: 1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d
+audit_evidence:
+  technical_result: PASS
+  run_id: AOS-DOC-X1-R6-AUDIT-001
+  run_kind: AUDIT_RUN
+  subject_identity: sha256:1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d
+  report_path: workspace/audits/AOS_DOCUMENTATION_X1_CANDIDATE_1F0D12C3_AUDIT.md
+  report_bytes: 14482
+  report_sha256: ba38649d3ea22bacba433fd133aba753259c5df389cbd538460cc03707eb14a5
+  findings: []
+program_binding:
+  program_contract_revision: R6
+  program_contract_identity: sha256:4fb2f220b28f2bbbf45a902b64889fd20bf032efc5cb54a62f7110352d90062d
+  controller_path: workspace/AOS_DOCUMENTATION_PROGRAM.md
+  observed_state_revision_before_decision: 5
+  observed_controller_bytes: 35951
+  observed_controller_sha256: 3c876e918f551cdf979390c31a04e392f29ba2d55547ccd779251598c2a1041e
+repository:
+  name: NMF13579/notebook
+  branch: dev
+  HEAD: 90186b5c1bd0f66496cd742dc6a581dbd6f8ba7c
+accepted_fact_classes:
+  - FTR-001_FEATURE_BEHAVIOR
+  - FTR-003_FEATURE_BEHAVIOR
+  - X1_ARCHITECTURE_RELATIONSHIPS_AND_INVARIANTS
+  - X1_DECISION_REQUEST_DEFINITIONS
+  - X1_DR_001_PRODUCT_ARTIFACT_OWNERSHIP
+  - X1_DR_002_FIRST_PRODUCT_RUNTIME_SLICE
+resolved_decisions:
+  X1-DR-001:
+    selected_option: A
+    accepted_statement: Product Spec owns cross-feature product facts; each Feature Passport owns feature-specific behavior and links to the Product Spec.
+  X1-DR-002:
+    selected_option: A
+    accepted_statement: The first Product Runtime vertical slice is FTR-001 from human request to a reviewable, human-confirmed Intent Record.
+global_impact:
+  X1-GI-001:
+    status: RESOLVED_BY_EXPLICIT_HUMAN_DECISION
+    selected_source_effect: X1-DR-002_OPTION_A
+    global_package_mutation: NOT_AUTHORIZED
+    canonical_publication: NOT_RUN
+feature_disposition:
+  FTR-001: SELECT_FOR_X1
+  FTR-003: SELECT_FOR_X1
+authority_effect:
+  candidate_status: HUMAN_ACCEPTED
+  scope: ONLY_EXACT_CANDIDATE_AND_ACCEPTED_FACT_CLASSES_LISTED_ABOVE
+  derived_navigation_authority: NONE
+  canonical_publication: NOT_RUN
+  implementation_planning: NOT_RUN
+  implementation_authorization: NONE
+  git_authorization: NONE
+program_effect:
+  current_scope: CLOSED
+  next_action: OPTIONAL_SEPARATE_PUBLICATION_OR_IMPLEMENTATION_PLANNING_DECISION
+decision_source:
+  kind: RUNTIME_USER_MESSAGE
+  locator: USER_MESSAGE_IMMEDIATELY_PRECEDING_THIS_RECORD_CANDIDATE
+  captured_semantics:
+    package: ACCEPT
+    X1-DR-001: A
+    X1-DR-002: A
+decision_provenance:
+  record_prepared_by: CODEX_FROM_EXPLICIT_HUMAN_CHOICES
+  raw_record_confirmation_required: true
+  proposed_record_path: workspace/AOS_DOCUMENTATION_X1/HUMAN_DECISION_RECORD.yaml
+implementation_authorization: NONE
+git_authorization: NONE

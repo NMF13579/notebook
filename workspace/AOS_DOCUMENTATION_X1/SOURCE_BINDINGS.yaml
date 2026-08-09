@@ -1,0 +1,41 @@
+binding_format: AOS_DOCUMENTATION_SOURCE_BINDINGS_R1
+repository: NMF13579/notebook
+branch: dev
+HEAD: 90186b5c1bd0f66496cd742dc6a581dbd6f8ba7c
+bound_for_run_id: AOS-DOC-X1-R6-AUTHORING-001
+canonical_sources:
+  AGENTS.md: fd47fe24d77ba0864ffae9025e434588967741b9935dcd26d6e1efbe047bf458
+  docs/00_Core.md: d5bd30ed1e819f348f2ae044ffe77cf14e72ddae1d8576c1a2f392e6f7e70e1b
+  docs/01_Product.md: c119f8f301abcd93167e3f5b61272dfda7bb499fff58018e6163bb325308b2cb
+  docs/02_Architecture.md: dade6df2d03c38a0833d6070b13cdb884214a6c164092d5fd3fc2b1cb2599921
+  docs/03_Development.md: 3f880c14b9e00e9428032bc07b29cc18d46b7eed6ceac1084f6ef7745f684fab
+  docs/04_Lessons.md: 5bff781c83546ec5cfca2093ab1cde61fc17a662346a752762433e6fa2553b3d
+  docs/05_Reference.md: e7d0dc9aef509853e0f750aa81286eb4a646e6f36c78fb235c9a0d318162287f
+  docs/06_Features.md: f0ade2e1f76368cc909302dae7d87f1e4b7297a23c44566aee06c84a1f2f0ea0
+feature_dossiers:
+  FTR-001:
+    locator: docs/06_Features.md#L112-L238
+    digest_subject: exact_UTF-8_bytes_emitted_by_lines_112_through_238_with_LF
+    bytes: 5910
+    sha256: f377ea6ec59930dd1cb9dbae9c69c81fd9d6af43afae60750c7a9463e5ce4b75
+    human_disposition: SELECT_FOR_X1
+  FTR-003:
+    locator: docs/06_Features.md#L360-L488
+    digest_subject: exact_UTF-8_bytes_emitted_by_lines_360_through_488_with_LF
+    bytes: 4976
+    sha256: 27928848cfe9bd4907b321517df1f45c2a497786500c0b1bf3427122e525ef7b
+    human_disposition: SELECT_FOR_X1
+accepted_global_package:
+  freeze_path: AOS/GLOBAL_DESIGN_FREEZE.md
+  freeze_file_sha256: 5a7add434c5063d4b1676ae9b0769bbb052a5b762d750276404b877272c7e0dc
+  subject_manifest_sha256: b9ef04820f9e71da1866c61c87417c7ac39d1c27c93a74327ab7f40f2e25aebf
+  subject_paths:
+    AOS/01_PRODUCT_MODEL.md: 5b7bbac6bc87f2d2637a4dae2b5652f587225e7827666cb9d8de4a68ac1fc00a
+    AOS/02_ARCHITECTURE_CONTRACTS.md: 7e69843e97d031fb8dce12cff26cc92cce5e82f9b7e0a3070d32e0ef6afcbc7c
+    AOS/03_ENGINEERING_PIPELINE.md: efcf5e9ad432775708b5def2f16f516902b289134c014c2a4ecd16a2cee5e0ae
+  acceptance_record_path: AOS/decisions/GLOBAL_DESIGN_PACKAGE_ACCEPTANCE.md
+  acceptance_record_sha256: 27d5d9effd6e114b92f8b965237f2844614727829efe4623d3a96d716d6e4330
+targeted_research:
+  status: NOT_RUN
+  reason: canonical_and_accepted_global_sources_are_sufficient_for_current_documentation_claims
+source_conflicts: []
