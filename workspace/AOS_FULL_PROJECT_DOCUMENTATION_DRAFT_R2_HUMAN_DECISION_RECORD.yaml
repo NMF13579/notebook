@@ -1,0 +1,79 @@
+record_format: AOS_FULL_PROJECT_DOCUMENTATION_HUMAN_DECISION_R1
+decision_id: DR-FULL-001
+value: ACCEPT
+subject_candidate_identity: sha256:57446e0d8075985af2229eae86cc6cf018b41ec255f0140b7bb20b45ef3ded65
+candidate_manifest:
+  path: workspace/AOS_FULL_PROJECT_DOCUMENTATION_DRAFT_R2/CANDIDATE_MANIFEST.txt
+  format: AOS_FULL_PROJECT_DOCUMENTATION_CANDIDATE_MANIFEST_R2
+  bytes: 5930
+  sha256: 57446e0d8075985af2229eae86cc6cf018b41ec255f0140b7bb20b45ef3ded65
+audit_evidence:
+  technical_result: PASS
+  report_path: workspace/audits/AOS_FULL_PROJECT_DOCUMENTATION_DRAFT_R2_COMPLETENESS_RE_AUDIT.md
+  report_bytes: 17016
+  report_sha256: b6cd639302fb719ab7ef47e894075c791d683c3e46b35291c11a2c591f989cfe
+  findings: []
+  predecessor_findings_closed:
+    - FULL-AUD-F001
+    - FULL-AUD-F002
+    - FULL-AUD-F003
+    - FULL-AUD-F004
+    - FULL-AUD-F005
+    - FULL-AUD-F006
+    - FULL-AUD-F007
+    - FULL-AUD-F008
+    - FULL-AUD-F009
+guided_human_review:
+  status: COMPLETED
+  subject_identity: sha256:57446e0d8075985af2229eae86cc6cf018b41ec255f0140b7bb20b45ef3ded65
+  block_decisions:
+    R2-CORE: ACCEPT
+    R2-PRODUCT: ACCEPT
+    R2-ARCHITECTURE: ACCEPT
+    R2-WORKFLOW: ACCEPT
+    R2-FEATURES: ACCEPT
+    R2-UX: ACCEPT
+    R2-ROADMAP: ACCEPT
+    R2-DECISIONS: ACCEPT
+    R2-TRACEABILITY: ACCEPT
+    R2-PACKAGE-MAP: ACCEPT
+  requested_content_changes: []
+repository:
+  name: NMF13579/notebook
+  branch: dev
+  HEAD: a573fd9b6ae8145f35bd16399cc899b748f2171a
+accepted_fact_classes:
+  - R2_PROJECT_CORE_REVIEW_CONTENT
+  - R2_PRODUCT_MODEL_REVIEW_CONTENT
+  - R2_ARCHITECTURE_CONTRACTS_REVIEW_CONTENT
+  - R2_ENGINEERING_WORKFLOW_REVIEW_CONTENT
+  - R2_FEATURE_SPECIFICATIONS_REVIEW_CONTENT
+  - R2_USER_JOURNEYS_AND_UX_REVIEW_CONTENT
+  - R2_PROJECT_ROADMAP_PROPOSAL_AS_REVIEWED
+  - R2_DECISION_REGISTER_STRUCTURE_AS_REVIEWED
+  - R2_TRACEABILITY_AND_REVIEW_CONTENT
+  - R2_PACKAGE_MAP_AND_EXACT_BINDING
+authority_effect:
+  candidate_status: HUMAN_ACCEPTED
+  scope: ONLY_EXACT_CANDIDATE_AND_ACCEPTED_FACT_CLASSES_LISTED_ABOVE
+  source_classifications_preserved: true
+  canonical_owner_precedence_preserved: true
+  selected_open_options: NONE
+  feature_disposition_changes: NONE
+  roadmap_activation: NONE
+  canonical_publication: NOT_RUN
+  implementation_planning: NOT_RUN
+  implementation_authorization: NONE
+  git_authorization: NONE
+decision_source:
+  kind: RUNTIME_USER_MESSAGE
+  locator: USER_MESSAGE_IMMEDIATELY_PRECEDING_THIS_RECORD_CANDIDATE
+  captured_semantics:
+    package_identity: sha256:57446e0d8075985af2229eae86cc6cf018b41ec255f0140b7bb20b45ef3ded65
+    value: ACCEPT
+decision_provenance:
+  record_prepared_by: CODEX_FROM_EXPLICIT_HUMAN_DECISION_AND_GUIDED_REVIEW
+  raw_record_confirmation_required: true
+  proposed_record_path: workspace/AOS_FULL_PROJECT_DOCUMENTATION_DRAFT_R2_HUMAN_DECISION_RECORD.yaml
+implementation_authorization: NONE
+git_authorization: NONE
