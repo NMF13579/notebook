@@ -1,8 +1,10 @@
 # 02 — Documentation Pipeline
 
+> **Status: SUPERSEDED_WORKING_ARTIFACT.** Retained for historical provenance only. It is not a second canonical Documentation Pipeline; `docs/03_Development.md` is the sole active lifecycle owner. This file is not the removed legacy Runtime Pipeline and must not be published as `AOS/02_PIPELINE.md`.
+
 ## 1. Назначение пайплайна
 
-Настоящий документ описывает **исключительно пайплайн проектирования и создания документации AOS**. 
+Настоящий документ описывает **исключительно пайплайн проектирования и создания документации AOS**.
 Он не описывает, как работает программный runtime AOS или как агенты пишут код. Документ регламентирует строгую последовательность шагов, через которую проходят знания — от первоначальной базы (Knowledge Baseline) до формирования контрактов на реализацию (Task Brief).
 
 ---

@@ -1,5 +1,7 @@
 # Спецификация Pass 2 (Architecture Contracts & Pipeline)
 
+> **Status: SUPERSEDED.** Retained as a historical working specification for the prior two-document Pass 2. It is not an active process contract or lifecycle owner. The current lifecycle and Pass 2 outputs are owned only by `docs/03_Development.md`.
+
 ## 1. Scope Pass 2
 
 Pass 2 разделен на две последовательные фазы:

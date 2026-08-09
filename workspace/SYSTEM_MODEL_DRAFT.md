@@ -32,7 +32,7 @@
 * **Layer 3: Development Factory** [FOUND: `docs/02_Architecture.md` - 3. Модель слоёв, 4. Карта компонентов]: Task Brief Compiler, Preflight/Preview, Scoped Executor, Validation/Evidence, Context Pack Builder, Handoff Builder, Test/CI/Release Helpers.
 * **Layer 4: Safety and Control (Governance)** [FOUND: `docs/02_Architecture.md` - 3. Модель слоёв, 4. Карта компонентов]: Authority Resolver, Permission Classifier, Scope/Path Guard, Git Boundary Guard.
 * **Layer 5: Knowledge / Reference** [FOUND: `docs/02_Architecture.md` - 3. Модель слоёв, 4. Карта компонентов]: Canonical Documents, Feature Passports, Lessons/Patterns, Reference Findings, Derived Index.
-* **Data Ownership** [FOUND: `docs/02_Architecture.md` - 8. Владение данными]: 
+* **Data Ownership** [FOUND: `docs/02_Architecture.md` - 8. Владение данными]:
   * Product requirement → Human-accepted Product artifact
   * Feature behavior → Human-accepted Feature Passport
   * Architecture decision → Human-accepted ADR

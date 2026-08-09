@@ -1,5 +1,7 @@
 # Draft Package Plan (Phase 2A)
 
+> **Status: WORKING_DERIVED / SUPERSEDED_BY_PUBLISHED_PACKAGE.** This planning artifact records how the current three-document package was derived. It is not a lifecycle owner, acceptance record or active Pass contract; current process authority remains in `docs/03_Development.md`.
+
 ## 1. Общая структура пакета
 Пакет `Pass 2 (Pipeline + Contracts)` будет состоять из трёх укрупнённых документов, каждый из которых имеет строго одного владельца и описывает независимый класс фактов (Product, Architecture, Engineering). Это исключает искусственное дробление и дублирование, обеспечивая полное покрытие System Model.
 

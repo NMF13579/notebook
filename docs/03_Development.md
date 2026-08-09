@@ -41,13 +41,13 @@ authority_scope:
 ```text
 Knowledge Baseline
 ↓
-Workspace (Drafts)
+Workspace (Source Synthesis + Drafts)
 ↓
-Pass 1 (System Design)
+Pass 1 (Product Model)
 ↓
 Structural Review
 ↓
-Pass 2 (Pipeline + Contracts)
+Pass 2 (Architecture Contracts + Engineering Workflow Semantics)
 ↓
 Integration Review
 ↓
@@ -160,19 +160,19 @@ Handoff package, not stage or Git permission.
 
 Документационный цикл избавлен от тяжеловесных инженерных проверок.
 
-1. **Workspace**: Вся черновая работа (drafts, research, notes) ведется в `workspace/`.
-2. **Pass 1 (System Design)**: Проработка концепции, целей, границ продукта и Feature Dossiers (уровень WHAT).
-3. **Structural Review**: Сверка границ WHAT / HOW. Убедиться, что в архитектуру не просочились детали реализации. Переход к Pass 2 только после успешного Structural Review.
-4. **Pass 2 (Pipeline + Contracts)**: Формирование архитектурных контрактов, I/O и data flows.
-5. **Integration Review**: Финальная проверка согласованности всех документов пакета. Переход к Freeze только после устранения всех конфликтов.
-6. **Global Design Freeze**: Заморозка изменений. Критерий завершения документационного цикла — готовность пакета к передаче coding agent'у без неразрешенных архитектурных вопросов.
-7. **Publish to AOS**: Перенос утвержденного пакета из `workspace/` в папку `AOS/` (чистовик-deliverable).
+1. **Workspace**: Source synthesis, research, drafts and superseded working artifacts live in `workspace/`; presence there does not create canonical ownership.
+2. **Pass 1 (Product Model)**: Define product goals, boundaries, actors, journeys, feature scope and preserved product decisions at WHAT level. Working output: `workspace/DRAFT_01_PRODUCT_MODEL.md`; published path after all gates: `AOS/01_PRODUCT_MODEL.md`.
+3. **Structural Review**: Check product/architecture separation, source traceability and the WHAT / implementation-HOW boundary. Pass 2 starts only after the exact candidate has no material structural conflict.
+4. **Pass 2 (Architecture Contracts + Engineering Workflow Semantics)**: Define architecture/state contracts and design-level workflow, authority, validation/evidence, recovery and handoff semantics. Working outputs: `workspace/DRAFT_02_ARCHITECTURE_CONTRACTS.md` and `workspace/DRAFT_03_ENGINEERING_PIPELINE.md`; published paths after all gates: `AOS/02_ARCHITECTURE_CONTRACTS.md` and `AOS/03_ENGINEERING_PIPELINE.md`. Pass 2 does not own schemas, exact I/O, serialization, storage, adapters, toolchain, repository topology or other implementation HOW.
+5. **Integration Review**: Check the exact three-file package for consistent vocabulary, traceability, ownership, state/result separation and absence of material cross-document conflicts. A technical PASS is Evidence, not human acceptance.
+6. **Global Design Freeze**: Bind exact paths and SHA-256 values after review and explicit human decision. Preserved feature-specific inputs, future implementation decisions and non-blocking global decisions are allowed when explicitly classified; a material unresolved product/architecture conflict blocks Freeze.
+7. **Publish to AOS**: Copy the exact reviewed working outputs to `AOS/01_PRODUCT_MODEL.md`, `AOS/02_ARCHITECTURE_CONTRACTS.md` and `AOS/03_ENGINEERING_PIPELINE.md` without content drift. These three published paths are the current deliverable subject. Review, acceptance and Freeze identities are stored separately under `AOS/reviews/`, `AOS/decisions/` and `AOS/GLOBAL_DESIGN_FREEZE.md`.
 
-**Локальные корректировки (Local Corrections)**: 
+**Локальные корректировки (Local Corrections)**:
 Исправление опечаток, ссылок и форматирования в `workspace/` выполняется без полного ревью-цикла по маршруту: `Short Markdown Task → edit → check → report → stop`.
 
 **Правила публикации deliverable (Handoff)**:
-Пакет в `AOS/` передается coding agent'у как read-only Source of Truth. Coding agent не имеет права изменять документы в `AOS/` самостоятельно.
+Пакет в `AOS/` передается coding agent'у как read-only Source of Truth в границах exact Freeze identity. Coding agent не имеет права изменять документы в `AOS/` самостоятельно. Any post-Freeze content change requires an explicit Reopen, a new review subject and a new Freeze identity.
 
 ## 12. Отчёт стадии
 

@@ -1,5 +1,7 @@
 # Спецификация Pass 1 (System Design)
 
+> **Status: SUPERSEDED.** Retained as a historical working specification for the prior `System Design` package generation. It is not an active process contract or lifecycle owner. The current lifecycle is owned only by `docs/03_Development.md`; the current deliverable subject is `AOS/01_PRODUCT_MODEL.md`, `AOS/02_ARCHITECTURE_CONTRACTS.md`, and `AOS/03_ENGINEERING_PIPELINE.md`.
+
 ## 1. Scope Pass 1
 
 *   **Что является результатом:** Четкое и согласованное системное видение (Concept), зафиксированное в документе `01_SYSTEM_DESIGN.md`. Это высокоуровневая архитектура (уровень WHAT), описывающая границы, пользователей, функциональные домены и основные потоки.

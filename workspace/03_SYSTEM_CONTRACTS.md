@@ -1,8 +1,10 @@
 # 03 — Architecture Contracts
 
+> **Status: SUPERSEDED_WORKING_ARTIFACT.** Retained for provenance of the prior Global Design generation. It is not part of the current accepted deliverable and does not own current architecture contracts.
+
 ## Назначение документа
 
-Настоящий документ определяет абстрактные архитектурные контракты, гарантии, инварианты и границы полномочий (Authority) системы AOS. 
+Настоящий документ определяет абстрактные архитектурные контракты, гарантии, инварианты и границы полномочий (Authority) системы AOS.
 Контракты остаются неизменными вне зависимости от того, как именно реализован код, механизмы валидации или программные интерфейсы. Документ отвечает на вопрос: **«Какие гарантии предоставляет система, и какие полномочия существуют?»**. Поток исполнения (Pipeline) здесь не описывается (см. `02_PIPELINE.md`).
 
 ---

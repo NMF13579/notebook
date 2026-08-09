@@ -1,12 +1,12 @@
-# Draft 03: Engineering Pipeline & Contract Semantics
+# 03 — Engineering Workflow & Contract Semantics
 
 ## UPSTREAM_ALIGNMENT
 * **Aligned claims:** Границы, установленные в Product Model (напр. разделение Commit ≠ Push ≠ Merge ≠ Release, и разделение Evidence и approval), строго соответствуют Engineering workflow. Концепции Task Brief и Authorization из Architecture корректно транслируются в Engineering Contracts.
-* **Upstream-only claims:** Сценарии J-001..J-007, абстрактные архитектурные слои (L1-L5) и компоненты не дублируются в пайплайне реализации, Engineering описывает только runtime execution и контракты.
+* **Upstream-only claims:** Сценарии J-001..J-007, абстрактные архитектурные слои (L1-L5) и компоненты не дублируются в workflow. Документ описывает design-level semantics защищённой работы и контрактные границы, а не implementation mechanics.
 * **UPSTREAM_FINDING:** NONE.
 
-## 1. Workflow Stage Model (Runtime Implementation)
-Стадии применяются исключительно к защищенным runtime-операциям.
+## 1. Protected Work Stage Semantics
+Стадии задают наблюдаемые границы защищённой работы. Они не определяют algorithms, schemas, storage, adapters или другие implementation mechanics.
 * **PLAN**
   * **Purpose:** Read-only стадия для формирования плана задачи.
   * **Produced result:** Decision-ready Task Brief, risks, validation, stop conditions.
@@ -30,8 +30,8 @@
 * **Git Delivery Boundaries:** Edit ≠ Commit ≠ Push ≠ Merge ≠ Release. Каждое действие требует отдельной перепроверки (reverify repo/branch/HEAD/candidate/worktree/remote/auth).
 * **Separation Rules:** `PASS ≠ approval`, `Evidence ≠ approval`, `NOT_RUN ≠ PASS`. Успешная передача контекста или успешное прохождение тестов не заменяет явного решения человека.
 
-## 3. Engineering Contracts C-005..C-014
-Определяют семантику данных реализации (HOW). Точные схемы (schemas), I/O, lifecycle, storage, producer/consumer и serialization — **[UNKNOWN]** или **[NOT_SPECIFIED_AT_THIS_LEVEL]**.
+## 3. Engineering Workflow Contracts C-005..C-014
+Определяют design-level semantics артефактов, authority и handoff boundaries (WHAT / BOUNDARIES). Точные schemas, I/O, lifecycle mechanics, storage, producer/consumer, serialization и implementation APIs — **[UNKNOWN]** или **[NOT_SPECIFIED_AT_THIS_LEVEL]** и не принадлежат этому документу.
 * **C-005 Task Brief:** Описывает goal/scope/constraints/validation. Не предоставляет разрешений на выполнение.
 * **C-006 Execution Authorization Record:** Создаётся отдельно человеком, жёстко привязан к точной задаче (bind to exact task/subject), ограничен стадией/операциями/путями, имеет таймер/счетчик (expiry/consumption) и не разрешает Git-действия.
 * **C-007 Preflight / Preview:** Фиксирует exact repository/worktree/branch/HEAD/baseline/status/diff, планируемые действия и конфликты.
@@ -60,7 +60,7 @@
 *(Остальные полные графы маппинга — NOT_SPECIFIED_AT_THIS_LEVEL).*
 
 ## 7. Preserved UNKNOWN
-Следующие детали остаются неизвестными (UNKNOWN) и блокируют реализацию до появления явного дизайна (Implementation HOW):
+Следующие implementation decisions сохраняются как UNKNOWN и должны быть разрешены до зависящей от них реализации. Они не блокируют design foundation и не входят в ownership этого документа:
 * Exact schemas, exact I/O, serialization, storage для всех C-005..C-014.
 * Точные Producer / Consumer для артефактов.
 * Implementation adapters, CI implementation, release implementation.

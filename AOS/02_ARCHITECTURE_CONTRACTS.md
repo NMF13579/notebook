@@ -1,4 +1,4 @@
-# Draft 02: Architecture & State Contracts
+# 02 — Architecture & State Contracts
 
 ## UPSTREAM_ALIGNMENT
 * **Aligned claims:** Интерактивная поверхность (Interaction Surface) и продуктовый Runtime разделены (L1/L2), что соответствует Intake, Discovery и Review из Product Model. Boundaries Product Model (WHAT) не пересекаются с деталями реализации.

@@ -1,4 +1,4 @@
-# Draft 01: Product Model & Feature Scope
+# 01 — Product Model & Feature Scope
 
 ## 1. Product Goals
 * **Product Problem:** Непрограммист может описать желаемый результат, но не способен надёжно контролировать каждую repository operation, permission, test и implementation detail. AI-агенты могут потерять product intent, расширить scope, завысить completion или создать maintenance debt.
