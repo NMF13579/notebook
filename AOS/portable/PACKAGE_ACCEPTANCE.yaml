@@ -1,0 +1,85 @@
+record_format: AOS_PORTABLE_PACKAGE_ACCEPTANCE_R1
+decision_id: AOS-PORTABLE-ACCEPT-1E3746B4
+decision_date: '2026-08-11'
+value: ACCEPT
+
+subject:
+  path: AOS/portable/MANIFEST.txt
+  bytes: 1015
+  sha256: 1e3746b4bb6a326d9e93f805cb4ebe8a233c367976189aae1c0d385cde261901
+  manifest_record_count: 11
+  manifest_membership: EXACT_MARKDOWN_CONTENT_FILES_ONLY
+
+audit_evidence:
+  path: workspace/audits/AOS_PORTABLE_1E3746B4_AUDIT.md
+  bytes: 6994
+  sha256: 1f259d27a0f9456fd7c14880132d1ed6ddaf1a9c33b509727e61fddd0e04f87a
+  technical_result: PASS
+  findings: []
+
+human_decision:
+  status: COMPLETED
+  actor_role: HUMAN_PROJECT_OWNER
+  source_kind: RUNTIME_USER_MESSAGE
+  source_locator: USER_MESSAGE_IMMEDIATELY_PRECEDING_THIS_RECORD
+  separate_raw_record_confirmation_required: false
+  captured_semantics:
+    candidate_sha256: 1e3746b4bb6a326d9e93f805cb4ebe8a233c367976189aae1c0d385cde261901
+    audit_sha256: 1f259d27a0f9456fd7c14880132d1ed6ddaf1a9c33b509727e61fddd0e04f87a
+    value: ACCEPT
+    preserve_open_decisions: true
+    preserve_authorization_none: true
+
+accepted_scope:
+  exact_manifest_bound_candidate_only: true
+  fact_classes:
+    - PORTABLE_PROJECT_CORE_AS_CLASSIFIED
+    - PORTABLE_PRODUCT_MODEL_AS_CLASSIFIED
+    - PORTABLE_ARCHITECTURE_CONTRACTS_AS_CLASSIFIED
+    - PORTABLE_ENGINEERING_WORKFLOW_AS_CLASSIFIED
+    - PORTABLE_FEATURE_SPECIFICATIONS_AS_CLASSIFIED
+    - PORTABLE_USER_JOURNEYS_AND_UX_AS_CLASSIFIED
+    - PORTABLE_PROJECT_ROADMAP_PROPOSAL_AS_CLASSIFIED
+    - PORTABLE_DECISION_REGISTER_STRUCTURE_AND_ACCEPTED_LEDGER_AS_CLASSIFIED
+    - PORTABLE_LIVE_TRACEABILITY_AS_CLASSIFIED
+    - PORTABLE_PACKAGE_ROUTING_AND_MAP
+    - PORTABLE_EXACT_MANIFEST_BINDING
+
+authority_effect:
+  candidate_status: HUMAN_ACCEPTED_DOCUMENTATION_PACKAGE
+  documentation_authority: FACT_CLASS_SCOPED_FOR_EXACT_SUBJECT
+  candidate_embedded_status_fields: UNCHANGED
+  source_classifications_preserved: true
+  source_precedence_preserved: true
+  roadmap_activation: NONE
+  canonical_owner_mutation: NONE
+  feature_disposition_changes: NONE
+
+preserved_open_boundaries:
+  material_open_decisions:
+    count: 21
+    selected_by_this_decision: NONE
+  undecided_feature_routes:
+    count: 23
+    selected_by_this_decision: NONE
+  implementation_repository: UNASSIGNED
+  implementation_planning: NOT_RUN
+  implementation_authorization: NONE
+  git_authorization: NONE
+
+sidecar_binding:
+  path: AOS/portable/PACKAGE_ACCEPTANCE.yaml
+  included_in_candidate_manifest: false
+  candidate_identity_effect: NONE
+  audit_invalidation_effect: NONE
+
+operations:
+  candidate_mutation: NONE
+  runtime_implementation: NOT_RUN
+  commit: NOT_RUN
+  push: NOT_RUN
+  merge: NOT_RUN
+  release: NOT_RUN
+
+implementation_authorization: NONE
+git_authorization: NONE
