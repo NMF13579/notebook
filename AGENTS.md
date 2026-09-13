@@ -16,9 +16,11 @@ git_authorization: NONE
 
 Документационная задача не является задачей реализации. При создании или корректировке документации не создавай implementation code, scaffolding, executable prototype, product tests или runtime infrastructure. Подготовка implementation brief описывает будущую реализацию, но не выполняет её.
 
-## Обязательная точка входа
+## Маршрутизация контекста
 
-Перед существенной задачей прочитай `docs/00_Core.md`. Затем открывай только релевантные документы:
+Перед задачей открывай только owner-документы и разделы, которые она затрагивает. Для product, architecture, authority или safety work начни с релевантных разделов `docs/00_Core.md`. Для typo, formatting и локальной проверки ссылок это чтение не требуется.
+
+Затем открывай только релевантные документы:
 
 - Product: `docs/01_Product.md` + relevant feature в `docs/06_Features.md`.
 - Architecture: Product context → feature → `docs/02_Architecture.md` → related lessons.
@@ -26,6 +28,12 @@ git_authorization: NONE
 - Reference research: selected feature → `docs/05_Reference.md` → exact paths.
 
 Не загружай все семь документов и весь legacy repository без доказанной необходимости.
+
+### Skill routing
+
+Для обычной documentation work не используй implementation-process skills: `writing-plans`, `test-driven-development`, `using-git-worktrees`, `subagent-driven-development`, `requesting-code-review` и `finishing-a-development-branch`.
+
+Используй их только по прямому запросу пользователя или когда текущая задача действительно включает соответствующий implementation workflow.
 
 ## Владение фактами
 
@@ -102,6 +110,8 @@ Short Markdown Task достаточно описать через:
 `docs/03_Development.md` остаётся canonical owner workflow, stage boundaries, validation и reporting rules. Этот раздел задаёт default routing для простой документационной работы, а не создаёт параллельный workflow.
 
 Используй formal или расширенный процесс только когда его требует material risk, independent validation, protected operation, explicit human decision или правило из `docs/00_Core.md` / `docs/03_Development.md`.
+
+Self-check автора внутри разрешённого documentation edit может исправлять только дефекты, внесённые этим edit, и повторять affected checks. Independent validation по-прежнему не изменяет subject.
 
 Остановись и запроси решение, если:
 
