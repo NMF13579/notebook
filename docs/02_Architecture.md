@@ -332,6 +332,99 @@ minimal bootstrap
 
 RAG-light допустим только после measured search/context problem.
 
+<a id="repository-graph-contract"></a>
+
+### 10.1. Контракт проектного графа — PROPOSAL
+
+Статус всех положений этого подраздела — `PROPOSAL` для возможной будущей реализации. Назначение и не-цели определены в [Product](01_Product.md#repository-graph-purpose); источник — [ТЗ R2](05_Reference.md#repository-graph-tz). Требования ниже не меняют владельцев фактов из §8, dispositions фич или полномочия на реализацию.
+
+**Единый производный артефакт.** Один локальный worktree имеет один активный graph artifact с общей системой наблюдений; виды кода, данных и фич не ведутся как отдельные редактируемые карты. Допустим временный кандидат публикации. Обзор генерируется по запросу. Удаление графа не уничтожает первичные требования, решения или уникальный обязательный контекст.
+
+Граф содержит сведения о версии схемы, extractor и профиле наблюдения, scope и source bindings, sources, nodes, edges, evidence, coverage, unresolved и pending refresh. Это логические части одного контракта, а не требование отдельных registries. Конкретный storage, parser, индексы, алгоритмы IDs/обхода и механика записи относятся к Engineering Design по `00_Core.md`, §12; они здесь не фиксируются.
+
+#### Наблюдения, идентичность и доказательства
+
+- Node представляет существующий component, entrypoint, symbol, artifact/contract, test, feature record или external reference. Одно наличие path в inventory не требует semantic node. Обязательные сведения: stable identity, kind/label, source references, применимый locator, fact class, basis, mapping state и evidence references.
+- Edge имеет собственную stable identity, направленные endpoints, конкретное отношение, fact class, basis, evidence и область применимости. Пара endpoints не является identity связи. Разные утверждения и parallel edges сохраняются; повторное наблюдение одного утверждения может добавлять evidence.
+- Source связывает repo-relative path с digest конкретных наблюдавшихся bytes и file kind. Evidence имеет identity, source-version reference, locator, вид наблюдения и краткое проверяемое утверждение. Новые bytes не получают прежнее evidence через автоматическую перепривязку. Большие исходные тексты, полный AST и логи в граф не копируются.
+- IDs не зависят от строки, позиции в выдаче или текущего content hash. Rename без доказанной преемственности означает remove/add. Способ доказательства и сохранения identity объявляется поддержанным контрактом.
+- Fact class, mapping state и execution status разделены на уровне конкретного claim. Назначение сущности является отдельным утверждением со своим источником; модельное объяснение остаётся `SYNTHESIZED`. Свежий node не делает свежей stale edge. Наличие теста не означает его PASS.
+- Runtime evidence ссылается на отдельный immutable run/test artifact с exact subject binding. Граф не запускает проверки скрыто. Digest подтверждает привязку к bytes, а не истинность интерпретации; семантика проверяется отдельными cases и review.
+
+Начальный словарь отношений:
+
+| Relation | Направление и смысл |
+|---|---|
+| CONTAINS | Контейнер → существующий элемент |
+| IMPORTS | Импортирующий модуль → разрешённый модуль/reference |
+| CALLS | Caller → callee; static и observed-runtime basis различаются |
+| READS, WRITES | Компонент → читаемый/изменяемый artifact или state |
+| PRODUCES, CONSUMES | Компонент → производимый/потребляемый artifact или type |
+| VALIDATES | Проверяющий компонент → объект проверки |
+| TESTS | Тест → проверяемый subject, без утверждения о результате запуска |
+| ROUTES_TO | Наблюдаемый dispatcher/configured route → target |
+| BINDS_TO_FEATURE, BINDS_TO_CONTRACT | Реализация/артефакт → существующий feature/contract record |
+
+`producer --PRODUCES--> artifact <--CONSUMES-- consumer` сохраняет направление CONSUMES во всех представлениях. Совпадение имён или типов не доказывает wiring. Обобщённые IMPLEMENTS/DEPENDS_ON не должны скрывать конкретное отношение или подразумевать полноту фичи. Новое отношение вводится только для смысла, не выражаемого текущими типами и qualifiers.
+
+#### Coverage и границы извлечения
+
+Поддержанный scope включает inventory, package/module boundaries, entrypoints, нужные публичные symbols/endpoints, imports, однозначные static calls, schemas/types, tests и явные feature/contract references. Coverage различает inventory, структурный разбор и исследованные data flows. Полная модель каждого AST-узла и всех программ на выбранном языке не требуется.
+
+Семантические связи допускаются по явному wiring/configuration/binding либо ограниченному исследованию с проверяемым основанием. Неоднозначный callee/consumer остаётся unresolved с вопросом, evidence, search boundary и следующим read-only probe. Фиктивный internal node ради целостности запрещён; external reference не означает исследования внешней реализации. `NOT_FOUND` ограничен поиском, `UNKNOWN` не означает отсутствие, `NOT_RUN` не означает неисправность. Утверждения документа о целевом поведении не создают observed runtime edges; acceptance требует своего exact source.
+
+Optional observation batch допускается только как явный поддержанный input build/refresh: identity/revision, source bindings, claims/locators, fact classes, search scope, unresolved и ограничения. Проверка схемы, ссылок, scope и конфликтов не превращает интерпретацию агента в факт или Human acceptance. Содержимое batch не исполняется и не извлекается неявно из беседы. Exact batch либо доступен вне графа в разрешённом долговременном артефакте существующего workflow, либо его claims считаются невоспроизводимым optional enrichment и не могут быть единственным обязательным контекстом.
+
+#### Операции и границы изменений
+
+Названия операций описывают предлагаемый интерфейс, а не существующие команды AOS.
+
+| Операция | Input → output | Допустимые изменения |
+|---|---|---|
+| build | Repo/scope/profile и optional supported batch → первоначальный граф/coverage | Только разрешённый output и временные ресурсы публикации |
+| check | Graph + repository/scope → freshness/delta report | Нет |
+| query | Graph + selector/mode/options → ограниченная выдача | Нет |
+| refresh | Graph + repo/scope/profile и optional supported batch → graph/semantic diff | Только разрешённый output и временные ресурсы публикации |
+| validate | Graph → integrity findings | Нет; validator не ремонтирует subject |
+
+Reader, check, query, validate и help не записывают source, Git index/refs, graph, caches или lock files. Build не разрешает заменить существующий чужой output. Разрешённый task scope на обновление графа не требует approval каждой записи. Сканирование не импортирует и не исполняет код проекта; тесты не являются неявным действием.
+
+#### Ограниченная выдача и impact
+
+Selectors: exact typed ID, repo-relative path и exact FTR-ID через существующие bindings. Неоднозначность возвращается явно; поиск по имени даёт кандидатов, не подменяет exact lookup. Overview показывает области и границы знания; context — seeds и ближайшие связи; impact — потенциальную область проверки с объясняющими цепочками; detail — полные сохранённые records/evidence.
+
+Для pilot предлагаются direction both, depth 1 для context и depth 2 для impact. На поддержанной цепочке producer → artifact ← consumer стандартный impact(producer) должен включать обе связи и consumer, возможно на продолжении. Более узкая depth/direction/filter явно оставляет frontier; глубина ограничивает смысл запроса, а page budget — только его выдачу. Impact не доказывает полный радиус runtime effects или отсутствие неизвестных consumers.
+
+Начальные цели страницы: 40 nodes, 80 edges, 16 KiB UTF-8 целого ответа с metadata; overview — 8 KiB. Пользователь может явно изменить budgets. Stubs считаются в node budget, distinct node учитывается один раз на странице; повтор stub на следующей допустим. Seeds не обрезаются общим лимитом первой страницы. Whole records не теряют полей; endpoints каждой edge присутствуют на той же странице хотя бы как stubs. Evidence доступно через detail.
+
+Ответ сообщает graph digest, selector/mode, применённые filters/direction/depth/budgets, freshness scope, общее число seeds и IDs seeds страницы, coverage limitations, truncation, причины ограничения и продолжение. Первая страница показывает наличие критичных unknowns, краткий summary и путь раскрытия. Приоритет seeds и существенных interfaces/data/test relations влияет на порядок, но не исключает прочие подходящие связи.
+
+Continuation детерминировано и привязано к graph digest и всем параметрам запроса, включая budgets; несовместимый cursor явно отклоняется. Все страницы восстанавливают весь результат объявленного запроса без потери parallel edges. Полнота по графу не является полнотой знания о repository. Если неделимая запись с обязательными metadata/stubs не помещается, возвращается `BLOCKED_OUTPUT_BUDGET` с действием для продолжения; бюджет меньше минимального terminal envelope отклоняется. Обрезанный payload и ложная полнота недопустимы.
+
+#### Snapshot, freshness и refresh
+
+Отдельно идентифицируются repository/worktree и режим наблюдения, HEAD при наличии, реально наблюдавшиеся paths/bytes с exclusions, schema/extractor/config/profile revisions и digest graph artifact. Пустой repository допускает HEAD null с причиной. Working-tree mode включает разрешённые dirty/untracked disk bytes и не выдаёт их за commit state. Fingerprint определяется inventory/bytes/scope, а не временем; graph output, временные кандидаты и derived views исключаются из собственного наблюдаемого inventory. Применимость extractor/config/profile проверяется отдельно. Digest относится ко всему сохранённому artifact, без самоссылки.
+
+Offline query возвращает stored binding и `repository_currentness: NOT_RUN`. CURRENT устанавливается применимым результатом check, связанным с exact graph, repository/scope и наблюдавшимися inputs; успешный parse не проверяет свежесть. Check сравнивает inventory и bytes в объявленной области; Git diff — только подсказка. Одинаковый HEAD не исключает изменения файлов; новый HEAD не доказывает изменения семантики. CURRENT/STALE/UNKNOWN всегда относятся к scope, а не обещают полное знание или неизменность будущего состояния.
+
+Refresh учитывает changed/new/deleted sources, затронутое evidence, условия разрешения связей, новых callers/consumers и изменения потенциальных targets/config даже при неизменном caller. Docs не считаются несущественными автоматически. Если область влияния не установлена, требуется более широкое разрешённое исследование либо явный pending refresh. Удалённые сущности и невалидные links исключаются из active topology с semantic diff.
+
+Partial graph сохраняет целостные ссылки и прежние bindings с явными stale/pending/unknown областями. Это не один свежий snapshot разных версий. Parse/access/limit failure не повышает актуальность пропущенного участка. При неизменных source, scope, extractor/profile и graph state `NO_CHANGE` сохраняет persistent bytes и modification time; время новой проверки находится в ответе. Изменение только derived graph и его Git metadata не создаёт self-refresh loop.
+
+#### Публикация, восстановление и пределы
+
+С первого writer требуется целостная публикация: при сбое до публикации старый граф сохранён; после неё доступен целостный новый artifact. Конкурирующий writer не вызывает silent overwrite или потерю обновления; busy/conflict возвращает отказ без force takeover. Concurrent source changes не маскируются под согласованный fresh snapshot. Захват bytes без source lock доказывает только ограниченное наблюдение; последующая актуальность проверяется отдельно. Поддержанные OS/filesystem и проверенная crash-durability boundary объявляются явно.
+
+Каждый worktree использует свою карту и binding; общая Git metadata не подменяет source delta. Перенос карты сохраняет прежний subject до проверки нового. После интеграции source проверяется результат интеграции; textual merge generated graphs не доказывает freshness. Tool не создаёт worktrees и не меняет refs/config.
+
+Повреждённый граф не считается evidence. Recovery затрагивает только разрешённый output, не исправляет source и не удаляет чужие artifacts. Одинаковые inputs и revision детерминированного extractor/profile воспроизводят поддержанные structural semantic records. Batch claims восстанавливаются только с exact batch и bindings; вариативные model summaries не входят в обещание byte-identical rebuild. Types, направления, parallel edges, evidence, uncertainty и допустимые extension fields сохраняются. Повреждённая структура, duplicate IDs, dangling references и неподдержанная schema отклоняются; перенос отказывается от неподдержанного поля вместо молчаливой потери. Если выбран JSON, duplicate keys также отклоняются.
+
+Scope имеет allowlist/exclusions; symlink/traversal не расширяет root. Secrets, credentials, Git internals и private areas не читаются для содержания по умолчанию; credential-bearing URLs не выводятся. Sources, docs, graph и batches — untrusted data. Допустимые metadata-эффекты чтения оговариваются профилем и не разрешают скрытые writes инструмента. Сеть и новая внешняя инфраструктура не требуются.
+
+До pilot объявляются пределы source file, суммарного scope, graph/batch input, числа records, времени и памяти обработки. Output budget не заменяет processing budget. Превышение даёт явную причину/affected scope и сохраняет active graph; unsupported input не становится отсутствующей сущностью. Partial result допустим лишь с проверенной integrity и видимой coverage, иначе публикации нет. При аварийном завершении сохраняется явный failure без повреждения active graph. Непроверенная гарантия окружения не объявляется поддержанной.
+
+Критерии проверки, последовательность срезов и решения перед реализацией принадлежат [Development](03_Development.md#repository-graph-pilot). Storage пересматривается по измеренным расходам и удобству review, а не произвольному размеру или числу файлов.
+
 ## 11. Адаптеры агентов
 
 Один common rule source поддерживает thin adapters для Codex, Claude Code, Cursor, ChatGPT и других сред. Adapters не расширяют permissions, используют repository-relative links и должны быть generated или drift-checked.

@@ -106,6 +106,14 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Проверка:** Orphan artifact review.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Наблюдение — REPORTED:** в сохранённом отчёте кандидата FTR-010 R20 стандартный компилятор создал корректно сериализуемый Task Brief, но его готовность осталась `INCOMPLETE`: `SOURCE_NOT_CURRENT:subject_state_identity`. Production request, регистрация и исполнение не выполнялись. Источник: `AOS3-S06`.
+- **Вывод — SYNTHESIZED:** полнота формата и достижимость готового входа являются разными свойствами. Один R20 не доказывает цикличность всей архитектуры, но показывает необходимость проверить порядок получения входных фактов.
+- **Предлагаемое уточнение:** для выбранного среза описывать достижимую последовательность подготовки: кто предоставляет каждый обязательный вход, какой контракт его принимает, когда проверяется актуальность и что действительно требует нового решения человека. Подготовительный результат не должен зависеть от будущего результата, для получения которого он сам необходим. Если такая зависимость обнаружена, пересмотреть затронутый стык, сохраняя доказанные гарантии исполнения.
+- **Проверка:** при выполненных объявленных prerequisites один ограниченный сценарий проходит подготовку до reviewable результата. Отдельный негативный сценарий завершается ожидаемым точным отказом. Если положительную проверку выполнить невозможно, она остаётся `NOT_RUN` или `BLOCKED`; успешная проверка отказа её не заменяет. Повтор при неизменных условиях не выдаётся за прогресс. Обновление наблюдения не маскирует изменение subject; прежнее разрешение не переносится на новый subject.
+- **Применимость:** составной вход или повторная потеря готовности между подготовительными шагами. Обычный корректный отказ при устаревшем состоянии не является дефектом; lesson не разрешает обход freshness или authorization.
+
 
 ## Полномочия и статусы
 
@@ -219,6 +227,14 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Проверка:** Before/after tree/status exact.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Наблюдение — OBSERVED_AT_SNAPSHOT:** в `tools/isolated_product_test.py` три ветви ошибки subprocess завершаются раньше финального сравнения source snapshot. Исторический аудит отдельно сообщил о воспроизведении этого пробела. Источники: `AOS3-S01`, `AOS3-S04`.
+- **Граница вывода:** пропущенная проверка сохранности не доказывает, что source действительно был изменён.
+- **Предлагаемое уточнение:** обещание сохранности проверяется и при успешном, и при неуспешном завершении. Если способ наблюдения сам способен менять значимые metadata, вывод об авторе изменения требует различающего наблюдения или ограничения claim. Основание для второй части: AOS-3 LES-005 в `AOS3-S05`.
+- **Проверка:** намеренная ошибка на каждой существенной границе не пропускает доступную проверку сохранности; отчёт различает установленную сохранность, установленное изменение и недоказуемое состояние.
+- **Применимость:** read-only и validation helpers с заявленной гарантией сохранности. Универсальный монитор всех файлов и процессов не требуется.
+
 
 ### LES-021 — Raw remote data утекали
 
@@ -253,6 +269,13 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Предлагаемое правило:** Finalize, freeze, verify, then validate.
 - **Проверка:** Any byte change invalidates result.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Наблюдение — REPORTED:** каталог AOS-3 LES-012 описывает formatter, изменивший байты источников принятой evaluator revision FTR-006; exact-source regression отклонила новый digest. Каталог содержит точные historical source bindings. Источник: `AOS3-S05`, LES-012.
+- **Предлагаемое уточнение:** formatter, serializer и другие механические преобразования создают новый subject, если меняют байты, входящие в accepted identity или Evidence binding. Такие байты сохраняются либо изменение проходит применимый существующий маршрут проверки и принятия. Нельзя просто заменить ожидаемый digest, чтобы перенести старое принятие на новый предмет.
+- **Проверка:** механическое изменение связанного с identity источника делает старое Evidence неприменимым; обычное форматирование несвязанного файла не требует нового acceptance package.
+- **Применимость:** только bytes, реально связанные с exact identity. Это не общий запрет форматирования и не основание хешировать все документы.
 
 
 ### LES-025 — Использовался устаревший baseline
@@ -340,6 +363,13 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Проверка:** Nonprogrammer completes journey.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
 
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Наблюдение — OBSERVED_AT_SNAPSHOT:** Local start в README устанавливает `requirements-dev.lock`, где нет объявленных runtime-зависимостей продукта. **Исторический результат — REPORTED:** аудит получил 21 collection error из-за отсутствия `jsonschema`; установка обоих объявленных наборов зависимостей позволила продолжить диагностику. Источники: `AOS3-S01`, `AOS3-S03`.
+- **Предлагаемое уточнение:** первый запуск проверять в чистой поддерживаемой среде буквально по инструкции пользователя. Любая дополнительная подготовка фиксируется как отличие диагностической среды; её успех не подтверждает исходную инструкцию.
+- **Проверка:** человек или агент получает заявленный первый результат без скрытых предварительных установок и знания устройства репозитория. Недоступность внешнего сервиса и неполнота инструкции классифицируются отдельно.
+- **Применимость:** install/bootstrap/first-start и изменения зависимостей. Полная переустановка после каждой текстовой правки не требуется.
+
 
 ### LES-035 — Контрольные фичи не были объединены в единый journey
 
@@ -347,6 +377,13 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Предлагаемое правило:** Dogfood one end-to-end task.
 - **Проверка:** Journey covers intake→review→lesson.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Наблюдение — REPORTED:** полный исторический non-native baseline завершился с `3805 passed, 7 failed, 6 skipped`. Существенные native/host prerequisites остались непроверенными; `tests/native` исключались из прогона. Источник: `AOS3-S02`. Эти числа не являются текущим результатом проекта.
+- **Предлагаемое уточнение:** первый выбранный срез подтверждать одним полезным пользовательским результатом через поддерживаемые входы и реальные границы, существенные для заявленного поведения. Внутри среза проверить передачу данных от поставщика к потребителю, успешное завершение, выбранный материальный отказ и правдивый итоговый отчёт. Не требовать реализации всего feature inventory.
+- **Проверка:** acceptance связано с результатом сценария, а не числом тестов или наличием схем. Для недоступной существенной границы сохраняется `NOT_RUN` или `BLOCKED`; fixture PASS не закрывает эту часть. Защищённый запуск требует собственных полномочий.
+- **Применимость:** первое подтверждение среза и изменение существенного стыка. Каждый локальный edit не требует повторения всего E2E.
 
 
 ### LES-036 — Git closure не был понятен пользователю
@@ -374,6 +411,14 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Предлагаемое правило:** Bound attempts and explicit escalation.
 - **Проверка:** Repeated failure cannot expand scope.
 - **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+**Уточнение по AOS-3 — LESSON_PROPOSAL.**
+
+- **Основание — SYNTHESIZED:** AOS-3 LES-003 и LES-006 связывают повторные исправления с недостаточно различёнными причинами и требуют информационного результата от retry. Это source synthesis по истории FTR-031; сама история здесь не воспроизводилась. Источник: `AOS3-S05`.
+- **Предлагаемое уточнение:** повтор имеет смысл, когда проверяет конкретное исправление, повторяет доказанную временную ошибку в допустимых пределах, изменяет различающий фактор или получает новое существенное Evidence. Счётчик попыток сам по себе не показывает прогресс.
+- **Неизвестный исход:** если предыдущая существенная операция могла выполниться, сначала установить фактическое состояние. Не повторять потенциальную mutation только потому, что подтверждение не дошло.
+- **Проверка:** одинаковая граница отказа без нового Evidence прекращает затронутый retry и переводит работу к диагностике по существующему процессу. Исполнитель не расширяет scope; исправность ядра и необходимость изменения входа оцениваются отдельно.
+- **Применимость:** повторный отказ либо неизвестный исход существенной операции. Урок не запрещает ограниченный повтор доказанной временной ошибки и не добавляет новый Human Gate.
 
 
 ### LES-039 — UI создавал видимость authority
@@ -439,6 +484,34 @@ OBSERVED_FAILURE → LESSON_PROPOSAL → HUMAN_ACCEPTED_RULE
 - **Regression Prevention:** Проверка наличия псевдокода (HOW) при Structural Review.
 
 
+### LES-047 — Тестовое окружение не подтверждало заявленный режим
+
+- **Наблюдение — OBSERVED_AT_SNAPSHOT:** helper `_run_installed_module` задаёт `PYTHONPATH` на скопированные исходники и запускает модуль; сам helper не устанавливает distribution. **Исторический результат — REPORTED:** семь failures FTR-011 в аудите требовали `INSTALLED_DISTRIBUTION`, но среда не содержала metadata `aos-local`. Источники: `AOS3-S02`, `AOS3-S07`.
+- **Причина в границах Evidence:** тестовый режим и ожидаемый provenance расходились; окончательный выбор владельца исправления между bootstrap и fixture аудит оставил отдельной задачей. Это не семь доказанных новых product defects.
+- **Предлагаемое правило:** различать source-run, installed distribution и native execution. Для значимого reproducer указать, какие условия он сохраняет и какие опускает. Если опущенная ОС, файловая система, provider, process mode, permission или identity могут участвовать в ошибке, результат ограничивается проверенным поведением.
+- **Проверка:** установленный режим подтверждается фактическим происхождением импортов и metadata. Подмена platform label, скопированный пакет или mock не доказывают выполнение в другой среде. Непроверенные claims остаются `NOT_RUN`.
+- **Применимость:** только различия среды, существенные для конкретной гарантии. Полная копия production и проверка всех ОС для каждого теста не требуются.
+- **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+### LES-048 — Исправление начиналось до различения причин
+
+- **Основание — SYNTHESIZED:** AOS-3 LES-003 обобщает историю FTR-031: правдоподобное исправление могло не устранить отказ, пока Evidence оставалось совместимым с несколькими причинами. AOS-3 LES-004 дополняет это ограничением отрицательного Evidence. Источник: `AOS3-S05`.
+- **Предлагаемое правило:** перед исправлением отделить факт от гипотезы. Когда точная проверка или однозначное нарушение контракта локализуют дефект, достаточно bounded correction. Когда остаются несколько существенных причин, выбрать минимальное наблюдение или эксперимент, способный их различить. Сложный incident может иметь несколько взаимодействующих факторов; искусственно сводить его к одной причине не нужно.
+- **Отрицательное Evidence:** отсутствие сигнала доказывает отсутствие события только в пределах подтверждённых возможностей, исправности, времени наблюдения и привязки наблюдателя к subject. Положительный контроль нужен, когда без него такой вывод недоказуем.
+- **Проверка:** для двух совместимых гипотез предложена различающая проверка, а не последовательность догадок. Неисправность наблюдателя ограничивает зависимый вывод; она не блокирует всю независимую работу.
+- **Применимость:** причинная неопределённость, дорогой повтор либо существенный вывод из отсутствия сигнала. Для очевидной локальной ошибки не требуются RCA package, causal graph или дополнительное согласование.
+- **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+### LES-049 — Терминальный отказ терял сведения о причине
+
+- **Наблюдение — REPORTED:** в FTR-031 R25 проверка readiness завершила тест до вывода безопасного результата. Конкретные `reason_codes` не сохранились, поэтому разбор закончился `INSUFFICIENT_EVIDENCE`. Источник: `AOS3-S08`, HF-02, HF-05, HF-07.
+- **Доказанная граница источника:** отчёт устанавливает пробел наблюдаемости test harness. Он не доказывает конкретную ошибку PowerBox, provider или runtime. Более поздний успешный запуск не восстанавливает потерянную причину старого отказа.
+- **Предлагаемое правило:** для дорогого, защищённого или трудно повторяемого запуска безопасный результат, необходимый для диагностики, должен оставаться доступен при первом терминальном отказе через уже разрешённый канал результата или отчёта. Секреты и capability-bearing данные не раскрываются; если существенный факт нельзя безопасно сохранить, ограничение указывается явно.
+- **Проверка:** намеренный ранний отказ оставляет доступными безопасную причину, статус и существенные ограничения; недостигнутые проверки не получают PASS. Обычный дешёвый тест не обязан создавать отдельный durable package.
+- **Применимость:** существенная стоимость повторения или потеря единственной диагностической возможности. Новый logging service, дополнительный gate и protected retry этим уроком не разрешаются.
+- **Статус:** `LESSON_PROPOSAL` до explicit human acceptance.
+
+
 ## 3. Successful patterns to retain
 
 Product-first sequencing; Compact Safe Path; one run/one stage; independent validation where material; exact identity binding; isolated worktree; fail-closed semantics; one next action; one-document review; targeted findings; beginner status explanation; manual dogfood; strict adapter before parser replacement; negative fixtures; rebuildable indexes; thin adapters; risk-scaled ceremony; Feature Passport before planning.
@@ -455,8 +528,9 @@ STATUS-003 Evidence cannot unlock approval
 SCOPE-001 traversal/symlink escape rejected
 SCOPE-002 unrelated dirty state excluded
 CLI-001 every failure has terminal result
-CLI-002 help/read-only has zero writes
+CLI-002 help/read-only has zero writes on success and failure; preservation verified and attribution limits explicit
 ENV-001 interpreter/import provenance recorded
+ENV-002 source, installed and native claims require matching provenance; omitted material conditions limit the claim
 FREEZE-001 write-after-freeze detected
 FREEZE-002 self-reference rejected
 INSTALL-001 dry-run side-effect free
@@ -470,8 +544,11 @@ CONTENT-001 external instructions untrusted
 DRIFT-001 docs/schema/CLI/code/tests compared
 DRIFT-002 stale index rejected
 ADAPTER-001 adapters match common source
-DOGFOOD-001 beginner completes first journey
+DOGFOOD-001 beginner completes one useful slice through supported real boundaries; material refusal and terminal report covered
 LESSON-001 incident creates proposal, not rule
+DIAG-001 unresolved competing causes require discriminating evidence before speculative correction
+RETRY-001 retry verifies correction or gains evidence; unknown material action outcome reconciled before retry
+EVIDENCE-001 expensive run retains safe causal result before terminal failure; unreached checks remain unverified
 IDLE-001 malformed idle task rejected
 PORTABLE-001 no absolute local links
 ```

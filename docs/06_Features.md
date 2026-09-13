@@ -238,6 +238,8 @@ shared_defaults_present: true
 
 ## FTR-002 — Read-only исследование проекта, карта возможностей и реестр gaps/conflicts
 
+**Проектный граф — PROPOSAL routing:** [контракт графа](02_Architecture.md#repository-graph-contract) может предоставлять наблюдаемые связи и coverage для исследования проекта. Первая область применения предложения — разработка самого AOS; перенос на произвольные проекты не выбирается автоматически. Это не новый prerequisite FTR-002 и не изменение его disposition; [pilot](03_Development.md#repository-graph-pilot) проверяет пользу отдельно.
+
 ```yaml
 feature_id: FTR-002
 layer: Product Runtime
@@ -1925,6 +1927,8 @@ Closure report and separately authorized Git/release actions bound to exact cand
 
 ## FTR-016 — Project Memory, непрерывность sessions и task-scoped Context Pack
 
+**Проектный граф — PROPOSAL routing:** [контракт графа](02_Architecture.md#repository-graph-contract) предоставляет source-bound navigation для task-local Context Pack. Он не заменяет Project Memory, хранение решений или handoff. [Рабочий цикл](03_Development.md#repository-graph-pilot) применяется только при использовании карты; disposition и зависимости этого dossier не меняются.
+
 ```yaml
 feature_id: FTR-016
 layer: Product Runtime / Development Factory Boundary
@@ -2042,6 +2046,8 @@ Compact durable state plus explained minimal context with provenance and freshne
 
 
 ## FTR-017 — RAG-light индекс контекста и поиск
+
+**Проектный граф — PROPOSAL routing:** [контракт графа](02_Architecture.md#repository-graph-contract) — смежное предложение восстановимой навигации с freshness и прямым поиском при отказе. Это маршрут проверки overlap и [измерения полезности](03_Development.md#repository-graph-pilot), не выбор FTR-017, RAG или обязательной зависимости. Disposition и рекомендация DEFER ниже сохраняются.
 
 ```yaml
 feature_id: FTR-017
@@ -2515,6 +2521,8 @@ Optional DISABLED/OBSERVE/ENFORCED modes with measured admission and rollback.
 
 
 ## FTR-021 — Обнаружение registry/drift, Source-of-Truth guard и authenticity human decisions
+
+**Проектный граф — PROPOSAL routing:** [контракт графа](02_Architecture.md#repository-graph-contract) предлагает source bindings, scoped freshness и semantic diff как навигацию к изменённым утверждениям. Они не подтверждают authenticity human decision и не заменяют владельца факта. [Pilot](03_Development.md#repository-graph-pilot) не выбирает FTR-021 и не добавляет зависимость или authority-bearing registry.
 
 ```yaml
 feature_id: FTR-021

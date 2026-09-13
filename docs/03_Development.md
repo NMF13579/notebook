@@ -304,6 +304,66 @@ Before each action reverify repo/branch/HEAD/candidate/worktree/remote/auth. Lat
 
 Measure comprehension, clarification loops, scope drift, authority confusion, time to Evidence/review, handoff quality и Governance overhead. Automate only proven repetition with stable contracts, known failures, fallback/removal and no authority expansion.
 
+<a id="repository-graph-pilot"></a>
+
+### 22.1. Проектный граф: рабочий цикл и pilot — PROPOSAL
+
+Этот подраздел переносит workflow и приёмку [ТЗ R2](05_Reference.md#repository-graph-tz). [Назначение](01_Product.md#repository-graph-purpose) и [архитектурный контракт](02_Architecture.md#repository-graph-contract) имеют собственных владельцев. Предлагаемый маршрут применяется только к задаче, в которой выбран graph-assisted context; каждая обычная правка не обязана запускать картографирование. Прямое исследование остаётся допустимым положительным маршрутом работы без графа.
+
+**До задачи:** проверить применимую область карты, запросить context/impact и открыть первичные источники существенных решений. В фиксированном pilot Slice 1 допустим полный rebuild малого scope вместо ещё не реализованного check/refresh; offline query сохраняет `repository_currentness: NOT_RUN`. Найденные ограничения и evidence references включаются в существующий task-local Context Pack по необходимости; выдача карты не заменяет Task Brief, permission или validation criteria.
+
+**После изменения:** выполнить только разрешённый refresh либо rebuild малого scope; проверить semantic diff, новые/удалённые связи, test bindings и pending coverage. Тесты продукта не запускаются неявно. **При handoff:** передать graph digest, observation boundary, compact query и следующий probe как дополнение к сведениям §20; весь payload карты читать не требуется. Bootstrap содержит маршрут к owner/tool instruction, а не копию контракта.
+
+#### Реальный вопрос и oracle до разработки
+
+До Slice 1 задаются exact snapshot/corpus, один реальный вопрос о зависимости, существенные правильные связи, допустимые unknowns и oracle из первичных источников. Reader не определяет собственный правильный ответ. Каждый поддержанный способ обнаружения связи имеет достаточное основание и неоднозначный случай, который должен остаться unresolved.
+
+Кандидат для AOS — «подготовленная задача → preflight → условия допуска исполнения». Вопросы: какие обязательные входы нужны; кто их предоставляет; кто потребляет результат; какие условия окружения существенны; чем проверяется стык. Oracle различает исходный код, утверждение контракта и результат запуска. Условия окружения не объявляются реально выполненными из наличия configuration или test. Это тематический пример из `AOS3-S09`, не выбор FTR/будущей topology и не разрешение защищённого исполнения. При выборе другого сценария он также должен проверять существенный системный стык, а не только известные импорты.
+
+На отдельном примере изменения обязательного входа требуется обнаружить потребителя и необходимую повторную проверку/refresh. Выбранный положительный сценарий при выполненных prerequisites должен давать корректный результат. Корректный отказ проверяется отдельно; инструмент, всегда отвечающий UNKNOWN или отказом, положительную проверку не проходит.
+
+#### Срезы
+
+1. **Полезный ответ:** один язык, одно окружение, небольшой scope и несколько patterns; build, validate, exact query и минимальные context/impact. Coverage, source bindings, безопасная публикация и resource limits присутствуют с первого writer. Full rebuild допустим. Проверяются реальный вопрос/oracle, положительный и отрицательный случаи; общая pagination и optional batch могут быть отложены при честном ограничении pilot и явном отказе на превышении. Выход — ответ, сравнение с обычным поиском и решение о следующем срезе.
+2. **Сопровождение доказанного участка:** check, changed/new/deleted sources, selective refresh, partial coverage, NO_CHANGE, worktree binding и recovery/concurrency. Сценарий повторяется после изменения источников. Observation batch включается только при доказанной необходимости.
+3. **Повторяемая польза:** полные context/impact/detail с budgets/continuation, нужные feature/contract bindings и сравнение трёх видов задач. Проверяются все применимые критерии выбранной версии; частичный срез не выдаётся за весь контракт.
+
+Это срезы вспомогательного инструмента, а не замена product-first последовательности AOS. Автоматизация допускается после доказанного повторения ручного сценария. Отказ от инструмента должен оставлять возможность продолжить обычную разработку.
+
+#### Приёмка и negative cases
+
+ID в таблице относятся к исходному R2, а не к уже выполненным тестам. Полный перечень fixtures сохранён в [черновике, §§14.1–14.2](../workspace/AOS_REPOSITORY_GRAPH_TZ_R2_DRAFT_2026-09-13.md). Для выбранного среза требуется исполняемая проверка применимых случаев; при данном документационном переносе все запуски остаются `NOT_RUN`.
+
+| Область | Критерии R2 | Обязательная проверка |
+|---|---|---|
+| Наблюдаемая семантика | AC-01–03, AC-10; N-01–05, N-07 | Пустой repo без выдуманного runtime; правильные typed seeds; направления/parallel edges; test binding без PASS; bounded NOT_FOUND; rename без догадки; rebuild/round-trip сохраняют смысл, types, evidence и uncertainty, а не только counts |
+| Выдача и impact | AC-04, AC-13–14; N-09, N-11, N-17–19 | Consumer за artifact найден в поддержанном impact; depth frontier видим; stubs учтены; весь результат доступен по страницам; cursor mismatch и oversized record дают явный отказ |
+| Актуальность | AC-05–08; N-06, N-08, N-10, N-12 | Новый consumer при неизменном producer обнаружен либо явно pending; dirty tree при прежнем HEAD обнаружен; partial refresh не повышает непроверенное; source-version mismatch видим; NO_CHANGE не переписывает bytes/mtime; graph-only change не создаёт loop |
+| Публикация и worktrees | AC-09, AC-11; N-14–15 | Старый/новый artifact целостен; второй writer или failure не теряет обновление; bindings разных worktrees не смешаны; shared Git metadata не заменяет source delta |
+| Полезность и границы | AC-12; N-13, N-16 | Ответ сверяем с primary source; symlink/traversal/instruction не расширяют scope; read/check/query/validate/help без скрытых writes и test execution; graph не выдаёт permission |
+| Optional batch | AC-15; N-20 | Stale/conflicting/missing batch не повышает claims; rebuild учитывает exact input либо объявляет ограничение |
+| Пределы обработки | AC-16; N-21–22 | Oversized source/graph/batch, сложный input, превышение time/memory дают заявленный failure/partial outcome с сохранностью active graph и явной coverage |
+
+Slice 1 охватывает применимые AC-01–03, AC-09–10, AC-12–13, AC-16 и negatives integrity, untrusted input, source bindings, publication и limits. Неподдержанные продолжение, batch и остальные сценарии остаются явно вне проверенного среза. Graph failure не блокирует прямое исследование; этот fallback также проверяется в pilot.
+
+#### Измерение пользы и стоимости
+
+Сравниваются обычный поиск и graph-assisted поиск на сопоставимых условиях. Oracle не подсказывает ответ измеряемому участнику. Повтор одним агентом уже известной задачи учитывает эффект обучения; допустимы равноценные задачи или честно ограниченный trial, отдельные агенты не обязательны.
+
+Техническая корректность и полезность оцениваются раздельно. Для продолжения нужен начальный сравнительный сигнал: предотвращённый material miss относительно baseline либо снижение суммарных затрат без роста material misses/false positives. Один успешный пример не доказывает универсальной эффективности. Если преимущества не обнаружены или результаты неразличимы, одного technical PASS недостаточно для расширения инструмента.
+
+Для решения о дальнейшем внедрении сравниваются минимум локальная правка, изменение общего контракта и добавление consumer. Измеряются пропущенные/ложные существенные связи, время ориентации и source reads, build/review/refresh/rebuild/исправления карты и сопровождения batch, bytes первой и всех страниц, metadata/evidence overhead, peak memory, cold load и warm query. Указываются revision, corpus, hardware, профиль, selectors/budgets, порядок и число повторений. Initial build cost показывается отдельно и входит в итог на заранее объявленном числе задач; произвольная будущая амортизация не доказывает выгоду.
+
+Начальные цели выдачи принадлежат архитектурному контракту; кандидат latency для warm context — median до 1 секунды на зафиксированной локальной машине и объявленном корпусе масштаба прежней карты. Cold load и полное раскрытие измеряются отдельно. Это гипотеза pilot, не измеренная способность. Превышение требует анализа, а не автоматического перехода к БД или многофайловому storage.
+
+#### Решения перед реализацией и поставка
+
+Для выбранного Slice 1 уточняются repository/worktree и write scope, язык/OS/filesystem, вопрос/corpus/oracle, поддержанные patterns, inputs, schema/interface/error contract и resource profile. Optional batch и миграция прежней карты включаются явно либо остаются вне scope. Это не требование проектировать все срезы заранее. Выбор FTR, архитектуры и execution authority сохраняет существующих владельцев.
+
+Поставка будущей реализации: небольшой tool/module в выбранном repo, машиночитаемый schema contract, fixtures/tests, короткая инструкция в существующем owner, один воспроизводимый example graph и report metrics/limitations. Инженерные способы реализации выбираются внутри разрешённого контракта; отдельные approval для каждого обратимого HOW не добавляются. Нужное Evidence хранится по существующему workflow, а большие временные replay artifacts не входят в active graph.
+
+Если выбрана миграция карты AOS-3, importer доказывает full round-trip, включая допустимые неизвестные поля/статусы и semantic records, либо отказывается от неподдержанного переноса. Наблюдение будущего repo с нуля допустимо; оно не разрешает удаление старой карты. Текущий перенос документации не запускает разработку, pilot, миграцию или Git delivery.
+
 ## 23. Цепочка готовности
 
 ```text
