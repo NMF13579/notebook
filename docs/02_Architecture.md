@@ -6,7 +6,7 @@ status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_agent_review: PASS
 current_change_human_review: NOT_RUN
@@ -421,7 +421,9 @@ accepted decisions, findings, blockers, checks, diagnostic level, attempt ledger
 resource usage, active Stage/Validation Envelope state и one deterministic next
 action. Controller является единственным владельцем переходов; worker output —
 observation, а не authority изменить state или объявить completion. Concurrent
-или stale update отклоняется через lease/CAS-equivalent и ведёт к reconciliation.
+или stale update отклоняется: только один controller может подтвердить изменение
+из одной исходной revision. Отказ ведёт к reconciliation; конкретный механизм
+синхронизации выбирается при реализации.
 
 #### C-013 — Install / Update Manifest
 
@@ -430,6 +432,44 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 #### C-014 — Git Delivery Record
 
 Separate records for Commit, Push, Merge и Release.
+
+<a id="module-contracts"></a>
+
+### 6.1. Композиция и сопровождение модулей — MODULAR_DRAFT
+
+Этот раздел уточняет предложение [MOD-DEC-01](01_Product.md#modular-decisions). Существующие C-001…C-014 сохраняют идентичности. Здесь описано содержание сообщений на уровне WHAT; wire format, внутреннее представление и алгоритм хранения не выбираются.
+
+| Contract | Producer / владелец содержания | Данные и consumers | Отказ и область повторной проверки |
+|---|---|---|---|
+| C-001 | FTR-001; человек подтверждает intent | Original request, problem/outcome, assumptions/unknowns; FTR-003 | Неясная цель → уточнение; проверить перенос смысла в Spec |
+| C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012 (FTR-012 читает критерии C-002) | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution и полноту review criteria |
+| C-004 | FTR-005 готовит; человек выбирает | Вопрос, варианты, Evidence, выбор/последствия; FTR-003/006/022 | Нет решения → selected_option отсутствует; проверить зависимые задачи и patterns |
+| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013 | Противоречивый scope → отказ допуска; проверить preview/candidate, child task и criterion-to-Evidence review |
+| C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-019/010/014 | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
+| C-006A | Controller — issuer stage envelope | Transition/action/state/candidate и parent binding; FTR-010 | Mismatch/replay → отказ до effect; проверить execute/correct paths |
+| C-007 | FTR-009; наблюдение repository и preview | Root/worktree/baseline/dirty state/actions/permissions; FTR-002/004/010/013 | Изменён subject → новое preview; проверить discovery binding, preservation, admission и сверку validation subject |
+| C-008 | Worker FTR-010; factual observation | До/после, envelope, effects/unknown effects, stop reason; FTR-013/014/025 | Неполный effect → reconciliation; проверить отсутствие двойного исполнения |
+| C-009 | Controller выдаёт; FTR-011 возвращает observation | Candidate, required checks, results, limitations; FTR-008/010/011/012/023 | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness |
+| C-009A | Controller оценивает diagnostic record | Signature, hypotheses, prediction, recovery, correction binding; FTR-010 | Слабое Evidence/replay → DENY; проверить D0…D5 и fresh correction |
+| C-010 | Наблюдавший checker/worker; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/011/012/021/023/025 | Недоступный источник → UNKNOWN; проверить ссылки, redaction и границу результата |
+| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021 | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля |
+| C-012 | Controller владеет lifecycle state; FTR-016 сохраняет/выдаёт | Versions, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017 | Старая revision → recover, не overwrite; проверить старые задачи и concurrency |
+| C-013 | FTR-004; план и наблюдённые результаты установки | Package/target, ownership, operations, preview, conflicts/recovery; FTR-004/009/011/014 | Конфликт user state → стоп apply; проверить install/update/uninstall и повтор |
+| C-014 | FTR-015; отдельная запись каждого действия | Action, repo/source/target, candidate, authority, результат; FTR-012/014/015 | Remote uncertainty → проверить эффект до retry; проверить Git-действия отдельно |
+
+Сверка карты влияния обязательна при изменении входа dossier: каждый именованный C-contract из раздела «Входные данные» должен иметь эту фичу среди consumers таблицы либо явное объяснение неприменимости. Чтение contract собственным producer также учитывается, если он принимает сохранённый record как вход. Проверка criteria-to-Evidence и stale review входит в область изменения C-002/C-005; изменение C-007 затрагивает сверку candidate в FTR-013.
+
+Backlog, pattern и incident имеют владельцев содержания в своих feature contracts. Хранение через FTR-016 не передаёт ему это владение. Идентичность issuer/actor проверяется принятым способом capture, а не наличием имени в поле.
+
+**Совместимость — предложение.** Необязательное пояснительное поле совместимо лишь если reader contract допускает его игнорирование и оно не влияет на authority/state/completion. Strict format с запретом неизвестных полей требует новой reader-version или явного отказа. Изменение смысла, обязательности, enums или state machine несовместимо до доказательства обратного. Совместимость определяется парой producer/consumer versions, а не только номером версии.
+
+Старая задача допускает inspection без effects, если её формат поддержан. Resume требует поддержанного state-machine contract и fresh authority. При необходимом преобразовании видны исходная/целевая версия, затронутые данные и recovery; оно выполняется только в отдельно разрешённом scope. Исходный record сохраняется; новое представление не создаёт human approval. Прерванное преобразование требует reconciliation до resume. Диапазон поддерживаемых версий относится к MOD-DEC-02; пока он не выбран, runtime support UNKNOWN.
+
+**Отказ и отключение.** Модуль может отсутствовать, работать, быть недоступным или завершать начатую операцию. Это описания capability, не новые task/run enums. Новая операция требует своих required capabilities. Отключение write-модуля начинается с определения effects и сохранения recoverable state; мгновенное безопасное удаление не обещается. Данные пользователя и Evidence не удаляются вместе с модулем. Отказ индекса допускает прямой поиск, отказ проверки authority блокирует effect. Обязательный CI без declared equivalent остаётся NOT_RUN. Ограничение покрытия видно пользователю и не выдаётся за полный PASS.
+
+**Authority.** Базовый admission проверяет human provenance, срок, scope и subject до эффекта. FTR-021 аудитирует записи, но не служит обязательным сервисом выдачи разрешений. Отказ optional audit не отключает базовую проверку; отсутствие доверенного способа capture (MOD-DEC-03) блокирует затронутые действия. Включение модуля не предоставляет network/provider/Git/delete authority.
+
+**Сопровождение.** Изменяется owner contract, затем проверяются его consumers и acceptance/negative cases из таблицы. Новое состояние или effect требует владельца, отказа и recovery. Неизвестное влияние требует расширения проверки. Derived index не изменяет Product facts. Эта таблица описывает межфичевые contracts; детализация конкретных сценариев находится в dossiers.
 
 ## 7. Ортогональная модель состояний
 
