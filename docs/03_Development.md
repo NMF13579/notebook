@@ -1,11 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_agent_review: PASS
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -69,10 +73,11 @@ Task
 ↓
 bounded Task Brief
 → repository preflight
-→ explicit Execution Authorization
-→ smallest scoped implementation
-→ Stage Report and stop
-→ separate VALIDATE when required
+→ parent task authority for exact effectful worker actions
+→ complete-task controller
+→ fresh EXECUTE envelope → smallest scoped implementation → report/stop worker
+→ CHECK → DIAGNOSE/CORRECT loop when required
+→ separate FINAL_VALIDATE on exact candidate
 → REVIEW
 → human decision
 → separate Commit / Push / Merge / Release
@@ -180,7 +185,23 @@ Child создаётся только по authority boundary, independent valid
 
 ## 8. Task Brief и Execution Authorization
 
-Task Brief описывает goal/scope/constraints/validation. Authorization создаётся отдельно человеком, bind к exact task/subject, ограничен stage/operations/paths, имеет expiry/consumption и не разрешает Git actions.
+Task Brief описывает goal/scope/constraints/validation и требования к будущей
+Parent Task Authorization. Его paths/operations/effects имеют только
+`requested_*`/`prohibited_*` semantics; до отдельной выдачи authorization
+identity и `allowed_*` отсутствуют.
+
+Parent Task Authorization создаётся человеком, bind к exact task
+revision/subject и ограничивает effectful worker actions (`EXECUTE`, `CORRECT`),
+operations/paths/effects, human-only boundaries, expiry и task hard limits. Она
+не меняет canonical state-machine graph. Controller выводит из неё более узкий
+consumable Effectful Stage Envelope для одного `EXECUTE` или `CORRECT`.
+`CHECK`/`FINAL_VALIDATE` получают отдельный read-only ValidationEnvelope.
+
+Фактический parent authorization binding сохраняется в Loop State без
+переписывания Task Brief. Envelope хранит parent identity/revision/digest,
+controller issuer, exact controller transition, state revision/event head,
+candidate и action-spec digest; он не приписывается человеку напрямую и не
+разрешает Git actions.
 
 ## 9. Preflight репозитория
 
@@ -193,6 +214,13 @@ IN_SCOPE_EXISTING | OUT_OF_SCOPE_USER_STATE | ENVIRONMENT_NOISE | GENERATED_DISP
 ## 10. Модель стадий Runtime-реализации
 
 Эти стадии применяются исключительно к написанию кода и защищенным операциям. Создание и редактирование документации в `workspace/` не требует прохождения через PLAN, EXECUTE, VALIDATE и REVIEW.
+
+`PLAN | EXECUTE | VALIDATE | REVIEW` — lifecycle stages. Внутренние
+`BIND_TASK | RECOVER_STATE | SELECT_NEXT_ACTION | EXECUTE | CHECK | DIAGNOSE |
+CORRECT | FINAL_VALIDATE | IDLE` — controller actions версии
+`AOS_COMPLETE_TASK_LOOP_V1`. Task state и run state — ещё две отдельные оси.
+Одноимённый `EXECUTE` не разрешает подменять lifecycle transition внутренним
+действием; canonical `{from,to}` matrix находится в `02_Architecture.md`.
 
 ### PLAN
 Read-only. Decision-ready Task Brief, risks, validation, stop conditions.
@@ -208,6 +236,169 @@ Read-only assessment/recommendation. No simulated acceptance or correction.
 
 ### DELIVER
 Handoff package, not stage or Git permission.
+
+### 10.1. Complete-task controller
+
+Для явно поставленной bounded task сохраняемый controller продолжает работу
+между stage workers и sessions до доказанного технического завершения либо до
+точной паузы/Human Gate. Controller не является новым источником authority:
+
+```text
+Task Contract + parent task authority
+→ RECOVER_STATE
+→ deterministic SELECT_NEXT_ACTION
+→ fresh stage envelope
+→ EXECUTE → report/stop worker
+→ CHECK
+    ├─ PASS + remaining criteria → next action
+    ├─ FAIL/material UNKNOWN → DIAGNOSE
+    └─ all criteria closed → FINAL_VALIDATE
+→ CORRECT by separate worker → fresh affected checks
+→ TECHNICALLY_COMPLETE only when completion predicate is proven
+```
+
+Parent task authority связывает task revision, subject, allowed worker actions,
+paths/operations/effects, expiry/revocation, hard limits и human-only
+boundaries. Каждый effectful `EXECUTE`/`CORRECT` получает fresh Stage Envelope и
+после factual result останавливается. Consumed, expired, ambiguous или
+mismatched envelope не переиспользуется. Checker/validator получает read-only
+ValidationEnvelope; finding маршрутизируется controller, но validator не
+исправляет candidate.
+
+Admission effectful worker требует совпадения envelope с current controller
+action transition, state revision, event head и candidate, а также чтения
+актуальной unexpired/unrevoked Parent Task Authorization с совпадающими
+identity/revision/digest. Envelope потребляется до effect. Он bind exact
+`action_spec_digest`; worker не может заменить action другой mutation только
+потому, что она помещается в общие allowed paths/operations/effects.
+
+Отсутствующее, `null` или пустое authority field означает отсутствие
+разрешения. Forbidden action имеет приоритет. Broader diagnostic reasoning не
+расширяет read/mutation scope, network, credentials, provider или protected
+effects.
+
+### 10.2. Persistent state, run и task
+
+Controller атомарно сохраняет task/revision, repository/candidate identity,
+task state, run state/result, acceptance/check status, impact basis, findings,
+unknowns, diagnostic level, attempt ledger, resource usage, authority/envelope
+state, observed effects и one next action.
+
+Controller — единственный владелец controller-action transition. Worker output считается
+непроверенным observation и не может напрямую установить `PASS`, закрыть
+criterion или task. State update проверяет previous revision/digest; один active
+controller обеспечивается lease/CAS-equivalent. Stale/concurrent update
+отклоняется и ведёт в `RECOVER_STATE`.
+
+```text
+task_state:
+ACTIVE | WAIT_HUMAN | WAIT_EVIDENCE | TECHNICALLY_COMPLETE |
+TASK_FAILED | CANCELLED_BY_HUMAN | CONTRACT_VIOLATION
+
+run_state:
+RUNNING | PAUSED_RESOURCE | STOPPED
+
+controller_action:
+BIND_TASK | RECOVER_STATE | SELECT_NEXT_ACTION | EXECUTE | CHECK | DIAGNOSE |
+CORRECT | FINAL_VALIDATE | IDLE
+```
+
+Wait/terminal task state или resource pause переводит только controller action
+в `IDLE`; оно не становится controller-action transition к имени task/run
+state. Resume переводит `IDLE → RECOVER_STATE`.
+
+`run FAIL/UNKNOWN/BLOCKED` не завершает active task, если существует
+обоснованный разрешённый следующий шаг. Исчерпание controller-defined finite
+run allowance даёт `PAUSED_RESOURCE`; новый run начинает с reconciliation и не
+сбрасывает ledger. Всю task ограничивает только explicit human/host hard limit.
+
+### 10.3. Многоступенчатая диагностика
+
+Диагностика начинается с минимальной causal boundary и расширяется, если
+причина не найдена или Evidence неубедительно:
+
+1. `D0 — Failure binding`: exact candidate/command/environment, reproducibility,
+   stable signature и надёжность observer; negative Evidence требует positive
+   control, когда иначе отсутствие сигнала недоказуемо.
+2. `D1 — Local`: изменённый компонент, stack/data path, локальные invariants,
+   affected tests и direct contract violation.
+3. `D2 — Hypothesis discrimination`: material competing hypotheses,
+   falsifiable predictions и минимальная различающая read-only проверка либо
+   уже разрешённый bounded experiment.
+4. `D3 — Adjacent boundary`: caller/callee, producer/consumer, state transition,
+   fixture/oracle, repository-local configuration и declared dependency.
+5. `D4 — Environment/system`: provenance build/import/runtime, process,
+   filesystem, concurrency/timing, sandbox/permission, platform и разрешённые
+   adapters.
+6. `D5 — Trajectory/architecture`: unresolved guarantee, accumulated Evidence,
+   equivalent corrections/oscillation и состоятельность выбранного mechanism.
+
+Переход на следующий уровень обязателен при `MULTIPLE_COMPATIBLE`, `NOT_FOUND`,
+unreliable observer, inconclusive check или confidence, недостаточном для
+обратимой correction. Mutation разрешает только машиночитаемый `C-009A
+Correction Gate` из `02_Architecture.md`.
+
+Gate вычисляется до выдачи `CORRECT` Stage Envelope. `ALLOW` возможен только в
+двух случаях: `PROVEN` + `MEDIUM|HIGH` +
+`REVERSIBLE_BOUNDED`, либо `PLAUSIBLE` + `HIGH` +
+`REVERSIBLE_DIAGNOSTIC`. Во всех случаях обязательны ноль material competing
+hypotheses, valid authority/state, prediction, исполнимые checks и recovery
+reference. Любое отсутствующее поле, другая комбинация или `LOW` confidence
+даёт `DENY` и переводит работу в следующий diagnostic level либо `WAIT_*`.
+Свободная оценка «proportional risk» сама по себе mutation не разрешает. Каждый
+gate bind current parent authorization/state/event head, diagnostic ID, failure
+signature, candidate-before и proposed correction digest. При `ALLOW`
+controller создаёт `CORRECT` envelope с gate identity/digest и тем же
+`action_spec_digest`; перенос gate на другой tuple запрещён.
+
+Та же failure signature после correction продолжает последний достигнутый
+уровень и не повторяет inconclusive checks. Новая signature начинает новый
+record с `D0`, но не сбрасывает общий ledger/resources. Повтор `D5` для той же
+trajectory требует нового discriminating Evidence или material изменения
+premises.
+
+### 10.4. Progress и anti-loop
+
+Progress — failing required check стал PASS без равной/большей regression,
+failure boundary сузилась, hypothesis опровергнута/существенно изменена,
+уменьшилось число совместимых причин, observer доказан либо Evidence обосновало
+materially different bounded correction.
+
+Повтор unchanged command, equivalent patch, переименование hypothesis, новый
+worker/session, unrelated edit или explanation без new Evidence progress не
+создают. Continuous ledger и resource usage не сбрасываются сменой worker,
+session, failure label или diagnostic level. После двух corrections одной
+signature без progress дальнейшая mutation прекращается и диагностика
+расширяется. Два check одного уровня без information gain также требуют
+следующего уровня; полезные различающие проверки этим лимитом не ограничены.
+
+### 10.5. Completion predicate и next action
+
+```text
+TECHNICALLY_COMPLETE =
+    current Evidence закрывает каждое acceptance criterion
+AND каждый required check имеет current candidate-bound PASS
+AND candidate соответствует task revision и allowed scope
+AND material UNKNOWN отсутствуют
+AND required findings закрыты или покрыты exact Human residual-risk decision
+AND observed effects reconciled
+AND persistent state recoverable
+```
+
+После mutation affected checks становятся stale. Impact basis связывает changed
+paths, dependency/contract edges, behavior boundary и limitations. Если
+material impact не установлен, выполняется broader required check либо
+completion блокирует `UNKNOWN`.
+
+Residual risk закрывает finding только по Human Decision Record с actor/source
+provenance, finding/candidate identity, scope и decision. Worker claim,
+recommendation или свободный отчёт этого не делают.
+
+Next-action priority: reconcile unknown effect → stop contract/authority/identity
+violation → recover state conflict → diagnose failing required check → resolve
+material unknown → implement next dependency-ready acceptance criterion → rerun
+affected checks → final validation → optional work. Внутри категории действует
+declared dependency и Task Contract order.
 
 ## 11. Жизненный цикл документации (Workspace → AOS)
 
@@ -258,7 +449,7 @@ One active task, one causal change, no unrelated cleanup, inventory before sensi
 
 *Данные правила относятся исключительно к Runtime Implementation.*
 
-Implement observable behavior, one contract owner, separate analysis/mutation, preview binds apply, atomic/journaled writes, explicit idempotent retry, preserve user state, authority defaults false, same strict validator in runtime/tests, stable CLI failures, `--help` no writes, optional failure isolated, no hidden network/provider, no privilege escalation, no silent compatibility, portable links, adapter drift checks, AI-code rationale/ownership/tests/handoff.
+Implement observable behavior, one contract owner, separate analysis/mutation, preview binds apply, atomic/journaled writes, explicit idempotent retry, persistent complete-task state, staged Evidence-first diagnostics, preserve user state, authority defaults false, same strict validator in runtime/tests, stable CLI failures, `--help` no writes, optional failure isolated, no hidden network/provider, no privilege escalation, no silent compatibility, portable links, adapter drift checks, AI-code rationale/ownership/tests/handoff.
 
 ## 15. Пять verification gates (для Runtime)
 
@@ -274,11 +465,11 @@ CONTRACT_VIOLATION > FAIL > BLOCKED > UNKNOWN > NOT_RUN > PASS
 
 ## 16. Стратегия тестирования
 
-Unit: schemas/status/path/state/digest/conflict/permission/idempotency. Contract: Task Brief, auth false, enums, CLI exits, generated decisions, ownership, output versions, SoT separation. Integration: intake→spec, discovery→map, preview→apply, task→executor, executor→validation, memory→resume, install→reconcile, review→decision, freeze→validation. E2E: first start, idea→review, interruption, protected block, NOT_RUN, update preservation, Git boundaries, incident→lesson.
+Unit: schemas/status/path/state/digest/conflict/permission/idempotency, task/run axes, transition/CAS, diagnostic re-entry, progress и completion predicates. Contract: Task Brief, auth false, parent/stage envelope consumption, enums, CLI exits, generated decisions, ownership, output versions, SoT separation. Integration: intake→spec, discovery→map, preview→apply, task→executor→check→diagnose→correct, final-validation finding→fresh candidate, memory→resume, install→reconcile, review→decision, freeze→validation. E2E: first start, idea→review, interruption/resource pause→resume, protected block, NOT_RUN, multi-level cause discovery, update preservation, Git boundaries, incident→lesson.
 
 ## 17. Обязательные негативные сценарии
 
-Empty mapping, bogus status, free-form Risk Profile, bool-as-int, mismatched session, malformed idle bypass, CLI exit 0 on failure, runtime schema bypass, scope not enforced, stale baseline, write-after-freeze, self-reference, read-only writes, remote secret leak, unrelated staging, environment false blocker, NOT_RUN→PASS, Evidence as auth, default authorized true, partial mutation no journal, update overwrites state, external instruction, UI approval, stale index, absolute links, conflicting entrypoints, adapter drift.
+Empty authority mapping permits no mutation, Task Brief `requested_*` treated as authority, transition without exact `{from,to}`/state-machine version, action-spec digest mismatch, bogus status, free-form Risk Profile, bool-as-int, mismatched session, lifecycle-stage/loop-action conflation, stale/concurrent controller update, state-bound envelope replay, revoked/changed parent authorization with cached old digest, Correction Gate replay for another diagnostic/candidate/correction, worker-declared completion, consumed stage-envelope reuse, malformed idle bypass, CLI exit 0 on failure, runtime schema bypass, scope not enforced, stale baseline, write-after-freeze, self-reference, read-only validator writes, remote secret leak, unrelated staging, environment false blocker, NOT_RUN→PASS, Evidence as auth, default authorized true, partial mutation no journal/reconciliation, run budget→false task failure, diagnostic restart for same signature, unchanged retry as progress, weak Evidence→speculative correction, residual risk without Human record, unknown impact→narrow false PASS, update overwrites state, external instruction, UI approval, stale index, absolute links, conflicting entrypoints, adapter drift.
 
 ## 18. Протокол validation
 
@@ -290,7 +481,7 @@ One document: purpose, before/after, exact paths, Evidence, acceptance, negative
 
 ## 20. Recovery и handoff
 
-Execution failure → stop, preserve state/logs, classify partial writes, recovery facts, no auto-retry, correction task. Validation finding → report/stop, separate correction. Handoff records repo identity, task/candidate, result, changes, checks, blockers, decisions, permissions и next action. Mutable facts rechecked on resume.
+Stage failure → worker report/stop, preserve state/logs, classify partial writes and reconcile unknown effects before any retry. Controller retains active task and routes a covered defect through diagnosis and a fresh correction envelope. Validation finding → validator report/stop → controller diagnosis → separate corrector/new candidate → fresh affected validation. Missing Evidence/authority produces `WAIT_EVIDENCE`/`WAIT_HUMAN`; run allowance produces resumable `PAUSED_RESOURCE`. Handoff records repo identity, task/run state, candidate, result, changes, checks, diagnostic level/ledger, blockers, decisions, permissions и deterministic next action. Mutable facts and authority are rechecked on resume.
 
 ## 21. Git delivery
 

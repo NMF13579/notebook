@@ -1,11 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_agent_review: PASS
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -160,7 +164,7 @@ Intent/Problem Intake, Discovery, Product Spec/Feature Passport, Status/Next/Det
 
 ### Development Factory
 
-Task Brief compiler, preflight/preview, execution adapters, validators/test harness, Context Packs, backlog/decomposition, CI/release helpers, strict loaders/drift checks.
+Task Brief compiler, preflight/preview, persistent complete-task controller, execution adapters, validators/test harness, multi-stage diagnostics, Context Packs, backlog/decomposition, CI/release helpers, strict loaders/drift checks. Controller продолжает bounded task через отдельные stage workers до доказанного результата, но не расширяет authority и не выполняет protected/Git actions автоматически.
 
 ### Governance
 
@@ -205,14 +209,17 @@ repository → read-only identity/preflight → capability map
 
 ```text
 Feature Passport → targeted research → Product Contract → architecture
-→ Task Brief → EXECUTE → Stage Report → VALIDATE → REVIEW → decision
+→ Task Brief → parent task authority → controller
+→ EXECUTE → CHECK → при failure многоступенчатая DIAGNOSE → CORRECT
+→ FINAL_VALIDATE → REVIEW → decision
 ```
 
 ### J-004 — Возобновление работы
 
 ```text
-/status → repository-derived state → exact identity → blockers/decisions
-→ /next → optional /details
+/status → persistent task/run state → repository-derived rebind
+→ exact candidate/authority/attempt ledger → blockers/decisions
+→ deterministic /next → optional /details
 ```
 
 ### J-005 — Проверка и решение

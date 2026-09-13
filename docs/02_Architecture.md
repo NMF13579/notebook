@@ -1,11 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_agent_review: PASS
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -95,8 +99,10 @@ Product Runtime
 Development Factory
 ├─ Task Brief Compiler
 ├─ Preflight / Preview
+├─ Complete-Task Controller
 ├─ Scoped Executor
 ├─ Validation / Evidence
+├─ Diagnostic Ladder / Corrector
 ├─ Context Pack Builder
 ├─ Handoff Builder
 └─ Test / CI / Release Helpers
@@ -206,43 +212,119 @@ reversal_conditions: []
 #### C-005 — Task Brief
 
 ```yaml
+task_contract_version: AOS_TASK_CONTRACT_V1
 task_id:
+task_revision:
 goal:
 user_outcome:
 feature_id:
-stage:
+lifecycle_stage: PLAN | EXECUTE | VALIDATE | REVIEW
 repository_identity:
 worktree:
 branch:
 HEAD:
 baseline:
-scope:
-  allowed_paths: []
-  forbidden_paths: []
-allowed_operations: []
-forbidden_operations: []
+requested_paths: []
+prohibited_paths: []
+requested_operations: []
+prohibited_operations: []
+requested_effects: []
+prohibited_effects: []
 assumptions: []
 unknowns: []
 proposed_Risk_Profile:
 assigned_Risk_Profile: UNASSIGNED
 validation_matrix: []
+acceptance_criteria: []
+parent_task_authority_requirements:
+  requested_worker_actions: []
+  requested_task_hard_limits:
+run_allowance:
+human_only_boundaries: []
 stop_conditions: []
 ```
 
-#### C-006 — Execution Authorization Record
+Task Brief фиксирует только request/prohibition и не предоставляет authority.
+До отдельной выдачи он не содержит authorization identity. Фактический binding
+сохраняется controller в Loop State без переписывания Task Brief. `requested_*`
+никогда не трактуется как `allowed_*`.
+
+#### C-006 — Parent Task Authorization Record
 
 ```yaml
+authorization_schema_version: AOS_PARENT_TASK_AUTHORIZATION_V1
 authorization_id:
+authorization_revision:
 task_id:
+task_revision:
 subject_identity:
-allowed_stage: EXECUTE
+allowed_worker_actions: []
 allowed_operations: []
 allowed_paths: []
+allowed_effects: []
+forbidden_operations: []
+forbidden_paths: []
+forbidden_effects: []
+human_only_boundaries: []
+task_hard_limits:
 issued_by_human:
+issued_at:
+expires_at:
+revoked: false
+```
+
+Parent Task Authorization задаёт предел effectful worker dispatches и никогда
+не изменяет state-machine graph. Отсутствующие, `null` и пустые allowlists
+означают отсутствие разрешения; forbidden fields и human-only boundaries имеют
+приоритет. Допустимые значения `allowed_worker_actions` — `EXECUTE` и
+`CORRECT`. Wildcard допустим только как явный pattern с bounded canonical root.
+
+#### C-006A — Effectful Stage Envelope
+
+```yaml
+envelope_schema_version: AOS_EFFECTFUL_STAGE_ENVELOPE_V1
+envelope_id:
+parent_authorization_id:
+parent_authorization_digest:
+parent_authorization_revision:
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+task_id:
+task_revision:
+candidate_identity:
+state_revision:
+event_head_identity:
+transition:
+  from: SELECT_NEXT_ACTION | DIAGNOSE
+  to: EXECUTE | CORRECT
+worker_action: EXECUTE | CORRECT
+action_spec_digest:
+correction_gate_id:
+correction_gate_digest:
+allowed_operations: []
+allowed_paths: []
+allowed_effects: []
+forbidden_operations: []
+forbidden_paths: []
+forbidden_effects: []
+attempt_ordinal:
+issued_by_controller_identity:
 issued_at:
 expires_at:
 consumed: false
 ```
+
+Controller выводит fresh Stage Envelope только для `EXECUTE` или `CORRECT`.
+Envelope обязан быть сужением актуальной Parent Task Authorization и связывает
+exact action, candidate, state revision/event head и переход
+`AOS_COMPLETE_TASK_LOOP_V1`. Для `CORRECT` обязательны Correction Gate identity
+и digest; для `EXECUTE` они отсутствуют.
+
+Admission атомарно проверяет: текущие state/event/candidate; разрешённый
+`{from,to}` из canonical transition matrix; exact action-spec digest; текущую
+unexpired/unrevoked Parent Task Authorization с совпадающими
+identity/revision/digest; subset allowed и superset forbidden fields; gate для
+`CORRECT`; unused/unexpired envelope. После admission envelope потребляется до
+effect. Cache или вложенный digest не заменяет чтение текущих records.
 
 #### C-007 — Preflight / Preview
 
@@ -250,11 +332,77 @@ Exact repository/worktree/branch/HEAD/baseline/status/diff, planned actions, pat
 
 #### C-008 — Execution Record
 
-Starting identity, authorization identity, actual mutations, changed paths, side effects, checks, ending identity, limitations и stop reason.
+Starting identity, Stage Envelope identity/digest, action-spec digest, actual
+mutations, changed paths, side effects, checks, ending identity, limitations и
+stop reason.
 
 #### C-009 — ValidationEnvelope
 
-Stable result vocabulary, required/optional checks, `NOT_RUN`, limitations, exact subject identity и fail-closed aggregation.
+```yaml
+validation_envelope_version: AOS_VALIDATION_ENVELOPE_V1
+validation_envelope_id:
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+task_id:
+task_revision:
+candidate_identity:
+state_revision:
+event_head_identity:
+transition:
+  from: EXECUTE | CORRECT | SELECT_NEXT_ACTION | CHECK
+  to: CHECK | FINAL_VALIDATE
+worker_action: CHECK | FINAL_VALIDATE
+required_check_ids: []
+read_scope: []
+issued_by_controller_identity:
+issued_at:
+expires_at:
+consumed: false
+check_results: []
+aggregate_result: NOT_RUN
+evidence_refs: []
+limitations: []
+```
+
+ValidationEnvelope всегда read-only. Он сохраняет stable result vocabulary,
+required/optional checks, `NOT_RUN`, limitations, exact subject identity и
+fail-closed aggregation. Его нельзя преобразовать в Stage Envelope.
+
+#### C-009A — Correction Gate
+
+```yaml
+gate_id:
+gate_version: AOS_CORRECTION_GATE_V1
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+parent_authorization_id:
+parent_authorization_revision:
+parent_authorization_digest:
+task_id:
+task_revision:
+state_revision:
+event_head_identity:
+diagnostic_id:
+failure_signature:
+candidate_before_identity:
+proposed_correction_digest:
+authority_match: true
+cause_status: PROVEN | PLAUSIBLE
+confidence: MEDIUM | HIGH
+material_competing_hypotheses: 0
+correction_class: REVERSIBLE_BOUNDED | REVERSIBLE_DIAGNOSTIC
+falsifiable_prediction_id:
+verification_check_ids: []
+rollback_or_recovery_ref:
+evaluated_by_controller_identity:
+evaluated_at:
+decision: ALLOW | DENY
+```
+
+`ALLOW` допустим только для `PROVEN + MEDIUM|HIGH + REVERSIBLE_BOUNDED` либо
+`PLAUSIBLE + HIGH + REVERSIBLE_DIAGNOSTIC`. Gate относится только к exact
+authorization/state/diagnostic/failure/candidate/proposed-correction tuple. Он
+вычисляется до Stage Envelope. При `ALLOW` controller создаёт `CORRECT` envelope
+с тем же `action_spec_digest` и gate identity/digest. Missing, stale, replayed
+или mismatched binding даёт `DENY`.
 
 #### C-010 — Evidence Record
 
@@ -266,7 +414,14 @@ Review subject, user impact, Evidence, findings, options, explicit human decisio
 
 #### C-012 — Project Memory / Handoff
 
-Repository identity, stage, baseline/candidate, accepted decisions, findings, blockers, checks, authorization state и one next action.
+Loop-state schema/state-machine version, repository identity, lifecycle stage,
+controller action, task/run state, state revision/digest/event head,
+parent authorization identity/revision/digest, baseline/candidate,
+accepted decisions, findings, blockers, checks, diagnostic level, attempt ledger,
+resource usage, active Stage/Validation Envelope state и one deterministic next
+action. Controller является единственным владельцем переходов; worker output —
+observation, а не authority изменить state или объявить completion. Concurrent
+или stale update отклоняется через lease/CAS-equivalent и ведёт к reconciliation.
 
 #### C-013 — Install / Update Manifest
 
@@ -284,8 +439,19 @@ Separate records for Commit, Push, Merge и Release.
 Document maturity:
 DRAFT | HUMAN_REVIEW_REQUIRED | HUMAN_ACCEPTED | SUPERSEDED
 
-Task stage:
+Lifecycle stage:
 PLAN | EXECUTE | VALIDATE | REVIEW
+
+Controller action (`AOS_COMPLETE_TASK_LOOP_V1`):
+BIND_TASK | RECOVER_STATE | SELECT_NEXT_ACTION | EXECUTE | CHECK | DIAGNOSE |
+CORRECT | FINAL_VALIDATE | IDLE
+
+Task state:
+ACTIVE | WAIT_HUMAN | WAIT_EVIDENCE | TECHNICALLY_COMPLETE |
+TASK_FAILED | CANCELLED_BY_HUMAN | CONTRACT_VIOLATION
+
+Run state:
+RUNNING | PAUSED_RESOURCE | STOPPED
 
 Technical result:
 CONTRACT_VIOLATION | FAIL | BLOCKED | UNKNOWN | NOT_RUN | PASS
@@ -296,6 +462,28 @@ ACCEPT | NEEDS_CHANGES | REJECT | DEFER
 Permission:
 ALLOWED | HUMAN_AUTHORIZATION_REQUIRED | BLOCKED_POLICY | BLOCKED_UNKNOWN | NOT_APPLICABLE
 ```
+
+Canonical controller-action matrix `AOS_COMPLETE_TASK_LOOP_V1`:
+
+| `from` | Допустимые `to` |
+|---|---|
+| `BIND_TASK` | `RECOVER_STATE`, `IDLE` |
+| `RECOVER_STATE` | `SELECT_NEXT_ACTION`, `DIAGNOSE`, `IDLE` |
+| `SELECT_NEXT_ACTION` | `EXECUTE`, `CHECK`, `FINAL_VALIDATE`, `IDLE` |
+| `EXECUTE` | `CHECK`, `DIAGNOSE`, `IDLE` |
+| `CHECK` | `SELECT_NEXT_ACTION`, `DIAGNOSE`, `FINAL_VALIDATE`, `IDLE` |
+| `DIAGNOSE` | `CORRECT`, `IDLE` |
+| `CORRECT` | `CHECK`, `DIAGNOSE`, `IDLE` |
+| `FINAL_VALIDATE` | `DIAGNOSE`, `IDLE` |
+| `IDLE` | `RECOVER_STATE` после resume event |
+
+Матрица описывает только controller-action axis. `WAIT_HUMAN`,
+`WAIT_EVIDENCE`, `TECHNICALLY_COMPLETE`, `TASK_FAILED`,
+`CANCELLED_BY_HUMAN` и `CONTRACT_VIOLATION` изменяют task state и переводят
+controller action в `IDLE`; `PAUSED_RESOURCE` изменяет run state, сохраняет task
+`ACTIVE` и также переводит action в `IDLE`. Lifecycle stage меняется только по
+своему workflow. Переходы между разными осями не записываются как `{from,to}`
+controller actions.
 
 ## 8. Владение данными
 
@@ -457,6 +645,21 @@ Current direction: modular monorepo first. Split допускается при �
 
 Automatic retry запрещён, если failure меняет scope, identity, permissions или human decision requirements.
 
+Для failure внутри действующей complete-task authority применяется
+многоступенчатая read-first диагностика: bind failure/observer → локальная
+причина → различение гипотез → соседняя causal boundary → environment/system →
+trajectory/architecture review. Если причина не найдена, Evidence совместимо с
+несколькими существенными причинами, observer ненадёжен или confidence
+недостаточен для обратимой correction, диагностика обязана расшириться на
+следующий уровень без расширения mutation/access authority.
+
+Stable failure signature продолжает достигнутый diagnostic level после
+correction; новая signature начинает новый record с первого уровня, не
+сбрасывая общий ledger. Повтор unchanged check, equivalent patch и explanation
+без information gain не являются progress. Исчерпание run allowance создаёт
+resumable pause; только human-defined task hard limit либо доказанная
+невозможность может завершить незакрытую task с failure.
+
 ## 15. Минимальная модель реализации — INFERENCE
 
 ```text
@@ -474,4 +677,9 @@ Compatibility relationship, first slice, implementation repo, interface, Project
 
 ## 17. Отложенная сложность
 
-Full Control Plane, authority-bearing central registry, autonomous loops, vector DB, distributed services, multi-agent cascade, broad sandbox framework, plugin marketplace, SaaS collaboration backend и regulated medical architecture.
+Full Control Plane, authority-bearing central registry, unbounded autonomous
+loops вне parent task authority/stage envelopes, broad autonomous self-heal,
+vector DB, distributed services, multi-agent cascade, broad sandbox framework,
+plugin marketplace, SaaS collaboration backend и regulated medical architecture.
+Bounded complete-task loop из разделов 5, 6 и 14 в эту deferred category не
+входит.

@@ -1,11 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_agent_review: PASS
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -183,9 +187,12 @@ NOT_RUN ≠ PASS
 3. Protected/destructive action требует explicit human decision.
 4. Agent не назначает Risk Profile автоматически.
 5. Task Brief не является execution authorization.
-6. Один run выполняет один stage.
-7. Completion/finding/failure завершаются report и stop.
-8. Validation не исправляет subject.
+6. Один effectful worker выполняет один `EXECUTE` или `CORRECT` по fresh exact
+   Stage Envelope и после factual result останавливается; controller открывает
+   следующий worker только по canonical state-machine transition и в пределах
+   действующей Parent Task Authorization.
+7. Stage completion/finding/failure завершаются report и stop этого worker. Task остаётся активной до доказанного completion predicate, явной паузы, Human Gate, отмены или доказанной невозможности.
+8. Validation не исправляет subject. Finding может быть возвращён controller в diagnostic/correction loop, но mutation выполняет отдельный corrector по fresh envelope и создаёт новый candidate.
 9. Edit, Commit, Push, Merge и Release разделены.
 10. Temporary output не является durable Evidence.
 11. Generated status не мутирует lifecycle.
@@ -212,10 +219,11 @@ NOT_RUN ≠ PASS
 
 ### Не входит автоматически
 
-- autonomous coding without checkpoints;
+- unbounded autonomous coding without parent task authority, stage envelopes и
+  controller checkpoints;
 - mandatory multi-agent orchestration;
 - full RAG/vector backend;
-- autonomous self-heal;
+- broad autonomous self-heal вне заранее bounded diagnostic/correction loop;
 - automatic commit/push/merge/release;
 - SaaS/cloud/dashboard/marketplace;
 - wholesale legacy Governance;

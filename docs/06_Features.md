@@ -1,11 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_agent_review: PASS
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -1262,8 +1266,10 @@ Thin executor consuming exact authorization/preview, journaling writes and recon
 3. Execute smallest action
 4. Journal mutations
 5. Run targeted checks
-6. Reconcile diff
-7. Stop with report
+6. При failure передать stable signature и Evidence в canonical diagnostic ladder
+7. Выполнить только Evidence-supported bounded correction по fresh stage envelope
+8. Reconcile diff
+9. Stop worker with factual report; complete-task controller выбирает следующий stage
 
 ### Изменения состояния
 
@@ -1278,10 +1284,13 @@ Thin executor consuming exact authorization/preview, journaling writes and recon
 
 ### Восстановление
 
-Остановить затронутую операцию, сохранить фактическое состояние и Evidence, пометить stale/unknown, восстановить exact input или получить решение человека и повторить только затронутый stage.
+Остановить stage worker, сохранить фактическое состояние и Evidence, пометить stale/unknown и передать result complete-task controller. Controller сначала reconciles unknown effects, затем продолжает diagnostic/correction loop только в пределах parent task authority; boundary change требует решения человека.
 
 ### Зависимости и общие contracts
 
+- C-006 Parent Task Authorization Record
+- C-006A Effectful Stage Envelope
+- C-009A Correction Gate
 - FTR-006
 - FTR-009
 - FTR-014
@@ -1292,7 +1301,7 @@ Thin executor consuming exact authorization/preview, journaling writes and recon
 - No scope expansion
 - No Git delivery
 - No privilege escalation
-- One stage
+- One effectful action per worker; canonical controller transition and fresh envelope
 
 ### Критерии приёмки
 
@@ -1300,12 +1309,21 @@ Thin executor consuming exact authorization/preview, journaling writes and recon
 - Diff reconciled
 - Failure recoverable
 - Auth consumed once
+- Same task continues across bounded workers until canonical completion predicate or explicit pause/gate
 
 ### Обязательные негативные сценарии
 
 - Unexpected path blocks
 - Stale preview rejected
+- Stage envelope с stale state/event head или revoked parent authorization rejected
+- Correction Gate replay для другого candidate/correction rejected
+- Task Brief requested scope не трактуется как authority
+- Transition без exact `{from, to}` и state-machine version rejected
+- Proposed correction и Stage Envelope action-spec digest mismatch rejected
+- Lifecycle/controller/task/run axes cannot be substituted for each other
+- Prohibited effect cannot reappear in derived envelope
 - No automatic correction/retry after boundary change
+- Weak/inconclusive Evidence expands diagnostics instead of selecting a speculative patch
 
 ### Минимальная модель реализации — кандидат
 
@@ -1384,7 +1402,7 @@ One ValidationEnvelope and official entrypoint preserving NOT_RUN, limitations a
 3. Run required/optional checks
 4. Record each result
 5. Aggregate fail-closed
-6. Emit machine/human report
+6. Emit machine/human report and return finding to controller without mutation
 
 ### Изменения состояния
 
@@ -1399,7 +1417,7 @@ One ValidationEnvelope and official entrypoint preserving NOT_RUN, limitations a
 
 ### Восстановление
 
-Остановить затронутую операцию, сохранить фактическое состояние и Evidence, пометить stale/unknown, восстановить exact input или получить решение человека и повторить только затронутый stage.
+Validator останавливается с candidate-bound report и не исправляет subject. Complete-task controller может направить finding в canonical diagnostic ladder и открыть отдельный correction worker только по fresh envelope; после mutation affected validation становится stale и выполняется заново.
 
 ### Зависимости и общие contracts
 
@@ -1418,12 +1436,14 @@ One ValidationEnvelope and official entrypoint preserving NOT_RUN, limitations a
 - Stable vocabulary
 - Every exit machine-readable
 - Required NOT_RUN prevents PASS
+- Worker/validator PASS alone cannot close task; canonical completion predicate is evaluated separately
 
 ### Обязательные негативные сценарии
 
 - Unknown enum rejected
 - Exit 0 on failure rejected
 - Wrong interpreter detected
+- Unknown mutation impact cannot retain a narrow stale PASS
 
 ### Минимальная модель реализации — кандидат
 
@@ -1738,9 +1758,10 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 2. Preserve state/logs
 3. Classify partial writes
 4. Reconcile intended/actual
-5. Determine options
-6. Require human decision if needed
-7. Resume after recheck
+5. Restore persistent task/run state and continuous attempt ledger
+6. Determine deterministic next action
+7. Require human decision or Evidence only for the affected boundary
+8. Resume after repository/candidate/authority recheck
 
 ### Изменения состояния
 
@@ -1755,7 +1776,7 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 
 ### Восстановление
 
-Остановить затронутую операцию, сохранить фактическое состояние и Evidence, пометить stale/unknown, восстановить exact input или получить решение человека и повторить только затронутый stage.
+Остановить worker, сохранить factual state/Evidence и atomically persist next action. `PAUSED_RESOURCE` завершает только run; `WAIT_HUMAN`/`WAIT_EVIDENCE` сохраняют незавершённую task. Resume начинается с reconciliation, не повторяет action с неизвестным effect и не сбрасывает diagnostic level/ledger.
 
 ### Зависимости и общие contracts
 
@@ -1768,6 +1789,7 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 - No automatic authority/scope transition
 - Destructive rollback separate
 - One next action
+- Single-controller/CAS-equivalent state ownership
 
 ### Критерии приёмки
 
@@ -1775,12 +1797,15 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 - Resume reproducible
 - Denied action visible
 - No data loss
+- Run interruption/resource pause does not become false task completion or failure
 
 ### Обязательные негативные сценарии
 
 - Retry after permission violation rejected
 - Stale handoff blocks action
 - Unknown not READY
+- Concurrent/stale controller update rejected
+- Same failure signature cannot restart diagnostics from zero without recorded new Evidence
 
 ### Минимальная модель реализации — кандидат
 
