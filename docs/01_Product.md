@@ -1,14 +1,16 @@
 ---
 package: AOS_Project_Knowledge_Baseline
-package_revision: R4-RU
+package_revision: R7-RU
 updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
+current_change_subject: AOS_MODULE_PROTOCOL_CONNECTORS_QUEUES_R7
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_status: SCAFFOLD_CORE_DRAFT
 current_change_agent_review: PASS
+current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
 current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
@@ -263,11 +265,11 @@ Time intent→Task Brief, clarification loops, scope drift, resume time, review 
 
 ## 14. Необходимые product decisions
 
-First segment/job/slice, Product Spec↔Feature Passport, Feature Registry, scenario/access/UX timing, interface, acceptance identity, install ownership, feature dispositions и metrics.
+Для X1 зафиксированы Product Spec↔Feature Passport ownership и first FTR-001 slice; [применимость этих решений](00_Core.md#scaffold-core-decisions) ограничена исходным scope. Для более широкого продукта остаются segment/job, Feature Registry, scenario/access/UX timing, interface, acceptance identity, install ownership, feature dispositions и metrics.
 
 ## 15. Жизненный цикл внедрения (Project Roadmap)
 
-Стратегия реализации ядра AOS основана на последовательных вертикальных срезах (Vertical Slices), покрывающих Runtime Pipeline:
+Прежняя общая последовательность покрывает Runtime Pipeline. Она не является одновременно вторым заданием на новый scaffold/core; для этой задачи подготовлено уточнение [S0–K4](#scaffold-core-outcome), ожидающее SC-DEC-01:
 
 - **Foundation:** Базовый репозиторий, CLI skeleton и Logger.
 - **Slice 1 (Intake & Definition):** Приём намерения и формализация контрактов (Intent Contract).
@@ -290,7 +292,66 @@ First segment/job/slice, Product Spec↔Feature Passport, Feature Registry, scen
 
 Полные модули сохраняют задачи установки/обновления/удаления, backlog, архитектурного выбора, Git-доставки, audits, patterns, CI и incidents. Отсутствие модуля допускается лишь для сценария, который не требует его результата. Невозможность выполнить required check никогда не заменяется PASS; модуль не получает право менять scope, authority или state другого владельца.
 
-В scope первой документационной версии входит описание конечного поведения всех выбранных возможностей, а не реализация и не universal platform support. Полнота ТЗ не означает одновременный запуск всех модулей. FTR-017/FTR-030 предлагаются как поддерживающие модули: их контракт описывается полностью, но индекс активируется после измеренной поисковой потребности, strict tools — для определённых стабильных contracts. Локальная базовая проверка валидности данных не зависит от установки отдельного модуля tools.
+В scope первой документационной версии входит описание конечного поведения выбранных возможностей и требования переносимости; реализация и одновременное подтверждение поддержки всех ОС сюда не входят. Полнота ТЗ не означает одновременный запуск всех модулей. FTR-017/FTR-030 предлагаются как поддерживающие модули: их контракт описывается полностью, но индекс активируется после измеренной поисковой потребности, strict tools — для определённых стабильных contracts. Локальная базовая проверка валидности данных не зависит от установки отдельного модуля tools.
+
+<a id="autonomous-module-outcome"></a>
+
+### Автономная сборка каждого выбранного модуля
+
+Требование человека: единицей автономной разработки является весь выбранный
+модуль. Для модуля из одной фичи границы совпадают; для составного модуля
+внутренние FTR сохраняют contracts и критерии, но не требуют отдельных ручных
+запусков, разрешений на каждый обычный шаг или промежуточного Human ACCEPT.
+
+До запуска согласованы результат модуля, входящие FTR и exact contracts,
+внешние интерфейсы/версии, target/environment, dependencies, данные/providers,
+полномочия, лимиты и проверяемые критерии. Агент затем самостоятельно выполняет
+декомпозицию, сборку фич, внутреннюю интеграцию, проверки, диагностику/correction,
+сохранение состояния и supported resume до единого технического результата.
+Declared интеграции с ядром и уже доступными модулями входят в тот же scope.
+Успешные отдельные фичи при неработающем модуле не означают completion.
+
+Человек получает один итоговый review package. Пользовательский dogfood,
+принятие результата и protected/Git delivery остаются отдельно от технической
+сборки. Human gates, являющиеся поведением самого продукта, реализуются и
+проверяются с явно синтетическими fixtures; такие fixtures не выдаются за
+реальные человеческие решения или полномочия разработки.
+
+Если обязательное решение, доступ или внешняя зависимость отсутствует до старта,
+модуль не готов к автономному запуску. Неожиданный material conflict либо выход
+за authority даёт точную остановку; это незавершённый автономный run, а не PASS.
+Обычный дефект и выбор обратимого HOW в согласованных границах решает агент.
+Правило относится ко всем модулям по мере их выбора; полная подготовка всех
+поздних dossiers одновременно не требуется. [Development](03_Development.md#autonomous-module-development)
+задаёт достаточность входа и доказательства результата.
+
+<a id="core-connector-outcome"></a>
+
+### Подключение к ядру: коннекторы и очереди — R7
+
+Человек выбрал смешанную модель обмена и наличие минимальных локальных
+коннекторов/очереди уже в первом ядре. Ядро предоставляет объявленные точки
+подключения: быстрый read-only запрос возвращает результат напрямую, команда
+с эффектом или отложенная работа доставляется через сохраняемую очередь,
+событие сообщает наблюдение объявленным consumers. Вызов внутренних классов
+или storage другого модуля не заменяет публичный интерфейс.
+
+Пользователь видит отдельно приём запроса, ожидание/доставку, фактическое выполнение,
+результат и причину остановки. Повтор доставки не должен повторять завершённый
+логический эффект. Отказ optional-модуля не выключает независимые возможности
+ядра; required недоступная capability сохраняет незавершённый критерий.
+
+Модуль подключается после проверки contracts/capabilities и интеграционных
+сценариев. При отключении новая работа больше не принимается, ожидающая явно
+приостанавливается, выполняющаяся reconciled. Удаление реализации не означает
+удаление данных; зависимые consumers и сохранённые сообщения учитываются до
+удаления. Обновление, удаление данных и migration имеют отдельный объявленный scope.
+
+Это расширение базовых обязанностей core, а не новый backlog FTR-007 или
+обязательный внешний broker, daemon/service либо dynamic plugin loader.
+Локальная композиция допустима. [C-015/C-016](02_Architecture.md#module-connector-queue)
+задают contracts; [протокол агента](03_Development.md#feature-module-protocol)
+определяет подготовку, подключение и проверку каждого выбранного модуля.
 
 <a id="modular-decisions"></a>
 
@@ -298,8 +359,75 @@ First segment/job/slice, Product Spec↔Feature Passport, Feature Registry, scen
 
 | ID | Вопрос и рекомендуемая граница | Альтернатива и последствие | Статус |
 |---|---|---|---|
-| MOD-DEC-01 | Принять placements в индексе: 13 семейств с базовыми возможностями, 8 сценарных модулей, 2 support-модуля; остальные 7 не расширять. Принять классификацию зависимостей вместо обязательного запуска всех связанных фич | Оставить только исходный X1: потребуется сузить заявленный полный цикл. Сделать все 23 обязательными: увеличится минимальная зависимость и стоимость сопровождения | WAIT_HUMAN; направление модульности уже принято |
+| MOD-DEC-01 | Принять placements в индексе: 13 core-семейств, 7 сценарных модулей для 8 семейств (FTR-005+022 объединены), 2 support-модуля; остальные 7 семейств не расширять. Принять классификацию зависимостей вместо обязательного запуска всех связанных фич | Оставить только исходный X1: потребуется сузить заявленный полный цикл. Сделать все 23 обязательными: увеличится минимальная зависимость и стоимость сопровождения | WAIT_HUMAN по оставшемуся составу; группировка FTR-005+022 выбрана человеком |
 | MOD-DEC-02 | Подтвердить interface/support envelope перед реализацией FTR-004/015/023: допустимые поверхности, платформы, способ поставки, Git-host/CI providers и совместимость версий | Ограничиться platform-neutral контрактом; допустимо для обзора дизайна, не даёт implementation-ready утверждения по integrations | OPEN; точный выбор не сделан |
 | MOD-DEC-03 | Определить trusted capture человеческого решения и правила sensitive/provider-data, доступа и хранения для выбранного deployment context | До определения запретить неизвестные external effects и не устанавливать универсальный retention срок | OPEN; блокирует зависимые runtime claims |
 
+Человек прямо выбрал объединение FTR-005 и FTR-022 в один модуль
+«Архитектурные решения и patterns». Это решение о группировке, а не принятие
+полного implementation contract. Две FTR identities, их критерии и исходные
+X1 dispositions сохраняются. Остальные объединения не выбраны; модуль не входит
+в обязательный S0–K4. Границы — [Features](06_Features.md#architecture-patterns-module).
+
 Эти вопросы сгруппированы по материальному решению, а не по каждой редакции. Неопределённые параметры не заполняются догадкой. ТЗ и review могут быть готовы как DRAFT с указанными границами; статусы принятия и implementation readiness не повышаются.
+
+<a id="scaffold-core-outcome"></a>
+
+## 17. Scaffold и первое ядро — SCAFFOLD_CORE_DRAFT
+
+Пользователь результата — владелец проекта, заранее задавший достаточную bounded задачу и полномочия. Наблюдаемый итог первого ядра: одна разрешённая локальная задача проходит от достаточного input через execution/check/diagnose/correct до проверенного результата, понятного review package и состояния, из которого работа воспроизводимо продолжается. Владелец не управляет каждой correction и каждым переходом между согласованными срезами.
+
+**Scaffold разработки AOS** — подготовленная запускаемая основа implementation target и локального dev/check cycle. Она не устанавливает AOS в произвольные чужие проекты и не включает полный installer/update/uninstall FTR-004. Его базовый контракт:
+
+- **Actor/trigger:** внешний агент получает принятую задачу S0, exact target и отдельную authority.
+- **Входы:** согласованный [профиль](02_Architecture.md#scaffold-core-profile), достаточный исходный Product/Feature Contract, поддержанное окружение, path/operation boundary и проверенный внешний host.
+- **Результат:** минимальная запускаемая поверхность продукта, объявленные runtime/dev dependencies, инструкции и entrypoints локальных checks, воспроизводимая идентификация candidate, durable state/evidence для разработки. Toolchain и test harness доступны без запуска ещё не реализованного AOS.
+- **Порядок:** наблюдение target → подготовка только отсутствующей разрешённой основы → проверка запуска/окружения → сохранение candidate и handoff K1. Существующий target допускается только после inventory; scaffold не очищает его до «чистого» состояния.
+- **Отказы:** wrong root/identity, конфликт user files, path escape, missing dependency, unavailable required check или прерванный effect дают точную причину и незавершённый критерий; automatic overwrite и слепой retry запрещены.
+- **Recovery:** сохранить observations; reconcile planned/actual effects; повторить только доказанно незавершённое действие по fresh boundary. Разрушительный rollback не входит автоматически.
+
+| Срез | Достаточный вход | Результат и критерий выхода |
+|---|---|---|
+| S0 — development scaffold | Решения SC-DEC-01…03, фактический launch SC-DEC-04, внешний host/preflight | В чистом поддержанном окружении воспроизводимы prepare/start/check; dependencies объявлены, source/installed claims различены, unrelated state сохранено. Handoff содержит candidate, commands/provenance, объявленные интерфейсы C-015/C-016 и профиль подготовки подключения/очереди; следующий K1 |
+| K1 — достаточная задача | S0, заранее подтверждённые problem/outcome/scope и source inputs | Базовые FTR-001/002/003/006 формируют source-bound Intent/Spec/Passport/Brief. Существующие решения читаются без повторного интервью; material missing input блокирует только зависимое действие. End-to-end отрицательный пример не получает выдуманное approval |
+| K2 — один разрешённый effect | K1, current parent authority, preview и permission; базовые state/validation capabilities доступны до effect | FTR-009/019/010 создают точный candidate и effect record; FTR-013/011 проверяют scope/result. Положительный effect проходит, denial не меняет target. До первого queued effect доступны регистрация коннектора, durable queue, persistence, validation и reconciliation; сообщение не заменяет fresh admission |
+| K3 — correction и continuation | K2, известные критерии/checks, durable observations | При дефекте полный controller loop диагностирует, выполняет bounded correction и перепроверяет candidate. Прерывание до/после effect, run pause и fresh-session resume не теряют ledger и не повторяют effect; duplicate delivery/потерянный acknowledgement и отмена различены |
+| K4 — цельный core result | K1–K3, финальный exact candidate и применимые required checks | FTR-008/012/016 дают понятный status/review/handoff. Интегрированный direct/queued journey с коннекторами подтверждает каждый критерий, сохраняет NOT_RUN/UNKNOWN и не выдаёт технический результат за Human ACCEPT или Git delivery |
+
+S0–K4 — порядок доказательства результатов, а не запрет заранее реализовать обязательного consumer. Минимальные state/identity/authority/check гарантии должны появиться до первого effect K2; детализацию реализации выбирает агент. Все срезы могут принадлежать одной исходной task; переходы не требуют нового человеческого решения, если цель, contracts и полномочия сохраняются. Человек выбрал явные lifecycle-переходы execution → validation → при дефекте execution; их применимость и atomic admission задаёт [Development](03_Development.md#core-lifecycle-transitions). Сами S0–K4 не являются lifecycle stages.
+
+В автономном положительном journey execution ссылается на exact Product/Feature Contract, принятый до run и переданный во входах. K1 может прочитать его напрямую или подготовить производные DRAFT-представления, сохранив исходную ссылку; смысловая похожесть нового текста не переносит human acceptance на новые bytes. Если для дальнейшего effect требуется принять именно новую product revision, это уже материальный input gap и Human Gate, а не повод автоматически подтвердить её агентом.
+
+**Приёмка автономного интервала:** заранее достаточные inputs позволяют дойти до K4 без новых product решений; обычный дефект исправляется в scope; после поддержанного host interruption работа продолжается по сохранённому состоянию; required checks и effects согласованы с exact candidate. Проверки [SC-T01…26](03_Development.md#scaffold-core-checks) задают наблюдаемые Evidence. Usability claims «человек понял результат» остаются отдельным human observation и не заменяются агентской оценкой.
+
+Правило manual dogfood сохраняет смысл проверки пользовательской пользы. Для этого DRAFT предлагается: сначала разрешённая техническая реализация S0–K4 и воспроизводимые positive/negative journeys, затем пользовательский dogfood для принятия/расширения продукта. Рутинная correction не требует повторного ручного dogfood; изменение этого порядка относится к SC-DEC-01. Без принятия уточнения нельзя заявлять весь интервал как уже разрешённую automation.
+
+Будущие фичи прорабатываются по одной после выбора человеком. Они не входят в первое ядро автоматически. Полный backlog, installer, архитектурный модуль, CI/Git delivery, search/index, patterns, audit tools, UI и domains остаются вне этого интервала, кроме явно названной необходимой базовой гарантии. [Точный scope каждой core-возможности](06_Features.md#core-first-scope) принадлежит dossier; [правило расширения](03_Development.md#feature-integration-readiness) проверяет только реальные стыки.
+
+
+<a id="core-os-portability"></a>
+
+## 18. Переносимость первого ядра
+
+Человек задал переносимость системы между ОС и выбрал macOS первой средой
+проверки. Ядро и форматы сохраняемых предметных данных не должны зависеть от
+конкретной ОС. Linux и Windows — целевые платформы, поддержка которых
+подтверждается последующими запусками; непроверенное не объявляется поддержанным.
+
+Первое ядро должно пройти проверки на выбранном профиле macOS. Версия ОС,
+архитектура машины, runtime и ограничения adapter фиксируются до launch;
+одна проверенная конфигурация не доказывает все версии macOS. Разработка сначала
+на macOS не допускает macOS-only зависимости в ядре. Переносимость обязательна
+с S0, но создание всех платформенных adapters в первой реализации не требуется.
+
+ОС-специфические возможности доступны через объявленные adapters/capabilities.
+Нет обязательной зависимости ядра от macOS-приложений, Unix shell или конкретного
+терминала. Отсутствие capability блокирует зависимый сценарий; независимые
+возможности сохраняются. Альтернатива допустима только при сохранении authority,
+result validation и recovery, иначе нужен точный BLOCKED/UNKNOWN.
+
+Чтение переносимого state на другой ОС не означает разрешение resume: paths,
+permissions, environment, authority и actual effects проверяются заново.
+Поведение и проверки принадлежат [Architecture](02_Architecture.md#core-platform-boundary)
+и [Development](03_Development.md#core-platform-checks). Выбор stack/target/host
+остаётся в существующем SC-DEC реестре; здесь не создаётся новый набор решений.

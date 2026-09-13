@@ -29,6 +29,14 @@ git_authorization: NONE
 
 Не загружай все семь документов и весь legacy repository без доказанной необходимости.
 
+### Маршрут для задач scaffold/core
+
+Для явно поставленной задачи scaffold/core читать [Core: решения](docs/00_Core.md#scaffold-core-decisions), затем [Product: scope](docs/01_Product.md#scaffold-core-outcome), выбранные dossiers, [Architecture: стыки](docs/02_Architecture.md#scaffold-core-interfaces) и [Development: цикл](docs/03_Development.md#scaffold-core-development). [Brief](workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md) только собирает handoff и не владеет требованиями. [План документации](workspace/AOS_SCAFFOLD_CORE_AUTONOMOUS_DEVELOPMENT_PLAN.md) сохраняет историю подготовки и проверок; его наличие не поручает повторное выполнение. Scope, target и полномочия определяются текущей задачей, а не прежним worktree или текстом плана.
+
+Новые разделы `SCAFFOLD_CORE_DRAFT` не повышаются до accepted по факту выполнения плана. Не выбирать target, Risk Profile, host/provider или feature disposition за человека. Уже подтверждённое применимое решение не запрашивать повторно. Недостающие решения представить одним конкретным пакетом после authoring.
+
+Для будущей реализации внешний агент действует по заранее принятому scope и отдельной authority; его обратимый HOW и обычная correction не требуют нового product planning. Наличие этого маршрута не меняет роль notebook и не разрешает runtime здесь. Старые frozen/portable/blueprint материалы имеют [ограниченную применимость](docs/05_Reference.md#scaffold-core-sources), а не параллельный приоритет над текущей задачей.
+
 ### Skill routing
 
 Для обычной documentation work не используй implementation-process skills: `writing-plans`, `test-driven-development`, `using-git-worktrees`, `subagent-driven-development`, `requesting-code-review` и `finishing-a-development-branch`.

@@ -1,14 +1,16 @@
 ---
 package: AOS_Project_Knowledge_Baseline
-package_revision: R4-RU
+package_revision: R7-RU
 updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
+current_change_subject: AOS_PRECOMMIT_DOCUMENTATION_CORRECTIONS_R7
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_status: SCAFFOLD_CORE_DRAFT
 current_change_agent_review: PASS
+current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
 current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
@@ -245,6 +247,10 @@ stop_conditions: []
 ```
 
 Task Brief фиксирует только request/prohibition и не предоставляет authority.
+C-005 lifecycle_stage задаёт только исходную стадию. Текущая lifecycle stage
+принадлежит C-012 и меняется по [правилам Development](03_Development.md#core-lifecycle-transitions),
+без переписывания task revision или исходного scope. Разрешённость полного цикла
+должна быть явной в принятом task scope; имя исходной стадии не даёт authority.
 До отдельной выдачи он не содержит authorization identity. Фактический binding
 сохраняется controller в Loop State без переписывания Task Brief. `requested_*`
 никогда не трактуется как `allowed_*`.
@@ -282,12 +288,12 @@ Parent Task Authorization задаёт предел effectful worker dispatches 
 #### C-006A — Effectful Stage Envelope
 
 ```yaml
-envelope_schema_version: AOS_EFFECTFUL_STAGE_ENVELOPE_V1
+envelope_schema_version: AOS_EFFECTFUL_STAGE_ENVELOPE_V3
 envelope_id:
 parent_authorization_id:
 parent_authorization_digest:
 parent_authorization_revision:
-state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V3
 task_id:
 task_revision:
 candidate_identity:
@@ -316,7 +322,7 @@ consumed: false
 Controller выводит fresh Stage Envelope только для `EXECUTE` или `CORRECT`.
 Envelope обязан быть сужением актуальной Parent Task Authorization и связывает
 exact action, candidate, state revision/event head и переход
-`AOS_COMPLETE_TASK_LOOP_V1`. Для `CORRECT` обязательны Correction Gate identity
+`AOS_COMPLETE_TASK_LOOP_V3`. Для `CORRECT` обязательны Correction Gate identity
 и digest; для `EXECUTE` они отсутствуют.
 
 Admission атомарно проверяет: текущие state/event/candidate; разрешённый
@@ -325,6 +331,16 @@ unexpired/unrevoked Parent Task Authorization с совпадающими
 identity/revision/digest; subset allowed и superset forbidden fields; gate для
 `CORRECT`; unused/unexpired envelope. После admission envelope потребляется до
 effect. Cache или вложенный digest не заменяет чтение текущих records.
+
+V3 дополнительно проверяет допустимость lifecycle-перехода для этой task.
+Исходная lifecycle читается из exact C-012, связанного state revision/event head;
+целевая EXECUTE определяется worker action и правилами Development. Отдельная
+несвязанная копия lifecycle в envelope не вводится. Проверка исходного tuple,
+смена lifecycle/controller action и consumption публикуются как одна атомарная
+операция; при отказе ничто из них не меняется. Envelope/gate остаются привязаны
+к исходному tuple допуска, а новый state хранит результат admission. Нельзя
+повторно допускать тот же envelope относительно уже изменившейся revision.
+
 
 #### C-007 — Preflight / Preview
 
@@ -338,19 +354,31 @@ stop reason.
 
 #### C-009 — ValidationEnvelope
 
+<a id="technical-result-contract"></a>
+
+**Единый technical Result Contract (R5).** Владелец поведения — FTR-011;
+producer, validator, controller, status и review используют ровно эти значения:
+`CONTRACT_VIOLATION | FAIL | BLOCKED | UNKNOWN | NOT_RUN | PASS`.
+HUMAN_REVIEW_REQUIRED относится только к document maturity, WAIT_HUMAN — к task
+state. Они и любой неизвестный enum отвергаются как technical result, не
+переводятся в PASS, BLOCKED или другой результат догадкой. Raw invalid value
+сохраняется как observation; ошибка contract оформляется отдельным валидным
+CONTRACT_VIOLATION. Проверки vocabulary и consumers — SC-T21.
+
 ```yaml
-validation_envelope_version: AOS_VALIDATION_ENVELOPE_V1
+validation_envelope_version: AOS_VALIDATION_ENVELOPE_V3
 validation_envelope_id:
-state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V3
 task_id:
 task_revision:
 candidate_identity:
 state_revision:
 event_head_identity:
 transition:
-  from: EXECUTE | CORRECT | SELECT_NEXT_ACTION | CHECK
+  from: EXECUTE | CORRECT | SELECT_NEXT_ACTION | CHECK | DIAGNOSE
   to: CHECK | FINAL_VALIDATE
 worker_action: CHECK | FINAL_VALIDATE
+check_purpose: DIAGNOSTIC | ACCEPTANCE | FINAL
 required_check_ids: []
 read_scope: []
 issued_by_controller_identity:
@@ -367,12 +395,37 @@ ValidationEnvelope всегда read-only. Он сохраняет stable result
 required/optional checks, `NOT_RUN`, limitations, exact subject identity и
 fail-closed aggregation. Его нельзя преобразовать в Stage Envelope.
 
+`check_purpose` обязателен. Допустимы только следующие сочетания; списки enum
+в schema не разрешают их произвольное декартово произведение:
+
+| Purpose | Исходный action → worker action | Возврат observation |
+|---|---|---|
+| DIAGNOSTIC | DIAGNOSE → CHECK | CHECK → DIAGNOSE при любом результате; уточняет diagnostic record, не закрывает acceptance criterion |
+| ACCEPTANCE | EXECUTE / CORRECT / SELECT_NEXT_ACTION → CHECK | Controller выбирает допустимый переход из CHECK по результатам критериев |
+| FINAL | SELECT_NEXT_ACTION / CHECK → FINAL_VALIDATE | Finding → DIAGNOSE; доказанный completion или точная остановка → IDLE |
+
+До запуска controller проверяет exact task/candidate/state revision/event head,
+issuer, срок, unused envelope, read scope, check IDs и сочетание purpose/transition
+с §7 и допустимость lifecycle VALIDATE по Development. Исходная lifecycle берётся
+из связанного C-012. Lifecycle/controller transition и consumption атомарны по
+тем же правилам, что C-006A; отказ сохраняет исходные state и unused envelope.
+Envelope потребляется до запуска check; повторный запуск получает новый.
+Результат связывает исходный envelope и проверенный subject; stale или mismatched
+observation не закрывает критерий. Required/optional состав берётся из явно
+связанного check binding, а не выводится из успешного exit. Diagnostic PASS не
+заменяет ACCEPTANCE или FINAL Evidence. Запись результатов и test outputs
+допускается только в объявленной области вне read-only subject. Checker получает
+доказательство состоявшегося admission: consumed у допущенного envelope не
+запрещает единственный уже допущенный check, но запрещает новый dispatch/replay.
+Observation проверяется по исходному binding допуска и текущему active action;
+смена state при самом admission не делает его результат автоматически stale.
+
 #### C-009A — Correction Gate
 
 ```yaml
 gate_id:
-gate_version: AOS_CORRECTION_GATE_V1
-state_machine_version: AOS_COMPLETE_TASK_LOOP_V1
+gate_version: AOS_CORRECTION_GATE_V3
+state_machine_version: AOS_COMPLETE_TASK_LOOP_V3
 parent_authorization_id:
 parent_authorization_revision:
 parent_authorization_digest:
@@ -419,11 +472,24 @@ controller action, task/run state, state revision/digest/event head,
 parent authorization identity/revision/digest, baseline/candidate,
 accepted decisions, findings, blockers, checks, diagnostic level, attempt ledger,
 resource usage, active Stage/Validation Envelope state и one deterministic next
-action. Controller является единственным владельцем переходов; worker output —
+action. Текущая lifecycle stage и её изменения принадлежат controller по
+[workflow](03_Development.md#core-lifecycle-transitions), исходная — C-005.
+Сохраняются before/after stage, причина, task/authority binding и исходный/новый
+state/event tuple каждого перехода. Это часть C-012/history, не новый authority
+record. Controller является единственным владельцем переходов; worker output —
 observation, а не authority изменить state или объявить completion. Concurrent
 или stale update отклоняется: только один controller может подтвердить изменение
 из одной исходной revision. Отказ ведёт к reconciliation; конкретный механизм
 синхронизации выбирается при реализации.
+
+Для первого core-профиля C-012 фиксирует `AOS_COMPLETE_TASK_LOOP_V3` и purpose
+активной проверки через её C-009 binding. Первоначальное создание и resume —
+разные входные сценарии [Development](03_Development.md#initial-product-state).
+Новый record содержит BIND_TASK/ACTIVE/RUNNING, исходную revision/event identity,
+current candidate и authority binding, критерии с NOT_RUN, пустой attempt ledger
+и отсутствие envelopes/effects. Resource usage учитывает уже затраченный ресурс
+этого запуска; создание state не обнуляет внешний budget. Missing checkpoint
+существующей задачи не является таким начальным состоянием.
 
 #### C-013 — Install / Update Manifest
 
@@ -433,33 +499,191 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 
 Separate records for Commit, Push, Merge и Release.
 
+<a id="module-connector-queue"></a>
+
+#### C-015 — Module Connection Contract (R7, DRAFT)
+
+Версия: AOS_MODULE_CONNECTION_V1. Immutable contract описывает WHAT подключения;
+формат serialization и layout выбираются в implementation profile.
+
+| Обязательный предмет | Содержание |
+|---|---|
+| Identity | Module identity/revision, список FTR и exact принятые C-002/contracts, источник и digest; identity не выдаёт authority |
+| Provided/required interfaces | Имена и версии операций, capabilities, payload/result/error contracts, реальные producers/consumers; required/optional и условия fallback |
+| Mode | DIRECT_READ для быстрого чтения; QUEUED_COMMAND для effects/отложенных запросов; QUEUED_EVENT для фактов объявленным subscribers |
+| Boundary | Read/write/effect/data/provider scope, ownership state, зависимости, transport limits profile, support envelope ОС/runtime |
+| Lifecycle | Условия регистрации/включения/обновления/отключения/удаления, совместимость данных и сообщений, recoverable migration, независимое чтение сохранённых artifacts |
+| Acceptance | Критерии фич/модуля, реальных стыков и core regression, negative cases, oracle/Evidence; justified NOT_APPLICABLE для отсутствующего собственного storage/migration |
+
+Module contract identity не является новой FTR и не создаёт параллельный каталог:
+состав остаётся в Features. Изменение контракта создаёт revision; runtime
+регистрация связывает exact C-015 с instance/generation и поддержанным handler.
+Регистрацией/маршрутизацией владеет core FTR-010, FTR-016 сохраняет bindings,
+FTR-019 проверяет полномочия, FTR-009 — target/capabilities. Contract автора модуля
+не может самостоятельно включить код или подписку.
+
+Первый профиль допускает статическую локальную композицию; никакого auto-discovery
+с исполнением найденного кода, обязательного внешнего broker или plugin loader.
+DIRECT_READ проверяет текущую регистрацию, interface/payload versions и scope,
+не пишет product state, не публикует скрытые команды и не выполняет fallback с
+эффектом. Ответ использует C-009 Result Contract/C-010 provenance. Неизвестный
+интерфейс, несовместимость и недоступность возвращаются явно. Технические
+log/evidence outputs допустимы только в отдельно покрытой служебной области.
+
+#### C-016 — Message and Delivery Contract (R7, DRAFT)
+
+Версия: AOS_MODULE_MESSAGE_V1. Сообщение — immutable request/observation, delivery
+state хранится отдельно и не подменяет task/run/lifecycle C-012.
+
+| Обязательный предмет | Содержание |
+|---|---|
+| Identity | Message ID и stable logical operation ID, source identity, kind COMMAND/EVENT, correlation/causation |
+| Destination | Receiver instance/generation, interface/version, exact C-015 binding; для события — конкретные объявленные subscriber bindings |
+| Payload | Версия payload и bounded содержимое либо immutable reference/digest с разрешённым доступом; ожидаемый subject/candidate и preconditions |
+| Context | Для COMMAND — exact C-005/task revision и reference на проверяемую current authority; для EVENT — source observation C-010 и явно применимый subscription scope, без выдуманного task/approval |
+| Limits | Issued/expiry, queue/ordering key и finite profile: capacity/bytes/payload, ожидание, claim duration, retry budget/backoff и retention; численные значения фиксируются до запуска |
+| Delivery observation | Ссылки на message/operation и attempt/owner, durable admission при наличии, timestamps, состояние доставки/причина, C-009 result/C-010 Evidence; acceptance/ack отдельно от результата операции |
+
+Пустой/неизвестный обязательный profile не означает unlimited. Admission в очередь
+проверяет C-015, размер/формат, destination, scope и доступ к данным. При переполнении
+enqueue явно отклонён без обещания accepted; accepted выдаётся только после durable
+сохранения. Отказ записи и неизвестный исход публикации требуют query/reconciliation
+по message/operation ID, а не новой identity для обхода неопределённости.
+
+Повтор тех же identity/payload/bindings возвращает существующую delivery/operation
+связь; та же identity с другим содержимым отклоняется. Для fan-out сохраняется
+отдельная доставка на каждую declared subscription; потеря ack не повторяет уже
+закрытую доставку этому consumer. Событие не создаёт authority: handler с эффектом
+может лишь сформировать запрос в явно разрешённом task scope, который снова
+проходит current admission. Нет подходящей authority — нет эффекта.
+
+Для выполнения COMMAND в task controller проверяет текущие registration/generation, versions,
+subject/preconditions, expiry, permission и current C-006. Stale message не
+перепривязывается молча к новому candidate. C-006A/C-009 выдаётся fresh при
+фактическом dispatch по V3; очередь не хранит заранее выданный Stage Envelope
+как будущую authority. Логический operation ID связывает message, admission,
+C-008/recovery observation и C-012 ledger, переживая redelivery и новый run.
+
+QUEUED_EVENT имеет отдельный read-only маршрут. FTR-010 проверяет current
+registration/subscription binding, versions, источник C-010, payload access,
+expiry и действующий permission/read scope подписки. Текст C-015/C-016 сам
+не предоставляет доступ: основание scope имеет trusted provenance и проверяется
+на отзыв. Активная C-005, current C-006 исходной задачи и C-012 для самого
+read-only consumer не требуются; C-006A/ValidationEnvelope ему не выдаются.
+Используются только technical Result Contract из C-009 и C-010 provenance.
+Receipt/result/delivery state записываются отдельно от product subject и C-012
+только по действующему отдельно покрытому служебному scope; отсутствие этого
+допуска не маскируется успешным ack. Это не исключение для product mutation.
+
+Terminal исходной задачи не мешает чтению её наблюдения по независимо действующей
+подписке, но не возобновляет задачу и не продлевает её authority. Read-only
+consumer не изменяет product artifacts, task/lifecycle state и не исполняет
+команду из payload. Effectful follow-up требует отдельного COMMAND, exact active
+C-005 и current C-006 с обычным V3 admission; событие не создаёт их автоматически.
+Для architecture.analysis_observed FTR-010 владеет C-016 delivery и передаёт
+payload C-010 readers FTR-008 (status) и FTR-012 (review). FTR-012 не обязан читать
+transport record напрямую; FTR-008 отдельно читает delivery observation для
+отображения состояния очереди. Каждая declared subscription имеет собственный
+delivery/result binding. Положительный и отрицательные маршруты проверяет SC-T24.
+
+Доставка допускает повторы; универсальное exactly-once исполнение не заявляется.
+До effect durable dispatch/admission связывается с operation; после него result
+сохраняется до acknowledgement. Повтор completed operation возвращает существующий
+наблюдённый результат с его исходным subject/limitations, а не новый PASS текущему
+candidate. Неизвестный effect сначала reconciled FTR-014; consumed envelope не
+dispatch повторно. Только доказанное отсутствие исполнения позволяет fresh
+attempt того же логического запроса по current scope, без потери ledger.
+
+В пределах receiver/ordering key действует последовательная обработка и один
+active delivery owner. Глобальный порядок независимых ключей не требуется.
+Истечение claim не доказывает прекращение старого worker: новый владелец сначала
+исключает дальнейший dispatch прежним, сверяет in-flight admission/effects и
+следует existing conflict/recovery protocol. Механизм fencing/locking — HOW,
+наблюдаемые гарантии обязательны. До unresolved reconciliation следующая операция
+того же ключа не обходит порядок; независимые ключи могут продолжаться.
+
+Transient delivery failure допускает конечные повторы в исходном scope/profile.
+Malformed/incompatible input и revoked/stale authority не исправляются blind retry.
+Исчерпанные/expired доставки сохраняют причину и Evidence в отдельном удержанном
+состоянии; не удаляются и не возвращаются автоматически с обнулённым budget. Retention
+не уничтожает dedup/admission evidence, пока возможны допустимая redelivery или
+resume связанной задачи; недоступная история даёт UNKNOWN, не новую пустую
+operation. Capacity учитывает retained данные по объявленному profile; очистка
+не следует из TTL и требует своей покрытой операции.
+Отмена ожидающей работы атомарно исключает её будущий dispatch. Для already
+admitted action отмена — отдельный запрос: проверить поддержку остановки и actual
+effects; нельзя заявить CANCELLED/no-effect без доказательства. Отмена сообщения
+не отменяет автоматически parent task или другие сообщения.
+
+Queue acceptance/claim/ack — transport observations. ACK означает durable
+результат доставки/обработки, в том числе FAIL/BLOCKED, а не technical PASS,
+закрытие criterion или Human ACCEPT. FTR-010 владеет доставкой и отдельно
+controller decisions, FTR-016 — storage, FTR-014 — reconciliation, FTR-011 —
+result validation, FTR-008 — derived status; очередь не новый центр authority.
+Storage/indices не включаются в identity проверяемого product subject по
+самоссылке; служебные изменения остаются наблюдаемыми и внутри своей authority.
+
+C-015/C-016 V1 добавлены к текущему профилю V3 без изменения schemas C-001…C-014
+или 26 controller edges. Старые задачи без message context не объявляются
+queued; неизвестные C-015/C-016 версии допускают лишь поддержанное inspection,
+не activation/delivery/migration. Эти contracts реализуют границу подключения
+ядра и модулей, не требуют backlog FTR-007. Алгоритм операций —
+[Development](03_Development.md#module-connection-lifecycle).
+
 <a id="module-contracts"></a>
 
 ### 6.1. Композиция и сопровождение модулей — MODULAR_DRAFT
 
-Этот раздел уточняет предложение [MOD-DEC-01](01_Product.md#modular-decisions). Существующие C-001…C-014 сохраняют идентичности. Здесь описано содержание сообщений на уровне WHAT; wire format, внутреннее представление и алгоритм хранения не выбираются.
+Этот раздел уточняет предложение [MOD-DEC-01](01_Product.md#modular-decisions). Существующие C-001…C-014 сохраняют идентичности; R7 добавляет C-015/C-016 для подключения и доставки. Здесь описано содержание сообщений на уровне WHAT; wire format, внутреннее представление и алгоритм хранения не выбираются.
 
 | Contract | Producer / владелец содержания | Данные и consumers | Отказ и область повторной проверки |
 |---|---|---|---|
 | C-001 | FTR-001; человек подтверждает intent | Original request, problem/outcome, assumptions/unknowns; FTR-003 | Неясная цель → уточнение; проверить перенос смысла в Spec |
 | C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012 (FTR-012 читает критерии C-002) | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution и полноту review criteria |
-| C-004 | FTR-005 готовит; человек выбирает | Вопрос, варианты, Evidence, выбор/последствия; FTR-003/006/022 | Нет решения → selected_option отсутствует; проверить зависимые задачи и patterns |
-| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013 | Противоречивый scope → отказ допуска; проверить preview/candidate, child task и criterion-to-Evidence review |
-| C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-019/010/014 | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
-| C-006A | Controller — issuer stage envelope | Transition/action/state/candidate и parent binding; FTR-010 | Mismatch/replay → отказ до effect; проверить execute/correct paths |
+| C-004 | FTR-005 готовит; человек выбирает | Вопрос, варианты, Evidence, выбор/последствия; FTR-003/005/006/022 | Нет решения → selected_option отсутствует; проверить зависимые задачи и patterns |
+| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013/016 | Противоречивый scope → отказ допуска; проверить preview/candidate, child task и criterion-to-Evidence review |
+| C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-006 (report binding)/019/010/014/016 | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
+| C-006A | Controller — issuer stage envelope | Transition/action/state/candidate и parent binding; FTR-006 (report binding)/010/014 | Mismatch/replay → отказ до effect; проверить execute/correct paths |
 | C-007 | FTR-009; наблюдение repository и preview | Root/worktree/baseline/dirty state/actions/permissions; FTR-002/004/010/013 | Изменён subject → новое preview; проверить discovery binding, preservation, admission и сверку validation subject |
-| C-008 | Worker FTR-010; factual observation | До/после, envelope, effects/unknown effects, stop reason; FTR-013/014/025 | Неполный effect → reconciliation; проверить отсутствие двойного исполнения |
-| C-009 | Controller выдаёт; FTR-011 возвращает observation | Candidate, required checks, results, limitations; FTR-008/010/011/012/023 | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness |
+| C-008 | Worker FTR-010; factual observation (при потере не синтезируется recovery) | До/после, envelope, effects/unknown effects, stop reason; FTR-013/014/025, controller FTR-010 как reader observations | Неполный effect → reconciliation; проверить отсутствие двойного исполнения |
+| C-009 | Controller выдаёт; FTR-011 возвращает observation | Purpose/transition, candidate, required checks, results, limitations; FTR-006 (report binding)/008/010/011/012/014/023 | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness |
 | C-009A | Controller оценивает diagnostic record | Signature, hypotheses, prediction, recovery, correction binding; FTR-010 | Слабое Evidence/replay → DENY; проверить D0…D5 и fresh correction |
-| C-010 | Наблюдавший checker/worker; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/011/012/021/023/025 | Недоступный источник → UNKNOWN; проверить ссылки, redaction и границу результата |
-| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021 | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля |
-| C-012 | Controller владеет lifecycle state; FTR-016 сохраняет/выдаёт | Versions, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017 | Старая revision → recover, не overwrite; проверить старые задачи и concurrency |
+| C-010 | Наблюдавший checker/worker либо FTR-014 для recovery observation; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/010/011/012/013/014/021/023/025 | Недоступный источник → UNKNOWN; проверить ссылки, redaction и границу результата |
+| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021/025 | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля |
+| C-012 | Controller создаёт первый record и владеет controller/lifecycle transitions по workflow; FTR-016 сохраняет/выдаёт | Versions, creation/resume context, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017 | Старая revision → recover, не overwrite; проверить старые задачи и concurrency |
 | C-013 | FTR-004; план и наблюдённые результаты установки | Package/target, ownership, operations, preview, conflicts/recovery; FTR-004/009/011/014 | Конфликт user state → стоп apply; проверить install/update/uninstall и повтор |
-| C-014 | FTR-015; отдельная запись каждого действия | Action, repo/source/target, candidate, authority, результат; FTR-012/014/015 | Remote uncertainty → проверить эффект до retry; проверить Git-действия отдельно |
+| C-014 | FTR-015; отдельная запись каждого действия | Action, repo/source/target, candidate, authority, результат; FTR-012/014/015/024 | Remote uncertainty → проверить эффект до retry; проверить Git-действия отдельно |
+| C-015 | Автор module contract; FTR-010 проверяет registration, FTR-016 хранит runtime binding | Identity/revision/interfaces/capabilities/lifecycle; FTR-004/005/009/010/011/014/016/019/022 | Unknown/incompatible/disabled → нет нового вызова; проверить consumers, lifecycle и recovery |
+| C-016 | Разрешённый caller/publisher формирует сообщение; FTR-010 владеет delivery, FTR-016 хранит | Operation/message/subject/authority refs, bounded payload, delivery/result; FTR-005/008/010/011/014/016/019 | Duplicate/stale/unknown effect → dedup/reconciliation; ack не закрывает task |
 
 Сверка карты влияния обязательна при изменении входа dossier: каждый именованный C-contract из раздела «Входные данные» должен иметь эту фичу среди consumers таблицы либо явное объяснение неприменимости. Чтение contract собственным producer также учитывается, если он принимает сохранённый record как вход. Проверка criteria-to-Evidence и stale review входит в область изменения C-002/C-005; изменение C-007 затрагивает сверку candidate в FTR-013.
 
 Backlog, pattern и incident имеют владельцев содержания в своих feature contracts. Хранение через FTR-016 не передаёт ему это владение. Идентичность issuer/actor проверяется принятым способом capture, а не наличием имени в поле.
+
+<a id="architecture-patterns-interfaces"></a>
+
+**Граница модуля FTR-005+022.** Группировка выбрана человеком; feature ownership
+и [полный scope](06_Features.md#architecture-patterns-module) остаются у dossiers.
+Внешние входы — C-002/C-003 и scoped discovery facts FTR-002; pattern corpus
+принадлежит FTR-022 и необязателен для самостоятельного ADR. Выходы — rationale
+«ADR не нужен», source-bound recommendation либо C-004 для существующих consumers.
+Материальный human choice проходит существующую trusted review boundary;
+recommendation не подменяет решение. Применение решения выполняет отдельная task,
+не этот модуль автоматически.
+
+FTR-005 владеет содержанием ADR, FTR-022 — pattern cards; FTR-016 может сохранять
+артефакты без передачи владения. Изменение pattern revision не переписывает C-004,
+а stale source требует повторной оценки зависимой recommendation. Сохранённый
+C-004 читается FTR-005/022 с проверкой subject/условий до reuse. Отказ библиотеки
+не запускает её install; отключение модуля не удаляет artifacts/Evidence и не
+отключает чтение ранее принятых facts ядром. FTR-025 даёт optional observations,
+его отсутствие не блокирует ADR. Группировка R4 сама не вводила transport contracts. Теперь подключение следует общим C-015/C-016 R7, без обязательного plugin framework или запуска FTR-007.
+
+**Сценарные readers.** FTR-025 читает C-011 при обработке решения по lesson,
+не при первоначальной записи incident. FTR-024 читает C-014 как результат exact
+запроса к FTR-015; единственным исполнителем Git/Release остаётся FTR-015.
+Карты входов/consumers учитывают эти условные маршруты и примеры, а не делают
+будущий результат обязательным входом первоначальной подготовки.
 
 **Совместимость — предложение.** Необязательное пояснительное поле совместимо лишь если reader contract допускает его игнорирование и оно не влияет на authority/state/completion. Strict format с запретом неизвестных полей требует новой reader-version или явного отказа. Изменение смысла, обязательности, enums или state machine несовместимо до доказательства обратного. Совместимость определяется парой producer/consumer versions, а не только номером версии.
 
@@ -470,6 +694,129 @@ Backlog, pattern и incident имеют владельцев содержани�
 **Authority.** Базовый admission проверяет human provenance, срок, scope и subject до эффекта. FTR-021 аудитирует записи, но не служит обязательным сервисом выдачи разрешений. Отказ optional audit не отключает базовую проверку; отсутствие доверенного способа capture (MOD-DEC-03) блокирует затронутые действия. Включение модуля не предоставляет network/provider/Git/delete authority.
 
 **Сопровождение.** Изменяется owner contract, затем проверяются его consumers и acceptance/negative cases из таблицы. Новое состояние или effect требует владельца, отказа и recovery. Неизвестное влияние требует расширения проверки. Derived index не изменяет Product facts. Эта таблица описывает межфичевые contracts; детализация конкретных сценариев находится в dossiers.
+
+<a id="scaffold-core-profile"></a>
+
+### 6.2. Первоначальный профиль scaffold/core — SCAFFOLD_CORE_DRAFT
+
+Предлагается проверить применимость прежнего AOS-3 профиля: local modular monolith, Python 3.12+, минимальные зафиксированные зависимости, локальная CLI-поверхность, repository-relative данные, отсутствие обязательного network client в продукте. Это предложение SC-DEC-02 с [provenance](05_Reference.md#scaffold-core-sources), не новое утверждение о существующем runtime или stack selection.
+
+До реализации профиль должен назвать конкретные OS/runtime versions, target role и base, путь локальных state/evidence и queue/registration storage, допустимую dependency policy, finite queue profile C-016 и test command binding. Support claim первой версии ограничен проверенным macOS envelope; требование переносимости ядра сохраняется для целевых Linux/Windows. Внутренний storage engine и serialization HOW остаются за агентом; гарантии current identity, integrity, durable recovery и human provenance обязательны при любом представлении. Работа coding host с внешним provider отдельно проверяется по SC-DEC-03 даже при local-only продукте.
+
+**Граница версии:** исходно поддерживаются только явно принятые Task/Authorization/Envelope/State contracts и их зафиксированные версии из этого owner. Неизвестная версия read-only показывается как unsupported, если не может быть безопасно разобрана; effect/resume запрещён. Старые AOS-3 данные не импортируются автоматически. Обязательный новый field, изменение enum/authority/completion или meaning создаёт несовместимость; producer/consumer compatibility проверяется до принятия сохранённой задачи. Optional field можно игнорировать только при явном разрешении reader contract.
+
+<a id="core-platform-boundary"></a>
+
+**Переносимое ядро и платформенная граница — SCAFFOLD_CORE_DRAFT.** Product
+[задаёт переносимость](01_Product.md#core-os-portability); macOS — первая
+проверяемая среда. Предложенный execution adapter — минимальный локальный adapter
+с переносимым интерфейсом и платформенной реализацией. Конкретное средство
+исполнения ещё не выбрано (SC-DEC-02).
+
+Ядро владеет смыслом task/authority/results/state; adapters изолируют операции
+файловой системы, процессы, права и системные инструменты. Зависимость от Unix
+shell, терминала или macOS-приложения не становится обязательной для ядра.
+Профиль adapter объявляет необходимые capabilities и ограничения. Preflight
+проверяет реальные возможности; имя ОС само по себе не доказывает поддержку.
+
+Пути, пробелы/Unicode, разделители и чувствительность к регистру обрабатываются
+по фактам target filesystem. Нормализация не должна объединять разные subjects,
+расширять allowed scope или скрывать collision/traversal. Process completion,
+termination, permissions и interrupted file operations имеют наблюдаемые
+результаты; отсутствие механизма не заменяется фиктивным success.
+
+Missing required capability блокирует её сценарий. Независимое чтение/проверки
+остаются доступны. Fallback разрешён только при доказанном сохранении authority,
+result/recovery guarantees и покрытом scope; capability check не выдаёт доступ.
+
+C-012 сохраняет переносимые предметные данные и явные environment/path bindings.
+Поддержанное inspection на другой ОС не разрешает effect/resume: текущие paths,
+permissions, runtime/adapter, authority и незавершённые effects должны быть
+повторно связаны. Неизвестное соответствие блокирует продолжение; нельзя молча
+переписать абсолютные пути или сбросить ledger. В R3 новые поля, wire formats и
+версии C-contracts не вводятся: это уточнение существующих identity/environment,
+read-only inspection и fresh admission требований V2.
+
+<a id="core-loop-v2"></a>
+<a id="core-loop-v3"></a>
+
+**Версии первого core-профиля — SCAFFOLD_CORE_DRAFT R5.** Текущий набор:
+`AOS_COMPLETE_TASK_LOOP_V3`, `AOS_EFFECTFUL_STAGE_ENVELOPE_V3`,
+`AOS_VALIDATION_ENVELOPE_V3`, `AOS_CORRECTION_GATE_V3`; C-012 сохраняет V3
+state-machine binding. C-005/C-006 остаются V1 с неизменными полями. Девять
+controller actions и 26 рёбер сохранены; V3 добавляет обязательные lifecycle
+условия допуска и атомарность их применения, а не новые полномочия.
+
+Набор заменяет проектный маршрут V2 только после принятия exact revision;
+публикация R5 не является activation. V1/V2, смешанные и неизвестные records
+не получают V3 effect/resume. Поддержанное read-only inspection сохраняет
+исходные bytes/version/limitations; migration вне scope. Прежнее значение
+HUMAN_REVIEW_REQUIRED в technical result и неоднозначные старые stage reports
+не нормализуются автоматически. Старый anchor core-loop-v2 сохранён только
+для навигации; он не является разрешением совместимости V2. Исторические
+R1–R4 и frozen материалы остаются свидетельствами своих revisions.
+
+<a id="scaffold-core-host"></a>
+
+### 6.3. Внешний host для начала разработки — SCAFFOLD_CORE_DRAFT
+
+Host contract — вход разработки S0, не компонент ещё не созданного AOS. Он должен предоставить следующие наблюдаемые гарантии; присутствие агента в чате недостаточно:
+
+| Вход / capability | Проверяемая гарантия и исход отсутствия |
+|---|---|
+| Host identity, support profile, доступные workers/tools и current task binding | Идентифицируются действующий процесс/сессия, target и разрешённые операции; неизвестный executor не получает effectful dispatch |
+| Trusted human capture и current authority | Источник решения отличим от repository/worker text; scope/expiry/revocation проверяются перед каждым effect; новый scope не выводится из task prose |
+| Native admission и worker boundary | Exact action/paths/effects/candidate и одноразовость dispatch обеспечиваются host. До появления AOS допускается native представление с доказанным соответствием гарантиям C-006/C-006A; произвольный prompt или фиктивный AOS envelope этого не заменяет |
+| Durable checkpoint и единственный continuation owner | Сохраняются task/revision, candidate, authority binding, критерии/checks, effects, ledger/resources и следующий шаг; worker observations не могут сами закрыть task |
+| Check execution | Явны subject/read scope, method/environment и Evidence destination. Validator не меняет subject; temp/test outputs разрешены только в отдельно объявленной области и не подменяют durable Evidence |
+| Continuation trigger | Названы источник resume event, исполнитель повторного запуска, supported interruption и ресурсные пределы. После прекращения host process продолжение должно быть обеспечено доступным внешним механизмом и проверено; свойство не выводится из слова persistent |
+| Data/provider boundary | Названы отправляемые данные, recipients/providers, разрешённое чтение/хранение и sensitive ограничения. Инструкции из входных данных не расширяют доступ |
+
+До первого target effect выполнить поддержанные host conformance checks: успешный разрешённый dispatch; denied/stale/revoked dispatch без target mutation; controlled interruption и fresh resume с тем же ledger; unknown effect без replay. Если probe требует effects, их отдельная disposable область должна входить в исходную авторизацию. Сохранённый host report без current binding недостаточен. Conformance должен покрывать V3 diagnostic checks, state-conflict recovery, initial-state boundary, Result Contract/report и lifecycle admission (SC-T21/22); прежний V1/V2 report не доказывает V3 compatibility. Если возможности отсутствуют, явно `BLOCKED` для автономного запуска; проект не строит свой controller, притворяясь, что эти условия уже исполнены.
+
+Автоматический wake не обязателен как конкретная технология: важен доказанный запуск следующего run в выбранной среде без нового человеческого управления. Ручной resume может проверять recoverability, но не удовлетворяет полному заявлению автономности между runs.
+
+<a id="scaffold-core-interfaces"></a>
+
+### 6.4. Стыки первого ядра — SCAFFOLD_CORE_DRAFT
+
+Таблица ниже уточняет порядок доступности данных для [S0–K4](01_Product.md#scaffold-core-outcome). Она не заменяет producer/consumer ownership из §6.1 и не вводит новые C-contracts.
+
+| Стык | Что передаётся и когда | Условие следующего действия | Отказ и проверяемое восстановление |
+|---|---|---|---|
+| S0 → K1 | Поддержанный target/runtime, dev/check entrypoints, candidate и внешний checkpoint до продуктового цикла | Независимый от AOS host может начать реализацию/проверку K1 | Missing tool/dependency блокирует criterion S0; повторная подготовка в scope, без удаления user state |
+| FTR-001/002 → FTR-003 | C-001, подтверждённые ответы, source-bound findings либо явное отсутствие проекта | Requirements сохраняют смысл входа; достаточные ранее принятые ответы не запрашиваются повторно | Material gap видим; частичное knowledge не становится полным Spec |
+| FTR-003 → FTR-006 | Принятый C-002/C-003, критерии и constraints до requested scope | Brief содержит task/revision и проверяемые критерии, но не выданную authority | Changed contract делает зависимый Brief stale; rebind без подмены human choice |
+| FTR-006 / trusted capture → FTR-019/009 → FTR-010 | C-005/action, отдельный current C-006, permission, C-007 до dispatch; при correction C-009A | Controller сужает scope до C-006A; current action/state/candidate и authority совпадают | Denied/missing/replayed input запрещает effect; DRAFT Brief и безопасное read-only исследование доступны |
+| FTR-010 → FTR-013/011 | FTR-013 получает C-008 и actual candidate после worker, либо независимый recovery observation C-010/FTR-014 при потере C-008; FTR-011 — подготовленный validation subject и C-009/read scope от controller до checks | Validation subject exact; observer/provenance доказаны; required results не stale | Partial/unknown effect или missing C-008 → FTR-014 для reconciliation по admission/ledger/target до retry; validator не делает correction |
+| FTR-011 → controller FTR-010 | C-009 purpose-bound results и C-010 Evidence после CHECK/FINAL_VALIDATE | DIAGNOSTIC возвращается в DIAGNOSE без закрытия критериев; ACCEPTANCE/FINAL PASS закрывает только проверенные критерии; failure/unknown направляется в D0…D5 | Correction Gate bind diagnostic/candidate/action; новый effect требует нового gate/envelope и affected checks |
+| Controller ↔ FTR-016 / FTR-014 | C-012: отдельные создание первой задачи и resume; effect/authority observations при checkpoint | Один владелец controller-action transitions; storage не решает lifecycle, resume rebind current facts | Concurrent/stale state не перезаписывает принятое; unsupported version/unknown effect запрещает continuation до reconciliation |
+| FTR-011/013/016 → FTR-008/012 | Current criteria/results/candidate/context для status и review | Каждый criterion виден, отдельный Human Decision применим только к своему subject | Missing result остаётся NOT_RUN; новый candidate не наследует human acceptance |
+| Внешний host → product controller | Task/authority/criteria, candidate, effects, непрерывный ledger/resources и supported state representation | Все обязательные гарантии обоих routes проверены; есть один active continuation owner | Неподдержанная передача сохраняет внешний route. Частичная передача сначала reconciled; обратно переносить state можно только с доказанной совместимостью |
+
+К моменту первого product effect должны быть доступны минимальные FTR-011/013/014/016 гарантии; порядок срезов не разрешает mutation без них. Backlog FTR-007 не требуется для конечной dependency-ready последовательности критериев одного C-005. Сохраняемая transport queue C-016 — отдельная обязательная capability первого ядра для queued exchange; она не выбирает критерии и не выдаёт authority. Предварительно выбранные product inputs позволяют проверить целый цикл без новых продуктовых решений в середине run.
+
+Замена общего contract требует определить всех его реальных consumers, проверить supported versions, invalid inputs и прошлые saved tasks. Новая фича имеет свой owner, явно declared effects и восстановление; отсутствие/отключение optional capability не отключает обязательную authority или result validation ядра. Изменение такого baseline оформляется отдельной принятой contract revision; реализация нового модуля не может сама переписать базовый safety contract.
+
+### 6.5. Доступность коннекторов и очереди в первом ядре — R7
+
+S0 объявляет C-015/C-016 и profile подготовки. До первого queued effect K2
+готовы минимальные registration, durable enqueue/claim, current admission,
+operation ledger, result validation и recovery; K3 доказывает redelivery и
+interruption, K4 — integrated direct/queued journey. Обязанности распределены
+между существующими core FTR-009/010/011/014/016/019 и status FTR-008, новые FTR
+или внешний broker не добавляются. Очередь не требуется для direct read-only
+запроса; pending сообщение не гарантирует начало работы без доступного executor.
+
+Первоначальные registry/queue storage создаются как отдельно покрытая служебная
+операция controller по initial-state guarantees: exact root/profile/authority,
+create-if-absent, existing ownership/history, recovery при partial publication.
+Создание очереди не enqueue в ещё не существующую очередь и не выполняет product
+effect. Resume не пересоздаёт потерянную историю. Внешний development host ведёт
+разработку независимо от создаваемого product transport; его capabilities V3
+не доказываются запуском ещё не созданных коннекторов. SC-T23…26 выполняются
+на продукте по мере готовности; early host conformance не требует собственной
+реализации C-015/C-016 очереди до S0.
 
 ## 7. Ортогональная модель состояний
 
@@ -482,7 +829,7 @@ DRAFT | HUMAN_REVIEW_REQUIRED | HUMAN_ACCEPTED | SUPERSEDED
 Lifecycle stage:
 PLAN | EXECUTE | VALIDATE | REVIEW
 
-Controller action (`AOS_COMPLETE_TASK_LOOP_V1`):
+Controller action (`AOS_COMPLETE_TASK_LOOP_V3`):
 BIND_TASK | RECOVER_STATE | SELECT_NEXT_ACTION | EXECUTE | CHECK | DIAGNOSE |
 CORRECT | FINAL_VALIDATE | IDLE
 
@@ -493,9 +840,6 @@ TASK_FAILED | CANCELLED_BY_HUMAN | CONTRACT_VIOLATION
 Run state:
 RUNNING | PAUSED_RESOURCE | STOPPED
 
-Technical result:
-CONTRACT_VIOLATION | FAIL | BLOCKED | UNKNOWN | NOT_RUN | PASS
-
 Human decision:
 ACCEPT | NEEDS_CHANGES | REJECT | DEFER
 
@@ -503,7 +847,10 @@ Permission:
 ALLOWED | HUMAN_AUTHORIZATION_REQUIRED | BLOCKED_POLICY | BLOCKED_UNKNOWN | NOT_APPLICABLE
 ```
 
-Canonical controller-action matrix `AOS_COMPLETE_TASK_LOOP_V1`:
+Technical result определяется только [единым C-009](#technical-result-contract);
+перечисленные выше оси не добавляют ему допустимых значений.
+
+Canonical controller-action matrix `AOS_COMPLETE_TASK_LOOP_V3`:
 
 | `from` | Допустимые `to` |
 |---|---|
@@ -512,7 +859,7 @@ Canonical controller-action matrix `AOS_COMPLETE_TASK_LOOP_V1`:
 | `SELECT_NEXT_ACTION` | `EXECUTE`, `CHECK`, `FINAL_VALIDATE`, `IDLE` |
 | `EXECUTE` | `CHECK`, `DIAGNOSE`, `IDLE` |
 | `CHECK` | `SELECT_NEXT_ACTION`, `DIAGNOSE`, `FINAL_VALIDATE`, `IDLE` |
-| `DIAGNOSE` | `CORRECT`, `IDLE` |
+| `DIAGNOSE` | `CHECK`, `SELECT_NEXT_ACTION`, `CORRECT`, `IDLE` |
 | `CORRECT` | `CHECK`, `DIAGNOSE`, `IDLE` |
 | `FINAL_VALIDATE` | `DIAGNOSE`, `IDLE` |
 | `IDLE` | `RECOVER_STATE` после resume event |
@@ -521,9 +868,25 @@ Canonical controller-action matrix `AOS_COMPLETE_TASK_LOOP_V1`:
 `WAIT_EVIDENCE`, `TECHNICALLY_COMPLETE`, `TASK_FAILED`,
 `CANCELLED_BY_HUMAN` и `CONTRACT_VIOLATION` изменяют task state и переводят
 controller action в `IDLE`; `PAUSED_RESOURCE` изменяет run state, сохраняет task
-`ACTIVE` и также переводит action в `IDLE`. Lifecycle stage меняется только по
-своему workflow. Переходы между разными осями не записываются как `{from,to}`
+`ACTIVE` и также переводит action в `IDLE`. Lifecycle stage меняется controller только по
+[явным правилам workflow](03_Development.md#core-lifecycle-transitions). Переходы между разными осями не записываются как `{from,to}`
 controller actions.
+
+Отдельное допустимое основание `ACTIVE/RUNNING/IDLE` — доказанный recovery
+checkpoint при takeover по [Development §10.2](03_Development.md#state-conflict-recovery).
+Его owner/reconciliation bindings сохраняются durable; без них произвольный idle
+невалиден. Это не новая ось или controller edge и не разрешение на dispatch.
+
+`DIAGNOSE → CHECK` выдаёт только C-009 с purpose DIAGNOSTIC; его завершение
+возвращает `CHECK → DIAGNOSE`, сохраняя signature/level/ledger. Переход
+`DIAGNOSE → SELECT_NEXT_ACTION` допустим после Evidence-bound разрешения finding
+без mutation: записаны причина отсутствия correction и оставшиеся required
+checks. Он не означает PASS этих checks или task completion. При необходимости
+mutation сохраняются C-009A и отдельный CORRECT worker.
+
+При конфликте state действует [recovery protocol](03_Development.md#state-conflict-recovery):
+отклонённая запись не создаёт переход. Прямые CHECK/EXECUTE/DIAGNOSE → RECOVER_STATE
+не разрешены; следующий владелец использует свежий state и IDLE/resume route.
 
 ## 8. Владение данными
 

@@ -1,11 +1,17 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-07-26'
+updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
+current_change_subject: AOS_SCAFFOLD_CORE_DOCUMENTATION_R1
+current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_agent_review: PASS
+current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -225,15 +231,15 @@ evidence_class: UNKNOWN
 |---|---|---|---|
 | AOS3-S01 | External report `infrastructure-audit/REPORT.md`; полный locator ниже; «Результаты R1 и R2», «Findings и следующий шаг» | `REPORTED`: bootstrap с 21 collection error; воспроизведённый пропуск terminal preservation check | Аудит на `3b55c4397f93beeb0d279cf0201ecc232bd50166`; его неполный baseline дополнен S02 |
 | AOS3-S02 | External report `infrastructure-audit/baseline-continuation/REPORT.md`; полный locator ниже; «Семь failures», «Skips» | `REPORTED`: 3805/7/6, metadata mismatch, native exclusions | Исторический прогон 2026-09-12 на `3b55c4397f93beeb0d279cf0201ecc232bd50166`, не сегодняшняя проверка |
-| AOS3-S03 | [README.md](../../AOS-3/README.md), Local start; [requirements-dev.lock](../../AOS-3/requirements-dev.lock); [aos/pyproject.toml](../../AOS-3/aos/pyproject.toml), dependencies; [aos/requirements.lock](../../AOS-3/aos/requirements.lock) | `OBSERVED_AT_SNAPSHOT`: инструкция устанавливает только dev lock, runtime dependencies объявлены отдельно | Статическое чтение; fresh bootstrap в подготовке черновика `NOT_RUN` |
-| AOS3-S04 | [tools/isolated_product_test.py](../../AOS-3/tools/isolated_product_test.py), `main`, ветви `result`, `install`, `import_check` | `OBSERVED_AT_SNAPSHOT`: ранние returns предшествуют финальному сравнению source snapshot | Не доказывает actual source mutation |
-| AOS3-S05 | [LESSONS.md](../../AOS-3/LESSONS.md), LES-003–006, refinement LES-001, LES-012 и FTR-031 Evidence provenance | `SYNTHESIZED`: диагностические уроки; `REPORTED`: formatter/identity case | Исторические source bindings находятся внутри записей; принятие в AOS-3 не принимается за authority notebook |
+| AOS3-S03 | `README.md`, Local start; `requirements-dev.lock`; `aos/pyproject.toml`, dependencies; `aos/requirements.lock` | `OBSERVED_AT_SNAPSHOT`: инструкция устанавливает только dev lock, runtime dependencies объявлены отдельно | Статическое чтение; fresh bootstrap в подготовке черновика `NOT_RUN` |
+| AOS3-S04 | `tools/isolated_product_test.py`, `main`, ветви `result`, `install`, `import_check` | `OBSERVED_AT_SNAPSHOT`: ранние returns предшествуют финальному сравнению source snapshot | Не доказывает actual source mutation |
+| AOS3-S05 | `LESSONS.md`, LES-003–006, refinement LES-001, LES-012 и FTR-031 Evidence provenance | `SYNTHESIZED`: диагностические уроки; `REPORTED`: formatter/identity case | Исторические source bindings находятся внутри записей; принятие в AOS-3 не принимается за authority notebook |
 | AOS3-S06 | External temporary report `aos-ftr010-brief-r20.xk45wwmw/REPORT.md`; полный locator ниже | `REPORTED`: Brief INCOMPLETE при корректной сериализации, stale subject fact, production effects не выполнялись | Временный кандидат R20; snapshot равенства с AOS-3 dev `NOT_RUN`; не доказывает цикличность всей архитектуры |
-| AOS3-S07 | [tests/portability/test_ftr011_isolated.py](../../AOS-3/tests/portability/test_ftr011_isolated.py), `_run_installed_module` | `OBSERVED_AT_SNAPSHOT`: helper задаёт PYTHONPATH на copied source, сам distribution не устанавливает | Результат исторического прогона берётся из S02; название helper не доказывает installed provenance |
-| AOS3-S08 | [development/evidence/FTR031-R25-OBSERVABILITY-EVIDENCE-R2/REPORT.md](../../AOS-3/development/evidence/FTR031-R25-OBSERVABILITY-EVIDENCE-R2/REPORT.md), HF-02, HF-05, HF-07 и Unknown/not-retained facts | `REPORTED`: потеря ordered reason_codes из-за порядка проверок и вывода | Основание отчёта — human attestation истории; original chat byte identity недоступна; underlying reason UNKNOWN |
-| AOS3-S09 | [ARTIFACT_PROFILES.md](../../AOS-3/ARTIFACT_PROFILES.md), Cross-feature стыки; [FEATURE_DEVELOPMENT_CYCLE.md](../../AOS-3/FEATURE_DEVELOPMENT_CYCLE.md), Сопровождение проектного графа; [02_SYSTEM_ARCHITECTURE.md](../../AOS-3/docs/architecture/02_SYSTEM_ARCHITECTURE.md), §§18–19; [TEST_STRATEGY.md](../../AOS-3/docs/development/TEST_STRATEGY.md), Project graph и Минимальная проверяемая цель переносимости | `OBSERVED_AT_SNAPSHOT`: документационные дополнения уже существуют | Graph experiment и platform runs остаются `NOT_RUN`; документация не доказывает результат реализации |
+| AOS3-S07 | `tests/portability/test_ftr011_isolated.py`, `_run_installed_module` | `OBSERVED_AT_SNAPSHOT`: helper задаёт PYTHONPATH на copied source, сам distribution не устанавливает | Результат исторического прогона берётся из S02; название helper не доказывает installed provenance |
+| AOS3-S08 | `development/evidence/FTR031-R25-OBSERVABILITY-EVIDENCE-R2/REPORT.md`, HF-02, HF-05, HF-07 и Unknown/not-retained facts | `REPORTED`: потеря ordered reason_codes из-за порядка проверок и вывода | Основание отчёта — human attestation истории; original chat byte identity недоступна; underlying reason UNKNOWN |
+| AOS3-S09 | `ARTIFACT_PROFILES.md`, Cross-feature стыки; `FEATURE_DEVELOPMENT_CYCLE.md`, Сопровождение проектного графа; `docs/architecture/02_SYSTEM_ARCHITECTURE.md`, §§18–19; `docs/development/TEST_STRATEGY.md`, Project graph и Минимальная проверяемая цель переносимости | `OBSERVED_AT_SNAPSHOT`: документационные дополнения уже существуют | Graph experiment и platform runs остаются `NOT_RUN`; документация не доказывает результат реализации |
 
-Локальные relative links рассчитаны на соседний checkout `AOS-3`. Переносимость записи обеспечивают repository, exact commit, path и marker из таблицы; наличие соседнего каталога не является зависимостью runtime notebook. При недоступности источника фиксируется `BLOCKED_REFERENCE_ACCESS`, а факты не восстанавливаются по названию или памяти.
+Locators записаны как repository-relative keys в `NMF13579/AOS-3` на указанном exact snapshot; они не зависят от глубины локального worktree. Для research сначала bind repository/ref/path/marker. Наличие соседнего checkout не является зависимостью runtime notebook. При недоступности источника фиксируется `BLOCKED_REFERENCE_ACCESS`, а факты не восстанавливаются по названию или памяти.
 
 ### Внешние отчёты и ограничения сохранности
 
@@ -289,3 +295,22 @@ Budgets и latency в canonical proposal — проектные цели pilot. 
 - Independent semantic validation: `NOT_RUN`.
 - GitHub links в ChatGPT Project являются routing pointers, а не автоматически импортированными sources.
 - Reference repositories не предоставляют approval, implementation или Git authority.
+
+<a id="scaffold-core-sources"></a>
+
+## 14. Источники scaffold/core и применимость прежних решений
+
+Это provenance-маршрут текущей документационной работы, не дополнительный каталог требований. Предлагаемый новый handoff и unresolved decisions находятся у [Core](00_Core.md#scaffold-core-decisions); scope — у Product/Features; contracts и workflow — у Architecture/Development.
+
+| Источник / exact binding | Найденный факт и разрешённое использование | Ограничение для новой задачи |
+|---|---|---|
+| Current `docs/00_Core.md`–`06_Features.md`; исходный HEAD документационного worktree `8627d1cc01b84a794827673e473850c0187abe5e` | Семь owners и новые явно помеченные SCAFFOLD_CORE_DRAFT-разделы. Header `audited_source_commit` относится к прежнему snapshot, не к текущим edits | Действующий candidate определяется текущими bytes/diff; baseline acceptance не принимает новые предложения |
+| [Global Design Freeze](../AOS/GLOBAL_DESIGN_FREEZE.md), ordered manifest `b9ef04820f9e71da1866c61c87417c7ac39d1c27c93a74327ab7f40f2e25aebf` | Три frozen files совпадают с записанными hashes. Их vocabulary/boundaries доступны как принятый scoped источник | Старый workflow отделяет correction в новую task; он не заменяет новый controller loop для иной task. Frozen bytes не изменяются |
+| [X1 decision](../workspace/AOS_DOCUMENTATION_X1/HUMAN_DECISION_RECORD.yaml), SHA-256 `3e9fbbcde2d07a8716f0dc28eb33e642e1c42766da738e41c7137abf358af197`; [manifest](../workspace/AOS_DOCUMENTATION_X1/CANDIDATE_MANIFEST.txt) `1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d` | Пять ARTIFACT records соответствуют файлам; decision фиксирует X1-DR-001/002=A и item-scoped X1 behavior. Эти формулировки не нужно заново придумывать | Исходный record сохраняет `raw_record_confirmation_required: true`; bytes не доказывают внешнее подтверждение этой записи. Source hashes внутри manifest относятся к историческому baseline. Нет authority для нового core/host/runtime |
+| [Portable acceptance](../AOS/portable/PACKAGE_ACCEPTANCE.yaml), subject [manifest](../AOS/portable/MANIFEST.txt) `1e3746b4bb6a326d9e93f805cb4ebe8a233c367976189aae1c0d385cde261901` | Одиннадцать content files соответствуют manifest; sidecar принимает exact package, сохраняя embedded DRAFT fields | Sidecar отдельно сохраняет open decisions, UNASSIGNED repository, отсутствие roadmap activation и runtime authority. Старый README DRAFT не означает, что sidecar отсутствует |
+| [AOS-3 blueprint §2/§16](../workspace/AOS3_IMPLEMENTATION_READY_DRAFT.md), [migration map](../workspace/AOS3_NOTEBOOK_MIGRATION_MAP.md) `10b46fe19a6559e5a5ea53ecf414987fa1a97af18046a285ecfe9e86e221c86b` | Blueprint сообщает принятие migration map, AOS-3/Python/local profile и задаёт старый Slice 0–4. Hash map совпадает с binding | Blueprint остаётся DRAFT/authority NONE. Current target и перенос этих решений на новую задачу не подтверждены данным чтением; старые creation/migration/Push instructions не запускаются |
+| [Root agent candidate](../workspace/AOS3_ROOT_AGENTS_CANDIDATE.md), [completion loop design](../workspace/AOS_DEVELOPMENT_COMPLETION_LOOP_DESIGN.md) | Обратимый HOW и bounded correction; подробное rationale controller/diagnostics | Working drafts не являются установленным host или новым owner. Перенесённая семантика читается в canonical Architecture/Development; отсутствие wake/admission capability не исправляется ссылкой на текст |
+
+Применимость frozen и portable packages ограничена их exact scope. В новом brief источник не выбирается по имени «implementation-ready» или по stored PASS. Если подтверждение или противоречие materially влияет на launch, решается точный вопрос SC-DEC, а не весь исторический package повторно.
+
+Исходные аудиты и исторические human messages не воспроизводились. Проверка manifests выше — текущая byte-integrity проверка указанных subjects, не повторение исторического runtime/acceptance audit. Источники AOS3-S01/S02/S06 с временными locators не являются обязательными runtime inputs нового brief; их описанные ограничения сохраняются.

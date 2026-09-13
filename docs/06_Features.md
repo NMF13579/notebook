@@ -1,14 +1,16 @@
 ---
 package: AOS_Project_Knowledge_Baseline
-package_revision: R4-RU
+package_revision: R7-RU
 updated: '2026-09-13'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
+current_change_subject: AOS_PRECOMMIT_DOCUMENTATION_CORRECTIONS_R7
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
+current_change_status: SCAFFOLD_CORE_DRAFT
 current_change_agent_review: PASS
+current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
 current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
@@ -83,7 +85,7 @@ feature dossier ≠ execution authorization
 | `FTR-002` | Read-only исследование проекта, карта возможностей и реестр gaps/conflicts | Product Runtime | `KEEP` | `UNDECIDED` | CORE: Наблюдение проекта → context/gaps |
 | `FTR-003` | Спецификация продукта, паспорт фичи и выбор первого вертикального среза | Product Runtime | `KEEP` | `SELECT_FOR_X1` | CORE: Требования → Product Spec/Passport |
 | `FTR-004` | Управляемый bootstrap, безопасная установка/обновление/удаление и First-Start | Product Runtime / Installation Boundary | `KEEP` | `UNDECIDED` | MODULE: Install/update/uninstall → проверенный результат |
-| `FTR-005` | Проверка необходимости архитектуры, сравнение вариантов, ADR и traceability | Product Runtime Support / Architecture Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` | MODULE: Архитектурный вопрос → ADR |
+| `FTR-005` | Проверка необходимости архитектуры, сравнение вариантов, ADR и traceability | Product Runtime Support / Architecture Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` | MODULE: Архитектурные решения и patterns (005+022); вопрос → ADR |
 | `FTR-006` | Task Brief, подтверждение scope, Execution Authorization и Stage Report | Product Runtime / Development Factory Boundary | `KEEP` | `SUPPORTING_CONTROL_ONLY` | CORE: Задача → Brief и отдельная authority |
 | `FTR-007` | Иерархический backlog, lazy decomposition, кандидаты задач и queue | Development Factory | `DEFER` | `UNDECIDED` | MODULE: Крупная цель → очередь кандидатов |
 | `FTR-008` | Простая панель управления: Status / Next / Details, tutor и closure UX | Product Runtime | `KEEP` | `UNDECIDED` | CORE: Запрос состояния → Status/Next/Details |
@@ -100,7 +102,7 @@ feature dossier ≠ execution authorization
 | `FTR-019` | Action Trust Boundary, классификатор permissions и граница external content | Minimal Safety Floor | `KEEP` | `UNDECIDED` | CORE: Запрос действия → permission classification |
 | `FTR-020` | Progressive Governance, Runtime Enforcement и изолированные execution modes | Governance / Runtime Enforcement | `DEFER` | `UNDECIDED` | OUT_OF_SCOPE: текущий dossier без изменения |
 | `FTR-021` | Обнаружение registry/drift, Source-of-Truth guard и authenticity human decisions | Development Factory / Governance Support | `DEFER` | `UNDECIDED` | MODULE: Аудит связей → drift/authenticity findings |
-| `FTR-022` | Библиотека решений и patterns, fit matrix и reusable UX/engineering patterns | Knowledge Support | `KEEP` | `UNDECIDED` | MODULE: Повторная проблема → применимые patterns |
+| `FTR-022` | Библиотека решений и patterns, fit matrix и reusable UX/engineering patterns | Knowledge Support | `KEEP` | `UNDECIDED` | MODULE: Архитектурные решения и patterns (005+022); проблема → применимые patterns |
 | `FTR-023` | Advisory CI, smoke-проверки, safety regression fixtures и quality gates | Development Factory | `DEFER` | `UNDECIDED` | MODULE: Профиль проверок → regression/CI Evidence |
 | `FTR-024` | Release checklist, promotion package, version/changelog/tag и rollback assistant | Later Lifecycle | `DEFER` | `UNDECIDED` | OUT_OF_SCOPE: текущий dossier без изменения |
 | `FTR-025` | Observability, audit log, память incidents/lessons и continuous improvement | Product Runtime Support / Operations | `KEEP` | `UNDECIDED` | MODULE: Инцидент → lesson/regression proposal |
@@ -134,6 +136,109 @@ feature dossier ≠ execution authorization
 
 Матрица не разрешает удалять проверки полномочий: обязательная проверка C-006/C-011 остаётся у исполнителя boundary через FTR-019/FTR-012, независимо от наличия FTR-021. Границы runtime-модулей не выбирают plugin framework, сервисы или storage.
 
+<a id="core-first-scope"></a>
+
+## 4.2. Первое ядро — SCAFFOLD_CORE_DRAFT
+
+Индекс §4 остаётся единственным каталогом. Для предлагаемого первого ядра ниже у FTR-001/002/003/006/008/009/010/011/012/013/014/016/019 добавлен раздел «Первый core-срез»: он ограничивает сценарии семьи для [S0–K4](01_Product.md#scaffold-core-outcome), не меняя исходный human disposition. Полная семейная возможность сохраняется в dossier; дополнительные сценарии готовятся позднее. Это уточнение MOD-DEC-01/SC-DEC-01, не автоматическое принятие 13 фич.
+
+Критерии указанного среза и все применимые safety/negative guarantees обязательны. Семейный критерий, требующий настоящего пользовательского наблюдения, не считается исполненным автоматическим тестом. Full feature acceptance не выводится из PASS минимального core-среза. Достаточные preaccepted inputs могут быть переданы извне: чтение результата другой семьи не требует повторно запускать её интервью или approval.
+
+Общий positive/negative oracle и real-host требования находятся в [SC-T01…26](03_Development.md#scaffold-core-checks), состояния и стыки — у [Architecture](02_Architecture.md#scaffold-core-interfaces). Точная форма внутренних записей выбирается при реализации; material unknown в scope/authority или public meaning не является HOW.
+
+<a id="architecture-patterns-module"></a>
+
+## 4.3. Модуль «Архитектурные решения и patterns»
+
+Группировка FTR-005+FTR-022 выбрана человеком в текущем диалоге. Детализация
+границы ниже — документационный DRAFT; отдельные FTR-ID, acceptance и исходные
+X1 dispositions не объединяются и не повышаются до implementation-ready.
+Индекс §4 остаётся единственным каталогом: восемь сценарных семейств представлены
+семью модулями; два support-модуля и семь отложенных семейств не меняются.
+
+FTR-005 владеет need/no-need analysis, сравнением вариантов и подготовкой C-004.
+FTR-022 владеет карточками patterns, provenance, fit/anti-fit и рекомендациями.
+Человек выбирает материальное архитектурное решение; FTR-016 хранит данные,
+не принимая владение их смыслом. Нового owner вместо этих фич нет.
+
+Общий сценарий: запрос → проверка необходимости решения → независимый поиск/fit
+при полезности patterns → rationale «ADR не нужен», recommendation либо
+ADR, готовый для человеческого решения. Поиск сам по себе не требует человеческого gate. Если FTR-005 запросил patterns,
+FTR-022 возвращает candidates в тот же анализ, не вызывая FTR-005 рекурсивно.
+Материальный выбор из самостоятельного запроса FTR-022 идёт через FTR-005; применение достаточного ранее принятого решения не
+требует нового approval при сохранённых subject и условиях. Изменение этих условий
+требует новой оценки; source acceptance не переносится на новую revision.
+
+Отсутствие библиотеки patterns не блокирует самостоятельное сравнение в FTR-005.
+Запрос конкретного недоступного pattern получает ограниченный результат с причиной.
+Deprecated/несовместимое не применяется автоматически; обновление карточки не
+изменяет принятый ADR. Выбор pattern не запускает install/migration или policy edit.
+
+При отключении модуля ADR, patterns, provenance и Evidence сохраняются; ядро может
+читать ранее принятые artifacts. Новые рекомендации модуля недоступны. Прерванная
+запись сверяется по фактическим данным до повторения; отключение не означает
+удаление или незаметное завершение pending decision. Переносимость и macOS-first
+следуют Product; модуль не вводит обязательную платформенную зависимость ядра.
+Внешние стыки принадлежат [Architecture](02_Architecture.md#architecture-patterns-interfaces),
+проверки — [Development](03_Development.md#module-consistency-checks).
+
+Автономная разработка 005+022 ведётся одной parent task по
+[общему правилу](03_Development.md#autonomous-module-development): агент собирает
+обе фичи и проверяет их взаимодействие без отдельного ручного запуска каждой.
+Критерии всего модуля включают no-ADR, работу без библиотеки, lookup/возврат
+candidates в текущий анализ, сохранность provenance и запрет recursive ADR.
+MOD-S16…18 проверяют поведение, MOD-A01…07 — автономность разработки и соответствие протоколу.
+Нужные product/architecture решения согласуются до build; тестирование human-gate
+поведения использует synthetic fixtures и не создаёт настоящее human approval.
+Это требование к будущей подготовке; текущие DRAFT contracts не стали ready
+автоматически. Та же модель применяется к каждому выбранному модулю; для одной
+фичи достаточно её контракта и declared стыков, фиктивное объединение не нужно.
+
+### Подключение 005+022 по C-015/C-016 — пример R7
+
+Это первый документальный пример [протокола](03_Development.md#feature-module-protocol),
+не готовый runtime или принятие всего module contract. FTR-005 владеет ADR и
+rationale, FTR-022 — pattern corpus; transport принадлежит ядру. Данные/пути,
+конечные limits, реальный profile и authority задаются до будущего build.
+
+| Операция | Режим и вход | Выход / граница |
+|---|---|---|
+| patterns.lookup | DIRECT_READ: вопрос, constraints, declared corpus/current C-015 | Candidates с provenance/fit либо точное ограничение; нет corpus — явный limited result, без install/refresh/write |
+| architecture.analyze | QUEUED_COMMAND: C-016 с exact task/subject, C-002/C-003, discovery findings, optional pattern refs | No-ADR rationale, recommendation или DRAFT C-004. C-005/C-006 scope определяет допустимые действия; output не становится Human ACCEPT |
+| architecture.save_draft | QUEUED_COMMAND: подготовленный exact artifact, owned destination, current authority | Сохранённый draft/rationale и C-009/C-010 result/evidence; stale subject/path/generation запрещает effect. При redelivery сначала actual effect/ledger, не двойная запись |
+| architecture.analysis_observed | QUEUED_EVENT: C-010/source result и действующие declared subscriptions; активная C-005 для read-only доставки не требуется | FTR-010 передаёт C-010 в FTR-008 status и FTR-012 review; отдельные delivery/result bindings. Нет фиктивной task/envelope, возобновления terminal task, выбора pattern или mutation. Effectful follow-up получает отдельный COMMAND/current task authority по C-016 |
+
+Analysis и save — разные логические операции, связываемые parent task/order;
+analysis не enqueue и не ожидает собственный save внутри занятого того же ordering
+key. После observation controller может поставить отдельно покрытый save.
+Pattern lookup из FTR-005 возвращает candidates в текущий анализ, не вызывает
+architecture.analyze рекурсивно. No-ADR и работа без библиотеки остаются допустимы.
+
+ADD/ENABLE проверяет module C-015 и declared operations; UPDATE проверяет старые
+pattern/ADR references и pending C-016; DISABLE прекращает новую работу, удерживает
+pending и reconciles in-flight. REMOVE не удаляет C-004/corpus/Evidence и не
+завершает pending decision. Required consumer без проверенной замены блокирует
+remove; после reinstall старые сообщения требуют explicit compatible binding,
+не автоматически replay. Ядро читает сохранённые принятые artifacts без запуска
+модуля. DELETE DATA отдельно покрывается и проверяет владельцев/consumers.
+
+Для future build нужны примеры пустого/доступного corpus, несовместимого/deprecated
+pattern, no-ADR, material decision, source drift, interrupted save и subscriber
+без authority. Human-gate cases используют synthetic fixtures; настоящее human
+decision поступает отдельно. MOD-A07 и MOD-S16…18 проверяют весь модуль, а не
+только две фичи по отдельности; заявленная real integration не закрывается doubles.
+
+## 4.4. Обязательная подготовка новой фичи или модуля
+
+При new/change/group/remove агент следует [Development §25.4](03_Development.md#feature-module-protocol):
+определяет предмет и дубли, заполняет feature-specific C-002, связывает producers/
+consumers и C-015/C-016, описывает lifecycle, проверяет semantics и готовит один
+parent brief. Входящие FTR сохраняют собственные criteria и dispositions;
+shared defaults не объявляются готовым contract. Минимальная структура реализации
+задаётся ролями §25.4, а не одинаковыми folders или обязательным plugin framework.
+Существенный unknown показывается до dependent implementation. Все поздние
+фичи одновременно не перерабатываются; общий протокол не повышает их readiness.
+
 ## 5. Подробные dossiers
 
 
@@ -163,6 +268,14 @@ shared_defaults_present: false
 **Проблема**
 
 Свободный запрос смешивает problem, solution, assumptions и constraints.
+
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Достаточный текст запроса и ранее подтверждённые ответы преобразуются в C-001 с исходным текстом, problem/outcome, constraints и видимыми assumptions. Углублённое интервью нужно только при material gap.
+
+**Приёмка среза:** Достаточный input проходит без нового human вопроса; пустой остаётся CLARIFYING без artifact; injected instruction не меняет scope. Проверка узнаваемости результата реальным пользователем остаётся human observation.
+
+**Связь с реализацией:** K1; SC-T03; далее FTR-003, сохранение FTR-016. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
 
 ### Целевые пользователи
 
@@ -302,6 +415,16 @@ shared_defaults_present: false
 
 До planning агент не знает repository identity, capabilities и current state.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Read-only обзор одного declared repository/worktree и нужного вопроса; source types и coverage ограничены выбранным профилем. Для нового проекта фиксируется отсутствие repo. Полный semantic graph/RAG не входит.
+
+**Приёмка среза:** Существующий snapshot и gaps привязаны к источникам; неизвестные области явно не исследованы. После source change прежний вывод stale; исследование не меняет target.
+
+**Связь с реализацией:** K1; SC-T01/03; далее FTR-003/006 через source-bound findings. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Discovery объявляет поддержанные виды исходников и filesystem coverage; Unicode/пробелы/регистр не теряют источник. Неподдержанный тип остаётся вне coverage явно, отсутствующая утилита не доказывает отсутствие фактов. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
 ### Целевые пользователи
 
 Владелец существующего проекта и агент-исследователь.
@@ -439,6 +562,14 @@ shared_defaults_present: false
 **Проблема**
 
 Product intent теряется между idea, architecture и task execution.
+
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** C-001 и достаточные preaccepted требования связываются с Product Spec/Feature Passport и criterion IDs. Spec владеет cross-feature фактами, Passport — конкретным поведением. Внутри run не выбирается новый product slice.
+
+**Приёмка среза:** Сохранён meaning/source каждого существенного требования, dependencies и negative cases. Нельзя повышать сгенерированную revision до HUMAN_ACCEPTED; изменившееся product meaning требует отдельного решения. Извне принятые contracts можно читать прямо.
+
+**Связь с реализацией:** K1; SC-T03; C-002/C-003 для FTR-006/012. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
 
 ### Целевые пользователи
 
@@ -579,6 +710,15 @@ shared_defaults_present: false
 **Проблема**
 
 Install/update может повредить user/project-owned state и запутать первого пользователя.
+
+### Применение протокола подключения — R7
+
+Для module installation C-013 связывается с C-015 ownership/lifecycle: registration и queue bindings проверяются до enable; disable/remove implementation не удаляют данные и не теряют pending/in-flight. Алгоритм — Development §25.5. Полный installer остаётся поздним модулем; минимальная локальная композиция ядра не зависит от его установки.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
 
 ### Целевые пользователи
 
@@ -722,6 +862,15 @@ shared_defaults_present: false
 
 Architecture work либо пропускается, либо разрастается без связи с feature.
 
+### Применение протокола подключения — R7
+
+Модуль 005+022 подключается по C-015; architecture.analyze/save_draft используют C-016, быстрый lookup у FTR-022 — DIRECT_READ. FTR-005 сохраняет владельца ADR и не принимает решение за человека. No-ADR, отсутствие corpus, non-recursive lookup и preserved artifacts обязательны; public операции и lifecycle заданы в §4.3.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Владелец продукта/архитектурного решения; агент сравнивает варианты.
@@ -736,7 +885,7 @@ Architecture work либо пропускается, либо разрастае
 
 ### Входные данные
 
-C-002/C-003, вопрос, ограничения, актуальные discovery facts, минимум два значимо отличающихся варианта при необходимости выбора.
+C-002/C-003, вопрос, ограничения, актуальные discovery facts, минимум два значимо отличающихся варианта при необходимости выбора. Для повторного применения ранее принятого решения — существующий C-004 с exact subject/условиями; для нового сравнения этот вход не требуется.
 
 ### Результаты и наблюдаемое поведение
 
@@ -747,18 +896,16 @@ Decision-ready ADR process: need check, distinct options, tradeoffs, human choic
 
 ### Основной процесс
 
-1. Check if ADR needed
-2. Define exact question
-3. Create distinct options
-4. Compare tradeoffs/risks
-5. Show evidence/unknowns
-6. Get human decision
-7. Record consequences/reversal
-8. Link task
+1. Check if ADR needed; rationale «не нужен» завершает этот запрос без создания ADR.
+2. Define exact question; самостоятельное сравнение не зависит от библиотеки patterns.
+3. Create distinct options; при полезности получить fit/anti-fit рекомендации FTR-022.
+4. Compare tradeoffs/risks and show Evidence/unknowns.
+5. Получить человеческий выбор только для материального решения; достаточный прежний выбор читается с проверкой subject/условий.
+6. Record consequences/reversal and link task; исполнение решения — отдельная задача.
 
 ### Изменения состояния
 
-Need check → DRAFT C-004 с незаполненным выбором → exact human decision → consequences/reversal conditions.
+Need check → rationale без ADR либо DRAFT C-004 с незаполненным выбором → exact human decision → consequences/reversal conditions. Поиск patterns не является обязательным промежуточным состоянием.
 
 ### Сценарии отказа
 
@@ -771,6 +918,7 @@ Need check → DRAFT C-004 с незаполненным выбором → exac
 ### Зависимости и общие contracts
 
 - C-004 ADR
+- FTR-022 — NAVIGATION: optional pattern candidates; отсутствие библиотеки не блокирует ADR, ответ не запускает вложенный decision cycle.
 - FTR-003 — SCENARIO_REQUIRED: требования для выбора; нет требования — сформулировать вопрос.
 - FTR-002 — SCENARIO_REQUIRED для repository-dependent решения: текущие facts; нет наблюдения — ограничить conclusion.
 
@@ -860,6 +1008,14 @@ shared_defaults_present: false
 
 Free-form request не должен становиться executable work автоматически.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Одна task с dependency-ready критериями S0–K4: C-005 requested/prohibited scope, ограничения и проверки. Реальная C-006 поступает отдельно через trusted capture. Backlog service FTR-007 не нужен. C-005 задаёт исходную lifecycle stage; текущая хранится в C-012. Полный цикл должен быть явен в принятом scope, а standalone read-only task не получает mutation по одному имени stage.
+
+**Приёмка среза:** Brief не предоставляет authority; критерии частей связаны с общей целью, command/check bindings определены до dispatch. Новый scoped worker не требует заново принять неизменную задачу; uncovered effect запрещён.
+
+**Связь с реализацией:** K1–K4; SC-T03/04/14/21/22; далее FTR-009/010/012. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
 ### Целевые пользователи
 
 Владелец задачи выдаёт отдельные полномочия; агент готовит Brief и factual report.
@@ -896,7 +1052,7 @@ Bounded Task Brief, separate human authorization, preflight requirements and mat
 
 ### Изменения состояния
 
-DRAFT Brief → готовность к запросу authority → отдельный C-006. После execution создаётся report по наблюдаемым effects, не переписывающий исходный scope.
+DRAFT Brief → готовность к запросу authority → отдельный C-006. После execution создаётся [report R5](03_Development.md#12-отчёт-стадии) по наблюдаемым effects, не переписывающий исходный scope. Parent binding и consumption отдельного envelope различены; исходный C-005 не редактируется при lifecycle-переходе.
 
 ### Сценарии отказа
 
@@ -948,7 +1104,7 @@ DRAFT Brief → готовность к запросу authority → отдел�
 |---|---|---|---|---|
 | FTR-006.S1 | Критерии приёмки и основной процесс FTR-006 | Требование и ограниченный subject | Составить Brief, получить отдельную authority, сопоставить factual report | Required fields и запреты явны; actor/subject authority проверяемы; отчёт соответствует фактическому diff. |
 | FTR-006.S2 | Критерии приёмки и основной процесс FTR-006 | Скопирована authority другой revision; путь вне scope; проверка не запускалась | Проверить допуск и отчёт | Authority отклонена, путь запрещён, NOT_RUN не превращается в PASS. |
-| FTR-006.N01 | Негативный случай №1; C-005 / C-012 | Task ACTIVE и run RUNNING, controller action IDLE без wait/terminal/pause основания | Проверить состояние задачи | Невалидное сочетание отклонено; idle не разрешает пропустить требуемое действие или завершить task. |
+| FTR-006.N01 | Негативный случай №1; C-005 / C-012 | Task ACTIVE и run RUNNING, controller action IDLE без wait/terminal/pause основания и без доказанного recovery checkpoint по Development §10.2; отдельно отсутствующий/подменённый owner/reconciliation binding | Проверить состояние задачи | Произвольный idle отклонён. Корректный recovery checkpoint с durable причиной/owner/tuples/reconciliation допускает только предусмотренный resume; положительный interruption case — SC-T16. Idle не даёт effect authority или completion. |
 | FTR-006.N02a | Негативный случай №2; C-006 | Authority относится к task T1, Brief относится к T2 | Проверить admission | Authority не применяется к T2; effects не выполняются. |
 | FTR-006.N02b | Негативный случай №2; C-006 | Task identity совпадает, authority привязана к revision R1 вместо текущей R2 | Проверить admission | Stale authorization отклонена до effect; нужна fresh binding. |
 | FTR-006.N03 | Негативный случай №3; C-005/C-006 | Brief и authority разрешают docs/a.md, action пишет docs/b.md | Проверить границы действия | Запись docs/b.md запрещена; scope не расширяется автоматически. |
@@ -1003,6 +1159,15 @@ shared_defaults_present: false
 **Проблема**
 
 Large work needs ordering, but full upfront backlog creates premature complexity.
+
+### Применение протокола подключения — R7
+
+Backlog/queue этой фичи упорядочивает кандидатные задачи и criteria; transport queue C-016 доставляет сообщения независимо от FTR-007. Она не выбирает backlog priority и не выдаёт task authority. Сборка минимального ядра не требует реализации FTR-007; если он позже отправляет команды, они проходят обычный connector/admission.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
 
 ### Целевые пользователи
 
@@ -1139,6 +1304,25 @@ shared_defaults_present: false
 
 Nontechnical user cannot understand state, blocker and next action.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Read-only status/next/details через выбранную минимальную surface: task/run/controller axes, source freshness, blocker и одно допустимое действие. Web dashboard и отдельный tutor module не нужны.
+
+**Приёмка среза:** Next отражает решение controller и current blockers; terminal output содержит проверенные критерии и limitations. Missing/stale state не даёт actionable ложного разрешения; субъективное понимание человеком не объявляется тестовым PASS.
+
+**Связь с реализацией:** K4; SC-T10/11/14; C-012/C-009/C-010/C-011 читаются без изменения owners. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Предлагаемая первая surface — переносимая CLI; конкретный интерфейс ещё в SC-DEC-02. Status показывает capability/support limitations и не требует macOS-приложения или определённого терминала. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+Status различает queue accepted/awaiting/processing/ack и C-009 technical result по C-016 delivery observation; ack не закрывает criterion/task. Текущий lifecycle/permission читается у controller; disabled capability и held/unknown operation видны. Direct status query не запускает product mutation.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Владелец проекта читает статус; агент объясняет состояние и следующий шаг.
@@ -1173,7 +1357,7 @@ Plain-language current status, one next action, optional details and closure exp
 
 ### Изменения состояния
 
-Read-only отображение task/run/controller axes. Next берётся из authoritative controller state и текущих blockers; tutor объясняет его, но не создаёт новый transition.
+Read-only отображение task/run/controller axes. Next берётся из authoritative controller state и текущих blockers; tutor объясняет его, но не создаёт новый transition. Technical result читается по [единому C-009](02_Architecture.md#technical-result-contract); HUMAN_REVIEW_REQUIRED не принимается в этом поле. Текущая lifecycle берётся из C-012, отдельно от action/task/run и human decision.
 
 ### Сценарии отказа
 
@@ -1273,6 +1457,25 @@ shared_defaults_present: false
 **Проблема**
 
 Mutation without exact identity, scope and environment risks contamination.
+
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Read-only target/action preview для локального effect. Identity учитывает relevant uncommitted bytes и unrelated user state; HEAD сам по себе недостаточен.
+
+**Приёмка среза:** Preview точно ограничивает действие; source/action/path change делает его stale. Wrong target и containment escape отвергаются, success/error preflight не меняют subject или staging.
+
+**Связь с реализацией:** S0/K2; SC-T01/04/05; C-007 для FTR-010/013. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Preflight связывает OS/runtime/filesystem/adapter capabilities и реальные permissions. Разделители, регистр и нормализация путей не расширяют scope; имя ОС не заменяет наблюдение. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+До регистрации/direct/queued dispatch проверяются C-015 instance/generation, versions/capabilities, target/owned paths и finite profile. Preview относится к фактическому action/subject, не к факту enqueue; malformed/disabled/stale routing не допускает handler. Initial registry/queue create — отдельно покрытая service boundary.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
 
 ### Целевые пользователи
 
@@ -1411,6 +1614,25 @@ shared_defaults_present: false
 
 Scope in prose does not constrain actual mutation.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Полный bounded product completion loop и один выбранный execution adapter: current admission, отдельные execute/correct workers, ledger, D0…D5, gate, affected checks и final predicate. До собственного runtime разработку ведёт проверенный внешний host.
+
+**Приёмка среза:** Положительное разрешённое действие выполняется ровно один раз; после дефекта тот же task достигает fresh проверенного результата либо точного gate/pause. Отказ на всё не проходит positive case. Parent не расходуется после первого worker: одноразовым является stage envelope, а parent проверяется на актуальность при каждом dispatch.
+
+**Связь с реализацией:** K2–K4; SC-T04…11/14/15/16/17/18/21/22; canonical matrix и C-005/006/006A/007/008/009/009A/010/012. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Предложен минимальный локальный execution adapter с переносимым интерфейсом; средство исполнения остаётся в SC-DEC-02. Нет обязательного Unix shell в ядре; missing capability даёт точный отказ, не обход admission. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+Минимальные C-015 registration/routing и C-016 delivery входят в первый core до queued effect K2. Для COMMAND в task controller проверяет current task/subject/generation/permission и выдаёт fresh V3 envelope при dispatch; operation ID связывает admission и ledger. Read-only EVENT идёт по отдельному subscription/read/service scope C-016 без фиктивных C-005/C-012/envelope, в том числе после terminal исходной task. FTR-010 передаёт C-010 в FTR-008/012, сохраняя отдельные delivery/result bindings; effectful follow-up требует собственного active task/current authority. Delivery не владеет authority/completion. Direct read, ordered delivery, cancel и bounded retry следуют Architecture; заранее выданный envelope в очереди не разрешает future effect.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Controller ведёт задачу; отдельный worker исполняет один envelope; человек задаёт границы.
@@ -1436,19 +1658,27 @@ Thin executor consuming exact authorization/preview, recording actual effects an
 
 ### Основной процесс
 
-1. Validate auth
-2. Check preview freshness
-3. Execute smallest action
-4. Preserve observable mutation/effect records
-5. Run targeted checks
-6. При failure передать stable signature и Evidence в canonical diagnostic ladder
-7. Выполнить только Evidence-supported bounded correction по fresh stage envelope
-8. Reconcile diff
-9. Stop worker with factual report; complete-task controller выбирает следующий stage
+1. Controller проверяет current authority, получает fresh preview и выдаёт exact C-006A.
+2. EXECUTE worker выполняет одно действие, сохраняет C-008 с actual effects и останавливается.
+3. Controller связывает actual candidate; FTR-013 сверяет scope/diff и готовит validation subject.
+4. FTR-011 в отдельной validation boundary выполняет C-009 checks и возвращает observation.
+5. Controller выбирает следующий criterion, FINAL_VALIDATE либо DIAGNOSE; diagnostic checks возвращаются в DIAGNOSE без закрытия acceptance criteria.
+6. При доказанной необходимости correction controller оценивает fresh C-009A и выдаёт новый C-006A отдельному CORRECT worker.
+7. CORRECT worker выполняет одно действие, сохраняет C-008 и останавливается; controller организует новый subject, affected checks и final validation.
+
+Локальные наблюдения executor не заменяют проверки FTR-011. Один worker не
+продолжает выполнение в роли checker/corrector после своего effect; observation
+не является правом следующего dispatch.
 
 ### Изменения состояния
 
-Только canonical AOS_COMPLETE_TASK_LOOP_V1; worker завершает stage с C-008. Controller оценивает next/check/diagnose/completion; task/run axes не подменяют друг друга.
+Только canonical AOS_COMPLETE_TASK_LOOP_V3; worker завершает действие с C-008.
+Controller владеет lifecycle по [явным переходам](03_Development.md#core-lifecycle-transitions):
+EXECUTE/CORRECT допускаются в EXECUTE, CHECK/FINAL_VALIDATE — в VALIDATE;
+переход/consumption атомарны относительно исходного state/event tuple. Finding
+не даёт validator права исправлять. Переход в REVIEW выполняется controller
+при доказанном predicate; task/run axes не подменяют lifecycle/action. C-008 и
+stage report связывают конкретный envelope; parent не расходуется worker.
 
 ### Сценарии отказа
 
@@ -1482,7 +1712,7 @@ Mismatch identity/state/action, stale/revoked authority, forbidden effect либ
 - Only allowed paths change
 - Diff reconciled
 - Failure recoverable
-- Auth consumed once
+- Stage Envelope consumed once; parent authorization rechecked for each dispatch
 - Same task continues across bounded workers until canonical completion predicate or explicit pause/gate
 
 ### Обязательные негативные сценарии
@@ -1577,6 +1807,25 @@ shared_defaults_present: false
 
 Different validators/CLI paths produce incompatible status and false green.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Локальный Result Contract и минимальные check/doctor/self-test entrypoints в принятом профиле. Required/conditional checks получают явные command bindings; remote CI не требуется без scenario decision.
+
+**Приёмка среза:** Raw exits/output/provenance сохранены, required NOT_RUN/stale не дают PASS, controller отдельно проверяет completion. Positive control доказывает способность oracle видеть дефект; real adapter checks не заменяются fake tests.
+
+**Связь с реализацией:** K2–K4; SC-T02/05/06/08/11/14/15/18/21/22; C-009/C-010 для controller и review. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Required native проверки первой версии — exact macOS profile; portable contract fixtures обязательны. Linux/Windows native NOT_RUN не становится PASS по mock/fixture результатам; команды выбираются под объявленный runtime. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+SC-T23…26 проверяют C-015/C-016 на real core consumers и local adapter. Queue ack/acceptance не technical PASS; required queued integration не закрывается только direct-query success. Независимый oracle наблюдает actual effects, сохранение/непотерю сообщения и scope, а не только process exit/delivery flag.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Checker/validator выдаёт технический результат; controller использует его как observation.
@@ -1608,6 +1857,16 @@ One ValidationEnvelope and official entrypoint preserving NOT_RUN, limitations a
 4. Record each result
 5. Aggregate fail-closed
 6. Emit machine/human report and return finding to controller without mutation
+
+C-009 V3 purpose определяет маршрут: DIAGNOSTIC возвращает observation в
+DIAGNOSE при любом результате и не закрывает acceptance criteria; ACCEPTANCE
+и FINAL имеют отдельные required checks. Checker проверяет binding и допустимое
+сочетание purpose/transition по Architecture. Единственный допущенный check
+использует receipt состоявшегося admission с consumed envelope; повторный
+запуск этого envelope запрещён. Observation связывает исходный tuple допуска
+и current active action, не требует повторного admission на новой revision.
+Technical enums задаёт [C-009](02_Architecture.md#technical-result-contract);
+неизвестное значение не нормализуется. Условия lifecycle VALIDATE — у Development.
 
 ### Изменения состояния
 
@@ -1716,6 +1975,20 @@ shared_defaults_present: false
 
 Technical output is difficult to review and may be mistaken for acceptance.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Один review package: criterion → current Evidence → результат/ограничение и explicit options. Поддерживается trusted capture решения для exact subject; автоматическая цель заканчивается техническим review, без выдуманного Human ACCEPT.
+
+**Приёмка среза:** Все критерии и NOT_RUN видимы, stale decision не применяется к новому candidate, worker text не является human response. Synthetic decision fixtures проверяют интерфейс, но не предоставляют launch или acceptance authority.
+
+**Связь с реализацией:** K4; SC-T03/04/11/14; C-011 и review для FTR-008/006. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Event input R7:** По declared subscription FTR-010 передаёт FTR-012 payload
+C-010 для read-only review. FTR-012 не читает C-016 напрямую и не создаёт task,
+Human Decision или effect из события; technical result не является acceptance.
+Служебные outputs имеют отдельный покрытый scope, сохранение product artifact
+требует обычного effectful admission. Маршрут и SC-T24 — у [C-016](02_Architecture.md#module-connector-queue).
+
 ### Целевые пользователи
 
 Reviewer готовит пакет; человек принимает или отклоняет точный результат.
@@ -1750,7 +2023,7 @@ One candidate-bound review package plus separate explicit Human Decision Record.
 
 ### Изменения состояния
 
-Review preparation → criterion-by-criterion findings/options → C-011 только при проверенном human response. Изменение candidate делает прежнее решение неприменимым к новому subject.
+Review preparation → criterion-by-criterion findings/options → C-011 только при проверенном human response. Technical result использует единый C-009 vocabulary (SC-T21). Lifecycle REVIEW после predicate не создаёт C-011/ACCEPT; read-only review не открывает terminal task для correction (SC-T22). Изменение candidate делает прежнее решение неприменимым к новому subject.
 
 ### Сценарии отказа
 
@@ -1853,6 +2126,16 @@ shared_defaults_present: false
 
 Validation can target a moving or contaminated candidate.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Exact baseline/candidate, фактический diff и проверочный subject для каждого effect/check. Изоляция выбирается по риску; identity не ограничивается HEAD.
+
+**Приёмка среза:** Изменение relevant bytes обнаружено; changed paths и preview reconciled; observer/import provenance видим. Validator read-only относительно subject, его разрешённые temp outputs находятся отдельно; новый candidate требует fresh affected checks.
+
+**Связь с реализацией:** K2–K4; SC-T01/05/08/09/11; вход для FTR-011/012. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Identity учитывает реальные filesystem semantics, Unicode/пробелы/регистр и различия paths без объединения subjects. Переносимый способ выбирается при реализации; ослабление scope/isolation ради ОС недопустимо. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
 ### Целевые пользователи
 
 Агент подготовки candidate и read-only validator.
@@ -1867,7 +2150,7 @@ Candidate требуется проверить, представить на rev
 
 ### Входные данные
 
-Baseline/current candidate, C-005 scope, C-007 preview, C-008 effects, затронутые файлы и provenance среды.
+Baseline/current candidate, C-005 scope, C-007 preview, затронутые файлы и provenance среды. Для execution-generated candidate — C-008 effects при наличии; после его потери допустим source-bound recovery observation C-010/FTR-014, связанный с исходным admission/ledger и actual target. Неизвестный effect блокирует dependent PASS, отсутствие C-008 само не требует повторить worker.
 
 ### Результаты и наблюдаемое поведение
 
@@ -1900,7 +2183,7 @@ Live checkout mismatch, self-referential identity, изменение subject в
 ### Зависимости и общие contracts
 
 - FTR-009 — CORE_REQUIRED: preview/baseline; mismatch требует нового binding.
-- FTR-010 — SCENARIO_REQUIRED для execution-generated candidate: C-008/effects; неизвестный effect требует reconciliation.
+- FTR-010 — SCENARIO_REQUIRED для execution-generated candidate: C-008/effects, если report сохранён; иначе FTR-014 предоставляет независимый recovery observation C-010. Неизвестный effect требует reconciliation, не выдуманного C-008.
 - FTR-011 — CHECK_ONLY: результаты read-only validation подготовленного subject; подготовка identity не требует заранее PASS.
 
 Типы связей определены в разделе 4.1. Отсутствие required результата ограничивает соответствующий сценарий, не разрешает обойти safety boundary.
@@ -1988,6 +2271,25 @@ shared_defaults_present: false
 
 Failure or interruption loses actual state and invites unsafe retry.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Continuation после supported interruption, pause и unknown effect: reconcile target/ledger/current authority до next action. Произвольный destructive rollback не входит; внешняя host wake capability проверяется отдельно.
+
+**Приёмка среза:** Прерывания до/после effect не дают double execution или потери state; stale/revoked authority запрещает resume effects. Ledger/resources продолжаются; ручное восстановление не объявляется самостоятельным wake.
+
+**Связь с реализацией:** K2–K4; SC-T06/09/10/13/16/17/18/21/22; C-008/C-012 и данные FTR-019. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Различия termination, permissions и interrupted file operations проверяются по actual effects. Новый OS/adapter не разрешает replay: fresh reconciliation и capability/authority binding обязательны. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+Recovery принимает C-016 delivery/operation observation и C-015 registration binding для lost ack, expired claim, cancel, disable/update/remove. Истёкший claim не доказывает остановку старого worker; takeover требует fencing/reconciliation. Unknown effect не повторяется, missing C-008 допускает independent observations. Queue cancellation не отменяет parent task и не доказывает отсутствие уже admitted effect.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Controller восстановления; пользователь решает только недостающие полномочия/опасный rollback.
@@ -2002,7 +2304,13 @@ Controller восстановления; пользователь решает �
 
 ### Входные данные
 
-C-008 effects, C-012 ledger/state, current repository facts, текущая C-006 authority, candidate и незавершённые операции.
+C-012 ledger/state, current repository facts, текущая C-006 authority, candidate
+и незавершённые операции. C-008 используется при наличии; full/partial/missing
+report — отдельные входные варианты. Без полного C-008 исходными доказательствами
+служат сохранённые dispatch/admission и C-006A/C-009 bindings, ledger и независимые
+observations target. Ни отсутствие report, ни один consumed flag не доказывают
+наличие/отсутствие effect. Недоступный checkpoint обрабатывается по existing
+missing/corrupt RESUME contract, а не созданием пустого состояния.
 
 ### Результаты и наблюдаемое поведение
 
@@ -2016,15 +2324,22 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 1. Stop mutation
 2. Preserve state/logs
 3. Classify partial writes
-4. Reconcile intended/actual
-5. Restore persistent task/run state and continuous attempt ledger
+4. Reconcile intended/actual: доказанный effect не повторять; доказанное отсутствие отделить от UNKNOWN. Missing/partial C-008 не запрещает scoped read-only сбор доступных доказательств.
+5. Сохранить независимый recovery observation C-010 с источниками, исходным admission и ограничениями; связать его с C-012. Сохранить отсутствие исходного report, не выдавая реконструкцию за C-008 worker. Restore persistent task/run/lifecycle state and continuous attempt ledger
 6. Determine deterministic next action
 7. Require human decision or Evidence only for the affected boundary
 8. Resume after repository/candidate/authority recheck
 
 ### Изменения состояния
 
-Остановить effect → сохранить observations → reconcile intended/actual → current next action. PAUSED_RESOURCE останавливает run, не завершает task; resume идёт через RECOVER_STATE.
+Остановить effect → сохранить observations → reconcile intended/actual → current next action. PAUSED_RESOURCE останавливает run, не завершает task; resume идёт через IDLE → RECOVER_STATE.
+
+При stale/concurrent update проигравший controller прекращает dispatch без
+изменения shared state победителя. Новый исключительный владелец перечитывает
+state/effects и применяет [протокол конфликта](03_Development.md#state-conflict-recovery).
+Терминальная task не возобновляется автоматически; неизвестный effect и consumed
+envelope сохраняются до reconciliation. Missing checkpoint при resume не
+восстанавливается созданием пустой задачи.
 
 ### Сценарии отказа
 
@@ -2036,7 +2351,7 @@ Recovery package preserving journal/candidate/findings, bounded resume/rollback 
 
 ### Зависимости и общие contracts
 
-- FTR-010 — SCENARIO_REQUIRED при interrupted execution: C-008, не повторный запуск worker.
+- FTR-010 — SCENARIO_REQUIRED при interrupted execution: сохранённый admission/effect context и C-008, если он существует; потеря report не требует повторного запуска worker.
 - FTR-016 — CORE_REQUIRED: сохранённый C-012; missing/stale state требует восстановления.
 - FTR-019 — CORE_REQUIRED: current permission до продолжения; прежняя authority не подразумевается.
 
@@ -2152,20 +2467,19 @@ C-014 action/source/target, repo/current refs, candidate, необходимые
 
 ### Результаты и наблюдаемое поведение
 
-Closure report and separately authorized Git/release actions bound to exact candidate and current remote state.
+Closure report and separately authorized Git/release actions bound to the exact candidate and action-specific local/remote target. Current remote facts are required only when relevant to the operation or explicitly required by its policy; local Commit may have no remote dependency.
 
 - Результат имеет явный статус и provenance
 - Пользователь видит limitations, unknowns и одно следующее действие
 
 ### Основной процесс
 
-1. Verify local subject
-2. Check remote/PR state
-3. Confirm review/acceptance
-4. Request exact action auth
-5. Perform one action
-6. Reverify
-7. Stop
+1. Определить exact operation и проверить local subject.
+2. Для Commit проверить local candidate/index и применимую branch policy. Remote/PR observation не требуется, если её явно не требует выбранная policy.
+3. Для Push проверить source/ref и destination; для Merge — exact merge source/target и применимую PR/branch policy; для Release — artifact/release target и фактические связанные refs. Проверять только относящиеся к операции remote facts.
+4. Проверить нужные review/decision records и отдельную current authority именно на действие; достаточное существующее разрешение не запрашивать повторно.
+5. Выполнить одно действие, проверить actual result и записать C-014.
+6. Stop; неизвестный outcome сначала reconcile, без автоматического следующего Git action.
 
 ### Изменения состояния
 
@@ -2177,7 +2491,7 @@ Closure report and separately authorized Git/release actions bound to exact cand
 
 ### Восстановление
 
-Наблюдать фактические refs/remote outcome перед retry; не force и не откатывать чужие изменения. Локальный merge не означает push.
+Перед retry сверить actual outcome на затронутом target: для локального Commit — local refs/index/candidate; remote facts — только для относящейся к ним операции или явной required policy. Unknown не даёт повторного dispatch. Не force и не откатывать чужие изменения. Локальный merge не означает push.
 
 ### Зависимости и общие contracts
 
@@ -2274,13 +2588,32 @@ shared_defaults_present: false
 
 Context is lost between sessions/tools; agents read too much or omit relevant rules.
 
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Durable task checkpoint/context/handoff без обязательного индекса: source references, exact candidate, criteria/checks, actual authority binding, effects, ledger/resources и one next action. До продукта это обеспечивает внешний host.
+
+**Приёмка среза:** Fresh session получает достаточные данные из owners, mutable facts проверяются заново. Storage не выдаёт решения и не владеет controller transitions. Missing/unsupported/stale record не заменяется пустым успешным state.
+
+**Связь с реализацией:** K1–K4; SC-T03/07/09/10/11/14/16/17/18/22; C-012 для controller, recovery и status. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+**Переносимость R3:** Предметные данные и формат C-012 переносимы, environment/path bindings остаются явными. Чтение на другой ОС не разрешает resume; mismatch не исправляется silent path rewrite или сбросом ledger. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+
+### Подключение и очередь первого ядра — R7
+
+Хранит C-015 registration bindings и C-016 сообщения/delivery отдельно от C-012 task axes: durable acceptance, operation dedup/ledger references, owner/claim и result-before-ack. Storage не выбирает criterion и не выдаёт authority. Initial store создаётся без собственной очереди; missing history на resume не заменяется пустой. Retention/TTL не разрешают автоматическое удаление данных.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Controller и пользователь продолжения; агент собирает task-scoped context.
 
 ### Условие запуска (`Trigger`)
 
-Сохранение результата stage, новая session, запрос context либо handoff.
+Явное создание новой product task, сохранение результата stage, новая session, запрос context либо handoff.
 
 ### Предварительные условия
 
@@ -2288,7 +2621,11 @@ Controller и пользователь продолжения; агент соб
 
 ### Входные данные
 
-C-012 current state, source-owned facts/decisions, repo identity, source bindings, explicit task scope и ограничения sensitive content.
+Для resume/context — C-012 current state, source-owned facts/decisions, repo identity,
+source bindings, explicit task scope и ограничения sensitive content. Для initial
+creation — проверенные C-005/task revision, candidate, current C-006 и отсутствие
+прежней identity/истории по [initial-state contract](03_Development.md#initial-product-state);
+готовый C-012 на этом входе не требуется.
 
 ### Результаты и наблюдаемое поведение
 
@@ -2299,16 +2636,16 @@ Compact durable state plus explained minimal context with provenance and freshne
 
 ### Основной процесс
 
-1. Load accepted facts
-2. Refresh mutable repo facts
-3. Select relevant sources
-4. Explain inclusion
-5. Check hashes/freshness
-6. Emit context/handoff
+1. Различить явно запрошенное создание задачи и resume/context; missing record не выбирает создание автоматически.
+2. При создании controller формирует исходный C-012, FTR-016 сохраняет create-if-absent по Development; существующий record не перезаписывается.
+3. При resume загрузить совместимый C-012; missing/corrupt/unsupported блокирует effects до reconciliation.
+4. Load accepted facts, refresh mutable repo facts and select relevant sources.
+5. Explain inclusion and check hashes/freshness.
+6. Emit context/handoff; storage не выбирает следующий controller transition.
 
 ### Изменения состояния
 
-Загрузка сохранённого → refresh mutable facts → объяснённый context/handoff. Controller один меняет lifecycle; storage не принимает решения и не завершает task.
+Загрузка сохранённого → refresh mutable facts → объяснённый context/handoff. Controller один меняет controller-action и текущую lifecycle по [workflow V3](03_Development.md#core-lifecycle-transitions). Storage сохраняет согласованные state/event/admission и before/after stage; initial stage остаётся в C-005. Resume не сбрасывает stage/ledger, частичная публикация требует reconciliation. Storage не принимает решения и не завершает task.
 
 ### Сценарии отказа
 
@@ -2435,12 +2772,17 @@ Rebuildable retrieval with source, authority, freshness and confidence after mea
 
 ### Основной процесс
 
-1. Build index from approved corpus
-2. Bind source commit/hash
-3. Run query
-4. Return explained candidates
-5. Validate freshness
-6. Fallback to direct search
+| Операция | Вход и эффект | Завершение / отказ |
+|---|---|---|
+| Query | Запрос, существующий индекс и source bindings; только чтение | Проверить freshness до использования, вернуть explained candidates/coverage. Missing/stale index допускает direct-source fallback в разрешённом scope; иначе ограниченный результат. Нет автоматического build/refresh или записи cache |
+| Build | Отдельный запрос, разрешённый corpus/output и authority на создание | Создать производный индекс, связать sources, проверить результат; чужой existing output не перезаписывать. Interrupted/unknown publication не объявлять успешной |
+| Refresh | Отдельный запрос, существующий индекс, current corpus/bindings и authority на обновление | Обновить разрешённый output, исключить устаревшие entries из current результата, проверить publication; source не менять |
+
+Query не переходит в effectful operation ради получения результата. При interrupted
+build/refresh сначала сверить actual output и bindings; повторять только доказанно
+незавершённое в fresh разрешённой boundary. Неполный индекс не выдаётся за current.
+Смежный repository graph остаётся PROPOSAL и не становится автоматически выбранным
+интерфейсом этой фичи.
 
 ### Изменения состояния
 
@@ -2662,6 +3004,23 @@ shared_defaults_present: false
 **Проблема**
 
 Actions differ by write/network/data/Git/authority risk and external content can inject instructions.
+
+### Первый core-срез — SCAFFOLD_CORE_DRAFT
+
+**Объём:** Read-only классификация action, paths, effects, input trust и действующей authority перед локальным dispatch. Базовая проверка provenance не зависит от optional FTR-021 audit.
+
+**Приёмка среза:** Известное разрешённое действие ALLOWED в своей boundary; unknown/forbidden effect блокируется, безопасное независимое чтение не блокируется глобально. External instructions, generated decisions и stale records не расширяют доступ.
+
+**Связь с реализацией:** S0/K2–K4; SC-T01/04/12/14; permission result для FTR-009/010. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
+
+### Подключение и очередь первого ядра — R7
+
+C-015 manifest и C-016 message/event — данные, не authority. Проверяются sender/receiver scope и payload access при enqueue/direct call, а перед эффектом — current permission/authority, subject и generation. Subscription/event не разрешают необъявленный handler/effect; blocked unknown не превращается в requeue с новыми полномочиями.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
 
 ### Целевые пользователи
 
@@ -3053,6 +3412,15 @@ shared_defaults_present: false
 
 Teams repeatedly rediscover solutions and repeat known failures.
 
+### Применение протокола подключения — R7
+
+C-015 задаёт DIRECT_READ patterns.lookup в составе 005+022: declared corpus, fit и provenance без скрытого index refresh или install. C-016 analysis/save относятся к FTR-005/controller; lookup возвращает candidates в текущий анализ, не создаёт recursive ADR. Недоступный corpus ограничивает lookup, но не самостоятельный analysis FTR-005.
+
+Контракты — [Architecture](02_Architecture.md#module-connector-queue), операции —
+[Development](03_Development.md#module-connection-lifecycle), проверки —
+[SC-T23…26](03_Development.md#core-transport-checks) и MOD-A06/07. Это документационный
+DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не повышается.
+
 ### Целевые пользователи
 
 Архитектор/агент предлагает pattern; человек принимает материальный design choice.
@@ -3067,7 +3435,7 @@ Teams repeatedly rediscover solutions and repeat known failures.
 
 ### Входные данные
 
-Problem/context/constraints, versioned pattern с source/tradeoffs/failures/tests, альтернативы и известные lessons.
+Problem/context/constraints, versioned pattern с source/tradeoffs/failures/tests, альтернативы и известные lessons. При применении ранее принятого материального выбора — соответствующий C-004; сам поиск не требует заранее принятого ADR.
 
 ### Результаты и наблюдаемое поведение
 
@@ -3082,12 +3450,12 @@ Curated problem→context→solution→tradeoff→failure→test patterns with e
 2. Compare target context
 3. Assess fit/anti-fit
 4. Show tradeoffs/alternatives
-5. Select only by design decision
-6. Record result
+5. Вернуть recommendation; материальный выбор направить в FTR-005, без обязательного human gate для самого поиска.
+6. Record result; достаточный ранее принятый выбор использовать только при сохранённых subject/условиях, без повторного approval.
 
 ### Изменения состояния
 
-Поиск → fit/anti-fit comparison → recommendation → отдельное design decision; использование и результат связываются с источником.
+Поиск → fit/anti-fit comparison → recommendation; отдельный material design decision проходит FTR-005. Использование и результат связываются с источником. Возврат рекомендации не означает её исполнения или изменения policy.
 
 ### Сценарии отказа
 
@@ -3131,7 +3499,7 @@ Curated problem→context→solution→tradeoff→failure→test patterns with e
 
 | Case | Требование / contract | Дано | Когда | Тогда |
 |---|---|---|---|---|
-| FTR-022.S1 | Критерии приёмки и основной процесс FTR-022 | Pattern и альтернатива с context, tradeoffs, failures/checks | Сравнить с целевой задачей | Fit/anti-fit объяснён, failures и проверки видны, выбор вынесен в design decision. |
+| FTR-022.S1 | Критерии приёмки и основной процесс FTR-022 | Pattern и альтернатива с context, tradeoffs, failures/checks | Сравнить с целевой задачей | Fit/anti-fit объяснён, failures и проверки видны; рекомендация возвращена, материальный выбор при необходимости передан FTR-005. |
 | FTR-022.S2 | Критерии приёмки и основной процесс FTR-022 | Контекст отличается или pattern deprecated | Запросить reuse | Нет слепого переноса; ограничение/альтернатива представлены явно. |
 | FTR-022.N01 | Негативный случай №1; FTR-022 fit matrix | Pattern требует локальный единственный writer, целевая задача имеет несколько writers | Сопоставить контекст и ограничения | Несовместимость записана в fit matrix; pattern не предлагается как готовое решение без отдельного разбора. |
 | FTR-022.N02 | Негативный случай №2; FTR-022 lifecycle | Подходящий по форме pattern имеет status DEPRECATED | Выбрать reusable candidate | Deprecated status виден; pattern не становится текущей рекомендацией автоматически. |
@@ -3331,6 +3699,7 @@ Release combines accepted code, versioning, deployment and rollback and must rem
 - Принятые или DRAFT upstream artifacts с явным статусом
 - Exact scope, constraints, unknowns и ссылки на источники
 - Релевантные repository facts и Evidence, если применимо
+- Только для R4 handoff: exact action request/artifact/target и при получении результата C-014 от FTR-015; подготовки package до исполнения C-014 не требует
 
 ### Результаты и наблюдаемое поведение
 
@@ -3341,17 +3710,23 @@ Decision-ready release package bound to exact merged artifact and explicit relea
 
 ### Основной процесс
 
-1. Bind merged artifact
-2. Compile changes/compatibility
-3. Check blockers
-4. Prepare version/tag
-5. Request release auth
-6. Execute one action
-7. Verify
+1. Bind merged artifact and compile changes/compatibility.
+2. Check blockers; prepare release package и предложение версии/tag без Git writes.
+3. Подготовить exact action request для FTR-015. Проверить существующую отдельную authority либо запросить недостающее разрешение.
+4. Передать запрос FTR-015 один раз; только FTR-015 исполняет Git/Release и возвращает C-014.
+5. Получить и проверить binding результата C-014 к action/artifact/target, показать статус package; FTR-024 сам действие не повторяет.
+
+Уточнение R4 относится только к handoff: полный dossier остаётся shared-default.
+Prepare version/tag — предложение, а не создание tag или запись версии. Эти
+записи требуют явно покрытых операций и полномочий; release authorization не
+выводится из preparation. Неизвестный outcome передаётся FTR-015/FTR-014 для
+reconciliation до нового запроса; ожидание результата не запускает второй dispatch.
+Локальные command IDs/способ корреляции — HOW; наблюдаемая одноразовость и exact
+binding обязательны. Это не решение объединить FTR-015 и FTR-024 в модуль.
 
 ### Изменения состояния
 
-Фича изменяет только заявленный ею класс артефакта или состояния. Переход в execution, approval или Git delivery автоматически не выполняется.
+R4 handoff: DRAFT package → готовый exact action request → передан FTR-015 → связан с C-014 result либо unresolved outcome. FTR-024 не исполняет и не повторяет Git effect; остальной lifecycle требует будущего feature-specific contract.
 
 ### Сценарии отказа
 
@@ -3450,7 +3825,7 @@ Material outcomes and failures are lost, causing recurrence.
 
 ### Входные данные
 
-Event/subject/time/source, C-008/C-010 факты, diagnostic signature, candidate cause и имеющиеся recovery observations.
+Event/subject/time/source, C-008/C-010 факты, diagnostic signature, candidate cause и имеющиеся recovery observations. Для обработки человеческого решения по lesson — C-011 с provenance, exact lesson/subject и revision; запись самого incident не требует этого будущего решения.
 
 ### Результаты и наблюдаемое поведение
 
@@ -3472,6 +3847,11 @@ Minimal incident record that produces human-reviewed lesson and regression candi
 ### Изменения состояния
 
 Incident observation → cause candidate → Evidence-supported conclusion → lesson/regression proposal → human decision. Событие не изменяет policy или state task.
+
+C-011 читается как решение только для связанных lesson/subject/revision с
+подтверждённым issuer/source. Rejection сохраняется без изменения policy;
+stale, чужой либо неподтверждённый record не применяется. Получение даже ACCEPT
+не выполняет отдельную policy mutation автоматически.
 
 ### Сценарии отказа
 
@@ -4068,12 +4448,16 @@ Small strict utilities, migration evidence and maintainability metadata after co
 
 ### Основной процесс
 
-1. Inventory representations
-2. Introduce strict adapter
-3. Migrate bounded callers
-4. Add negative tests
-5. Compare docs/schema/runtime
-6. Sunset legacy after Evidence
+| Операция | Вход и эффект | Завершение / отказ |
+|---|---|---|
+| Check | Accepted contract/version, существующие representations/callers и поддержанный checker; read-only subject | Inventory/conformance/findings. Missing checker даёт NOT_RUN/BLOCKED для зависимого check; он не внедряется автоматически |
+| Migration | Отдельная task/authority, exact callers и migration scope | Внедрение/смена adapter и bounded migration, необходимые tests и fresh affected checks; исходные данные и mismatch Evidence сохранены |
+| Sunset | Migration Evidence по всем callers, exact parser target и отдельное решение/authority на удаление | Выполнить только покрытый sunset, проверить отсутствие bypass/regression. Без покрытия или authority — отказ до удаления |
+
+Read-only Check не требует предварительной миграции или удаления parser. Разрешённые
+outputs проверки находятся вне subject. Migration не выполняет Sunset автоматически;
+сбой или unknown effect сначала reconciled. Базовая валидация ядра остаётся доступной
+без FTR-030.
 
 ### Изменения состояния
 

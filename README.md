@@ -27,6 +27,14 @@ git_authorization: NONE
 
 Обязательная точка входа для агента: `docs/00_Core.md`.
 
+### Scaffold и первое ядро
+
+Для текущей подготовки автономной разработки читать [применимость решений](docs/00_Core.md#scaffold-core-decisions) → [результат и срезы](docs/01_Product.md#scaffold-core-outcome) → выбранные dossiers в `06_Features.md` → [стыки](docs/02_Architecture.md#scaffold-core-interfaces) → [внешний цикл разработки](docs/03_Development.md#scaffold-core-development) → [implementation brief](workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md).
+
+Новые contracts имеют статус `SCAFFOLD_CORE_DRAFT`: это подготовленный предмет решения, не принятый состав или разрешение писать runtime. Полномочия текущей задачи ограничены документацией. Дальнейшие фичи готовятся отдельно по [правилу интеграции](docs/03_Development.md#feature-integration-readiness).
+
+Замороженный `AOS/`, portable package и прежний AOS-3 blueprint сохраняют свои exact identities и исходные области принятия. Для новой задачи они используются через [provenance и границы применимости](docs/05_Reference.md#scaffold-core-sources); их прежний маршрут не является вторым активным заданием. Изменение frozen subject требует отдельного Reopen.
+
 ### Архив
 
 Исторические материалы прежнего процесса находятся в [`archive/aos-archive/`](archive/aos-archive/README.md).
