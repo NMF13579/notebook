@@ -6,7 +6,7 @@ status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_agent_review: PASS
 current_change_human_review: NOT_RUN
@@ -287,7 +287,7 @@ state, observed effects и one next action.
 Controller — единственный владелец controller-action transition. Worker output считается
 непроверенным observation и не может напрямую установить `PASS`, закрыть
 criterion или task. State update проверяет previous revision/digest; один active
-controller обеспечивается lease/CAS-equivalent. Stale/concurrent update
+controller подтверждает каждое изменение из одной исходной revision только один раз; механизм реализации не предписывается. Stale/concurrent update
 отклоняется и ведёт в `RECOVER_STATE`.
 
 ```text
@@ -474,6 +474,52 @@ Empty authority mapping permits no mutation, Task Brief `requested_*` treated as
 ## 18. Протокол validation
 
 Freeze subject; verify environment/import provenance; run targeted checks; wider suite only if relevant; record commands/results; preserve required/optional; classify limitations; inspect diff; verify no validation mutation; stop with one next action.
+
+<a id="modular-maintenance"></a>
+
+### 18.1. Сопровождение модульных contracts — MODULAR_DRAFT
+
+Применяется к предлагаемому [модульному составу](06_Features.md#4-индекс-каталога). Общие interfaces, owners и области affected consumers заданы в [Architecture](02_Architecture.md#module-contracts). Уточнение процедуры не меняет authority, canonical state machine или исходные feature dispositions.
+
+Маршрут изменения: наблюдаемая проблема → требование и owner contract → consumers и affected scenarios → влияние на совместимость/сохранённые задачи → bounded correction → свежая проверка затронутой области → отчёт и завершение. Для документационной задачи это authoring и документальные checks; runtime actions этим маршрутом не разрешаются.
+
+До правки фиксируются цель, exact paths, затронутая возможность и основание. Для изменения contract нужен список consumers из Architecture и зависимостей dossier: прямые readers, producer, recovery path, сохранённые версии и acceptance/negative cases. Если влияние неизвестно, исследовать соседнюю causal boundary; не выдавать узкий PASS. Производный индекс помогает найти consumers, но не заменяет чтение источника.
+
+После правки повторяются проверки изменённых гарантий и их consumers. Полный пересмотр пакета нужен при изменении общего contract с неопределённым влиянием, новых material cross-document conflicts или нарушении source/owner boundaries; локальная редакция сама по себе не требует полного audit. Подтверждение старого результата не переносится на изменённый subject.
+
+Finding содержит нарушенное требование, ссылку на наблюдение/current candidate, последствие и способ проверки исправления. Предпочтение формулировки или новая возможность вне scope — предложение, а не blocker. Reviewer работает read-only; corrector создаёт новую revision, после чего проверяется исправление и его влияние. Новый существенный дефект сохраняет blocking status независимо от числа review rounds.
+
+Эквивалентная correction или повтор той же проверки без новой информации не считаются progress. Действуют diagnostic/anti-loop правила разделов 10.3–10.4: история, signature и diagnostic level сохраняются; исчерпание проверки одного уровня ведёт к расширению диагностики или точному missing decision/Evidence, а не к бесконечному переписыванию текста. Общие product choices группируются в один decision package, обычные редакционные шаги отдельного approval не требуют.
+
+<a id="modular-documentation-checks"></a>
+
+### 18.2. Документальная проверка композиции
+
+Для MODULAR_DRAFT пакет готов к человеческому рассмотрению, если состав, полные границы возможностей, владельцы, версии, failures/recovery, conditional dependencies и acceptance examples определены. Материальное open decision допустимо только как точный вопрос с ограничением dependent claims; оно не превращается в принятое поведение или implementation readiness.
+
+Проверка проходит `input → contract owner → допустимое действие → result/state → next action`. Это анализ описанного поведения, не симуляция исполнения и не runtime Evidence. Следующая таблица задаёт маршрут проверки; итоговый outcome конкретного прогона хранится в плане/отчёте, а не становится постоянным PASS в этом workflow.
+
+| Case | Вход и проверяемый путь | Ожидаемое документальное разрешение |
+|---|---|---|
+| MOD-S01 | Простая задача без CI, индекса, installer и patterns; FTR-001/003→006→009/019→010→013/011→012/016 | Required локальные checks и базовая authority остаются; техническое завершение не требует Git или optional modules |
+| MOD-S02 | Неопределённый outcome; FTR-001→003 | Материальный вопрос/unknown, без выдуманной спецификации и разрешения |
+| MOD-S03 | Ненадёжный observer или competing hypotheses; FTR-011→010, C-009A | D0…D5, DENY speculative correction; при исчерпании Evidence — точный WAIT_EVIDENCE |
+| MOD-S04 | Та же failure signature после correction; FTR-010/014/016 | Ledger/уровень не обнуляются; отсутствие progress требует расширения диагностики |
+| MOD-S05 | Прерывание с неизвестным effect; C-008→FTR-014→C-012 | Reconciliation до retry; envelope не используется повторно; task не завершена |
+| MOD-S06 | Required check отсутствует/stale; FTR-013→011 | Нет aggregate PASS/completion; названы check, subject и missing evidence |
+| MOD-S07 | Final validation finding; FTR-011→controller→010→013/011 | Отдельная correction с fresh gate/envelope, новая affected validation |
+| MOD-S08 | Нужный модуль отсутствует; условие dossier→FTR-008 | Заблокирован зависимый сценарий; нет скрытого включения, install или authority expansion |
+| MOD-S09 | Устаревший индекс; FTR-017→016/002 | Direct-source fallback с coverage; старый индекс не подтверждает current facts |
+| MOD-S10 | CI недоступен; FTR-023→011 | Local equivalent лишь если заранее определён; иначе required CI NOT_RUN |
+| MOD-S11 | Authority отозвана/actor не доказан при отключённом FTR-021; FTR-012/019→010 | Эффект блокируется базовым admission; optional audit не является обходом |
+| MOD-S12 | Старая задача несовместимой версии; C-012→FTR-014 | Inspection если поддержан; resume заблокирован до совместимости/recovery, данные не теряются |
+| MOD-S13 | Update конфликтует с user-owned файлом; FTR-004→009/014 | Conflict preview, нет скрытой перезаписи; interrupted effects сохраняются |
+| MOD-S14 | Child tasks закрыты, parent criterion не доказан; FTR-007→003/011 | Parent completion не выводится из child count |
+| MOD-S15 | Изменён общий contract; owner→consumers из Architecture §6.1 | Видны affected scenarios/versions; fresh checks, неизвестное влияние расширяет проверку |
+
+Для каждого выбранного dossier проверяется вся сохранённая acceptance/negative list и примеры S1/S2 и предметные N-примеры с привязкой к исходным негативным случаям. Модульные сценарии имеют те же safety rules, что ядро. Проверки invalid inputs для будущего runtime остаются спецификацией: executable fixtures, команды и platform support определяются после соответствующих решений.
+
+Focused checks: paths/scope, Markdown links/fences, YAML parse затронутых blocks и diff whitespace. После изменения общих contracts один раз проверяются семь canonical files, уникальные FTR/LES identities, owner/status boundaries и отсутствие authority promotion. Технический результат не является human acceptance или Global Design Freeze.
 
 ## 19. Human review
 

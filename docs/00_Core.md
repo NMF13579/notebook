@@ -6,7 +6,7 @@ status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_DEVELOPMENT_COMPLETION_LOOP_R2
+current_change_subject: AOS_MODULAR_CORE_DOCUMENTATION_R1
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_agent_review: PASS
 current_change_human_review: NOT_RUN
@@ -238,6 +238,8 @@ AOS использует строгую иерархию уровней дета
 3. **Engineering Design (Implementation)**: Детали реализации, выбор библиотек, псевдокод (HOW). К этому уровню относятся: алгоритмы реализации, внутренние структуры данных, внутреннее представление состояния, runtime state layout, helper APIs, implementation classes, lock protocols, CAS, retry strategies, persistence mechanisms, journals, thread synchronization и другие обратимые инженерные решения. Подобные решения не являются частью архитектурной документации уровня Concept или Architecture Contract и принимаются coding agent во время реализации.
 
 **WHAT / HOW boundary**: Пакет AOS останавливается до стадии Engineering Design. Документация не должна содержать детали реализации, псевдокод или иные элементы Engineering Design (HOW). Coding agent отвечает за обратимую техническую реализацию.
+
+В модульном проектировании обязательность данных, семантика версии, единственный владелец состояния, защита от повторного эффекта и наблюдаемое восстановление являются гарантиями WHAT. Требование гарантии не предписывает CAS, locks, journal format, storage engine или wire serialization. Инженерные схемы предназначены для будущего runtime и не являются формой обязательной документационной процедуры. Новые уточнения состава и совместимости отмечаются DRAFT до соответствующего решения.
 
 ## 13. Жизненный цикл проектирования и мутации
 
