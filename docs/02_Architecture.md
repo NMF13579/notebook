@@ -491,6 +491,13 @@ current candidate и authority binding, критерии с NOT_RUN, пусто�
 этого запуска; создание state не обнуляет внешний budget. Missing checkpoint
 существующей задачи не является таким начальным состоянием.
 
+Уточнение C-012 — DRAFT: восстановимый record сохраняет доступную exact связь
+с C-005 и его ограничениями, выполненные действия и наблюдённые эффекты (включая
+неизвестный исход), результаты/актуальность проверок, незавершённые операции и
+следующий допустимый шаг. Контекстная сводка не заменяет эти источники. Недоступная
+связь ограничивает продолжение; актуальность authority проверяется заново по
+[Development §10.2](03_Development.md#state-conflict-recovery).
+
 #### C-013 — Install / Update Manifest
 
 Package identity, ownership classes, operations, conflicts, preview binding, recovery и post-apply verification.
@@ -678,6 +685,24 @@ C-004 читается FTR-005/022 с проверкой subject/условий 
 не запускает её install; отключение модуля не удаляет artifacts/Evidence и не
 отключает чтение ранее принятых facts ядром. FTR-025 даёт optional observations,
 его отсутствие не блокирует ADR. Группировка R4 сама не вводила transport contracts. Теперь подключение следует общим C-015/C-016 R7, без обязательного plugin framework или запуска FTR-007.
+
+<a id="architecture-patterns-save-recovery"></a>
+
+**Документальный пример MOD-S18: потеря подтверждения — DRAFT.** Для
+`architecture.save_draft` сохранён admission операции O по task/revision T/R,
+точному draft D и owned destination P; запись могла завершиться, но C-008/ответ
+потерян. Единственный продолжатель сначала восстанавливает C-012, проверяет
+current authority и сверяет O, ledger и фактическое содержимое P в разрешённом
+read scope. Если подтверждены именно D и эффект O, повтор записи не нужен:
+recovery observation C-010 связывает найденный эффект с admission; он не
+подделывает C-008 и не принимает ADR за человека. Если доказано отсутствие
+эффекта и завершение прежней попытки, допустим fresh attempt той же logical O
+по C-016 и новому admission. Если данные неоднозначны или worker ещё действует,
+зависимая запись не повторяется; сохраняются unknown/in-flight и WAIT_EVIDENCE
+до достаточной reconciliation. Одного отсутствия ответа или файла недостаточно,
+чтобы доказать отсутствие всех effects. Следующий шаг определяется §10.2/§10.5
+Development. Пример проверяет описание; реальная потеря процесса и автоматическое
+возобновление остаются NOT_RUN до наблюдения в выбранной среде.
 
 **Сценарные readers.** FTR-025 читает C-011 при обработке решения по lesson,
 не при первоначальной записи incident. FTR-024 читает C-014 как результат exact
@@ -922,6 +947,12 @@ minimal bootstrap
 ```
 
 Индекс модуля «Граф RAG» (FTR-017) активируется после measured search/context problem; [контракт](#graph-rag-module-contract) сохраняет прямой поиск без обязательного индекса.
+
+Для 005+022 task-local context начинается с [короткого входа модуля](06_Features.md#architecture-patterns-entry),
+затем содержит относящиеся к вопросу current constraints, source/subject revisions,
+критерии, неизвестные данные и ссылки на owners. После остановки фактический
+state берётся из C-012 и observations, а не из пересказа brief. Это уточнение
+существующего context route — DRAFT, без нового хранилища или обязательного RAG.
 
 <a id="repository-graph-contract"></a>
 
