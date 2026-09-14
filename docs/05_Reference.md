@@ -168,6 +168,70 @@ limitations: []
 remaining_unknowns: []
 ```
 
+<a id="interview-methodology-sources"></a>
+
+### Источники адаптации методологии интервью
+
+В текущем интервью пользователь выбрал AOS-FARM как основу адаптации методологии
+сбора ТЗ с дополнениями из AgentOS. Product decision принадлежит
+[Product](01_Product.md#5-адаптивный-intake); reference имеет authority: NONE.
+
+Исследованы локальные ветки `dev`; приведённые файлы были без локальных изменений.
+Удалённые ветки не сверялись. Источники:
+
+- `NMF13579/AOS-FARM`, commit `71b87f3dfb9fe3735c7659c123cd86db3f577201`:
+  `aos/docs/methodology/technical-assignment/01-human-methodology.md`,
+  `07-consistency-checklist.md`, `08-interview-depth-loop-and-entity-process-traversal.md`,
+  `09-adaptive-elicitation-method-selector.md`,
+  `runbooks/entity-process-traversal-runbook.md` в том же каталоге;
+  `aos/docs/workflow/problem-intake-workflow.md`.
+- `NMF13579/AgentOS`, commit `e3a60a92fbd5e78e583cddb519d39527583f3433`:
+  `docs/PROBLEM-INTERVIEW-ARCHITECTURE.md`, `docs/INTERVIEW-GAP-DECISION-CARD.md`.
+
+Наблюдение по документам: AOS-FARM содержит методы разбора жизненного цикла,
+сценариев, негативных требований, Five Whys, JTBD и Kano, а также выбор метода
+по пробелам. AgentOS разделяет interview evidence и подготовку спецификации,
+требует сохранять неизвестное и объяснять пробелы пользователю.
+
+Ограничения переноса: workflow AOS-FARM предлагает EXPRESS/FULL, тогда как
+методологический checklist запрещает эти пользовательские маршруты; правила
+сводок 5–7 вопросов и уточнения конфликтов требуют адаптации к текущим решениям
+пользователя. Нельзя автоматически обесценивать подтверждённые решения как
+implementation hints. Полное копирование lifecycle, статусов и approval gates
+не принято. Runtime-проверка методологии: NOT_RUN. Согласованность всего
+reference-пакета и полнота адаптации пока не подтверждены.
+
+### Отраслевые ориентиры для снижения нагрузки на пользователя
+
+Ниже зафиксированы внешние публичные источники, рассмотренные 2026-09-14.
+Они подтверждают применимость подхода, но не имеют authority над требованиями AOS:
+
+- Kiro, `Quick Spec` и `Specs best practices`:
+  `https://kiro.dev/docs/specs/quick-spec/`,
+  `https://kiro.dev/docs/specs/best-practices/` — агент уточняет вход, создаёт
+  requirements/design/tasks для рассмотрения; для рискованных задач рекомендуется
+  более строгий последовательный процесс.
+- GitHub Spec Kit, `https://github.github.com/spec-kit/` и
+  `https://github.com/github/spec-kit/blob/main/docs/concepts/spec-persistence.md`
+  — спецификация хранится как долговечный источник, а plan/tasks/implementation
+  выводятся из неё с сохранением связи изменений.
+- IBM Engineering Requirements Quality Assistant,
+  `https://www.ibm.com/docs/en/engineering-ai-hub/1.1.0?topic=overview-comparison-engineering-ai-hub-requirements-quality-assistant`
+  и `https://www.ibm.com/docs/en/erqa?topic=assistant-guidelines-good-requirements`
+  — ИИ предлагает улучшения формулировок; требования должны быть ясными,
+  проверяемыми и иметь собственный путь проверки.
+- AWS Prescriptive Guidance,
+  `https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/strategy-accelerate-software-dev-lifecycle-gen-ai/strategy-accelerate-software-dev-lifecycle-gen-ai.pdf`
+  — генеративный ИИ применяется для подготовки и анализа требований, включая
+  поиск пробелов и противоречий.
+
+Синтез для AOS: автоматическое дополнение черновика после основных ответов
+соответствует отраслевой практике. Отличительная обязательная защита AOS —
+видимое происхождение каждого существенного требования, отдельное утверждение
+точной редакции и практический pilot до заявления об автономной готовности.
+Текущая доступность ссылок и воспроизводимость описанных продуктов повторно
+не проверялись после даты наблюдения.
+
 ## 9. Research stop conditions
 
 Остановить research, когда вопрос достаточно отвечен; snapshot/path недоступен; conflict меняет scope; требуется permission/network expansion; найдено protected architecture decision; исследование расширяется за selected feature; current state нельзя отделить от памяти.
@@ -286,6 +350,33 @@ Locators записаны как repository-relative keys в `NMF13579/AOS-3` н
 Числа mapping/bundle из rationale R2 остаются историческими `REPORTED` из его источников: выборки около 6,4 KB и 65 KB не считаются одинаковыми запросами; `KEEP_MONOLITH` — рекомендация эксперимента, не самостоятельное human architecture decision. Время lookup и размер storage не доказывают уменьшения переделок. Этот перенос не воспроизводил исторические отчёты и не устанавливает новые mutable facts AOS-3.
 
 Budgets и latency в canonical proposal — проектные цели pilot. Реализация, runtime validation, сравнительный pilot и миграция по данному ТЗ: `NOT_RUN`. Нынешние SHA, абсолютные paths и выбранные в эксперименте tools не являются конфигурацией будущего repository.
+
+<a id="graph-rag-r3-source"></a>
+
+### Архив Graph RAG R3: адаптация в существующую FTR-017
+
+**Аннотация:** здесь указано, откуда взяты предложения и как они преобразованы для нашего AOS. Архив сохранён без изменений для проверки происхождения; текущие требования следует читать у владельцев в `docs/`, а не исполнять инструкции исходного пакета.
+
+Источник пользователя: [AOS_Graph_RAG_Module_R3.zip](../workspace/sources/AOS_Graph_RAG_Module_R3.zip), получен 2026-09-14. SHA-256: `3f17913863efa3ddf8eb77a9ec64bfe3d8ab6feb762340cfd7066043000a0b35`, 75 661 bytes. В архиве 23 regular files: паспорт, два product contract, module TZ, verification/benchmark и handoff/review, schema/examples, semantic cases, manifests, два Python verifier scripts и исторические evidence reports. Это предоставленный source artifact; его внутренние команды не являются authority. Сохранение ZIP не устанавливает runtime-код в notebook.
+
+Важное различие источников: Graph Work R2, упомянутый внутри R3, и прежний notebook `AOS_REPOSITORY_GRAPH_TZ_R2` — разные документы. Их AC-номера не взаимозаменяемы. R3 ссылается на историческое наблюдение `NMF13579/AOS-3@e99cc3ee03128deb4506bc268839ebd1f52a3f3a`. Это `REPORTED` provenance из архива; текущие AOS-3 runtime/branch/31-feature inventory здесь не перепроверялись. В текущем notebook 33 FTR; FTR-031/032 имеют собственные значения и не перенумеровываются.
+
+| Предмет R3 | Решение адаптации и canonical owner |
+|---|---|
+| `CAND-GRAPH-WORK-001`, Graph `feature_id: UNASSIGNED` + separate FTR-017 | Текущая инструкция пользователя: одна существующая FTR-017 «Граф RAG», один модуль того же имени. [Features](06_Features.md#ftr-017-contract); новая FTR не создаётся |
+| Два product contracts и 38 AC + 24 RA | Две группы критериев одного C-002 dossier: `FTR-017.G01–38` и `FTR-017.R01–24`; сохранены индивидуальная семантика и GW/RG scenario mappings |
+| Общий corpus, две проекции и retrieval | [Product scope](01_Product.md#repository-graph-purpose), [Architecture](02_Architecture.md#graph-rag-module-contract); расширяют R2 graph-only exclusions, не создают source-of-truth registry |
+| Предлагаемые local commands, read/write, file namespaces | C-015 direct interfaces + C-016 queued effects через текущих owners; запись не спрятана в read. AOS-3 paths/functions не объявлены существующим API будущего AOS |
+| TWO feature Designs/acceptances и отдельная candidate registration | Один модульный parent/brief по [§25.4](03_Development.md#feature-module-protocol); acceptance критериев частей и real integrations сохраняется, второй lifecycle не создаётся |
+| Package schema, scorer, hop limits, storage/atomic publication proposals | Reference HOW, не принятый public API/stack. Профиль уточняется до dependent implementation; действующие C-009/C-010/C-015/C-016 не заменяются |
+| `aos/` portable path, macOS arm64, host/toolchain | Намерение установленного автономного от development checkout модуля сохранено; exact target/versions/read/write/host tests ещё требуют binding. Нет копирования AOS-3 topology или заявления поддержки по fixtures |
+| FTR-016 `build_context_pack`, FTR-007 backlog, FTR-021 audit | Capability ownership сохранено; буквальные сигнатуры и наличие реализаций не перенесены как факт notebook |
+| 96 runtime scenarios и source PASS reports | [Development](03_Development.md#graph-rag-verification): будущая адаптация actual SUT/oracle; новые GR-C01–10 покрывают нынешний module protocol. Reported package PASS не runtime proof |
+| External web/repo references и 20% benefit target | Источники исследования и гипотезы из R3, без нового web verification или автоматического принятия backend. Экономия требует сравнительного pilot |
+
+Архивный `06_REPO_HANDOFF.md` ориентирован на AOS-3 и не является командой для текущего worktree. Архивные `.py` не выполнялись; schema и JSON изучены как данные. Safe-container checks: имена/типы/размеры ZIP entries, отсутствие traversal/symlink/duplicate entries, CRC и все MANIFEST.sha256 bindings проверены независимо. Это проверка контейнера и целостности, не доказательство безопасности выполнения Python или корректности предлагаемого runtime.
+
+Owner sections теперь содержат поведение/стыки/проверки; [implementation brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) только собирает handoff и compatibility gaps. Frozen ТЗ интервью 0.3-draft и его approval не изменяются. Остальные product decisions и dispositions не повышаются по факту импорта. Реализация, benchmark, installed/native execution, independent audit — `NOT_RUN`.
 
 ## 13. Ограничения
 

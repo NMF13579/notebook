@@ -78,7 +78,7 @@ Accepted documents, DRAFT Feature Passports, lessons, targeted findings, pattern
 
 ### L6 — Optional Extensions
 
-RAG-light, model routing, runtime enforcement, plugins, domain modules, workbench/SaaS и observability.
+Граф RAG, model routing, runtime enforcement, plugins, domain modules, workbench/SaaS и observability.
 
 ## 4. Карта компонентов — кандидат
 
@@ -921,17 +921,17 @@ minimal bootstrap
 → handoff
 ```
 
-RAG-light допустим только после measured search/context problem.
+Индекс модуля «Граф RAG» (FTR-017) активируется после measured search/context problem; [контракт](#graph-rag-module-contract) сохраняет прямой поиск без обязательного индекса.
 
 <a id="repository-graph-contract"></a>
 
-### 10.1. Контракт проектного графа — PROPOSAL
+### 10.1. Производный граф модуля «Граф RAG» — DRAFT
 
-Статус всех положений этого подраздела — `PROPOSAL` для возможной будущей реализации. Назначение и не-цели определены в [Product](01_Product.md#repository-graph-purpose); источник — [ТЗ R2](05_Reference.md#repository-graph-tz). Требования ниже не меняют владельцев фактов из §8, dispositions фич или полномочия на реализацию.
+Этот DRAFT адаптирует прежний [R2](05_Reference.md#repository-graph-tz) для одной FTR-017 «Граф RAG». Название/состав определены в [Product](01_Product.md#repository-graph-purpose); расширение поиска/сравнения и подключения — [ниже](#graph-rag-module-contract). Старые graph-only budgets и широкие parser/pagination возможности — кандидаты расширенного профиля, а не все обязательства первого lexical/graph subset. Гарантии source binding, coverage, authority и безопасных effects применяются с первого среза. Это не разрешение реализации.
 
-**Единый производный артефакт.** Один локальный worktree имеет один активный graph artifact с общей системой наблюдений; виды кода, данных и фич не ведутся как отдельные редактируемые карты. Допустим временный кандидат публикации. Обзор генерируется по запросу. Удаление графа не уничтожает первичные требования, решения или уникальный обязательный контекст.
+**Единая производная модель.** Для объявленного worktree/scope профиль связывает активные graph/index projections с собственными input revisions. Target и Observed различимы, но не ведутся как две редактируемые базы истины. Допустим временный кандидат публикации; общий source manifest не создаёт ложного общего fresh-флага. Обзор генерируется по запросу. Удаление производных данных не уничтожает первичные требования, решения или уникальный обязательный контекст; число файлов/storage layout не фиксируется.
 
-Граф содержит сведения о версии схемы, extractor и профиле наблюдения, scope и source bindings, sources, nodes, edges, evidence, coverage, unresolved и pending refresh. Это логические части одного контракта, а не требование отдельных registries. Конкретный storage, parser, индексы, алгоритмы IDs/обхода и механика записи относятся к Engineering Design по `00_Core.md`, §12; они здесь не фиксируются.
+Граф содержит сведения о версии схемы, extractor и профиле наблюдения, scope и source bindings, sources, nodes, edges, evidence, coverage, unresolved и pending refresh. Это логические части одного контракта, а не требование отдельных registries. Конкретный storage, parser, индексы, алгоритмы IDs/обхода и механика записи относятся к Engineering Design по `00_Core.md`, §12; они здесь не фиксируются. Набор поддержанных extractors объявляется профилем; перечень R2 ниже не обещает полную поддержку в первой версии.
 
 #### Наблюдения, идентичность и доказательства
 
@@ -1014,11 +1014,80 @@ Scope имеет allowlist/exclusions; symlink/traversal не расширяет
 
 До pilot объявляются пределы source file, суммарного scope, graph/batch input, числа records, времени и памяти обработки. Output budget не заменяет processing budget. Превышение даёт явную причину/affected scope и сохраняет active graph; unsupported input не становится отсутствующей сущностью. Partial result допустим лишь с проверенной integrity и видимой coverage, иначе публикации нет. При аварийном завершении сохраняется явный failure без повреждения active graph. Непроверенная гарантия окружения не объявляется поддержанной.
 
-Критерии проверки, последовательность срезов и решения перед реализацией принадлежат [Development](03_Development.md#repository-graph-pilot). Storage пересматривается по измеренным расходам и удобству review, а не произвольному размеру или числу файлов.
+Критерии проверки, последовательность срезов и решения перед реализацией принадлежат [Development](03_Development.md#graph-rag-verification). Storage пересматривается по измеренным расходам и удобству review, а не произвольному размеру или числу файлов.
+
+<a id="graph-rag-module-contract"></a>
+
+#### Граф RAG: композиция и подключение C-015/C-016
+
+**Аннотация:** один модуль из FTR-017 находит контекст и объясняет отличия. Он читает разрешённые источники; сохранение результата является отдельной операцией. Это контракт будущего подключения к AOS, а не существующий API.
+
+Контракт-кандидат `AOS_GRAPH_RAG_V1` объединяет retrieval и graph comparison в одной FTR-017; digest принятой revision связывается в runtime C-015 после принятия. Версии ниже — предлагаемые интерфейсы WHAT, не новый глобальный каталог. Используются `AOS_MODULE_CONNECTION_V1` и, для effects, `AOS_MODULE_MESSAGE_V1`; текущие C-009/C-010 и controller сохраняют смысл.
+
+| Producer → interface/version → consumer | Mode и результат | Ownership и эффекты |
+|---|---|---|
+| Разрешённый host/caller → `graph_rag.find/v1` → caller или FTR-016 | DIRECT_READ: запрос/scope/mandatory/budget → source-faithful candidates, paths, reasons, coverage/freshness | FTR-017 владеет derived index, факты у source owner; in-memory поиск без persistent writes/network |
+| Host/FTR-002 observations + применимые Product/Architecture refs → `graph_rag.compare/v1` → caller/FTR-005/reviewer | DIRECT_READ: exact Target/Observed/Mapping → Delta, witnesses, applicability и ограничения | Сравнение отдельно от top-k; не меняет ADR/дизайн/код, не дублирует FTR-021 authenticity |
+| Host с task refs/FTR-016 → `graph_rag.context/v1` → FTR-016 → существующий host | DIRECT_READ: задача/mandatory sources → кандидаты контекста, missing inputs, relevant Delta, next-action recommendation | Итоговый Context Pack и session/task state принадлежат FTR-016; нет task selection/dispatch |
+| Host/FTR-016 continuation refs → `graph_rag.check/v1` → caller/FTR-014/FTR-016 | DIRECT_READ: текущая применимость либо явно historical/unknown | Нет записи cache/pending registry; resume не replay внешней mutation |
+| Caller с разрешённой задачей → `graph_rag.refresh/v1` или `graph_rag.save/v1` → FTR-010 dispatch → FTR-017 handler → caller/FTR-016 receipt | QUEUED_COMMAND C-016: создать/обновить derived destination либо сохранить reference bundle, подтвердить revision/result | Read scope, destination и operation binding объявлены; current authority перед эффектом, unknown publication требует reconciliation |
+
+`refresh` включает первоначальный build при отсутствующем собственном output; чужой output не разрешает overwrite. `save` получает refs от owners, сохраняет свой bundle и не меняет task/decision/current. Имена операций — contract-кандидат, не команды нынешнего AOS. Standalone find/check не требуют выдуманной C-005; эффекты требуют C-005/C-006 и current registration/subject. N/A недопустим, если заявленный сценарий фактически пользуется интерфейсом.
+
+Required boundaries: разрешённый reader/exclusion policy под FTR-009/019; registration/version routing FTR-010 с хранением bindings FTR-016; C-009 Result/C-010 provenance. Для context/resume required FTR-016, для persistence — scoped writer и C-016 controller. Они не объявляются существующими по AOS-3 source path. Optional: FTR-002 map, FTR-007 task candidates, FTR-021 аудит. Нет цикла «контекст нужен для создания индекса, индекс нужен для контекста»: FTR-016 поддерживает прямые источники, FTR-017 принимает явный corpus.
+
+Локальная композиция не требует plugin loader/брокера/FTR-026. QUEUED_EVENT subscriptions в базовом профиле отсутствуют (`NOT_APPLICABLE`: нет background consumer); внешний результат передаёт caller при следующем check/context. Event-driven refresh потребует revision C-015/C-016. Очередь и finite limits принадлежат core, модуль не заводит свою. До эффекта профиль задаёт versions, handlers/generation, read/write/service scope, limits, supported target/host/OS и Error/Result binding. `RESULT/PARTIAL/NO_MATCHES/STALE/UNSUPPORTED` и Delta labels — payload semantics внутри C-009, не новые глобальные result enums.
+
+#### Граф RAG: corpus, поиск и сравнение
+
+Capture связывает project/worktree/scope, фактически прочитанные bytes, revisions/locators, method/config и coverage. Fact class/role/authority и relevance раздельны: label/hash без применимого owner binding не принимают норму. Inventory учитывает additions/untracked; generated outputs исключены. Нет чтения закрытых материалов через graph paths или диагностику. Interval observation не объявляется atomic snapshot при произвольном writer.
+
+Source-faithful fragment имеет revision и span; объяснение не цитата, chunk не отрывает существенное отрицание/ограничение. Exact ID/path сохраняется независимо от score. Dedup не сливает conflicting revisions/roles. Mandatory refs приходят от task/context routing, ranking их не отменяет. Budget измеряет весь ответ, включая metadata/errors; точный token limit требует заданного tokenizer. Невмещаемый mandatory/minimum envelope явно ограничивает или отклоняет запрос. Graph expansion сохраняет directed paths; seeds/hops/node/byte/time limits объявлены, truncation видима. Producer → artifact ← consumer требует двух связей: один hop не выдаётся за полный consumer impact.
+
+Начальный extractor scope: Markdown/text, explicit JSON refs, Python definitions/direct imports при известном package mapping. Dynamic/ambiguous import не даёт runtime CALLS. Inferred/declared/extracted — происхождение, не authority. REFERENCES отображается в конкретное отношение/qualifier с проверенным смыслом, без молчаливых синонимов. Import сохраняет поддержанные identities/directions/provenance; unsupported явно ограничено/отклонено. Он не переносит AOS-3 lifecycle/readiness/topology в новый AOS.
+
+Target — source-bound expectation с REQUIRED/FORBIDDEN/OPTIONAL/GUIDANCE и current/future applicability; Observed — конкретное наблюдение поддержанного свойства, runtime Evidence отдельно. Mapping явный однозначный либо конечный declared source-set; semantic similarity не identity. Initial predicates-кандидаты: наличие файла, явная ссылка, статический Python import, ссылка на результат проверки. Их wire names/format относятся к HOW; наблюдаемая семантика обязательна.
+
+| Delta payload | Условие и предел вывода |
+|---|---|
+| MATCHED | Подтверждено конкретное сопоставимое свойство; не общий PASS |
+| MISSING_EXPECTED / FORBIDDEN_PRESENT | Required/current отсутствие при достаточном отрицательном покрытии либо witness применимого запрета |
+| PLANNED_DIFFERENCE / OPTIONAL_ABSENT | Future difference либо доказанное optional отсутствие; не текущая обязательная неисправность |
+| UNMODELED | Не описано target; не дефект без запрета/исчерпывающей границы |
+| UNVERIFIED / CONFLICT | Нет достаточных свежих/сопоставимых оснований либо material противоречие |
+
+Coverage, freshness и applicability независимы. Наличие теста не execution Evidence; top-k/неполный parser не доказывают missing. Delta предлагает проверить observation/mapping, обратиться к design owner либо подготовить разрешённую correction; не исправляет owners и не запускает код.
+
+#### Граф RAG: persistence, версии и lifecycle
+
+Cache/index/maps принадлежат FTR-017 и восстановимы; task/decision/Evidence — своим owners. Writer публикует подтверждённую целостную revision; conflict/partial save не теряют предыдущую, повтор operation не удваивает учёт. Не доказанный atomic writer не объявляется доступным: safe single-writer либо отдельный candidate/conflict без смены shared pointer. Access policy ограничивает выдачу немедленно; очистка derived копий требует delete scope.
+
+| Операция по §25.5 Development | Специфика Граф RAG |
+|---|---|
+| ADD/ENABLE | Проверить C-015/consumers/read route; разрешённые отсутствующие cache/config; register inactive → проверить direct/queued journeys → enable; conflict оставляет inactive |
+| UPDATE | Приостановить affected calls/commands, reconcile in-flight; rebuild derived либо покрытая migration; sources/history сохраняются. Новая generation не принимает старые сообщения молча |
+| DISABLE | Остановить новые business calls/enqueue; pending удержать с причиной, in-flight drain/reconcile; до этого не disabled. Direct-source flow FTR-016 доступен |
+| REMOVE | Проверить consumers/fallback, disable/reconcile, снять handlers/bindings; удалить только разрешённые implementation paths; bundles/Evidence сохраняются и читаются независимым owner route |
+| DELETE DATA | Отдельная authority на exact owned derived paths, проверка consumers/in-flight; disable/remove/TTL не дают delete permission. Unknown purge видим без раскрытия скрытого содержимого |
+
+Unknown interface/schema/data revision даёт unsupported или поддержанное inspection; downgrade не принимает непроверенный формат, rollback только по доказанному пути. Bundles не единственный owner обязательных решений. [Lifecycle checks](03_Development.md#graph-rag-verification) обязательны для соответствующих операций; конкретная реализация и runtime support пока `NOT_RUN`.
 
 ## 11. Адаптеры агентов
 
 Один common rule source поддерживает thin adapters для Codex, Claude Code, Cursor, ChatGPT и других сред. Adapters не расширяют permissions, используют repository-relative links и должны быть generated или drift-checked.
+
+Для сценария интервью адаптер читает и обновляет общий переносимый контракт
+состояния, а не хранит продолжение только в памяти чата. Контракт содержит exact
+revision черновика, текущий вопрос, отвеченные темы, открытые вопросы, конфликты,
+число ответов после последней сводки, source bindings и статусы предложений.
+Markdown остаётся читаемым человеком источником; машиночитаемое представление
+является проверяемой производной и может быть пересобрано.
+
+Conformance каждой агентной среды проверяется новым сеансом: он открывает файлы
+проекта, правильно определяет ближайший неотвеченный вопрос, не повторяет
+закрытые темы, сохраняет маркировку решений и рекомендаций и не переносит
+утверждение на новую редакцию. Успех одного адаптера не доказывает совместимость
+другого; общий формат без такого journey доказывает только статическую переносимость.
 
 ## 12. Топология репозитория
 

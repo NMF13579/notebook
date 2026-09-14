@@ -742,13 +742,47 @@ Before each action reverify repo/branch/HEAD/candidate/worktree, applicable poli
 
 Measure comprehension, clarification loops, scope drift, authority confusion, time to Evidence/review, handoff quality и Governance overhead. Automate only proven repetition with stable contracts, known failures, fallback/removal and no authority expansion.
 
+<a id="interview-to-tz-pilot"></a>
+
+### 22.1. Interview-to-TZ pilot
+
+До заявления об автономной готовности сценарий проверяется на трёх разных задачах:
+учёт оборудования, управление графиками работы и RAG-ответы со ссылками на
+источники. Для каждой задачи отдельный человек описывает целевой процесс обычным
+языком; новый агент затем читает только проектные файлы и объясняет всю систему.
+Это pilot функции AOS: три предметные области используются как fixtures для
+интервью и подготовки ТЗ. Pilot заканчивается проверенным проектом ТЗ и не
+создаёт, не запускает и не поставляет сами системы учёта, графиков или RAG.
+Их разработка возможна позднее только на реализованном и проверенном AOS,
+по отдельному утверждённому ТЗ и отдельной команде.
+
+Pilot считается технически успешным только если для всех трёх задач:
+
+1. весь основной путь и хотя бы один существенный отрицательный сценарий дошли
+   от интервью до reviewable ТЗ;
+2. каждое существенное требование связано с источником и проверяемым примером;
+3. рекомендации агента нигде не выданы за исходное решение пользователя;
+4. после остановки новый сеанс продолжил с ближайшего пробела без повторного
+   опроса закрытых тем;
+5. независимый cold review после исправлений не оставил критического пропуска
+   в выбранном scope;
+6. утверждение связано с exact revision и само не запустило разработку.
+
+Дополнительно измеряются число основных вопросов, активное время человека,
+число исправлений на рассмотрении, запросы разработчика на уточнение до первого
+vertical slice и найденные позднее пропуски. Эти показатели сравниваются между
+задачами и с ручным baseline, но заранее не превращаются в обещание длительности
+интервью. Результаты спецификации, conformance отдельного адаптера, usability
+и реальная автономная разработка сообщаются раздельно; частичный `PASS` не
+повышает общий результат.
+
 Для scaffold/core подготовлено точное уточнение этого порядка в [Product §17](01_Product.md#scaffold-core-outcome): технические срезы и positive/negative проверки выполняются внутри исходного интервала, а human usability evidence собирается отдельно. Это SCAFFOLD_CORE_DRAFT/SC-DEC-01; оно не объявляет пользовательский dogfood уже выполненным.
 
 <a id="repository-graph-pilot"></a>
 
-### 22.1. Проектный граф: рабочий цикл и pilot — PROPOSAL
+### 22.2. Проектный граф: рабочий цикл и pilot — PROPOSAL
 
-Этот подраздел переносит workflow и приёмку [ТЗ R2](05_Reference.md#repository-graph-tz). [Назначение](01_Product.md#repository-graph-purpose) и [архитектурный контракт](02_Architecture.md#repository-graph-contract) имеют собственных владельцев. Предлагаемый маршрут применяется только к задаче, в которой выбран graph-assisted context; каждая обычная правка не обязана запускать картографирование. Прямое исследование остаётся допустимым положительным маршрутом работы без графа.
+Этот подраздел сохраняет graph-only workflow и приёмку [ТЗ R2](05_Reference.md#repository-graph-tz) как источник дополнительных проверок. Для единого модуля FTR-017 последовательность и общий outcome определены [ниже](#graph-rag-verification); старые Slice 1–3 не являются вторым планом сборки или отдельной Graph Feature. [Назначение](01_Product.md#repository-graph-purpose) и [архитектурный контракт](02_Architecture.md#graph-rag-module-contract) имеют собственных владельцев. Маршрут применяется только к задаче с выбранным graph-assisted context; обычная правка не обязана запускать картографирование. Прямое исследование остаётся положительным маршрутом без графа.
 
 **До задачи:** проверить применимую область карты, запросить context/impact и открыть первичные источники существенных решений. В фиксированном pilot Slice 1 допустим полный rebuild малого scope вместо ещё не реализованного check/refresh; offline query сохраняет `repository_currentness: NOT_RUN`. Найденные ограничения и evidence references включаются в существующий task-local Context Pack по необходимости; выдача карты не заменяет Task Brief, permission или validation criteria.
 
@@ -803,6 +837,60 @@ Slice 1 охватывает применимые AC-01–03, AC-09–10, AC-12�
 Поставка будущей реализации: небольшой tool/module в выбранном repo, машиночитаемый schema contract, fixtures/tests, короткая инструкция в существующем owner, один воспроизводимый example graph и report metrics/limitations. Инженерные способы реализации выбираются внутри разрешённого контракта; отдельные approval для каждого обратимого HOW не добавляются. Нужное Evidence хранится по существующему workflow, а большие временные replay artifacts не входят в active graph.
 
 Если выбрана миграция карты AOS-3, importer доказывает full round-trip, включая допустимые неизвестные поля/статусы и semantic records, либо отказывается от неподдержанного переноса. Наблюдение будущего repo с нуля допустимо; оно не разрешает удаление старой карты. Текущий перенос документации не запускает разработку, pilot, миграцию или Git delivery.
+
+<a id="graph-rag-verification"></a>
+
+### 22.3. Граф RAG: единая сборка, совместимость и проверка пользы — DRAFT
+
+**Аннотация:** проверяем, что установленный модуль помогает реальному агенту найти правильные источники, увидеть объяснимое отличие и продолжить после перерыва. Проверка JSON, отдельного алгоритма или красивая карта этого не доказывает. Сбой необязательного модуля должен оставлять обычную работу AOS доступной.
+
+Предмет — одна FTR-017, один модуль «Граф RAG», две группы критериев G/R в [dossier](06_Features.md#ftr-017-contract). [Протокол §25.4](#feature-module-protocol), [C-015/C-016](02_Architecture.md#graph-rag-module-contract) и §25.5 lifecycle применяются без двух отдельных активаций фич. Один будущий C-005/C-006 parent связывает точный принятый contract, target/effects/profile, criteria/dependencies, limits и resume; один bounded run выполняет доступные внутренние шаги. Это вход будущей сборки, не authority от документа.
+
+| Внутренний outcome | Что доказывается на реальном публичном пути |
+|---|---|
+| LOCAL_CONTEXT | Обычный запрос → разрешённый capture → exact/lexical fragments → FTR-016 Context Pack → ответ existing host с проверяемыми ссылками; полный граф не требуется |
+| LINKED_CONTEXT | Typed neighbors добавляют связанный consumer/test/contract; provenance/directions/limits сохранены; unavailable graph даёт честный fallback |
+| TARGET_OBSERVED | Для малого явного target получен объяснённый Delta по достаточному mapped scope, future и непроверенное не названы дефектом; next action не исполняется модулем |
+| CONTINUITY_AND_PRODUCT | Dirty/add/delete/rename → новая применимость; scoped save/readback и новая сессия без старого чата; disable/recovery сохраняют core flow; installed journey и измерения |
+
+Срезы — dependency order внутри одного модуля, не новые Human Gates. S1 не закрывает весь модуль. Full completion требует applicable G/R, реально проверенных стыков и общих core regressions на одном candidate. Структурная карта без host generation/context boundary не завершает RAG.
+
+**Сценарии источника.** R3 `GW-T01–72` и `RG-T01–24` — 96 semantic scenario specifications, сохранённых в [архиве](../workspace/sources/AOS_Graph_RAG_Module_R3.zip), `verification/contract_cases.json`. Их связь с каждым из 62 критериев перенесена в dossier: G01–38 ← R3 AC-01–38, R01–24 ← R3 RA-01–24. Notebook graph R2 AC/N — другое пространство имён. Fixtures/harness/schema остаются reference, их AOS-3 operation/type/path bindings необходимо адаптировать к текущему C-015 и actual implementation. Expected observations не являются Evidence. Проверка coverage IDs не доказывает достаточность oracle.
+
+#### Полный installed journey
+
+На disposable subject с точным candidate, объявленным host/OS/versions/read/write profile: установить без зависимости от development-репозитория; задать обычным языком вопрос об изменении экспорта; получить exact contract/code и связанную проверку в bounded packet; existing host действительно получает пакет и даёт source-attributed ответ. Oracle из исходных источников/независимых проверок сверяет ссылки и утверждения, не доверяет самооценке host.
+
+Затем сравнить current requirement с полным mapped source-set: одну запрещённую связь обнаружить, future gap и тест без run не назвать defect/PASS. Изменить файлы без commit, добавить incoming relation и удалить source: следующая выдача обновлена либо честно неполна. Завершить процесс, открыть новую сессию с действительно сохранёнными refs: восстановлены goal/blockers/next action, нет replay unknown action. Выполнить controlled disable и проверить прямой flow FTR-016; user decisions/Evidence не меняются. Synthetic acceptance fixture не является настоящим human approval.
+
+#### Дополнительные проверки совместимости текущего AOS
+
+Каждый вариант строки проверяется отдельно на корректных остальных входах. Для cases определить exact public boundary, independent oracle и Evidence; не возвращать ожидаемые поля по case ID без работы actual SUT.
+
+| Case | Требование/стык и stimulus | Наблюдаемый oracle |
+|---|---|---|
+| GR-C01 | C-015: valid registration/direct query; отдельно absent/disabled/incompatible interface/generation | Реальный FTR-010 route разрешает только valid; остальные explicit refusal, нет hidden fallback/effects |
+| GR-C02 | find/compare/context/check + FTR-009/019: закрытый source, symlink escape, prompt injection, hidden neighbor | Read/effect sentinels и outgoing payload подтверждают scope, отсутствие hidden path/snippet/network/process/model calls и persistent writes; ошибки не раскрывают запрещённое |
+| GR-C03 | C-016 refresh/save: permitted command; отдельно missing/revoked authority, wrong subject, expired message, full queue | Dispatch проверяет current binding; допустимый writer сохраняет/readback, отрицательные не меняют destination; ack отдельно от результата |
+| GR-C04 | Duplicate command, lost ack, changed payload under same operation, crash/unknown publish | Operation ledger + actual output: нет двойного effect/учёта; mismatch rejected, unknown reconciled, прежняя подтверждённая revision сохранена |
+| GR-C05 | C-015 update/disable/remove: pending/in-flight, old generation, required consumer | Drain/reconciliation и held/cancelled messages видимы; нет premature disabled/blind rebind/replay; required consumer без проверенного fallback блокирует remove |
+| GR-C06 | Corrupt/unknown cache schema, migration failure, access revoke, purge без authority | Источники/history/Evidence не меняются; old reader поддержан либо отказ; direct fallback доступен; закрытые snippets не выдаются, delete не выводится из disable |
+| GR-C07 | FTR-016 integration: mandatory overflow, conflicting owners, current/stale смешение | Реальный Context Pack сохраняет source roles/revisions/constraints/conflicts или явно incomplete; source ranking не повышает authority |
+| GR-C08 | FTR-005/007/011/012/014/021 boundaries: Delta, task candidate, test-file-only, interrupted action | Нет второго scheduler/drift registry или нового gate; MODULE payload не превращается в C-009 PASS/human acceptance; owner correction только recommendation |
+| GR-C09 | Раздельные feature algorithm PASS при сломанном capture → context → host стыке; отдельно рабочий installed positive | Broken integration не закрывает parent; положительный путь реально выполняется без ручного JSON и без development checkout |
+| GR-C10 | Coverage/oracle: top-k miss, new incoming relation, partial parser, ambiguous mapping, future expectation | Independent source-set показывает правильные MATCHED/UNVERIFIED/PLANNED_DIFFERENCE и limitations; нулевой recall/всегда UNKNOWN не проходит positive |
+
+Применимые прежние FTR-017.S1/S2/N01–03 сохраняются. Core regression включает обычный direct-source Context Pack без модуля, раздельные selection/authority/result и отсутствие изменения human/task owners. Effects измеряются независимо: declared expected fields адаптера, static PASS и supplied-values unit tests не подтверждают sandbox/capture/persistence/installed journey.
+
+#### Ограниченное измерение полезности
+
+Сначала один реальный многосоставной вопрос на известном scope, затем небольшой заранее объявленный набор: exact fix; русское описание/английский ID; interface с consumers; current/future difference; resume dirty change; partial observation/ambiguous mapping. Сравнить A — тот же агент с direct search, B — lexical, C — lexical+graph; для одного сложного случая C с/без comparator. Semantic D только при измеренном recall gap.
+
+До запуска фиксируются corpus/snapshot, source access, model/settings, oracle, число повторов и budget. Порядок чередуется, контексты изолированы; подготовка карты/mapping, cold build, refresh, failures/retries и review входят в стоимость. Проверить качество конечной разработки, обязательные source spans/recall, ложные и пропущенные Delta, чтения/байты, человеческие уточнения/время, model usage, latency. Unknown costs не нули; подписочная квота не пересчитывается в деньги по API без основания. При нуле validated results стоимость на результат не определена.
+
+Выигрыш по времени/полным затратам заявляется только без существенной потери качества и mandatory coverage. Предложенные архивом 20% — ориентир для обсуждения pilot, не подтверждённая экономия. Итог ограничен tested scope: benefit / no benefit / inconclusive, без нового lifecycle gate. Неуспешный pilot не запускает бесконечную смену backend.
+
+**Readiness:** проверка документационного переноса не запускает runtime/benchmark/архивные scripts. [Единый brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) связывает owner sections, compatibility mapping и оставшиеся inputs; actual runtime, installed support, independent validation и экономия — `NOT_RUN`. Будущий агент перед реализацией сверяет current owners и exact revisions, не воспроизводит архивные инструкции AOS-3 как authority.
 
 ## 23. Цепочка готовности
 
