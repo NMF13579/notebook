@@ -1014,6 +1014,37 @@ mutation сохраняются C-009A и отдельный CORRECT worker.
 | Registry/RAG/cache | Rebuildable derived data |
 | Legacy finding | Reference record, authority none |
 
+<a id="event-diagnostics-contract"></a>
+
+### FTR-025: диагностическая projection действия — DRAFT
+
+Контракт уточняет [минимальное поведение](06_Features.md#event-diagnostics-behavior), не весь incident/lesson scope. FTR-025 владеет своим диагностическим представлением; C-008/C-010 остаются источниками наблюдений, C-012/controller — единственным владельцем текущего исполнения, FTR-011/C-009 — результата проверки. Raw ledger/store не читается сторонним writer: adapter передаёт только разрешённую projection. До появления C-008 старт/отказ берётся из фактического наблюдения adapter, не из придуманного execution record.
+
+| Producer → существующая boundary → consumer | Смысл, mode и проверяемая граница |
+|---|---|
+| Trusted action adapter/FTR-010 → supplied context и C-008/C-010 refs при наличии → FTR-025 | Action kind/binding revision, безопасная task/run/attempt/operation correlation, наблюдение и фактический исход. Нормализация данных сама не создаёт запись/authority |
+| FTR-025 → диагностический результат в versioned contract выбранного action → caller/report → пользователь | Совместимый payload и безопасный код причины, с ограничениями; исходный result/exit code не меняется. Отдельный новый viewer CLI не требуется |
+| Caller с покрытой служебной записью → действующий EXECUTE COMMAND C-016/FTR-010 → диагностическая запись внутри declared effects | Если сохранение нужно, оно входит в уже admitted command и bound C-015 action profile. Нельзя спрятать запись в DIRECT_READ/QUEUED_EVENT или выдать новое разрешение из event payload |
+| Разрешённый reader → сохранённые observations → пользователь/отдельный Evidence owner | Read-only чтение не создаёт отсутствующее хранилище и не ремонтирует его. Mutable diagnostics не C-010: при отдельном экспорте owner связывает exact bytes/subject/limitations |
+
+Подключается один существующий action с точным interface/version/generation и диагностической projection, не самостоятельный обязательный logging service. Внутренний вызов writer — HOW; отдельная доставка команды на каждое событие не требуется. Если позднее нужен самостоятельный receiver/подписчик, его C-015/C-016 effects и consumers рассматриваются отдельно. Новый broker/registry/FTR-026 не prerequisite. Отключённая диагностика не отменяет обязательные C-008/C-010/C-012 reports.
+
+Identity сохраняет смысл своего owner. Run, invocation, task и logical operation не объявляются взаимозаменяемыми и не преобразуются в UUID ради формата. Adapter либо передаёт безопасный существующий handle, либо явно опускает неподтверждённое необязательное значение; нужная для положительного сценария корреляция должна быть доказана. Константа component допустима вместо отдельного action name только если exact binding однозначно обозначает выбранное действие. Branch/HEAD сами по себе не exact subject, а timestamp не доказательство порядка или полноты. Counter/locator не создаёт новую authority identity.
+
+Technical result использует текущий C-009: CONTRACT_VIOLATION/FAIL/BLOCKED/UNKNOWN/NOT_RUN/PASS. HUMAN_REVIEW_REQUIRED — maturity, не event result; ACCEPT и прочие human decisions также исключены. Отдельный caller enum нельзя молча переименовать или объединить с C-009: до подключения определяется поддержанный semantic mapping либо ограничение несовместимого caller. Ошибка адаптации результата ограничивает диагностику и сохраняет исходный ответ primary. Локальный outcome «записано / пропущено / ошибка или неизвестный исход» не подменяет C-009 result. Required Evidence/checks продолжают ограничивать aggregate независимо от optional diagnostics.
+
+Privacy boundary допускает только закрытые поля projection и коды, заранее обеспеченные выбранным action binding. Коды должны сохранять нужное различие причин в первом сценарии; если его нельзя безопасно передать, limitation видима и usefulness не считается доказанной. Free-form payload/stack trace/URLs/секреты не добавляются. Проверяются происхождение IDs и реальный adapter, а не только regex/schema writer. При disabled/read-only профиль пропускает диагностическую запись до связанных с ней filesystem I/O/queue operations; прочие разрешённые действия primary не приписываются logger.
+
+Для persistent профиля объявляются один совместимый destination у существующего runtime-state owner, access/effects, finite record/storage/work limits и retention boundary. Никаких defaults из cwd, новой `.aos/` topology, автоматического ignore/untrack или обхода frozen subject. Guard проверяет actual target; конфликты user-owned data, небезопасные links/access или неподдержанная filesystem boundary дают отказ диагностики. Поддержка разных worktrees не объединяет их хранилища автоматически. Метод проверки, file format, permissions primitives и синхронизация остаются HOW выбранного profile.
+
+Concurrent attempts не смешивают записи и не превышают declared limits: успешная целая запись либо явный ограниченный failure/занятость. Ожидание конечно; нет скрытого бесконечного retry. Partial/unknown append не объявляется подтверждённым и не повторяется автоматически; остаётся возможность прочесть прежние complete observations с честными ограничениями. Core redelivery того же COMMAND не создаёт новый primary action ради журнала; исход unknown effect сверяется текущим owner. Запись не обещает audit-grade/power-loss durability, если она отдельно не определена и не проверена; обязательная durable history не заменяется этим профилем.
+
+При ошибке используется совместимый существующий report/diagnostic channel: одно безопасное уведомление на invocation без raw пути/payload, рекурсивного события или повреждения JSON stdout. Если сообщение не удалось доставить, writer/adapter не утверждает обратное. Primary outcome и отдельная recording limitation различимы; aggregate owner может независимо признать отсутствие required Evidence. Это уточняет FTR-025.N03, не гарантирует фиксацию при потере всех каналов.
+
+Lifecycle следует §6.1/C-015: ADD/ENABLE проверяет пользу, exact binding и scope до записи; UPDATE проверяет reader/payload/profile versions и in-flight command outcomes без silent migration; DISABLE прекращает новую optional запись и reconciles начатое; REMOVE implementation не удаляет observations/ledger/owner records; DELETE DATA требует отдельного scope/решения, не следует из возраста/переполнения. Диагностику можно убрать без отказа обычного action/report. Несовместимый сохранённый формат не переписывается автоматически; читается поддержанная история либо сообщается ограничение.
+
+FTR-014 нужен сценарию recovery observations, а не как обязательный запуск перед записью; FTR-021 остаётся CHECK_ONLY. Logging не активирует FTR-023, поиск incidents или обучение lessons. Перед runtime связываются action, caller result/identity contract, diagnostic channel, storage/support/limits/retention и имеющиеся utilities; отсутствие этих inputs ограничивает запуск, но не документальную оценку. [EV-C01–12](03_Development.md#event-diagnostics-verification) проверяют и допустимый сквозной результат, и нарушения границ.
+
 ## 9. Таксономия registries
 
 Product Feature Registry индексирует Feature Passports. Execution/Verification Registry индексирует technical records. Protected Artifact Registry — optional Governance. Derived Context Index — navigation only. Ни один registry не владеет product truth независимо от accepted source artifact.
