@@ -201,3 +201,54 @@ read-only EVENT в status/review по действующей подписке б
 ValidationEnvelope; effectful follow-up проходит COMMAND/current authority
 (SC-T24). Это уточнения текущего DRAFT, не новые controller edges или runtime
 Evidence. Результат scoped исправления пяти находок записан в [плане §13](AOS_SCAFFOLD_CORE_AUTONOMOUS_DEVELOPMENT_PLAN.md#13-исправления-перед-коммитом-r7).
+
+<a id="quality-requirements-review"></a>
+
+## 13. FTR-003: условия качества и проверка совместимости — 2026-09-15
+
+**Предмет и покрытие.** Авторская документационная правка и проверка по Development §25.4–25.7: производное представление существенных условий качества внутри существующей FTR-003; стыки с FTR-005/006 и существующим C-009/FTR-011. Это дополнение маршрута K1, не новый модуль, пересборка scaffold или проверка полного ядра. Владелец смысла — [Product](../docs/01_Product.md#quality-requirements-purpose), поведения — [FTR-003](../docs/06_Features.md#quality-requirements-behavior), данных/совместимости — [Architecture](../docs/02_Architecture.md#quality-requirements-contract), scenarios/pilot — [Development](../docs/03_Development.md#quality-requirements-verification), происхождения — [Reference](../docs/05_Reference.md#quality-requirements-source). Проверена локальная редакция notebook; AOS-3 runtime и фактические adapters не обследовались. Это self-check автора, independent review NOT_RUN.
+
+Постановка для исполнителя: получить source-bound intent/требования и scope фичи; сохранить существенные условия у прежних owners; дать производные ссылки/пояснения и передать проверяемые implications в C-005. Верный результат сохраняет смысл/область/статус, не теряет inherited constraint и не выдаёт предложение за решение. Layout/внутреннее представление выбирает агент; отсутствующее product condition или отклонение требует только применимого недостающего решения. Реальный запуск остаётся отдельным действием.
+
+**К1–К10 — оценка содержания после правки.** Все статусы ниже относятся только к этому документальному scope, не к runtime validation.
+
+| Критерий | Итог | Основание и предел |
+|---|---|---|
+| К1, назначение | PASS | Product quality-purpose и FTR-003 quality-behavior: ограниченное представление, без новой фичи/schema/gate; исходный сбор условий уже существует |
+| К2, входы | PASS | FTR-003 шаги 1–3; QR-C01–03/06: sources/revisions, material gaps, пустые/неполные входы и сохранение прежних ответов |
+| К3, поведение | PASS | FTR-003 шаги 1–6: нормализация → applicable refs/additions/deviations → need/no-need → проект проверки; DRAFT/принятое/unknown различены |
+| К4, ownership/стыки | PASS | Architecture quality-contract: один owner, C-003/C-002 → FTR-006/C-005 → действующий C-009; producer/consumer и fallback без нового wire format |
+| К5, recovery | PASS | FTR-003 recovery и QR-C10/12: rebind после изменения, сохранение history, несохранённое не durable, повтор effect не выдуман |
+| К6, критерии | PASS | QR-C01–12: есть positive наследование, разрешённое scoped exception, source-bound измеримое условие и отрицательные случаи. Это заданные oracles, исполнение NOT_RUN |
+| К7, смысл | PASS | QR-C03/06–08: исходные слова, отсутствие false precision, различение solution и явного constraint; oracle не выводится из compiler output |
+| К8, самостоятельность | PASS | FTR-003 open inputs + Architecture WHAT/HOW + этот brief: scope/выход/checks достаточны для документационной работы; обычное оформление не вызывает новое интервью |
+| К9, интеграция | PASS | Новый состав модуля N/A: меняется существующая фича. Реальные стыки не исключены — QR-C08/10–12 обнаруживают потерю условия, old consumer и disable; runtime стык NOT_RUN |
+| К10, согласованность | PASS | Product/Features/Architecture/Development/Reference согласованы; старые статусы R2 и C-009 исправлены в адаптации. Frozen ТЗ интервью не переписано |
+
+**Замечания исходного кандидата и исправления.** Закрыты в разрешённой правке, не являются обещанием runtime conformance:
+
+| Finding | Исходный пробел и последствие | Исправление / проверка |
+|---|---|---|
+| QR-F01 | R2 §2 считает 003/005/011 UNDECIDED; это могло вызвать повторный selection | Current dispositions сохранены, источник ограничен в Reference; новые Human Gates не введены |
+| QR-F02 | R2 §5 оставляет два варианта owner; два независимых порога сделали бы Brief неоднозначным | Производное представление existing constraints/metrics/acceptance без migration; Architecture + QR-C04 |
+| QR-F03 | R2 §§6/8 не закрывает empty refs и source-only deviation; возможна потеря/ослабление requirement | Scope-based applicability, exact human binding исключения; FTR-003 + QR-C01/05/10 |
+| QR-F04 | R2 §11 не связывает конкретные условия измерения/множество checks с нынешним C-009 | FTR-006 owner compilation, separate check IDs, method/context refs и current V3; Architecture + QR-C08/09/12 |
+
+**Восемь репетиций без исполнения.** Сопоставлены ожидаемый исход и разрешённый следующий шаг; расхождений с изменённым текстом не найдено. Речь о чтении контрактов, не о проверенном поведении программы.
+
+| Ситуация | Результат репетиции и следующий шаг |
+|---|---|
+| Достаточный вход | QR-C08: source/revision/условия доходят до проекта C-005; можно подготовить проверку без вопроса о layout |
+| Неполный вход | QR-C02/03: unknown вместо threshold; уточнить только существенное условие, продолжать независимое |
+| Противоречие | QR-C04/05: действующее требование сохраняется, proposal не override; показать owner точный конфликт |
+| Недоступная зависимость | QR-C11: подготовить документы по доступным sources; не утверждать запуск FTR-005/011. Runtime следующего шага требует фактического adapter |
+| Обычный дефект | QR-C03/08: найти потерю смысла/условия, исправить у разрешённого owner и повторить затронутую проверку; новое product decision нужно только при изменении требуемого поведения |
+| Прерывание/повтор | QR-C12: сверить подтверждённую revision и фактический исход сохранения; не предъявлять неподтверждённое как durable и не повторять неизвестный effect |
+| Сломанный стык | QR-C12: локальный PASS частей не закрывает потерянный requirement ref; исправить передачу в покрытом scope и перепроверить общий путь |
+| Завершение | Для текущей работы достаточно согласованных owner docs и проверок; runtime completion требует actual public journey/current Evidence. Таблица не закрывает будущую task |
+
+**Опровержения.** «Две реализации»: compiler, который игнорирует product constraints при пустом quality-разделе, и compiler, сохраняющий применимые ограничения, дают разные результаты. Первую запрещают Architecture applicability и QR-C01; разные Markdown layouts при одинаковом смысле допустимы. «Плохая реализация проходит»: формально заполненный check на пустой базе вместо заданной нагрузки исключён QR-C08; всегда UNKNOWN/отказ не проходит positive inherited/deviation/compilation cases. Синтетический oracle не доказывает работающий runtime.
+
+**Решения и предпосылки.** Для завершения этой документационной правки новых product decisions не требуется. Для реального pilot человек/владелец выбирает одну фичу, цель и допустимые расходы; агент находит источники, готовит method/fixtures и объясняет отсутствующие условия. Для runtime нужны exact implementation target, пригодные environment/adapter, read/output/effects scope, current authorization и resume boundary; они в этой работе не назначались. Это ограничения запуска, а не причина переписать достаточное описание. Permanent schema/словарь/автоматизация отложены, не являются blockers текущего scope.
+
+**Итог:** описание достаточно для указанного документационного применения и подготовки ограниченного эксперимента; исполнимость реального validation пути не проверена. Runtime/pilot/измерение пользы/independent review — NOT_RUN. Существующие requirement owners, feature dispositions и authority сохранены; весь scaffold/core и соседние модули повторно не аудированы.
