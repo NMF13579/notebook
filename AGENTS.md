@@ -201,7 +201,7 @@ Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
 
 1. В `docs/` осталось ровно семь canonical `.md` files.
 2. YAML frontmatter читается.
-3. `FTR-001..030` и `LES-001..042` остаются уникальными.
+3. ID основных feature dossiers в `docs/06_Features.md` и lesson entries в `docs/04_Lessons.md` уникальны внутри своего inventory. Проверка охватывает все текущие записи; диапазон и количество определяются из owner-документов текущего checkout, а не из фиксированной верхней границы. Повторные ссылки на ID не считаются дублирующими записями.
 4. В документах нет `implementation_authorization: AUTHORIZED` или `git_authorization: AUTHORIZED`.
 5. Cross-document contracts и owner boundaries не нарушены.
 

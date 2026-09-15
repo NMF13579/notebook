@@ -120,9 +120,25 @@ commands_tests_build_in_baseline_audit: NOT_RUN
 
 AOS-3 используется как `READ_ONLY_REFERENCE` для конкретных проблем реализации. Authority для target notebook: `NONE`. Его текущая роль implementation repository относится к AOS-3 и не меняет `implementation_repository: UNASSIGNED` в notebook.
 
-Наблюдавшийся локальный checkout: `NMF13579/AOS-3`, ветка `dev`, HEAD `d2ad68169b07a090548cbefc5add74e8dd171045`, дата чтения 2026-09-13. Источники подготовки прочитаны выборочно. Полный аудит и текущие runtime/platform tests: `NOT_RUN`.
+**Локальный снимок 2026-09-15 — `OBSERVED_AT_SNAPSHOT`:** `NMF13579/AOS-3`, ветка `dev`, HEAD `e99cc3ee03128deb4506bc268839ebd1f52a3f3a`; рабочее дерево чистое. Прочитаны локальные `README.md` и `AGENTS.md`; закреплённые locators: [README.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/README.md), [AGENTS.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/AGENTS.md). Совпадение с текущим remote HEAD и доступность web locators: `NOT_RUN`.
 
-В рабочем дереве уже имелись изменённая `development/research/as-is-project-map/AS_IS_PROJECT_MAP.md` и untracked `docs/superpowers/plans/2026-09-12-aos-core-readiness-plan-r2.md`. Они не используются как нормативные требования или подтверждение текущей готовности. Sources AOS3-S03–S05 и AOS3-S07–S09 относятся к указанному committed snapshot; mutable состояние нужно перепроверять перед новым применением.
+Эти источники описывают AOS-3 как repository разработки AOS со следующими ролями:
+
+| Путь | Назначение в AOS-3 по прочитанным источникам |
+|---|---|
+| `aos/` | Поддерживаемый portable product и его source of truth; должен работать отдельно от остального repository |
+| `docs/` | Владельцы product, architecture, development и decision facts AOS-3 |
+| `tests/` | Repository-level contract, integration и portability checks |
+| `development/` | Неавторитетные drafts, research, experiments и временные материалы |
+| `tools/` | Tooling разработки, не обязательный для runtime продукта |
+
+README обозначает продукт как development candidate. Это наблюдение о документированном назначении, а не проверка работоспособности или переносимости; runtime/platform tests и полный аудит: `NOT_RUN`. Назначение AOS-3 implementation repository notebook не следует из этого снимка: `HUMAN_ACCEPTED_FACT` о таком назначении им не устанавливается; значение в [Core](00_Core.md) остаётся `implementation_repository: UNASSIGNED`.
+
+**Исторический снимок 2026-09-13:** `NMF13579/AOS-3`, ветка `dev`, HEAD `d2ad68169b07a090548cbefc5add74e8dd171045`. Источники подготовки прочитаны выборочно. Полный аудит и runtime/platform tests при том чтении: `NOT_RUN`.
+
+На дату исторического чтения в рабочем дереве уже имелись изменённая `development/research/as-is-project-map/AS_IS_PROJECT_MAP.md` и untracked `docs/superpowers/plans/2026-09-12-aos-core-readiness-plan-r2.md`. Они не используются как нормативные требования или подтверждение текущей готовности. Sources AOS3-S03–S05 и AOS3-S07–S09 относятся к историческому committed snapshot `d2ad681`; снимок 2026-09-15 не перепривязывает и не перепроверяет эти findings. Mutable состояние нужно перепроверять перед новым применением.
+
+Уже учтённые материалы: записи AOS3-S01–S09 в §12 этого документа и связанные LES-047–049 в [Lessons](04_Lessons.md), сохраняющие `LESSON_PROPOSAL`; отдельно здесь описаны происхождение графовых материалов R2/R3, DIP-R1 и адаптация FTR-025-A R2. Их собственные source bindings и статусы сохраняются; новое чтение routing-файлов не является повторным импортом или подтверждением этих материалов. ID трактуются в пределах repository: `AOS-3::FTR-031` не является `notebook::FTR-031` (RBAC/ABAC).
 
 Исследовать только конкретные gaps: first-start, применимость тестовой среды, подготовка разрешённого входа, передача между компонентами, отказ и сохранность Evidence, retry, identity и границы portability. Нумерация Features и Lessons и область принятия проверяются отдельно в каждом репозитории.
 
@@ -506,7 +522,9 @@ evidence_class: UNKNOWN
 | AOS3-S08 | `development/evidence/FTR031-R25-OBSERVABILITY-EVIDENCE-R2/REPORT.md`, HF-02, HF-05, HF-07 и Unknown/not-retained facts | `REPORTED`: потеря ordered reason_codes из-за порядка проверок и вывода | Основание отчёта — human attestation истории; original chat byte identity недоступна; underlying reason UNKNOWN |
 | AOS3-S09 | `ARTIFACT_PROFILES.md`, Cross-feature стыки; `FEATURE_DEVELOPMENT_CYCLE.md`, Сопровождение проектного графа; `docs/architecture/02_SYSTEM_ARCHITECTURE.md`, §§18–19; `docs/development/TEST_STRATEGY.md`, Project graph и Минимальная проверяемая цель переносимости | `OBSERVED_AT_SNAPSHOT`: документационные дополнения уже существуют | Graph experiment и platform runs остаются `NOT_RUN`; документация не доказывает результат реализации |
 
-Locators записаны как repository-relative keys в `NMF13579/AOS-3` на указанном exact snapshot; они не зависят от глубины локального worktree. Для research сначала bind repository/ref/path/marker. Наличие соседнего checkout не является зависимостью runtime notebook. При недоступности источника фиксируется `BLOCKED_REFERENCE_ACCESS`, а факты не восстанавливаются по названию или памяти.
+**AOS3-S10 — проверка изоляции copied product.** `NMF13579/AOS-3`, локальная ветка `dev`, HEAD `e99cc3ee03128deb4506bc268839ebd1f52a3f3a`, дата чтения 2026-09-15; рабочее дерево чистое. Exact locator: `tests/portability/test_ftr001_isolated.py`, markers `IMPORT_CHECK_RUNNER`, `Ftr001IsolatedTests.run_isolated`, `test_import_check_rejects_parent_product`. Класс `OBSERVED_AT_SNAPSHOT`: код проверяет происхождение загруженных product modules в выполняющем проверяемую команду процессе; отрицательный сценарий задаёт импорт из parent product и подмешивает внешний путь package, ожидая отказ. Основание для уточнения LES-047; исполнение тестов, исторический инцидент, соответствие remote HEAD и общая переносимость продукта этим чтением не подтверждаются (`NOT_RUN`). Python-specific HOW не переносится в общее правило notebook.
+
+Locators записаны как repository-relative keys в `NMF13579/AOS-3` на указанном для каждого источника exact snapshot; они не зависят от глубины локального worktree. Для research сначала bind repository/ref/path/marker. Наличие соседнего checkout не является зависимостью runtime notebook. При недоступности источника фиксируется `BLOCKED_REFERENCE_ACCESS`, а факты не восстанавливаются по названию или памяти.
 
 ### Внешние отчёты и ограничения сохранности
 

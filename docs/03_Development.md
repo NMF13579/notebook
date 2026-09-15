@@ -727,6 +727,8 @@ Empty authority mapping permits no mutation, Task Brief `requested_*` treated as
 
 Freeze subject; verify environment/import provenance; run targeted checks; wider suite only if relevant; record commands/results; preserve required/optional; classify limitations; inspect diff; verify no validation mutation; stop with one next action.
 
+Для проверки, заявляющей изоляцию или независимость копии продукта, подтвердить, что проверяемый запуск использовал product code именно этой копии. Отрицательный сценарий с намеренным подмешиванием product code из исходного repository или другого окружения должен обнаруживаться и не получать подтверждение изоляции. Проверка в отдельном вспомогательном процессе не подтверждает происхождение кода другого запуска. Это уточнение environment/import provenance основано только на принятой части [LES-047 — изоляция проверяемой копии](04_Lessons.md#les-047--тестовое-окружение-не-подтверждало-заявленный-режим); обычные тесты без такого claim не требуют отдельной проверки изоляции. Язык и механизм проверки не предписываются.
+
 <a id="modular-maintenance"></a>
 
 ### 18.1. Сопровождение модульных contracts — MODULAR_DRAFT
