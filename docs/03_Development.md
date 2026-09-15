@@ -1015,6 +1015,33 @@ Slice 1 охватывает применимые AC-01–03, AC-09–10, AC-12�
 
 **Readiness:** проверка документационного переноса не запускает runtime/benchmark/архивные scripts. [Единый brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) связывает owner sections, compatibility mapping и оставшиеся inputs; actual runtime, installed support, independent validation и экономия — `NOT_RUN`. Будущий агент перед реализацией сверяет current owners и exact revisions, не воспроизводит архивные инструкции AOS-3 как authority.
 
+<a id="event-diagnostics-verification"></a>
+
+### 22.4. FTR-025: один диагностический путь — DRAFT
+
+Это проверка [ограниченного уточнения](06_Features.md#event-diagnostics-behavior) по §25.4–25.7 и [существующим стыкам](02_Architecture.md#event-diagnostics-contract), а не выбор полной FTR-025 для реализации. До подключения сравнить существующий action report/ledger с требуемым диагностическим ответом; новый writer нужен только при конкретном оставшемся gap. LES-049 обосновывает сохранение безопасной причины, не выбранный формат/сервис. Сначала один action с положительным результатом и воспроизводимым отказом диагностики; parent Incident/Lesson/Regression criteria остаются отдельными.
+
+EV-C01–12 — спецификации проверок, execution NOT_RUN. Sources/IDs/actions и faults в fixtures искусственные, не production data/authority. При future runtime проверках используется actual public action adapter, isolated subject, наблюдение primary invocation/result и разрешённых I/O/output effects; fault injection не заполняет диск пользователя. В каждом отрицательном случае прочие необходимые inputs корректны. Expected values задаются по upstream outcome/binding независимо от logger.
+
+| Case | Стимул | Ожидаемый результат / oracle |
+|---|---|---|
+| EV-C01 | Один разрешённый action A@1 с безопасными task/run/attempt refs: старт, затем фактический FAIL либо PASS | Пользователь различает A и попытку, начало и исход; correlation сохранена, причина соответствует upstream. Always SKIPPED/пустой журнал не проходит positive |
+| EV-C02 | Primary не допущен; отдельно crash после старта без terminal observation | Нет одновременно «завершено» и «не допущено» одной попытке; crash не превращается в синтетический FAIL/PASS; отсутствие записи не доказывает отсутствие action |
+| EV-C03 | Disabled/help/read-only/PLAN/VALIDATE/REVIEW; frozen destination при EXECUTE | Пропуск до diagnostic filesystem I/O/enqueue, нет mkdir/cache/lock/write. Snapshot и event capture подтверждают границу; enabled её не обходит |
+| EV-C04 | Enabled EXECUTE без связанного destination/write scope; denied primary без отдельного права на запись | Нет скрытого destination/fallback/выданной authority; отказ primary сообщается существующим каналом. Только независимо покрытая запись может сохранить denied observation |
+| EV-C05 | Secrets/URL/CR-LF/prompt/exception в raw input, extra field или неподтверждённом ID на реальном adapter | Raw payload не поступает в writer/output/error; вход отклонён или необязательный ID опущен с limitation. Regex/hash не проходят за provenance; обязательная потерянная correlation не даёт positive acceptance |
+| EV-C06 | Native run ID не UUID; неоднозначный component; чужой subject; HRR/ACCEPT или несовместимый caller result | Не создаётся новая run identity ради формата; action обозначен exact binding либо gap. HRR/ACCEPT не technical event result; несовместимость ограничивает запись, исходный ответ primary сохраняется |
+| EV-C07 | Primary FAIL/PASS/NOT_RUN/UNKNOWN плюс recording failure/limit; отдельно warning channel тоже недоступен | Primary result/exit semantics не меняются; один безопасный warning в совместимом канале, нет JSON pollution/рекурсивной записи/primary retry. При потере канала доставка limitation не заявляется |
+| EV-C08 | Подмена destination/link, чужие permissions/data, два worktrees; unsupported profile | Только declared boundary, без изменения external sentinel, tracked/user files/Git. Ни cwd, ни одинаковый branch не объединяют storage; ошибка logger не исправляет чужие данные |
+| EV-C09 | Concurrent writers, declared capacity exceeded, interruption/partial write, неизвестное подтверждение | Целые записи либо явный bounded failure; cap не превышен конкурентами. Нет corruption repair/auto-delete/retry; unknown outcome требует owner reconciliation, а не повтор primary |
+| EV-C10 | Update incompatible reader/profile; disable/remove с in-flight записью; read missing/partial history | Старые данные не переинтерпретируются/не удаляются; started effects reconciled, ordinary report работает без диагностики. Read не создаёт/не ремонтирует storage; partial history честно ограничена |
+| EV-C11 | Mutable diagnostic запись объявлена C-010; required Evidence отсутствует при primary PASS | Нет automatic Evidence/acceptance/root cause/aggregate PASS. Отдельный Evidence owner связывает exact snapshot/subject/limitations; журнал не становится C-012 ledger |
+| EV-C12 | Writer unit positive, но реальный adapter теряет action ref, скрывает limitation либо повторяет primary после lost ack; отдельно исправный сквозной путь и новый сеанс | Нарушенный стык не проходит общий критерий. Positive source→adapter→diagnostic channel доступен пользователю; resume сохраняет correlation и сверяет unknown effects без повторного action. Отключение 025 не ломает required core reporting |
+
+Контроль пользы: по одной выбранной проблеме получатель называет action/attempt/outcome и существенное ограничение без raw secrets и скрытого контекста. Если тот же ответ уже даёт existing report/ledger, фиксируется отсутствие основания для дополнительного writer. Коды OPERATION_ERROR/UNCLASSIFIED сами по себе не доказывают диагностическую достаточность для конкретного failure. До эксперимента задать предмет, read/output/effects scope, finite budget, доступную среду и критерий полезного различения. Учитывать задержку/дополнительные I/O, потери при заполнении/отключении и затраты сопровождения; численная экономия пока UNKNOWN.
+
+Проверка структуры описания не заменяет concurrency/security/installed E2E. Для запуска нужны actual target, выбранный action/version, caller result/identity mapping, безопасный channel и поддержанный storage/profile с границами сохранности/retention. Один будущий C-005/C-006 связывает покрытые действия и checks; нет нового logger admission gate или обязательной FTR-021/023/026. Формат/utility/синхронизация выбираются агентом внутри принятых WHAT. Runtime, experiment и independent review — NOT_RUN.
+
 ## 23. Цепочка готовности
 
 ```text
