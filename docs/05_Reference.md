@@ -168,6 +168,97 @@ limitations: []
 remaining_unknowns: []
 ```
 
+<a id="recovery-source"></a>
+
+### Recovery v0.2 → FTR-033: источник и границы адаптации
+
+Источник — предоставленный пользователем текст «AOS — Техническое задание на
+модуль recovery», v0.2, 2026-09-15, PRODUCT_CONTRACT_CANDIDATE/PROPOSAL.
+Текущее поручение связывает UNASSIGNED с существующей FTR-033, не создаёт новый
+номер и не переносит исходный UNDECIDED поверх DEFERRED. Имя/направление заданы,
+подробности не объявлены принятыми. Исходное human_acceptance NOT_RUN не C-011.
+
+D1 `AOS_Recovery_Module_TZ_v0.1_2026-09-15.md`, D2
+`AOS_Project_Adoption_Recovery_Research_2026-09-15.md`, companion
+`Recovery_Acceptance_v0.2.feature` и отдельный audit не предоставлены; поиск имён
+Recovery/recovery в текущем checkout их не обнаружил. Заявленный predecessor SHA
+`db2766971e321af819009ba580cedb283e45b93686f633192cf75b7ab491b68c` — REPORTED,
+не вычисленная идентичность текущего candidate. Claims об audit COMPLETED и
+внешней верификации принадлежат источнику, не результат этой адаптации.
+
+P0–P6 относятся к mounted R4-RU snapshots источника, не текущему HEAD. Для переноса
+прочитаны актуальные owners. Исторические Lessons не превращены в новые policy,
+legacy/rewrite/monorepo правила не перенесены на пользовательский source tree.
+
+| Части исходника | Owner текущего содержания |
+|---|---|
+| §§1–8, 15, 19: смысл/путь/стратегии | [Product](01_Product.md#recovery-product), [FTR-033](06_Features.md#ftr-033-contract) |
+| §§9–13, 16–18, 25: состояние/данные/стыки | Features: поведение; [Architecture](02_Architecture.md#recovery-contract): records, один MMB, C-015/C-016 и ownership |
+| §§20–24, 26: проверки/pilot/unknowns | [REC cases](06_Features.md#recovery-cases), [Development](03_Development.md#recovery-verification), [REC-O](06_Features.md#recovery-open) |
+| §§2–3, 27–31: research/audit/статусы | Этот provenance; ограничения и PROPOSAL, без переноса прежних PASS |
+
+При адаптации: (1) исправлена фраза §19 «handoff подготовлен → исполнитель получил»
+по собственному §10/REC-NEG-026; (2) требование §26 написать executable tests до
+implementation planning заменено созданием schema/adapters внутри будущей покрытой
+сборки до применения — по Development §25.0/25.4, без bootstrap-цикла;
+(3) recovery_state не второй controller lifecycle; (4) no new actions после budget
+согласовано с разрешённым stop/persistence, без скрытого продолжения discovery;
+(5) добавлен текущий C-015/C-016 binding, отсутствовавший в snapshot C-001…014.
+До verified subject возможен Intake/incomplete draft, не полный B с выдуманным Ref.
+
+Внешние S1–S10 в сообщении — REPORTED / reference only, повторно здесь не проверены:
+[Spec Kit](https://github.com/github/spec-kit/blob/main/docs/guides/existing-projects.md),
+[SEI](https://www.sei.cmu.edu/library/architecture-reconstruction-guidelines-third-edition/),
+[AWS](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-application-portfolio-assessment-migration/introduction.html),
+[Reversa](https://arxiv.org/abs/2605.18684),
+[Characterization](https://michaelfeathers.silvrback.com/characterization-testing),
+[Strangler Fig](https://martinfowler.com/bliki/StranglerFigApplication.html),
+[Branch By Abstraction](https://martinfowler.com/bliki/BranchByAbstraction.html),
+[GOV.UK UI](https://www.gov.uk/service-manual/design/writing-for-user-interfaces),
+[GOV.UK questions](https://www.gov.uk/service-manual/design/designing-good-questions),
+[NN/g](https://www.nngroup.com/articles/progressive-disclosure/).
+Заявленные научные результаты/даты/пригодность не проверены; команды и зависимости
+не импортированы. Runtime, pilot, usability и independent review NOT_RUN.
+
+<a id="rbac-abac-source"></a>
+
+### rbac abac: предоставленный 2.0-candidate → FTR-031
+
+Источник — текст пакета «Облегчённый модуль доступа к полям для приложений,
+созданных на основе AOS», `2.0-candidate`, 2026-09-15, technical identifier
+`rbac_abac`, переданный пользователем с поручением наполнить FTR-031. Исходный
+Feature ID UNASSIGNED привязан к уже существующей записи; новый номер не создан.
+Название/прикладное направление — HUMAN_CONFIRMED_DIRECTION; сокращённый состав,
+grants-only и правила candidate — PROPOSAL. DEFERRED самой фичи сохраняется;
+IN_DISCOVERY описывает глубину проработки, не активацию. Заявленное источником
+«принятие редакции: NOT_RUN» не является записью C-011; принятие не подтверждено.
+Runtime/security/usability и independent validation здесь не доказаны.
+
+Доступен текст сообщения без исходных файлов/проверяемого hash. SOURCES.md,
+EXAMPLE.yaml, SCENARIOS.yaml, ACCESS_MODEL.schema.json и прежние FACM-документы
+не найдены поиском соответствующих имён в текущем checkout; их содержимое,
+схемы и заявленная замена версий не проверены. P1–P4/S1–S8 — ссылки исходного
+пакета с недоступной полной bibliography, не locators текущего HEAD. Вместо
+предполагаемых snapshots прочитаны релевантные текущие Core/Product/Architecture/
+Development/Features. R-What?, Expandable Grids, Dataverse, AWS и AppSheet в
+сообщении — REPORTED основания; их usability/results не переносятся в AOS.
+
+| Содержание источника | Owner адаптации |
+|---|---|
+| §§1–6: цель, пользовательский путь и минимум | [Product](01_Product.md#rbac-abac-product), [FTR-031](06_Features.md#ftr-031-contract) |
+| §§7–10: grants, условия, read/write, администрирование, версии | Features — поведение; [Architecture](02_Architecture.md#rbac-abac-contract) — host boundaries, ownership, atomic publication/recovery |
+| §11: подключение | Architecture: логические точки/application binding; CAS и конкретные API/storage не закреплены как HOW всей платформы |
+| §§12–14: приёмка, риски, неизвестные | [RA-T/RA-U](03_Development.md#rbac-abac-verification), [RA-O](06_Features.md#rbac-abac-open), производный brief; ожидаемые сценарии самостоятельны и не подменяют отсутствующий SCENARIOS.yaml |
+
+Узкая внешняя сверка 2026-09-15: [OWASP API3:2023](https://api-security.owasp.org/editions/2023/en/0xa3-broken-object-property-level-authorization/)
+описывает риски чтения и изменения свойств без соответствующей авторизации;
+[Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
+рассматривает allowlist привязываемых полей. Это основания проверки серверной
+границы, не доказательства безопасности модуля или собственного incident AOS.
+Они не назначают внешний engine, schema или модель конфликтов; эти предложения
+приходят из пользовательского candidate. Другие исследования пакета заново не
+проверялись. Код, runtime schema, test runner и отдельная система журналов не созданы.
+
 <a id="ux-pages-r2-source"></a>
 
 ### Repository UX Pages: предоставленная модель R2 → FTR-032
@@ -489,6 +580,37 @@ Budgets и latency в canonical proposal — проектные цели pilot. 
 Архивный `06_REPO_HANDOFF.md` ориентирован на AOS-3 и не является командой для текущего worktree. Архивные `.py` не выполнялись; schema и JSON изучены как данные. Safe-container checks: имена/типы/размеры ZIP entries, отсутствие traversal/symlink/duplicate entries, CRC и все MANIFEST.sha256 bindings проверены независимо. Это проверка контейнера и целостности, не доказательство безопасности выполнения Python или корректности предлагаемого runtime.
 
 Owner sections теперь содержат поведение/стыки/проверки; [implementation brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) только собирает handoff и compatibility gaps. Frozen ТЗ интервью 0.3-draft и его approval не изменяются. Остальные product decisions и dispositions не повышаются по факту импорта. Реализация, benchmark, installed/native execution, independent audit — `NOT_RUN`.
+
+<a id="quality-requirements-source"></a>
+
+### Structured Quality Requirements R2 → ограниченное уточнение FTR-003
+
+Источник — предоставленный пользователем 2026-09-15 текст «AOS-3 — Technical Specification Candidate R2 / Structured Quality Requirements in FTR-003», DRAFT/PROPOSAL. Последующая инструкция разрешила применить доступное сейчас и проверить совместимость. Это документационная адаптация; source не выбирает implementation repository, не выдаёт runtime/Git authority и не принимает требования будущего приложения. Отдельного проверенного файла/digest исходника в этом переносе нет.
+
+Взяты: material-only вопросы, source-bound нормализация без ложной точности, единственный owner, наследование и явное отклонение, маршрут через FTR-006/C-005, required NOT_RUN и необязательность FTR-023. [Product](01_Product.md#quality-requirements-purpose) задаёт результат; [FTR-003](06_Features.md#quality-requirements-behavior) — поведение; [Architecture](02_Architecture.md#quality-requirements-contract) — владение/передачу; [Development](03_Development.md#quality-requirements-verification) — QR-C01–12 и проверку пользы.
+
+Для текущего scope выбрано производное представление существующих constraints/metrics/acceptance, соответствующее варианту 2 в R2 §5. Новые mandatory quality_* fields, controlled concern enum, ID format, storage materiality и migration не приняты. Вместо source-only deviation требуется применимое решение по exact scope/revision; пустые refs не отменяют inherited constraints; QR-C08 различает requirement refs и check IDs; C-009 пример согласован с действующим V3, не скопирован как альтернативный wire format. Исходные R2 AC-01–14/NEG-01–12 покрываются адаптированными смысловыми cases, их исполнение не заявляется.
+
+R2 §2 не описывает текущие item-level решения notebook: FTR-003 уже SELECT_FOR_X1, FTR-005/006/011 — SUPPORTING_CONTROL_ONLY, FTR-023 — DEFER/UNDECIDED. Их availability/runtime этим не доказаны. Сбор нагрузки, сохранности, failure/offline/accessibility условий уже задан Product §5; эксперимент оценивает добавленную структуру и передачу, не вводит эти вопросы заново. Повторяемый NFR-driven rework и экономия не установлены данным текстом; вместо утверждения предотвращённых затрат предусмотрен bounded замер. Архив AOS-3 и внешние исследования для этого изменения не обследовались.
+
+<a id="graph-rag-dip-source"></a>
+
+### DIP-R1 → ограниченное impact-представление FTR-017
+
+Источник: предоставленный пользователем в чате 2026-09-15 текст «Dependency & Impact Projection for Graph/RAG — DIP-R1», `GENERATED_DRAFT / PROPOSAL`, supporting technical specification candidate. Последующая инструкция разрешила встроить полезные части по протоколу совместимости. Это основание документационной адаптации, не Human ACCEPT всего DIP, выбор реализации или Git authority. `AUDIT.md`, `SOURCE_BINDINGS.json` и `TEST_VECTORS.json` DIP не предоставлены как проверенные companion artifacts в этом переносе; их содержимое/результаты не реконструированы. Exact file digest для текста чата не выдуман.
+
+| Выбранный материал DIP | Адаптация и владелец |
+|---|---|
+| §§4–6, 18: dependencies/potential impact, не actual defect | [Product](01_Product.md#repository-graph-purpose), [FTR-017](06_Features.md#graph-rag-impact-behavior): уточнение существующего вопроса о последствиях; один модуль, прежняя область |
+| §§9–10, 13–14: typed propagation, support, conditions | [Architecture](02_Architecture.md#graph-rag-impact-contract): ограниченный DATA_CONTRACT_IMPACT_V1; текущие PRODUCES/CONSUMES/TESTS/VALIDATES/BINDS_TO_CONTRACT сохранены. Нет замены словаря на универсальный DEPENDS_ON/IMPLEMENTS или исполняемый PERMITS |
+| §§11–13, 15: coverage, depth, snapshot, filters | Четыре границы полноты; raw hops отдельно от dependency steps, прежние caps сохранены; новый consumer и resolver учитываются. Прямые/транзитивные sets уточнены примером минимального подтверждённого пути, отсутствовавшим в DIP |
+| §§12, 16–17: effects и compatibility | Существующие C-015 direct find/context и C-016 save/refresh; поддержка payload/profile revision проверяется потребителем. Нет отдельного impact service, FTR-021 gate или скрытой записи query |
+| §§19–22: acceptance, fixtures и цена результата | [Development](03_Development.md#graph-rag-impact-verification): GR-DI01–10 внутри LINKED_CONTEXT и дальнейших существующих outcomes; G/R и GR-C остаются. Все DIP 28 AC/40 NEG целиком не объявлены перенесёнными или исполненными |
+| Один graph.json, wire schema, indexes, CAS/cursors, depth 3/256/1024, V1–V3 sequence | Не перенесены как обязательная реализация/новые defaults. Реализационный HOW выбирается отдельно; bounded full rebuild допустим до selective optimization, нового lifecycle нет |
+
+Указанный DIP parent `CAND-GRAPH-WORK-001` не отменяет уже подтверждённую композицию notebook FTR-017. Исторический remote `AOS-3@e99cc3ee03128deb4506bc268839ebd1f52a3f3a`, Graph/RAG R3 и локальный R2 experiment — разные subjects. Числа «около 12%» и «65 KB», решение KEEP_MONOLITH и внешний research остаются `REPORTED` из входного текста; exact experiment report, текущие AOS-3 API и внешние ссылки в этом переносе не проверялись. Они не обосновывают экономию, schema choice или runtime availability.
+
+Owner sections задают WHAT и совместимость, [существующий brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) собирает маршрут. Полный DIP не становится третьим нормативным владельцем. FTR-017 disposition и остальные FTR сохраняются; implementation/installed execution, benchmark и independent review — `NOT_RUN`.
 
 ## 13. Ограничения
 
