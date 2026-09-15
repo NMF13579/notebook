@@ -168,6 +168,118 @@ limitations: []
 remaining_unknowns: []
 ```
 
+<a id="ux-pages-r2-source"></a>
+
+### Repository UX Pages: предоставленная модель R2 → FTR-032
+
+Источник — полный текст `AOS-UX-PAGES-DUAL-SURFACE-MODEL`, revision R2,
+created 2026-09-15, переданный пользователем в чате с поручением «Используй для
+фичи 032». Привязка к FTR-032 установлена этим поручением; `feature_id: null`
+в metadata исходного текста не переписывается задним числом. Использование для
+authoring разрешено, но `status: DRAFT`, `authority: NONE`,
+`human_disposition: UNDECIDED`, `human_acceptance: NOT_REQUESTED` у исходной модели
+не означают принятия всех proposals. У самой FTR сохраняется прежний DEFERRED;
+IN_DISCOVERY отражает выполненную проработку. Implementation/Git authorization
+остаются NONE, module implementation / independent review / usability validation
+источником заявлены NOT_RUN. Новая копия полного контракта/новый owner не создаются.
+
+**Доступность и identity.** R2 получен как текст сообщения, не исходный файл с
+проверяемыми bytes/hash. Predecessor D01 объявлен UNVERSIONED. Ни D01–D03, ни
+`AOS_UX_Pages_Dual_Surface_R2_Artifact_Checks.json` не найдены в текущем checkout
+при поиске UX/Pages/Dual source paths; содержимое этих приложений не прочитано.
+S00–S03 из источника — attached snapshots, не current HEAD; вместо них прочитаны
+релевантные текущие owners. Следующие hashes — REPORTED из R2, не VERIFIED здесь:
+
+| ID | Заявленный исходный файл | SHA-256 из сообщения |
+|---|---|---|
+| S00 | 00_Core.md.txt | `96787a64585264e9f0d6beb1aab28bc717f80436003dfc6c093736541a95c34c` |
+| S01 | 01_Product.txt | `bbbce8e166bc4640f8fd98c9407539159a41d216ab9ee993ad2369f07ac81625` |
+| S02 | 02_Architecture.txt | `3724a3369c78f6504c56a0f6d921839839d7adecc9ca806f1fe9d3e65b11be84` |
+| S03 | 03_Development.txt | `251730eb5cdab9776a97caf29a6791e1f3645fa6b8f01c6de93c5c4a2bbed9b1` |
+| D01 | AOS_UX_Pages_Dual_Surface_9of10_Model.md | `f65851416230d0dfd2a295703f0c65ba74977341799ebc01f1e0e5ede03349e1` |
+| D02 | AOS_Repository_UX_Pages_Module_Technical_Spec_R1.md | `b1075306f5e29e4f8f54698f7d12bacbe0abf68d41d529301f6b809041d5eb97` |
+| D03 | AOS_Feature_Repository_UX_Pages_R2.md | `a84c52f0366f3452dc38cd85550d3d067e0fc95c69766a518011a273f5f1ebdc` |
+
+Нельзя заявлять, что здесь исправлены файлы D02/D03 или проверены их schema 1/2,
+DELETE/ERROR и прежний audit package. §18 R2 использован как список тем для переноса
+к текущим owners; несовместимость старых схем остаётся сообщением источника.
+Executable schema пока не выбрана; синтетический YAML fragment отчёта из R2 не
+повышается до контракта parser/runtime. Достаточный смысл кандидата вынесен в owners,
+поэтому исполнителю не требуется скрытая память автора о D02/D03.
+
+| Разделы R2 / сохранённый смысл | Текущий owner / адаптация |
+|---|---|
+| §§1–7: две поверхности, простой human path, material gaps, раздельные решения | [Product](01_Product.md#ux-pages-product), [Features](06_Features.md#ftr-032-contract). Передача решения через агента остаётся PROPOSAL DS-O02; кнопка симуляции не создаёт C-011 |
+| §§4, 7–9, 12–14: page owner, snapshot, expected set, context и recovery | [Architecture](02_Architecture.md#ux-pages-contract): применены существующие C-010/C-011/C-012/C-015/C-016. Ортогональные applicability/coverage — поля отчёта; technical result не получает новых enum |
+| §§10–11: ограниченная симуляция и trust boundary | Features задаёт supported behavior, Architecture — гарантии стыков/эффектов. Parser, normalization implementation, traversal/visited set, конкретные browser primitives — HOW; новый язык/свой parser/универсальный framework не вводятся |
+| §§15–16: DS-T01–22 и небольшой пилот | [Features cases](06_Features.md#ux-pages-cases), [Development](03_Development.md#ux-pages-verification). DS-T IDs сохранены, oracle формы конкретизирован синтетически; 3×2 задания, 2 инженерные сессии и пороги 5/6, 2/2, 0 false acceptance — PROPOSAL, не измерения |
+| §§17–19: open decisions и changeset | [DS-O01…05](06_Features.md#ux-pages-open-decisions), [brief](../workspace/AOS_UX_PAGES_MODULE_IMPLEMENTATION_BRIEF.md). Feature/owner routing установлены; target/runtime не назначены, engineering HOW не превращён в вопрос человеку, новая активация не выполнена |
+| §20: источники и прежние checks | Этот provenance record отделяет REPORTED identities/проверки от текущего чтения. Ни рейтинги качества, ни human acceptance, ни runtime claims не перенесены |
+
+**Узкая внешняя сверка при адаптации, 2026-09-15.** Это технические основания
+для проверки гарантий кандидата, не источники нового product scope:
+
+| ID | Прочитанный источник | Подтверждаемое ограничение |
+|---|---|---|
+| E01 | [W3C CSP Level 3](https://w3c.github.io/webappsec-csp/), Introduction / §3.3; Editor’s Draft | CSP — дополнительная защита; sandbox не поддержан в meta delivery. Это не доказательство безопасности будущего preview |
+| E02 | [MDN File System API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API) | Работа с файлами использует специальные API/handles; обычный generated HTML не доказывает наличие проверенного decision writer |
+| E03 | [W3C WAI evaluation](https://www.w3.org/WAI/test-evaluate/) | Одного автоматического инструмента недостаточно для заключения о доступности |
+| E04 | [WAI APG modal dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) | Взаимодействие включает клавиатуру и фокус; переключение видимого state не доказывает поддержку modal |
+
+Ограничения текущей адаптации: документационная работа, без HTML/prototype,
+parser, runtime, новых зависимостей и инфраструктуры. Browser/security/behavior
+проверки и usability pilot NOT_RUN, экономия UNKNOWN, independent validation
+NOT_RUN, human acceptance модели NOT_REQUESTED. Author self-check нового текста
+не заменяет перечисленные проверки источника или модуля.
+
+<a id="reference-gap-adaptation"></a>
+
+### Дополнение по пробелам R01–R11 из аудита — 2026-09-15
+
+Поручение пользователя: использовать AOS-FARM/AgentOS как дополнительные данные,
+подготовить и выполнить ограниченный план документационных дополнений. R01–R11
+обозначают findings предшествующего аудита в чате; это не постоянный реестр и не
+доказательство закрытия всех фич. Изменения поведения имеют статус DRAFT/PROPOSAL;
+owners и dispositions сохраняются. [Features](06_Features.md#reference-adaptation-decisions)
+собирает зависимые выборы; протокол проверки остаётся Development §25.7.
+
+**Исследованный subject.** При read-only исследовании через GitHub GET установлены
+удалённые dev: AOS-FARM `71b87f3dfb9fe3735c7659c123cd86db3f577201`,
+AgentOS `e3a60a92fbd5e78e583cddb519d39527583f3433`. Они совпали с §5; ссылки ниже
+зафиксированы на этих commits, а не на плавающей ветке. Прочитаны деревья для
+навигации и выбранные docs/contracts/examples/текст тестов; scripts, tests, build
+и runtime обоих источников NOT_RUN. Наблюдения — OBSERVED_AT_SNAPSHOT, пригодность
+адаптации — SYNTHESIZED; authority обоих источников для AOS: NONE.
+
+| Источник / вопрос | Exact paths и наблюдаемое основание | Адаптация у owner и предел вывода |
+|---|---|---|
+| RF-01 / R01: что доказывает inventory? | AgentOS [scripts/repo-scan.py](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/scripts/repo-scan.py): branch/commit, raw inventory, сигналы дубликатов и ownership; scanner не объявлен validator | [FTR-002](06_Features.md#ftr-002-semantic-map): отделить структуру, обещание, наблюдение кода и runtime Evidence. Контрольный CSV/JSON пример создан для AOS; это не фактический incident AgentOS. Код scanner и его output paths не переносятся/не исполняются |
+| RF-02 / R02: как проверить вклад child? | AgentOS [DECOMPOSITION-QUALITY-POLICY.md](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/docs/DECOMPOSITION-QUALITY-POLICY.md), §§Acceptance Criteria Mapping, Duplicate Responsibility Risk, Hidden Work Risk: покрытие критериев, интеграционная ответственность, скрытая работа | [FTR-007](06_Features.md#ftr-007-contribution): критерий → вклад/выход → consumer → проверка. Не переносить запреты внутреннего планирования/автоматические human gates: owner выбора внутренних действий — Development §25.0 |
+| RF-03 / R03: что известно о routing? | AOS-FARM [token-budget-and-model-routing-policy.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/docs/operations/token-budget-and-model-routing-policy.md) и [model-routing-decision-template.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/templates/model-routing-decision-template.md): классы задач/моделей, причина, escalation, неизменность approval | [FTR-018](06_Features.md#ftr-018-routing-contract): связать сравнение с одинаковым subject/критериями и ограничениями; сохранить затраты/unknown. Tier не доказывает качество; benchmark, provider и budget не выбраны. Новые примеры — предложения AOS |
+| RF-04 / R04: где применим дополнительный guard? | AOS-FARM [runtime-enforcement-boundaries.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/docs/governance/runtime-enforcement-boundaries.md) и [runtime-enforcement-planning.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/docs/governance/runtime-enforcement-planning.md): ограниченные точки контроля, enforcement исполняет rules и не даёт approval; второй документ — planning | [FTR-020](06_Features.md#ftr-020-mode-contract): адаптировать точки применения к уже названным DISABLED/OBSERVE/ENFORCED, recovery и измерению ошибок. Готового контракта этих режимов источник не даёт; proposal не подтверждает работающий guard |
+| RF-05 / R05: что подтверждает release checklist? | AgentOS [release-checklist.md](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/docs/release-checklist.md): version/artifacts/gates/Evidence, запрет скрывать FAIL через N/A; ограничен исторической задачей M20 | [FTR-024](06_Features.md#ftr-024-release-contract): exact artifact/target, обязательные post-checks, последствия partial effect и предел rollback. Исторические VERSION/PASS/milestone gates не переносятся; этот checklist не описывает полный откат продукта |
+| RF-06 / R08: что переносится между проектами? | AgentOS [CLEAN-TEMPLATE-BOUNDARY.md](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/docs/CLEAN-TEMPLATE-BOUNDARY.md); AOS-FARM [INSTALL-AND-TRANSFER.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/aos/docs/INSTALL-AND-TRANSFER.md): source/template/instance, исключение history, preview конфликтов и запрет silent overwrite | [FTR-029](06_Features.md#ftr-029-export-contract): owner/provenance, семантика языка/adapter/overlay, локальные изменения и проверка применимости. Пути /aos, .agentos, installer/CI и запрет любого merge из чужого first-install scope не становятся нашим общим update contract; используется FTR-004/C-013 |
+| RF-07 / R06–R11: какие будущие задания можно подготовить? | AOS-FARM [06-domain-extension-interface.md](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/aos/docs/methodology/technical-assignment/06-domain-extension-interface.md); AgentOS [UX-TO-TASK-DECOMPOSITION-POLICY.md](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/docs/UX-TO-TASK-DECOMPOSITION-POLICY.md), §§State/Flow Mapping; [ADD-AGENTOS.md](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/docs/ADD-AGENTOS.md): предметные входы/ограничения, UX states, режимы отображения без новых permissions, безопасная установка | [Пакет условных решений](06_Features.md#reference-adaptation-decisions) и dossiers 027/028/031–033. Не определяют Medical/Design job, бизнес-доступ пользователей, collaboration или принятие чужого проекта на сопровождение; placeholders сохраняются |
+
+**Отвергнутый перенос и ограничения.**
+
+- [Evidence-to-Backlog](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/aos/docs/workflow/evidence-to-backlog-loop.md)
+  заканчивается human review, [AgentOS README](https://github.com/NMF13579/AgentOS/blob/e3a60a92fbd5e78e583cddb519d39527583f3433/README.md)
+  исключает автономное выполнение. Не переносить эти ограничения на внутреннюю
+  работу общей task AOS; источник не доказывает автономность её разработки.
+- [test_aos_export_contract.py](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/tests/test_aos_export_contract.py)
+  использует `ref/found/defined` в положительном входе. Это полезно для структуры,
+  но не oracle качества архитектуры. [Pattern Fit Matrix](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/aos/docs/architecture/review/pattern-fit-matrix.md)
+  содержит специфические manual queue/human weights; они не навязываются 005/022.
+- [Controller Loop Handoff Protocol](https://github.com/NMF13579/AOS-FARM/blob/71b87f3dfb9fe3735c7659c123cd86db3f577201/docs/operations/controller-loop-handoff-protocol.md)
+  описывает передачу, но не подтверждает runtime continuation. Существующие
+  C-012 и Development §10/§25.0 сохранены; второй lifecycle не создаётся.
+
+Содержательные предложения не заменяют продуктовые решения. Полный аудит source
+repositories, independent validation, реальные измерения качества/стоимости,
+pilot enforcement, release/rollback и автономная разработка здесь NOT_RUN.
+Документальные контрольные входы не записываются как incidents или доказанные lessons.
+
 <a id="interview-methodology-sources"></a>
 
 ### Источники адаптации методологии интервью

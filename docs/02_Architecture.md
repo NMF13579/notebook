@@ -192,6 +192,12 @@ human_disposition:
 
 Product-level problem, users, journeys, scope, non-goals, constraints, metrics, dependencies, acceptance и open decisions. Не разрешает execution.
 
+Для [выбранной версии проекта](01_Product.md#autonomous-project-outcome) — DRAFT:
+эти существующие сведения определяют включённые части и общий результат версии;
+подробности частей остаются в C-002. Связь с общей C-005 и её проверками задаёт
+[Development §25.0](03_Development.md#autonomous-project-development), без нового
+владельца требований или схемы Product Spec.
+
 #### C-004 — Architecture Decision Record
 
 ```yaml
@@ -254,6 +260,13 @@ C-005 lifecycle_stage задаёт только исходную стадию. �
 До отдельной выдачи он не содержит authorization identity. Фактический binding
 сохраняется controller в Loop State без переписывания Task Brief. `requested_*`
 никогда не трактуется как `allowed_*`.
+
+**Применение к версии проекта — DRAFT.** Общая C-005 связывает exact C-003/C-002,
+scope версии и её критерии; внутренняя декомпозиция не меняет task identity.
+Различение внутренних работ и самостоятельных tasks принадлежит
+[Development §7/§25.0](03_Development.md#autonomous-project-development).
+Это применение существующих goal/scope/criteria и ссылок, не новые поля или
+версии C-005/C-006. Authority другой task не наследуется по общей цели проекта.
 
 #### C-006 — Parent Task Authorization Record
 
@@ -498,6 +511,12 @@ current candidate и authority binding, критерии с NOT_RUN, пусто�
 связь ограничивает продолжение; актуальность authority проверяется заново по
 [Development §10.2](03_Development.md#state-conflict-recovery).
 
+Для общей задачи версии те же C-012 bindings сохраняют критерии частей и общих
+стыков, выполненную, непроверенную и stale работу, оставшиеся dependencies и
+next action по [Development](03_Development.md#autonomous-project-development).
+Это DRAFT применения существующего state: завершение части не создаёт новый
+controller, пустой ledger или terminal state общей задачи. Формат и схема не меняются.
+
 #### C-013 — Install / Update Manifest
 
 Package identity, ownership classes, operations, conflicts, preview binding, recovery и post-apply verification.
@@ -646,24 +665,41 @@ queued; неизвестные C-015/C-016 версии допускают ли�
 | Contract | Producer / владелец содержания | Данные и consumers | Отказ и область повторной проверки |
 |---|---|---|---|
 | C-001 | FTR-001; человек подтверждает intent | Original request, problem/outcome, assumptions/unknowns; FTR-003 | Неясная цель → уточнение; проверить перенос смысла в Spec |
-| C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012 (FTR-012 читает критерии C-002) | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution и полноту review criteria |
+| C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012/032 (FTR-012 читает критерии C-002; FTR-032 — выбранные требования, journey и expected set) | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution, полноту review criteria и UX mapping/context FTR-032 |
 | C-004 | FTR-005 готовит; человек выбирает | Вопрос, варианты, Evidence, выбор/последствия; FTR-003/005/006/022 | Нет решения → selected_option отсутствует; проверить зависимые задачи и patterns |
-| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013/016 | Противоречивый scope → отказ допуска; проверить preview/candidate, child task и criterion-to-Evidence review |
+| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013/016/032; FTR-032 читает scope/checks выбранной задачи, не выдаёт её authority | Противоречивый scope → отказ допуска; проверить preview/candidate, child task, criterion-to-Evidence review и соответствие UX pack запрошенной FRONTEND/INTEGRATION задаче |
 | C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-006 (report binding)/019/010/014/016 | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
 | C-006A | Controller — issuer stage envelope | Transition/action/state/candidate и parent binding; FTR-006 (report binding)/010/014 | Mismatch/replay → отказ до effect; проверить execute/correct paths |
 | C-007 | FTR-009; наблюдение repository и preview | Root/worktree/baseline/dirty state/actions/permissions; FTR-002/004/010/013 | Изменён subject → новое preview; проверить discovery binding, preservation, admission и сверку validation subject |
 | C-008 | Worker FTR-010; factual observation (при потере не синтезируется recovery) | До/после, envelope, effects/unknown effects, stop reason; FTR-013/014/025, controller FTR-010 как reader observations | Неполный effect → reconciliation; проверить отсутствие двойного исполнения |
-| C-009 | Controller выдаёт; FTR-011 возвращает observation | Purpose/transition, candidate, required checks, results, limitations; FTR-006 (report binding)/008/010/011/012/014/023 | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness |
+| C-009 | Controller выдаёт; FTR-011 возвращает observation | Purpose/transition, candidate, required checks, results, limitations; FTR-006 (report binding)/008/010/011/012/014/023; FTR-032 читает technical results/limitations, не получает полномочия ValidationEnvelope для отображения | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness и разделение coverage/verification в UX surfaces |
 | C-009A | Controller оценивает diagnostic record | Signature, hypotheses, prediction, recovery, correction binding; FTR-010 | Слабое Evidence/replay → DENY; проверить D0…D5 и fresh correction |
-| C-010 | Наблюдавший checker/worker либо FTR-014 для recovery observation; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/010/011/012/013/014/021/023/025 | Недоступный источник → UNKNOWN; проверить ссылки, redaction и границу результата |
-| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021/025 | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля |
-| C-012 | Controller создаёт первый record и владеет controller/lifecycle transitions по workflow; FTR-016 сохраняет/выдаёт | Versions, creation/resume context, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017 | Старая revision → recover, не overwrite; проверить старые задачи и concurrency |
+| C-010 | Наблюдавший checker/worker либо FTR-014 для recovery observation; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/010/011/012/013/014/021/023/025/032; FTR-032 читает Evidence для surfaces/pack | Недоступный источник → UNKNOWN; проверить ссылки, redaction, границу результата и применимость UX Evidence к page/runtime/source snapshot |
+| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021/025/032; FTR-032 читает запись и её применимость через FTR-012, не создаёт решение из viewer | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля, UX badge/index и handoff по exact decision scope |
+| C-012 | Controller создаёт первый record и владеет controller/lifecycle transitions по workflow; FTR-016 сохраняет/выдаёт | Versions, creation/resume context, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017; продолжение FTR-032 обслуживают controller и FTR-016/014, без второго state owner | Старая revision → recover, не overwrite; проверить старые задачи, concurrency и продолжение UX page/index/pack operations |
 | C-013 | FTR-004; план и наблюдённые результаты установки | Package/target, ownership, operations, preview, conflicts/recovery; FTR-004/009/011/014 | Конфликт user state → стоп apply; проверить install/update/uninstall и повтор |
 | C-014 | FTR-015; отдельная запись каждого действия | Action, repo/source/target, candidate, authority, результат; FTR-012/014/015/024 | Remote uncertainty → проверить эффект до retry; проверить Git-действия отдельно |
-| C-015 | Автор module contract; FTR-010 проверяет registration, FTR-016 хранит runtime binding | Identity/revision/interfaces/capabilities/lifecycle; FTR-004/005/009/010/011/014/016/019/022 | Unknown/incompatible/disabled → нет нового вызова; проверить consumers, lifecycle и recovery |
-| C-016 | Разрешённый caller/publisher формирует сообщение; FTR-010 владеет delivery, FTR-016 хранит | Operation/message/subject/authority refs, bounded payload, delivery/result; FTR-005/008/010/011/014/016/019 | Duplicate/stale/unknown effect → dedup/reconciliation; ack не закрывает task |
+| C-015 | Автор module contract; FTR-010 проверяет registration, FTR-016 хранит runtime binding | Identity/revision/interfaces/capabilities/lifecycle; FTR-004/005/009/010/011/014/016/019/022; contract FTR-032 и его вызовы проверяются через FTR-010/009/019, без собственной registry | Unknown/incompatible/disabled → нет нового вызова; проверить consumers, lifecycle и recovery, включая direct/queued операции FTR-032 |
+| C-016 | Разрешённый caller/publisher формирует сообщение; FTR-010 владеет delivery, FTR-016 хранит | Operation/message/subject/authority refs, bounded payload, delivery/result; FTR-005/008/010/011/014/016/019; FTR-032 формирует запросы записи и получает связанные outcomes через FTR-010, не читает storage очереди напрямую | Duplicate/stale/unknown effect → dedup/reconciliation; ack не закрывает task; проверить повтор и прерывание page/index/pack writes FTR-032 |
 
 Сверка карты влияния обязательна при изменении входа dossier: каждый именованный C-contract из раздела «Входные данные» должен иметь эту фичу среди consumers таблицы либо явное объяснение неприменимости. Чтение contract собственным producer также учитывается, если он принимает сохранённый record как вход. Проверка criteria-to-Evidence и stale review входит в область изменения C-002/C-005; изменение C-007 затрагивает сверку candidate в FTR-013.
+
+**Маршрут влияния FTR-032 — DRAFT.** Таблица включает как чтение источников,
+так и явно названные делегированные пути [UX-модуля](#ux-pages-contract);
+она не назначает FTR-032 reader всех внутренних records ядра.
+При изменении C-002/C-003 сверяются expected set, mapping, UX-права и состав
+journey/pack по [DS-T02/03/05/15–17/21](06_Features.md#ux-pages-cases).
+Изменение C-005 затрагивает exact scope/criteria экспортируемой задачи;
+C-009/C-010 — различение coverage и verification, subject/Evidence и ограничения
+по DS-T01/04/10/11/18/21. Изменение C-011 ведёт к проверке применимости решения,
+badge/index и handoff по DS-T06–09/18/19; отсутствие writer не обходится.
+Для C-012/C-015/C-016 проверяются соответствующие core paths и операции FTR-032:
+прерывание записи страницы/index/pack, потеря ответа, смена generation и
+disable/remove с pending effects — по [§25.8](03_Development.md#ux-pages-verification),
+[SC-T23–26](03_Development.md#core-transport-checks) и §25.5.
+Это маршрут выбора affected checks, не заявление об их выполнении и не требование
+перезапускать все проверки при любом изменении: scope определяется изменённой
+гарантией; неизвестное влияние обрабатывается по [§18.1](03_Development.md#modular-maintenance).
 
 Backlog, pattern и incident имеют владельцев содержания в своих feature contracts. Хранение через FTR-016 не передаёт ему это владение. Идентичность issuer/actor проверяется принятым способом capture, а не наличием имени в поле.
 
@@ -1102,6 +1138,97 @@ Cache/index/maps принадлежат FTR-017 и восстановимы; tas
 | DELETE DATA | Отдельная authority на exact owned derived paths, проверка consumers/in-flight; disable/remove/TTL не дают delete permission. Unknown purge видим без раскрытия скрытого содержимого |
 
 Unknown interface/schema/data revision даёт unsupported или поддержанное inspection; downgrade не принимает непроверенный формат, rollback только по доказанному пути. Bundles не единственный owner обязательных решений. [Lifecycle checks](03_Development.md#graph-rag-verification) обязательны для соответствующих операций; конкретная реализация и runtime support пока `NOT_RUN`.
+
+<a id="ux-pages-contract"></a>
+
+### 10.2. Repository UX Pages / FTR-032 — DRAFT contract
+
+Применение C-002/C-009…C-012 и C-015/C-016 к
+[FTR-032](06_Features.md#ftr-032-contract), по
+[R2](05_Reference.md#ux-pages-r2-source). Это не новая схема всего ядра и не
+разрешение запуска. UI/behavior и expected cases принадлежат Features,
+пользовательский результат — [Product](01_Product.md#ux-pages-product).
+
+**Owner и snapshot.** Одна логическая страница имеет один owning HTML с embedded
+YAML: HTML/CSS задают представление, YAML — page-level behavior. Нет второго
+редактируемого JSON/DOM owner этих фактов. Product/Feature/API/design sources
+сохраняют собственные области authority; спецификацию API нельзя заменить mock.
+Внешние C-011 решения и C-010 Evidence не хранятся как актуальная истина в page bytes.
+Index, summaries, completeness и context packs — производные. Нормализация для
+runtime тоже производна; форматы parser, helper layout и алгоритмы — HOW.
+
+Snapshot связывает выбранные page identities/revisions, материальные source
+versions, внешние records, converter и влияющие на вид/поведение runtime/assets.
+Human и Engineering Surface читают один этот набор; preview-преобразование имеет
+прослеживаемую связь с исходными bytes. Page identity включает весь HTML без
+исключений status-панели. Изменение любых bytes создаёт другой subject, не переписывая
+историю прежнего решения. Встроенная запись статуса — явно историческая; актуальность
+решения определяется по C-011 и текущим inputs. Изменение runtime/CSS/converter
+инвалидирует зависимые interactive/render conclusions; не означает, что человек
+принял новую редакцию. Цена повторного review измеряется, semantic hash не вводится.
+
+**Expected set и контекст.** Ожидаемые требования берутся из выбранных upstream
+sources/acceptance до сопоставления с page links. Каждый имеет source, применимость,
+mapping либо gap; duplicate mapping не увеличивает число требований. UNKNOWN
+expected set не даёт знаменатель для «100%». Обоснованный NOT_APPLICABLE не равен
+PASS. В Completeness Report ортогональны applicability
+(`APPLICABLE / NOT_APPLICABLE / UNKNOWN`), coverage
+(`COMPLETE / PARTIAL / MISSING / UNKNOWN`), verification.result и findings
+(в том числе CONFLICT). Первые поля — proposal отчёта, не статусы lifecycle;
+verification.result использует только [единый Result Contract](#technical-result-contract).
+
+Journey определяется выбранным Product/Feature scenario; карта лишь ссылается на
+page/state/action и entry/exit. Циклические ссылки A↔B не расширяют pack бесконечно:
+точная версия участника включается один раз; способ обхода выбирает агент.
+Обязательные участки/источники реально доступны в разрешённой среде либо включены
+в разрешённый pack. Неопределённый required target — gap, а не справочная ссылка;
+sidebar не требует экспорта всего проекта. Источники вне data scope не копируются.
+
+**Реальные стыки / кандидат C-015.** Один модуль содержит FTR-032; иные FTR —
+потребляемые возможности, не новое объединение. Имена операций ниже обозначают
+смысл контрактов, exact supported schema/version определяются в DS-O03.
+
+| Producer → consumer | Передаваемое содержание и допустимое действие | Отказ / владелец |
+|---|---|---|
+| Product/Feature sources (FTR-003) и разрешённые page/API/design owners → FTR-032 | Exact выбранные требования, UX scope, ограничения и view model; optional ADR/patterns читаются только при необходимости | Отсутствующий обязательный вход даёт scoped gap. FTR-032 не выбирает product truth; библиотека 022 и индекс 017 не обязательны |
+| FTR-032 → CHECK / Engineering Surface | Нормализованное чтение контракта, expected set, gaps, subject-bound observations; DIRECT_READ не меняет page или status | Runtime не требуется для разбора. Неподдержанная schema явно отклоняется; нет silent fallback на пример D02/D03 |
+| FTR-032 → Human Surface / host preview adapter | Проверенный snapshot и scope ограниченной симуляции; запуск только в отдельно проверенной среде с покрытыми effects | Недоказанный preview не запускается; безопасный разбор/производная статическая визуализация остаются доступны. Host не получает права из HTML |
+| FTR-032 → генерация/коррекция pages, BUILD_INDEX или запись pack | QUEUED_COMMAND при записи с C-005/current authority и C-016; before/after subject, owned outputs и результат C-008/C-010 | Память/доставка через ядро 016/010, допуск 009/019; нет скрытой записи из CHECK. Повтор/неизвестный effect идёт на reconciliation 014 |
+| Человек через действующий trusted channel → FTR-012/C-011 → FTR-032 | Exact показанный review subject, scope/исключения, explicit decision; результат проверенной записи читается для нового index | Generated viewer/симуляция не issuer и не writer. Missing adapter, stale subject и ошибка записи различимы. Неизвестный исход записи сначала выясняется через владельца record, не создаётся второй decision |
+| FTR-032 EXPORT_CONTEXT → внешний coding agent в FRONTEND / INTEGRATION task | Task-scoped page contract, применимые sources, checks/Evidence, decision scope и gaps. DIRECT_READ для выдачи; сохранение pack — отдельный covered write | EXPORT_CONTEXT не исполняет следующую task и не даёт authority. Перед потреблением сверяются actual inputs/decisions; unresolved refs не считаются достаточным заданием |
+
+Требования FRONTEND/INTEGRATION — в dossier, admission/порядок цикла — Development.
+Необязательный writable decision adapter не является предпосылкой создания viewer;
+внешний доверенный канал нужен для обещанного реального принятия. Без него можно
+подготовить review, но нельзя закрыть весь пользовательский путь. Нет зависимости
+от ещё не созданного index при первом чтении owners; index обновляется по запросу
+агента, не watcher. observed_at/набор сборки видны; возраст файла не доказывает drift.
+
+**Preview boundary.** Generated content не получает filesystem handles, agent bridge,
+decision writer, credentials, shell, сетевые effects либо доступ к outer review
+controls. Pinned viewer/runtime и authored HTML/CSS/YAML различаются по доверию.
+Запрет authored iframe не запрещает trusted viewer использовать проверенную
+изолированную поверхность. Выбор parser/profile, DOM/CSS/URL limits и средств
+изоляции — Engineering Design в пределах этих guarantees; произвольный JS/eval,
+plugin hooks и скрытая сеть не являются fallback. CSP — дополнительная защита;
+`sandbox` нельзя доставить через CSP meta, и одна CSP не доказывает изоляцию
+([E01](05_Reference.md#ux-pages-r2-source)). До DS-O04 интерактивный запуск NOT_RUN.
+
+**Сохранение/обновление.** Page update проверяет exact base до замены, сохраняет
+восстановимый принятый subject, не затирает competing edit. История C-010/C-011 и
+task ledger принадлежат прежним owners; временный simulation state не durable Evidence.
+При потере подтверждения сначала сверить actual effects, затем допустимый повтор
+по C-012/C-016. Успешный decision и failed rebuild index — разные outcomes: решение
+сохранено, projection требует восстановления. Нельзя восстановить потерянный C-011
+из badge. Представления воспроизводимы из pages, sources/records и версий инструментов,
+а не только HTML. Semantic diff объясняет проверенные before/after; не владеет фактами.
+
+Для ADD/ENABLE/UPDATE/DISABLE/REMOVE применяется Development §25.5: проверить
+связанные consumers/версии, reconcile pending/in-flight; без модуля сохраняются
+pages, accepted snapshots и внешние records, ядро может читать их в read scope.
+Обновлённый runtime/converter получает новую binding; старый pack не становится
+current автоматически. REMOVE implementation не удаляет пользовательские данные;
+DELETE DATA — отдельная authority. Сам модуль не имеет scheduler/completion owner.
 
 ## 11. Адаптеры агентов
 

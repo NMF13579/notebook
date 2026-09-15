@@ -187,6 +187,15 @@ Epic → Stage → Sub-stage only when material → executable Task
 
 Child создаётся только по authority boundary, independent validation, material risk, protected operation, distinct acceptance или dependency. Closed children не доказывают parent completion.
 
+**Для общей задачи выбранной версии — DRAFT (§25.0).** Ленивая декомпозиция
+сначала формирует внутренние пункты работы и worker actions под одной C-005/C-006.
+Переход к следующей части, размер работы или её локальная проверка сами по себе
+не требуют самостоятельной task. Если по указанным выше основаниям нужна
+отдельная C-005, её effectful запуск требует собственного exact authority binding;
+controller не выдаёт ей новую C-006 и не переносит исходную authority молча.
+Предусмотренную границу учитывают при подготовке общего входа. Пока допуск
+отсутствует, зависимая работа ждёт, независимая в исходном scope продолжается.
+
 ## 8. Task Brief и Execution Authorization
 
 Task Brief описывает goal/scope/constraints/validation и требования к будущей
@@ -206,6 +215,11 @@ consumable Effectful Stage Envelope для одного `EXECUTE` или `CORREC
 controller issuer, exact controller transition, state revision/event head,
 candidate и action-spec digest; он не приписывается человеку напрямую и не
 разрешает Git actions.
+
+В [общем проходе версии](#autonomous-project-development) исходная authority
+покрывает согласованные внутренние работы, интеграцию, checks, служебные outputs
+и bounded correction в своих пределах. Она не расширяется по мере декомпозиции:
+каждый effect требует обычного fresh admission, новый scope — отдельного решения.
 
 ## 9. Preflight репозитория
 
@@ -246,7 +260,9 @@ Handoff package, not stage or Git permission.
 ### 10.0. Явные lifecycle-переходы полного цикла — SCAFFOLD_CORE_DRAFT R5
 
 Человек выбрал явные переходы исполнения и проверки внутри одной задачи.
-Эти правила V3 применяются к явно принятому full-cycle scope S0–K4 и отдельной задаче сборки выбранного модуля по §25; создание
+Эти правила V3 применяются к явно принятому full-cycle scope S0–K4 и отдельной
+задаче сборки выбранного модуля по §25. DRAFT-уточнение применения к одной общей
+задаче конечной выбранной версии проекта задано в [§25.0](#autonomous-project-development); создание
 DRAFT, имя lifecycle stage или широкая parent allowlist не включают такой scope
 автоматически. Самостоятельная PLAN/VALIDATE/REVIEW task сохраняет свою read-only
 границу и не получает correction authority. Для неё действие, требующее выхода
@@ -254,7 +270,7 @@ DRAFT, имя lifecycle stage или широкая parent allowlist не вкл
 и выдача отчёта сами не требуют нового effectful worker.
 
 C-005.lifecycle_stage — исходная стадия задачи, C-012 — текущая. Для запуска уже
-подготовленной реализации S0–K4 или выбранного модуля исходная стадия EXECUTE; если принятая full-cycle
+подготовленной реализации S0–K4, выбранного модуля или версии по §25.0 исходная стадия EXECUTE; если принятая full-cycle
 задача начинается в PLAN, её первый переход в EXECUTE требует готового принятого
 task input, current authority и разрешённого action. Controller не редактирует
 исходный C-005 и не повышает DRAFT до accepted. Изменение цели/contract/scope
@@ -347,6 +363,12 @@ Controller атомарно сохраняет task/revision, repository/candida
 task state, run state/result, acceptance/check status, impact basis, findings,
 unknowns, diagnostic level, attempt ledger, resource usage, authority/envelope
 state, observed effects и one next action.
+
+Для общей задачи версии этот state охватывает всю выбранную цель: критерии
+частей и общих сценариев, их зависимости, готовые и оставшиеся работы, current
+Evidence и stale checks (§25.0). Смена внутреннего шага не обнуляет ledger/resources.
+После interruption восстанавливается общий scope и фактические effects, а не
+только последняя часть; следующий шаг снова выбирается по §10.5.
 
 Controller — единственный владелец controller-action transition. Worker output считается
 непроверенным observation и не может напрямую установить `PASS`, закрыть
@@ -546,6 +568,11 @@ AND required findings закрыты или покрыты exact Human residual-
 AND observed effects reconciled
 AND persistent state recoverable
 ```
+
+В общей задаче версии (§25.0) predicate применяется к её общему subject и всем
+согласованным критериям, включая реальные обязательные стыки. Завершённая часть
+закрывает лишь доказанные критерии; общий lifecycle остаётся в рабочем цикле,
+пока не доказан весь результат. Отдельного completion owner или predicate нет.
 
 После mutation affected checks становятся stale. Impact basis связывает changed
 paths, dependency/contract edges, behavior boundary и limitations. Если
@@ -1155,12 +1182,14 @@ journey и negative cases. История автономной разработ�
 [§25.7](#feature-documentation-review). Это детализация проверки §25.4, а не
 параллельный набор требований, новый lifecycle или разрешение на correction.
 
-Для поздних модулей применяется существующий §6 feature-specific workflow к
+Для самостоятельного запуска позднего модуля применяется существующий §6 feature-specific workflow к
 каждой входящей фиче на этапе подготовки, затем один общий маршрут разработки:
 выбор модуля → достаточные contracts и анализ стыков → единый module brief и
 parent authority → автономная сборка/интеграция/check/correction → integrated
 review. У модуля из одной фичи это тот же маршрут. Все поздние dossiers
 одновременно не перерабатываются.
+Внутри заранее выбранной версии подготовленные модули связываются общей задачей
+по [§25.0](#autonomous-project-development), без нового ручного запуска каждой части.
 
 Перед runtime выбранная фича имеет observable outcome, actors/inputs/outputs/states/failures/recovery, критерии и негативные случаи. Её contract связывает реальные producers/consumers ядра и модулей, required/conditional inputs, data/state owner, версии и поддержку сохранённых задач, permissions/effects, отказ/отсутствие/отключение и состояние после interrupted operation. Архитектурное решение нужно лишь при существенном изменении принятой boundary; HOW внутри неё остаётся за агентом.
 
@@ -1177,6 +1206,81 @@ Acceptance включает проверки самой фичи, затрону
 Missing critical input даёт конкретное BLOCKED для зависимой реализации. Documentation readiness, actual contract/integration PASS, человеческое принятие и Git delivery остаются разными фактами; новый registry или параллельный lifecycle не создаётся.
 
 
+<a id="autonomous-project-development"></a>
+
+### 25.0. Общая задача конечной версии проекта — DRAFT
+
+Это применение существующего complete-task controller к
+[результату версии](01_Product.md#autonomous-project-outcome), уточнённое по
+поручению исправить SYS-01. Оно не создаёт lifecycle, каталог или новые C-contracts
+и не активирует выбранный scope по наличию этого текста.
+
+**Короткий вход.** Exact Product Spec/Feature Passports и решения → состав версии,
+общие сценарии/критерии и исключения → одна общая C-005 с отдельной C-006 → §10.
+До запуска агент связывает каждый общий критерий с требованием, участвующими
+частями/интерфейсами, check/oracle и Evidence. Вход включает существенные
+архитектурные ограничения, необходимые внешние зависимости, target/host,
+data/provider boundaries, разрешённые effects/outputs, limits и supported resume.
+Недостающее решение не угадывается; отсутствие доступа учитывается отдельно
+от достаточности требований по §25.7. Точный состав AOS остаётся предметом
+существующих SC-DEC/MOD-DEC, а состав пользовательского проекта — его ТЗ.
+
+**Два исполнителя.** При создании нового AOS внешний host ведёт общий цикл с S0
+по §24; существующий target сначала проходит inventory/rebind, его готовые части
+не пересоздаются автоматически. Выбранные модули после ядра могут быть внутренними
+работами той же общей task.
+При создании пользовательского проекта будущий AOS использует его принятое ТЗ,
+проверенную техническую архитектуру и отдельно выданную authority. Подготовка
+архитектуры входит в покрытую внутреннюю работу, если она ещё требуется перед
+кодом; обычный HOW не создаёт нового product choice. Внутренние contracts
+подключения AOS C-015/C-016 не навязываются компонентам пользовательского проекта.
+Для обоих применимы §10, границы checker/corrector и требования к реальному
+host continuation; работа продукта и история его разработки проверяются отдельно.
+
+**Внутренняя работа и зависимости.** До старта известны общие критерии,
+обязательные стыки и порядок доступности существенных inputs; подробный список
+actions уточняется по мере работы (§7). Controller выбирает dependency-ready
+действие по §10.5, не просит выбрать следующую уже включённую часть. Backlog
+FTR-007 может предлагать порядок, но не владеет state или admission. Отдельная
+task по §7 не получает права из общей цели; переход к ней возможен только при
+собственном допустимом binding. Такая граница не скрывается обещанием автономности.
+
+Часть, создаваемая внутри выбранного scope, не обязана существовать до старта
+всей версии. До её consumer известен contract, а к первому использованию готовы
+требуемые реальные inputs и гарантии. Как в §24, support создаётся до первого
+зависимого effect. Внешняя dependency вне scope не объявляется внутренней для
+обхода readiness. Fixtures допустимы для промежуточных проверок в разрешённой
+области, но не закрывают обязательную реальную интеграцию итоговой версии.
+
+**Общее завершение и продолжение.** Критерии модуля AOS по §25.2 входят в критерии
+общей C-005; у частей пользовательского проекта критерии следуют его ТЗ,
+без автоматического добавления SC-T14 или других проверок самого AOS.
+PASS части, в том числе K4 внутри более широкой версии, не переводит общую задачу в terminal REVIEW:
+controller продолжает оставшиеся части и стыки, затем применяет §10.5 к current
+общему candidate и выдаёт один review package. После mutation действует impact
+basis/affected checks; неизвестное влияние не разрешает узкий итоговый PASS.
+C-012 сохраняет этот общий остаток работы и ledger (§10.2). Lost effect сначала
+reconciled; correction и anti-loop остаются по §10.3–10.4, resource pause не
+обнуляет hard limit. Непроверенный resume trigger означает assisted mode.
+Новый scope/существенное решение/непокрытый effect останавливает зависимую часть;
+самостоятельная read-only task никогда не получает correction authority из §25.0.
+
+**Документальный пример для §25.7.** Условное заранее принятое ТЗ версии содержит
+две части: первая сохраняет запись `K=7`, вторая читает именно эту запись и
+показывает `7`. В scope входят обе части, их реальный стык и проверки. Это
+контрольный вход, не новый модуль/FTR или выбор состава AOS.
+
+| Случай | Ожидаемый вывод и основание |
+|---|---|
+| Первая часть проверена; вторая ещё не создана | Общая задача ACTIVE, следующий доступный внутренний action выбирает controller без новой C-005/C-006; отсутствие создаваемой второй части до старта не является внешним blocker |
+| Обе части локально PASS с fixtures, реальное чтение показывает старое значение `6` | Общий критерий не закрыт; diagnosis → разрешённая correction → affected integration checks. Заполненные ссылки и число PASS не заменяют проверку значения |
+| После записи потеряно подтверждение, затем новый run | Сверить admission, target и ledger до повтора; восстановить и незавершённое чтение второй частью. Не начинать первую часть заново и не расходовать ресурс с нуля (§10.2) |
+| Весь общий результат доказан; остаётся необязательная идея | §10.5 → общий REVIEW/handoff и stop; идея не возобновляет terminal task. Human ACCEPT/Git/deployment не выводятся из technical completion |
+
+Применять восемь репетиций и обе попытки опровержения §25.7 к общему scope;
+SC-T и MOD-A сохраняют свои области, этот пример не заменяет их. Авторский
+документальный проход не является independent validation или runtime Evidence.
+
 <a id="autonomous-module-development"></a>
 
 ### 25.1. Готовность к автономной сборке модуля
@@ -1185,6 +1289,11 @@ Product owner [задаёт результат](01_Product.md#autonomous-module-
 Используются существующие C-contracts и loop V3, без нового lifecycle или
 параллельного каталога модулей. Название/состав берутся из выбранной группировки
 Features; FTR-ID и ownership сохраняются.
+
+Для самостоятельного запуска это собственная task модуля. Внутри версии по
+[§25.0](#autonomous-project-development) требования ниже включаются в общую task;
+создаваемые в её scope зависимости готовятся до использования, а не обязательно
+до старта всей версии. Повторная выдача parent authority на каждую часть не нужна.
 
 Перед запуском достаточный пакет содержит:
 
@@ -1219,7 +1328,10 @@ Controller самостоятельно выбирает dependency-ready шаг
 или workers — внутренняя организация одной цели; постоянные parent task identity,
 ledger/resources, criteria и authority binding обеспечивают общий результат.
 Если нужны child tasks по §7, их outcomes связаны с parent criteria, а полномочия
-остаются сужением исходной authority. Закрытие child не закрывает parent.
+не выводятся из одного parent reference: внутренние worker actions получают
+суженный envelope общей authority, самостоятельная task требует своего exact
+binding по §7/§8. Закрытие child не закрывает parent. В общей версии техническая
+проверка модуля закрывает только его критерии; общий цикл продолжается по §25.0.
 
 После каждого effect отдельный checker возвращает observation; обычный дефект
 ведёт в D0…D5 и отдельный CORRECT по V3. Между фичами нет обязательного ручного
@@ -1609,3 +1721,88 @@ subject ради PASS и не снижать исходные критерии. 
 §10.3–10.4 с сохранёнными signature/ledger и ресурсными пределами. Необязательная
 идея остаётся предложением вне completion criteria и не возобновляет завершённую
 проверку или terminal task; общий владелец completion остаётся прежним (§10.5).
+
+
+<a id="ux-pages-verification"></a>
+
+### 25.8. FTR-032: подготовка и проверка dual-surface пути — DRAFT
+
+Это применение §25.1–25.7 и existing controller к
+[модели FTR-032](06_Features.md#ftr-032-contract), не новый lifecycle/gate.
+[Product](01_Product.md#ux-pages-product) владеет результатом,
+[Architecture](02_Architecture.md#ux-pages-contract) — subject/стыками,
+[brief](../workspace/AOS_UX_PAGES_MODULE_IMPLEMENTATION_BRIEF.md) даёт короткий вход.
+Проверка документации не запускает browser/runtime и не пишет product decisions.
+
+**Перед отдельной реализацией** связать scope, обязательные criteria/checks, exact
+schema/profile и разрешённые effects с C-005/C-006. Новый исполнитель получает
+owners по brief; старые D02/D03 не подставляются как неявное ТЗ. До генерации
+страницы определить expected requirements из выбранных sources, один controlled
+normal/error scenario и отрицательные inputs. Детальные implementation choices
+остаются агенту, material questions — DS-O01…05. Внешний host начинает сборку
+по §25.2 без работающей версии собственного viewer; реальные interactions и
+consumers должны быть готовы к зависимым итоговым checks.
+
+**Один проход внутри разрешённой задачи:** прочитать owners/страницы → создать или
+исправить owning page по exact base → read-only CHECK → построить derivative
+представления/index отдельным покрытым действием → проверить допустимый preview
+и scenario → показать factual diff/review → записать human decision только через
+FTR-012 при настоящем пользовательском действии → обновить index → экспортировать
+task-scoped pack. Нельзя обязать новое принятие каждого внутреннего build action:
+настоящий user review относится к продуктовой операции/пилоту, а технические
+проверки decision boundary используют явно синтетические fixtures.
+
+Checker не обновляет source/status. Дефект contract, checker, implementation и
+среды различаются по §10.3: observation → diagnosis → допустимый CORRECT с fresh
+binding → affected check. Повтор без новых сведений расширяет диагностику по §10.4,
+не создаёт бесконечную переработку UX. При прерывании §10.2 восстанавливает page
+revision, external record/effect, проверенные/stale claims, ledger и следующий
+шаг; после неизвестной записи сначала reconciliation. Failed index rebuild не
+требует повторного Human Decision. Один continuation owner и текущая authority
+сохраняются, реальный автоматический resume отдельно доказывается.
+
+| Проверяемый предмет | Метод / Evidence и граница вывода |
+|---|---|
+| Structure/schema и expected set | Strict read/normalization, источники требований → mapping/gaps; positive и negative cases DS-T01–04/22. Schema PASS не доказывает смысл, interaction или пригодность preview |
+| Human/Engineering и completeness | Сопоставить оба представления с одним snapshot, проверить semantic claims/unknowns по §25.7; DS-T05/15–17/21. Модель «две реализации» допускает разный renderer/parser с теми же guarantees |
+| Preview boundary | На exact declared host/browser/profile проверить DS-T10/13/14, включая ресурсы, forms/navigation, host messages, script/runtime, paths/symlinks и outer controls; статический поиск запрещённых строк недостаточен |
+| Render/behavior/accessibility | Объявленные одинаковые viewport/conditions для before/after; отдельные проверки клавиатуры/фокуса/названий и DS-T11/12. DOM/state graph, проигрывание и browser test — разные claims; автоматический check не объявляется полной accessibility evaluation |
+| Decisions/recovery/consumers | DS-T06–09/18/19, interrupted page/index/pack write, real C-011/C-012/C-016 integrations; FRONTEND/INTEGRATION readiness на точном запросе. Fixture approval не реальный ACCEPT; frontend без API допустим лишь при достаточном UX |
+| Общее техническое завершение | Требуемые части и стыки выбранной C-005 проверены по §10.5/§25.2, нет required gaps/unknown effects; отдельные PASS или полностью заполненный report не закрывают весь путь |
+
+Все DS-T — designed tests, сейчас runtime NOT_RUN. Неприменимость конкретного
+сценария требует основания в выбранном scope; declared interactive capability
+не исключается ради PASS при отсутствии среды. Для authoring/review без preview
+безопасная часть остаётся доступной, ограничение общего результата видно.
+EXPORT_CONTEXT не требует успеха ещё не реализованных integration/E2E; он требует
+достаточного входа для них. Смена source/page/runtime/assets/converter/decision
+инвалидирует зависимые выводы; сохраняются unaffected facts, исторические records
+и Evidence. Неизвестное влияние не даёт узкий итоговый PASS.
+
+**Минимальный пользовательский пилот — PROPOSAL, не поручение запуска.** Одна
+выбранная feature, одна форма и связанная страница, обе поверхности, ограниченная
+симуляция, одна коррекция с diff, одно реальное решение через существующий канал
+и один FRONTEND pack. При недоступной preview среде выполняется лишь безопасный
+срез с явным NOT_RUN полного пути. Новый framework/server не нужен по умолчанию.
+
+Предложение R2: три непрограммиста по два малых задания и две отдельные инженерные
+сессии по разным заданиям. Expected behavior и один намеренный gap задать заранее,
+записать порядок, инструменты и помощь модератора. Наблюдать способность найти
+страницу, пройти normal/error, запросить изменение и понять scope решения; инженер
+должен обнаружить gap и его последствия без прежнего чата, не выдумывая требований.
+
+Порог для согласования, не отраслевой стандарт: минимум 5/6 человеческих заданий
+без вынужденного открытия YAML/hash/CLI, 2/2 инженерных разбора с обнаружением gap,
+ноль false-acceptance случаев. Сообщать успешные/выполненные задания отдельно с
+помощью и без, время/ошибки и ограничения малой выборки; не переводить в 9/10.
+Участники, выбор task, бюджет и разрешения не назначены этим proposal. Подлинную
+независимость инженерных сессий подтвердить перед таким claim; авторская смена
+перспективы её не заменяет.
+
+В существующем отчёте §12 фиксировать стоимость всего цикла: подготовка, генерация,
+правки, human review и context handoff, неудачные попытки, помощь/вмешательства и
+принятый UX scope. Принятие UX не означает принятие всего приложения. Человеческое
+время на принятый результат — по Product §13; неизвестное не равно нулю, при нуле
+принятых результатов отношение не определено. Security/schema/behavior/usability
+выводы раздельны, результаты и экономия сейчас NOT_RUN/UNKNOWN. Пилот не заменяет
+историю автономной разработки модуля MOD-A01…05 и реальный host continuation.
