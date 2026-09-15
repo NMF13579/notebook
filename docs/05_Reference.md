@@ -612,6 +612,20 @@ R2 §2 не описывает текущие item-level решения notebook
 
 Owner sections задают WHAT и совместимость, [существующий brief](../workspace/AOS_GRAPH_RAG_MODULE_IMPLEMENTATION_BRIEF.md) собирает маршрут. Полный DIP не становится третьим нормативным владельцем. FTR-017 disposition и остальные FTR сохраняются; implementation/installed execution, benchmark и independent review — `NOT_RUN`.
 
+<a id="event-diagnostics-source"></a>
+
+### FTR-025-A R2: минимальный контракт диагностического события
+
+Источник — предоставленный пользователем текст «FTR-025-A — Minimal Structured Event Logging», R2, DRAFT/PROPOSAL; последующая инструкция разрешила включить полезный минимум в существующую FTR-025 и согласовать с протоколом совместимости. Это документационная адаптация, не Human selection полной фичи и не разрешение runtime/Git. Отдельного проверенного файла/digest source addendum нет; FTR-025-A не новый inventory ID.
+
+Взяты: различение старта/завершения/отказа, source-bound correlation, закрытая безопасная projection, отсутствие записи из read-only, отдельный recording outcome, сохранение primary result, failures/partial history без auto-repair/retry, один реальный integration scenario. Owners: [Product](01_Product.md#event-diagnostics-purpose), [FTR-025](06_Features.md#event-diagnostics-behavior), [Architecture](02_Architecture.md#event-diagnostics-contract), [Development EV-C01–12](03_Development.md#event-diagnostics-verification). Исходные T01–22 использованы как материал; их suite/исполнение и перенос каждого wire requirement не заявляются.
+
+Не приняты как обязательный HOW: JSONL/schema_version 2, `.aos/logs/events.jsonl`, UUID/новый counter, 4096/10485760 bytes, конкретный lock/append/serializer, ignore rule или новая CLI. Предпочтение существующему пригодному report/ledger сохраняется; независимое диагностическое storage требуется только при подтверждённом gap. Семантический mapping caller/identity и current C-009 закрепляются до runtime, а не выбираются из общего union исторических enums.
+
+В предыдущем read-only review локальный AOS-3 HEAD e99cc3e показал: portable `aos/docs/00_PROJECT_CORE.md` ещё включает HUMAN_REVIEW_REQUIRED в технический vocabulary, а `aos/src/aos/cli.py` в одном scaffold-пути создаёт run ID через token_hex(16). Это scoped historical observation для этого переноса, не current installed binding и не доказательство поддержки logger. Notebook C-009 исключает HRR из technical results; это отражено в текущей адаптации. Нельзя смешивать оба baseline или автоматически переписывать native IDs.
+
+Запись [LES-049 в Lessons](04_Lessons.md) описывает reported потерю reason codes test harness; она обосновывает сохранение безопасной причины в подходящем канале, а не новый сервис/файл. Частота аналогичных failures и выигрыш нового writer не измерены. Текущие boundaries, parent acceptance и dispositions сохраняются; [brief](../workspace/AOS_EVENT_DIAGNOSTICS_IMPLEMENTATION_BRIEF.md) только собирает handoff и scoped review. Runtime/security/concurrency/benchmark/independent review — NOT_RUN.
+
 ## 13. Ограничения
 
 - Byte-complete chat export: `NOT_RUN`.
