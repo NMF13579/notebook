@@ -15,7 +15,7 @@
 | Назначение, users, первая область и не-цели | [Product](../docs/01_Product.md#repository-graph-purpose) |
 | C-002: trigger, I/O, flow/states, failures/recovery, constraints, 62 критерия G/R, прежние S/N | [FTR-017](../docs/06_Features.md#ftr-017-contract) |
 | Source identities, Target/Observed/Mapping/Delta, интерфейсы, ownership, effects/versions/lifecycle | [Architecture](../docs/02_Architecture.md#graph-rag-module-contract) |
-| Один parent, внутренний порядок, 96 source cases, 10 групп текущей совместимости, installed/E2E и benchmark | [Development](../docs/03_Development.md#graph-rag-verification) |
+| Один parent, внутренний порядок, 96 source cases, GR-C01–10 совместимости и GR-DI01–10 impact, installed/E2E и benchmark | [Development](../docs/03_Development.md#graph-rag-verification) |
 | Источник, SHA, преобразования и ограничения проверки | [Reference](../docs/05_Reference.md#graph-rag-r3-source) |
 
 ## 2. Сверка с протоколом совместимости фич
@@ -29,7 +29,7 @@
 | 3. Composition/data ownership | Поиск и сравнение используют corpus независимо; FTR-016 остаётся Context Pack owner; нет cyclic bootstrap или второго scheduler | Сверить реальные producers/consumers выбранной реализации |
 | 4. C-015/C-016 | find/compare/context/check — DIRECT_READ; refresh/save — QUEUED_COMMAND через core; event subscriptions N/A с причиной | Concrete profile: versions/handlers/generation, finite limits и текущие read/write capabilities |
 | 5. Lifecycle | ADD/ENABLE/UPDATE/DISABLE/REMOVE/DELETE разделены, in-flight reconciliation и сохранение user records описаны | Испытать writer/migration/disable/fallback на disposable target |
-| 6. Semantic readiness | 62 source criteria, 96 source scenarios и GR-C01–10 связаны с current contracts; отсутствие runtime Evidence явно | Actual public boundary и independent oracle; missing input ограничивает dependent readiness |
+| 6. Semantic readiness | 62 source criteria, 96 source scenarios, GR-C01–10 и уточнения GR-DI01–10 связаны с current contracts; отсутствие runtime Evidence явно | Actual public boundary и independent oracle; missing input ограничивает dependent readiness |
 | 7. Автономный вход | Один этот brief собирает goal, состав, dependency order и вопросы; HOW не требует нового planning каждого шага | Exact target/effects/check commands/budgets/resume и отдельная C-005/C-006 authority |
 | 8. Completion | Whole-project integration/installed journey/core fallback и единый review определены у Development | Реализация, Validate/Review и applicable human acceptance не выполнены |
 
@@ -60,7 +60,7 @@
 
 Для первого build агент формирует один конкретный пакет недостающих решений после сверки существующих. Материальный unknown блокирует только зависимые эффекты/claims; optional import или embeddings не становятся условием всего модуля. При принятом scope обычные коррекции не требуют повторного продуктового интервью.
 
-## 5. Статус проверок этого переноса
+## 5. Исторический статус проверок переноса R3
 
 - `PASS` — проверка контейнера ZIP и всех внутренних SHA-256 bindings; оригинал сохранён как source.
 - `PASS` — source критерии G/R перенесены с mapping на исходные scenario IDs; current module protocol дополнен в owners.
@@ -69,3 +69,24 @@
 - `PASS` — утверждённое ТЗ интервью и approval совпадают с bytes до переноса; SHA ТЗ остался `7ff1e6f74f26c72ae7ee1df4138c6ce2570c6002e973efdbef5ced537e07bc5b`.
 
 Следующий предмет после документационного review — закрытие необходимых inputs одной будущей сборки. Само наличие brief не запускает её.
+
+## 6. DIP-R1: ограниченное уточнение существующей фичи — 2026-09-15
+
+Текущая инструкция разрешила документационное встраивание полезного impact-поведения. [Provenance и исключения](../docs/05_Reference.md#graph-rag-dip-source), [поведение](../docs/06_Features.md#graph-rag-impact-behavior), [C-015 profile/совместимость](../docs/02_Architecture.md#graph-rag-impact-contract), [GR-DI01–10](../docs/03_Development.md#graph-rag-impact-verification) остаются у owners. Это одна FTR-017, прежний parent и внутренний LINKED_CONTEXT; новое feature selection или runtime admission не выполнялись.
+
+В GR-I05 теперь явно входит связывание DATA_CONTRACT_IMPACT_V1 с поддержанной payload revision, limits и caller/FTR-016. Старый consumer не должен принимать impact как обычный поиск; обычный find сохраняется. Импорт DIP schema, graph database, отдельный registry и selective refresh не являются предпосылками. GR-I01–06 остаются входами будущей реализации; реализационные структуры/алгоритмы не задаются этой документацией.
+
+Авторская репетиция изменённого контракта по §25.7, без runtime:
+
+| Ситуация | Следующий шаг и документальное основание |
+|---|---|
+| Достаточный вход | Один связанный producer/data/consumer → find → объяснение host, GR-DI01/10. Возвращаются potential candidates, не утверждение о дефекте |
+| Неполный вход | Нет provider binding — условный результат GR-DI06; неоднозначный subject — одно уточнение. Не выбирать связь по label |
+| Противоречие | Conflicting применимые claims ограничивают путь, GR-DI04; valid независимое основание сохраняется, GR-DI05. Material owner decision не синтезируется |
+| Недоступная зависимость | Permitted direct fallback без заявления полного impact, GR-DI09; FTR-021 не required. Отказ в чтении не обходится |
+| Обычный дефект | Неверное направление/смешение hops обнаруживает GR-DI01/02; будущий исполнитель исправляет реализацию в покрытом scope и повторяет affected checks. Обратимый HOW не требует нового product decision |
+| Прерывание/повтор | Новый query binding не продолжает старую страницу, GR-DI09; неизвестный save разрешается через прежние GR-C04–06, не скрытый replay |
+| Сломанный стык | Caller теряет ограничения или old consumer принимает чужую revision — GR-DI09/10 и GR-C07/C09 отклоняют общий результат при unit PASS |
+| Завершение | Нужны действительный public/installed путь, negatives и актуальное Evidence; документальная таблица не закрывает parent. Текущий runtime, benchmark и independent review — NOT_RUN |
+
+Попытка «две реализации»: обход всех REFERENCES и typed data-contract traversal давали бы разные affected sets; первый исключён Architecture impact и GR-DI03. Свобода выбрать in-memory или file-based представление сохраняется, если наблюдаемое поведение одинаково. Попытка «плохая реализация проходит»: всегда UNKNOWN/пустые sets либо ответ по case ID отвергнуты positive GR-DI01/02/10 и независимым source oracle. Это авторская проверка содержания; фактическая работоспособность адаптера/host остаётся `NOT_RUN`.
