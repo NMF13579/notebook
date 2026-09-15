@@ -162,7 +162,9 @@ X1 dispositions не объединяются и не повышаются до 
 Индекс §4 остаётся единственным каталогом: восемь сценарных семейств представлены
 семью модулями; два support-модуля и семь отложенных семейств не меняются.
 
-FTR-005 владеет need/no-need analysis, сравнением вариантов и подготовкой C-004.
+FTR-005 владеет need/no-need analysis, сравнением вариантов, подготовкой C-004 и
+[целостным архитектурным результатом](02_Architecture.md#architecture-output-handoff)
+по запросу архитектуры системы. Это уточнение DRAFT, не расширение принятого scope.
 FTR-022 владеет карточками patterns, provenance, fit/anti-fit и рекомендациями.
 Человек выбирает материальное архитектурное решение; FTR-016 хранит данные,
 не принимая владение их смыслом. Нового owner вместо этих фич нет.
@@ -210,13 +212,16 @@ rationale, FTR-022 — pattern corpus; transport принадлежит ядру
 | Операция | Режим и вход | Выход / граница |
 |---|---|---|
 | patterns.lookup | DIRECT_READ: вопрос, constraints, declared corpus/current C-015 | Candidates с provenance/fit либо точное ограничение; нет corpus — явный limited result, без install/refresh/write |
-| architecture.analyze | QUEUED_COMMAND: C-016 с exact task/subject, C-002/C-003, discovery findings, optional pattern refs | No-ADR rationale, recommendation или DRAFT C-004. C-005/C-006 scope определяет допустимые действия; output не становится Human ACCEPT |
+| architecture.analyze | QUEUED_COMMAND: C-016 с exact task/subject, C-002/C-003, discovery findings, optional pattern refs | No-ADR rationale, recommendation или DRAFT C-004; по запросу архитектуры системы — документ по [handoff contract](02_Architecture.md#architecture-output-handoff). C-005/C-006 scope определяет допустимые действия; output не становится Human ACCEPT |
 | architecture.save_draft | QUEUED_COMMAND: подготовленный exact artifact, owned destination, current authority | Сохранённый draft/rationale и C-009/C-010 result/evidence; stale subject/path/generation запрещает effect. При redelivery сначала actual effect/ledger, не двойная запись |
 | architecture.analysis_observed | QUEUED_EVENT: C-010/source result и действующие declared subscriptions; активная C-005 для read-only доставки не требуется | FTR-010 передаёт C-010 в FTR-008 status и FTR-012 review; отдельные delivery/result bindings. Нет фиктивной task/envelope, возобновления terminal task, выбора pattern или mutation. Effectful follow-up получает отдельный COMMAND/current task authority по C-016 |
 
 Analysis и save — разные логические операции, связываемые parent task/order;
 analysis не enqueue и не ожидает собственный save внутри занятого того же ordering
 key. После observation controller может поставить отдельно покрытый save.
+Архитектурный документ использует тот же путь analysis → save; новый допустимый
+output требует совместимых producer/consumer bindings по Architecture §6.1,
+а не автоматического расширения старой registration или replay pending messages.
 Pattern lookup из FTR-005 возвращает candidates в текущий анализ, не вызывает
 architecture.analyze рекурсивно. No-ADR и работа без библиотеки остаются допустимы.
 
@@ -244,7 +249,7 @@ decision поступает отдельно. MOD-A07 и MOD-S16…18 прове
 
 | Что установить | Маршрут и граница |
 |---|---|
-| Цель и состав | Только FTR-005 + FTR-022: из вопроса и ограничений получить обоснованный no-ADR, рекомендацию либо decision-ready DRAFT C-004; общий сценарий — §4.3 выше |
+| Цель и состав | Только FTR-005 + FTR-022: из вопроса и ограничений получить обоснованный no-ADR, рекомендацию либо decision-ready DRAFT C-004; для запроса архитектуры системы — [целостный документ и handoff](02_Architecture.md#architecture-output-handoff). Общий сценарий — §4.3 выше |
 | Сценарии и исключения | Need/no-need, сравнение, lookup и fit/anti-fit, reuse при неизменных условиях, сохранение/восстановление и lifecycle из таблицы операций выше. Нет автоматического принятия/исполнения архитектуры, install, policy edit или обязательного corpus |
 | Входы и зависимости | [FTR-005](#ftr-005-contract): C-002/C-003, constraints, scoped discovery facts и C-004 лишь для reuse; [FTR-022](#ftr-022-contract): declared corpus/cards с версиями и provenance при наличии. Отсутствующие обязательные facts ограничивают зависимый вывод; optional corpus не блокирует самостоятельный анализ |
 | Contracts | [Architecture: стыки](02_Architecture.md#architecture-patterns-interfaces), C-004, [C-015/C-016](02_Architecture.md#module-connector-queue); для будущей работы C-005/C-006/C-006A, C-009/C-009A/C-010 и C-012 по [Development §25.1–25.2](03_Development.md#autonomous-module-development). Analysis → lookup → возврат в тот же analysis; save — отдельная операция controller |
@@ -291,7 +296,7 @@ shared defaults не объявляются готовым contract. Миним�
 |---|---|---|---|
 | Z01 — Сбор требований и ТЗ | Выясняет желаемую систему; выдаёт понятное, проверяемое ТЗ | FTR-001, FTR-002, FTR-003 | ТЗ сценария интервью 0.3-draft утверждено отдельно; оно не принимает все сценарии этих трёх фич |
 | Z02 — Архитектура и UX | Описывает устройство будущей системы, объясняет существенные варианты и помогает проверить страницы | FTR-005, FTR-022, FTR-032 | Есть черновик модуля 005+022 и DRAFT dual-surface UX (032); принятие первого UX-пути остаётся отдельным решением |
-| Z03 — Планирование | Превращает цель в связанные части работы с условиями завершения | FTR-006, FTR-007 | Есть contracts задач и backlog; требуется уточнить выбор внутренних задач внутри одной разрешённой разработки |
+| Z03 — Планирование | Превращает цель в связанные части работы с условиями завершения | FTR-006, FTR-007 | В [FTR-007](#ftr-007-contract) описано разделение: человек выбирает самостоятельную task, controller — внутренние actions текущей общей task; runtime-подтверждение отдельно |
 | Z04 — Исполнение и восстановление | Проверяет среду, выполняет работу, исправляет ошибки и продолжает после остановки | FTR-009, FTR-010, FTR-014 | Описаны controller и recovery; практические возможности конкретных сред ещё нужно доказать |
 | Z05 — Качество и приёмка | Сверяет результат с требованиями, показывает доказательства, сохраняет решение человека | FTR-011, FTR-012, FTR-013, FTR-021, FTR-023, FTR-030 | Есть подробные черновики; нужны проверки результата проекта целиком в дополнение к проверкам частей |
 | Z06 — Полномочия и безопасность | Проверяет разрешения, защищает данные и задаёт границы действий | FTR-019, FTR-020, FTR-031 | Базовые границы принадлежат Core; FTR-031 прорабатывается как DRAFT прикладного доступа к полям, DEFERRED сохраняется |
@@ -331,15 +336,15 @@ shared defaults не объявляются готовым contract. Миним�
 
 ### Пробелы и порядок продолжения
 
-1. **Z02 — следующий документационный этап.** Уточнить выход архитектурного
-   этапа целиком: компоненты, данные, интеграции, ограничения, failure/recovery
-   и связь с ТЗ. Сравнение вариантов и ADR уже есть в 005+022; новая дублирующая
-   фича «архитектура» не нужна. DRAFT UX не блокирует работу над этим contract.
-2. **Z03–Z05 — согласовать автономный путь.** В FTR-007 остаётся шаг
-   `Human selects one active task`, а [Product](01_Product.md#autonomous-module-outcome)
-   описывает самостоятельную декомпозицию внутри выбранного модуля. На этапе ТЗ
-   планирования нужно явно развести выбор цели человеком и внутренних шагов
-   controller; исходный dossier текущим аудитом не переписывается.
+1. **Z02 — архитектурный выход описан как DRAFT.** Состав документа, связь с ТЗ,
+   передача в FTR-006/007 и повторная проверка заданы у [Architecture](02_Architecture.md#architecture-output-handoff),
+   поведение — в [FTR-005](#ftr-005-contract). Принятие полного contract и runtime
+   Evidence остаются отдельными; DRAFT UX не блокирует этот документационный стык.
+2. **Z03–Z05 — автономный путь описан, исполнение предстоит проверить.**
+   [FTR-007](#ftr-007-contract) различает самостоятельную task, выбираемую человеком,
+   и внутренние actions общей task, выбираемые controller. Общий результат,
+   проверки стыков и продолжение определяет [Development §25.0](03_Development.md#autonomous-project-development).
+   Наличие этих правил не доказывает runtime или принятие DRAFT.
 3. **Z07–Z08 — проверить реальные условия работы.** Базовый агентный адаптер,
    установка и продолжение не должны зависеть от реализации всех возможностей
    FTR-018/026/029. Нужно определить минимальный обязательный профиль и владельца
@@ -1084,7 +1089,7 @@ DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не по�
 
 ### Условие запуска (`Trigger`)
 
-Требование затрагивает существенную границу, совместимость или архитектуру; либо нужно объяснить, почему ADR не нужен.
+Требование затрагивает существенную границу, совместимость или архитектуру; либо нужно объяснить, почему ADR не нужен. В покрытой разработке системы после утверждённого ТЗ также требуется целостный архитектурный результат перед зависимой реализацией.
 
 ### Предварительные условия
 
@@ -1100,21 +1105,33 @@ C-002/C-003, вопрос, ограничения, актуальные discover
 
 Decision-ready ADR process: need check, distinct options, tradeoffs, human choice and task traceability.
 
+Для запроса архитектуры системы — связанный с точной версией ТЗ документ по
+[Architecture](02_Architecture.md#architecture-output-handoff), пригодный как вход
+FTR-006/007. ADR описывает отдельный выбор; no-ADR не закрывает подготовку документа.
+
 - Результат имеет явный статус и provenance
 - Пользователь видит limitations, unknowns и одно следующее действие
 
 ### Основной процесс
 
-1. Check if ADR needed; rationale «не нужен» завершает этот запрос без создания ADR.
-2. Define exact question; самостоятельное сравнение не зависит от библиотеки patterns.
+1. Различить запрос отдельного решения и архитектуры системы. Check if ADR needed; rationale «не нужен» завершает самостоятельный ADR-запрос без создания ADR.
+2. При необходимости выбора выполнить шаги 2–6; иначе для архитектуры системы перейти к шагу 7. Define exact question; самостоятельное сравнение не зависит от библиотеки patterns.
 3. Create distinct options; при полезности получить fit/anti-fit рекомендации FTR-022.
 4. Compare tradeoffs/risks and show Evidence/unknowns.
 5. Получить человеческий выбор только для материального решения; достаточный прежний выбор читается с проверкой subject/условий.
-6. Record consequences/reversal and link task; исполнение решения — отдельная задача.
+6. Record consequences/reversal and link task; самостоятельный ADR-запрос не разрешает исполнение решения.
+7. Для архитектуры системы собрать целостный документ, проверить полноту и связь
+   с ТЗ по [Development](03_Development.md#architecture-handoff-checks), передать
+   exact revision в FTR-006/007. Покрытая общая разработка продолжается по §25.0
+   Development без нового gate на обычный HOW; новый scope/effect не подразумевается.
 
 ### Изменения состояния
 
 Need check → rationale без ADR либо DRAFT C-004 с незаполненным выбором → exact human decision → consequences/reversal conditions. Поиск patterns не является обязательным промежуточным состоянием.
+
+Для архитектуры системы отдельно прослеживается документ: подготовка → проверка
+целостности → доступная consumers revision. Это состояние артефакта, не новая
+lifecycle task; материальный unknown/stale source удерживает зависимое действие.
 
 ### Сценарии отказа
 
@@ -1135,7 +1152,7 @@ Need check → rationale без ADR либо DRAFT C-004 с незаполнен
 
 ### Границы безопасности и полномочий человека
 
-- Human selects architecture
+- Human selects material architecture decisions; обычный обратимый HOW остаётся агенту
 - No dependency install
 - DRAFT ADR no execution
 
@@ -1145,12 +1162,16 @@ Need check → rationale без ADR либо DRAFT C-004 с незаполнен
 - Options comparable
 - Decision exact
 - Traceability present
+- Для архитектуры системы полнота документа и handoff FTR-006/007 проверены по
+  [Architecture](02_Architecture.md#architecture-output-handoff), включая exact source/revision
 
 ### Обязательные негативные сценарии
 
 - Trivial task avoids ADR
 - Single preselected option rejected
 - Stale repo fact invalidates comparison
+- Полный набор ADR при пропущенном обязательном стыке/восстановлении не закрывает
+  архитектурный результат; stale ТЗ не допускает зависимую реализацию без переоценки
 
 ### Минимальная модель реализации — кандидат
 
@@ -1260,6 +1281,12 @@ Free-form request не должен становиться executable work ав�
 ### Входные данные
 
 Принятое требование, subject, requested/prohibited paths/operations/effects, checks, ограничения, Risk Profile, который назначает человек.
+
+Когда задача зависит от архитектуры системы, FTR-006 получает её применимую
+exact revision по [handoff contract](02_Architecture.md#architecture-output-handoff):
+переносит ограничения/стыки/проверки в C-005 и отмечает missing/stale inputs.
+Подготовка Brief может предшествовать готовности документа; зависимое execution — нет.
+Для trivial задачи целостная архитектура и ADR не становятся обязательными входами.
 
 Для существенных условий качества FTR-006 получает exact C-002/C-003 requirement refs, область/условия применимости и acceptance implications по [Architecture](02_Architecture.md#quality-requirements-contract). Они компилируются в существующую C-005.validation_matrix; пустое производное представление не отменяет обязательные constraints. Check IDs отличны от requirement refs: одному требованию могут соответствовать несколько проверок. Нет пригодного метода/среды — явный missing input, а не фиктивный PASS или прямая запись FTR-003 в validator.
 
@@ -1418,6 +1445,12 @@ DRAFT; runtime NOT_RUN, исходный scope/disposition семьи не по�
 Parent goal/acceptance, существующие child tasks, contribution и зависимости,
 current state; exact C-005 для самостоятельной активируемой task либо текущая
 общая C-005 для предложений её внутренних работ.
+
+Для работ, зависящих от архитектуры системы, — её exact revision и требуемые
+стыки/порядок inputs по [handoff contract](02_Architecture.md#architecture-output-handoff).
+До готовности документа можно предложить план с явной зависимостью; такой consumer
+не объявляется dependency-ready. При смене источника переоценивается затронутый
+contribution/порядок; FTR-007 не переписывает архитектуру и не выдаёт authority.
 
 ### Результаты и наблюдаемое поведение
 
