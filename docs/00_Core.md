@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-13'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_MODULE_PROTOCOL_CONNECTORS_QUEUES_R7
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -58,7 +59,7 @@ current_work_mode: HUMAN_ACCEPTED_DOCUMENTATION_BASELINE
 knowledge_repository: NMF13579/notebook
 knowledge_branch_label: dev
 active_package_path: docs/
-implementation_repository: UNASSIGNED
+implementation_repository: NMF13579/AOS-3
 legacy_projects: [AOS-FARM, AgentOS, AOS-1, AOS-02]
 legacy_authority: NONE
 ```
@@ -160,7 +161,8 @@ legacy observation
 → greenfield implementation
 ```
 
-Default strategy: `REIMPLEMENT_FROM_CONTRACT`.
+Default strategy: `REIMPLEMENT_FROM_CONTRACT`; для первого ядра действуют
+HD-04/27 у [Architecture](02_Architecture.md#first-core-build-boundary).
 
 ## 9. Технические результаты и решения человека
 
@@ -168,7 +170,7 @@ Default strategy: `REIMPLEMENT_FROM_CONTRACT`.
 R5 устраняет прежнее включение HUMAN_REVIEW_REQUIRED в technical result:
 это значение зрелости документа, а ожидание runtime-решения выражает WAIT_HUMAN.
 Ни то ни другое не является technical PASS или human decision. Уточнение R5
-остаётся частью SCAFFOLD_CORE_DRAFT до принятия exact revision; старые records
+принято для первого ядра по [HD-01](#scaffold-core-decisions); старые records
 не получают новое значение автоматической конвертацией.
 
 ```text
@@ -230,7 +232,8 @@ NOT_RUN ≠ PASS
 - mandatory multi-agent orchestration;
 - full RAG/vector backend;
 - broad autonomous self-heal вне заранее bounded diagnostic/correction loop;
-- automatic commit/push/merge/release;
+- automatic commit/push/merge/release без применимой отдельной политики; узкое
+  правило первого ядра HD-26 — [Development](03_Development.md#first-core-local-commit);
 - SaaS/cloud/dashboard/marketplace;
 - wholesale legacy Governance;
 - domain medical behavior in core.
@@ -266,11 +269,18 @@ Product definition
 → later enforcement / routing / RAG / UI / domain modules
 ```
 
-Для нового scaffold/core подготовлено scoped уточнение [порядка S0–K4 и dogfood](01_Product.md#scaffold-core-outcome). Оно остаётся SCAFFOLD_CORE_DRAFT до SC-DEC-01; этот стратегический baseline не считается молча отменённым документационной правкой.
+Для первого ядра принято scoped уточнение [порядка S0–K4 и dogfood](01_Product.md#scaffold-core-outcome)
+по HD-01. Оно имеет приоритет в этой области; прежние последовательности и
+acceptance вне неё сохраняют свои исходные subjects.
 
 ## 15. Защищённые решения человека
 
-Только человек утверждает product scope/priority, target name, first segment, first vertical slice, architecture, dependencies, implementation repository, Source of Truth, human acceptance format, Risk Profile, protected/destructive actions, compatibility target, execution и Git/release actions.
+Только человек утверждает material Product/Architecture scope, priority, first
+segment/slice, implementation repository, Source of Truth, human acceptance,
+Risk Profile, protected/destructive actions и расширение authority. Обычный
+обратимый HOW и малые зависимости первого ядра регулируются HD-12/13/25 ниже;
+их выбор не требует отдельного Human Gate. Git-действия имеют собственную
+политику; для первого ядра действует узкое правило HD-26 у Development.
 
 ## 16. Текущие направления
 
@@ -282,7 +292,7 @@ Product definition
 | `DIR-004` | Exhaustive extraction прекращена | Human-confirmed |
 | `DIR-005` | Research выполняется по feature gap | Human-confirmed |
 | `DIR-006` | Feature dossiers понятны человеку и агенту | Human-confirmed |
-| `DIR-007` | Implementation repository — `UNASSIGNED` | Current safe state |
+| `DIR-007` | Implementation repository первого ядра — `NMF13579/AOS-3` | Human decision HD-02; launch отдельно |
 | `DIR-008` | Один общий feature catalog | Human-accepted with baseline |
 
 ## 17. Открытые решения
@@ -322,58 +332,116 @@ agent_usage_contract:
 
 <a id="scaffold-core-decisions"></a>
 
-## 20. Scaffold/core: применимость решений и граница запуска
+## 20. Scaffold/core: принятые решения и граница запуска
 
-Статус новых уточнений — `SCAFFOLD_CORE_DRAFT`. Текущая инструкция человека разрешает выполнение документационного плана и подтверждает направление «автономная разработка scaffold и ядра; поздние фичи готовятся отдельно». Она не принимает автоматически 13 CORE-семейств, target/stack, host и runtime authorization. Прежние принятые facts сохраняют свою область; audit и self-check не расширяют её.
+Источник — текущее явное сообщение пользователя «Integrate Human Decisions for
+AOS First-Core Implementation into notebook», HD-01…28, 2026-09-15.
+Это `HUMAN_ACCEPTED_FACT` в пределах выбранного первого ядра, а не результат
+аудита, принятие всех модулей или разрешение запуска. [Привязка исходного
+R7 candidate](05_Reference.md#first-core-human-source) учитывает working bytes,
+а не только HEAD. Семантика решений записана у owners ниже; HD-IDs служат
+трассировке этого сообщения, не новым каталогом задач или decision service.
 
-| Предмет | Основание и текущее применение |
-|---|---|
-| Владение Product Spec/Passport и первый product slice | X1 record фиксирует `X1-DR-001=A` и `X1-DR-002=A`: cross-feature facts в Spec, feature behavior в Passport; FTR-001 до reviewable, human-confirmed Intent. Исходный X1 selection сохраняется. Исходное подтверждение не подменяет trusted capture будущего runtime и не выбирает весь новый core |
-| Frozen Global Design / portable package | Exact документация принята в исходных fact classes. Portable acceptance явно сохраняет `implementation_repository: UNASSIGNED` и отсутствие roadmap activation. Freeze не отменяется |
-| AOS-3 / Python / local monolith / local persistence | Прежний blueprint сообщает о таких решениях и ссылается на принятую migration map. Это основание предлагаемого профиля, а не текущий task binding к репозиторию. Современный target/branch/состояние и применимость профиля к новому scope ещё не установлены |
-| Новый модульный состав | Человек выбрал группировку FTR-005+022 в модуль «Архитектурные решения и patterns». Остальной состав и полные contracts остаются в [MOD-DEC-01](01_Product.md#modular-decisions); выбор группировки не меняет исходные X1 dispositions и не расширяет S0–K4 |
-| Workflow | Canonical complete-task semantics уже описаны. Предложение раннего внешнего loop и нового handoff уточняет их применение к scaffold, а не объявляет существующим host или AOS runtime |
+HD-01 принимает текущий first-core scope у [Product](01_Product.md#first-core-selected-scope),
+R7 handoff и C-015/C-016 вместе с V3 loop; противоречащие этому scoped принятию
+прежние фразы «ожидает SC-DEC-01» больше не действуют для этого предмета.
+Сохранённые метки SCAFFOLD_CORE_DRAFT/R5/R7 обозначают происхождение редакции,
+а не отменяют HD-01. Принятие не распространяется на остальные MODULAR_DRAFT,
+поздние сценарии семейств, иные proposals или будущие изменения contracts.
 
-Exact locators, bindings и ограничения доказательств находятся у [Reference](05_Reference.md#scaffold-core-sources). В частности, X1 record сохраняет собственную оговорку о raw-record confirmation; совпадение bytes её не снимает. Здесь не создаётся новое свидетельство человеческого сообщения.
+### Репозиторий и нормативная граница — HD-02, HD-05, HD-15
 
-Человек задал требование максимальной переносимости между ОС и использование
-macOS для себя; затем явно выбрал вариант «macOS первой»: переносимая архитектура
-обязательна, Linux/Windows — целевые платформы с последующим подтверждением.
-Это закрывает только требование переносимости и порядок проверки ОС в SC-DEC-02.
-Повторное решение по ним не требуется. Версии ОС/runtime, target, adapter, host
-и полномочия этим выбором не определены. Product owner — [переносимость](01_Product.md#core-os-portability).
+Implementation/build repository первого ядра — `NMF13579/AOS-3` (HD-02).
+Notebook остаётся knowledge repository: runtime здесь запрещён, текущая задача
+разрешает только документацию. Назначение target не разрешает его изменение.
 
-Человек потребовал автономную сборку каждого выбранного модуля целиком,
-включая его внутренние фичи и стыки, без промежуточного управления человеком
-после согласования входного пакета. Требуемый результат определён у
-[Product](01_Product.md#autonomous-module-outcome), готовность и исполнение — у
-[Development](03_Development.md#autonomous-module-development). Это направление
-не принимает автоматически contracts всех модулей и не выдаёт runtime authority.
+Для новой сборки нормативны current accepted Product, Architecture Contracts,
+Development rules и authority boundaries notebook (HD-05). Старые AOS-3
+Feature-development/artifact-process/lifecycle/governance документы —
+`REFERENCE_ONLY`. Малый локальный router/handoff и repository-specific run/test
+инструкции могут направлять к notebook и конкретизировать HOW, но не становятся
+конкурирующими owners. Копировать весь notebook как вторую canonical базу не нужно.
 
-Человек выбрал явные lifecycle-переходы внутри одной автономной задачи.
-Их конкретный contract R5/V3 описан в [Development](03_Development.md#core-lifecycle-transitions);
-выбор модели не означает принятия всего набора contracts или runtime launch.
+При конфликте с legacy выигрывает применимый принятый notebook contract (HD-15).
+DRAFT/PROPOSAL/UNKNOWN/CONFLICT вне принятого HD-01 scope не повышаются автоматически:
+показать exact gap и блокировать только зависимое действие. Исторические frozen,
+portable, X1 records и их Evidence не переписываются; их прежний UNASSIGNED и
+исходная acceptance относятся к старым subjects. Текущий target выбран этим
+сообщением, не извлечён из старого PASS или blueprint.
 
-Человек выбрал смешанный обмен: быстрые read-only запросы через коннектор,
-команды с эффектами/отложенная работа и события через сохраняемую очередь.
-Минимальные локальные коннекторы и очередь входят уже в первое ядро. R7
-уточняет обязанности существующих 13 core-семейств; FTR-007 backlog, полный
-installer и plugin framework не становятся обязательными. Требование и сроки
-выбраны; конкретные C-015/C-016 и расширенный handoff остаются DRAFT до принятия.
-Их owners — [Product](01_Product.md#core-connector-outcome) и
-[Architecture](02_Architecture.md#module-connector-queue); способ хранения,
-toolchain, численные limits и target не выбираются этим решением.
+<a id="first-core-data-policy"></a>
 
-Оставшиеся решения сгруппированы ниже. Это вопросы для принятия подготовленного результата, не выданные агентом разрешения. Product scope принадлежит Product/Features, interfaces — Architecture, запуск — Development.
+### Доступ, зависимости и существенные решения — HD-11…13, HD-25
 
-| Вопрос | Рекомендация | Альтернатива и последствие | Требуемый ответ / срок | Статус |
-|---|---|---|---|---|
-| SC-DEC-01 — scope и contracts | Принять минимальные 13 CORE-семейств, S0–K4, текущий handoff R7, C-015/C-016 и [набор V3](02_Architecture.md#core-loop-v3); внешний development loop с S0, UX dogfood отдельно | X1-only сохраняет меньший scope, но не закрывает полный core loop; frozen bytes не меняются | ACCEPT/изменения для exact owner/brief revision до runtime launch по этому набору | WAIT_HUMAN; документационная реализация не означает принятие |
-| SC-DEC-02 — target и профиль | Указать implementation repository/worktree/base; предложены local modular monolith, Python 3.12+, CLI и минимальный локальный execution adapter с переносимым интерфейсом. macOS проверяется первой, переносимость обязательна | Другой target/stack/adapter требует проверки contracts; существующий AOS-3 требует inventory без пересоздания. Linux/Windows подтверждаются позднее; public release не требуется | Exact target/base, версия macOS/runtime и архитектура машины, adapter/средство исполнения, dependency policy, support limits, finite queue profile и state/evidence paths до launch; check commands фиксирует агент до check | OPEN по перечисленным параметрам; переносимость и порядок ОС уже заданы человеком |
-| SC-DEC-03 — host и данные | Сначала оценить имеющийся host на V3; выбрать проверяемые capture/admission/checkpoint/continuation. Предложение data policy: только объявленные task inputs, recipients и state/evidence paths, без неразрешённых secrets/external effects | Другой host требует своей проверки; manual resume даёт assisted mode, не полную автономность. LOCAL_ONLY продукта не определяет data flow coding host | Identity host, trusted capture, resume mechanism, providers/recipients, разрешённые данные/доступ и retention до conformance probes и launch | OPEN; пригодность текущего host UNKNOWN. Выбор не равен доказательству conformance |
-| SC-DEC-04 — runtime launch | После принятия exact brief и fresh preflight выдать отдельно Risk Profile, paths/operations/effects, limits/expiry и human-only boundaries; включить покрытую служебную инициализацию state, регистрации и очереди | Более узкая authority блокирует только непокрытые действия; Git/release остаются отдельно | Конкретная task/revision и отдельная current authorization непосредственно перед runtime launch | NOT_RUN; полномочия и Risk Profile этим документом не выданы |
+**HD-11 — LOCAL_FIRST.** По умолчанию доступны только разрешённый local repository,
+локальные файлы, tests/tools и task-scoped state/evidence. Новый network/API/provider,
+account/credential/secret, внешняя DB/service или recipient требуют отдельной
+явной Human authorization. Наличие token/account не даёт доступа. До запроса
+объяснить необходимость, provider/service, читаемые/передаваемые данные, эффект
+и наличие локальной альтернативы. Выбор Codex не разрешает любые его connections
+или data routes; фактический существующий допуск и путь данных проверяются при
+preflight. Для нового внешнего доступа действует это правило.
 
+**HD-12 — bounded dependencies.** Агент самостоятельно выбирает малую обратимую
+локальную библиотеку, если она не требует external service, не меняет существенно
+security boundary/runtime architecture, не ухудшает существенно переносимость,
+не несёт material licensing/maintenance risk и reasonably replaceable.
+Материальная dependency требует решения человека. Выбор библиотеки не разрешает
+новый network download: доступ проверяется отдельно по HD-11. Отдельного gate на
+каждую обычную техническую библиотеку нет.
 
-Техническое завершение интервала не включает human acceptance продукта. Проверка поведения capture/decision использует явно синтетические fixtures отдельно от настоящих решений. Если runtime взаимодействует с реальным человеком, его ответ должен поступить по принятому каналу; агент не генерирует его ради прохождения E2E.
+**HD-13 — новый материальный механизм.** Перед новым service, queue family,
+registry, daemon, database, persistent subsystem, control layer, agent role или
+широким enforcement показать наблюдаемый сбой либо дорогой/необратимый риск,
+недостаточность существующих механизмов, минимальную альтернативу, стоимость и
+последствия. Такой механизм требует Human decision. Малую обратимую техническую
+проблему исследовать ограниченным экспериментом в действующей authority.
+Реализация уже принятой локальной очереди/регистрации и durable state остаётся
+HOW в их гарантиях: правило не требует нового разрешения на каждый lock/file
+или внутреннее представление, но не разрешает новую постоянную подсистему.
 
-Обратимые классы, algorithms, internal schemas, storage mechanisms и test organization выбирает coding agent в принятых границах. Новый service/provider, dependency вне согласованной политики, другой public contract либо security boundary требует отдельного решения. Находка обычного дефекта ведёт в разрешённую correction; она не требует повторного принятия всего проекта.
+**HD-25 — Human-only Product/Architecture.** Material выбор возвращается одним
+decision-ready вопросом: issue/gap, почему действующего contract недостаточно,
+bounded варианты, trade-offs/последствия и рекомендация. Обычные обратимые HOW
+выбирает агент; классификация не превращает предпочтение реализации в новый gate.
+
+<a id="first-core-human-capture"></a>
+
+### Решение человека и хранение основания — HD-23, HD-24
+
+**HD-23.** Решение действительно только при явной выдаче человеком через
+допустимый текущий канал по конкретному subject/version/action. Сохраняются
+само решение, exact identity/revision, достаточный по принятой host-модели
+source/channel identity, необходимые time/ordering и allowed next route.
+PASS, Evidence, generated text, old reports, commit messages, agent-written
+`approved: true` и принятие другого subject не заменяют этот источник.
+Это требование к существующему C-011/trusted capture, не новый authority record.
+Фактическая пригодность capture Codex — UNKNOWN, проверка NOT_RUN.
+
+**HD-24.** Долговременно хранится decision-relevant минимум: accepted result
+identity, Human decisions, достаточное verification Evidence, material limitations,
+unresolved unknowns, recovery/rollback данные, значимые findings и созданные
+lessons/regression cases. Временная подробная история/логи могут очищаться, когда
+не нужны для этих целей и допустимого resume/dedup. Не требуется сохранять каждый
+trace навсегда. Очистка использует отдельно покрытые exact paths/операцию и
+retention boundary; это сообщение не выполняет deletion и не разрешает потерять
+единственное основание решения, проверки либо неизвестного эффекта.
+
+### SC-DEC: решение отдельно от фактической пригодности
+
+| ID | Принятое решение / owner | Статус и точный остаток |
+|---|---|---|
+| SC-DEC-01 | HD-01: полный предложенный first-core package S0–K4, 13 core-срезов, R7/C-015/C-016/V3 | ACCEPTED. Scope/contracts выбраны; не все 33 FTR и не runtime authority |
+| SC-DEC-02 | AOS-3; [изоляция/стратегия/профиль](02_Architecture.md#first-core-build-boundary); LOCAL_FIRST/HD-12; B1 и budget у Development | HUMAN_ACCEPTED_FACT для policy. OPEN только implementation-time binding: branch/worktree/base, actual OS/runtime/architecture, adapter, paths, конечные queue/resource numbers и commands. Агент выбирает/наблюдает их в принятых пределах, без повторного product выбора |
+| SC-DEC-03 | [Codex-first](02_Architecture.md#scaffold-core-host), HD-11/23/24; durable state и обязательный [resume proof](03_Development.md#first-core-autonomy-proof) | HUMAN_ACCEPTED_FACT для host/data/retention/resume requirements. Реальные capture/admission/data routes/wake UNKNOWN; conformance и interruption/resume NOT_RUN |
+| SC-DEC-04 | Будущая exact parent task и отдельный runtime launch | NOT_RUN. Ожидается explicit Human authorization: Risk Profile, mutation paths, operations/effects, limits/expiry и текущий допуск. Их этот пакет не выдаёт |
+
+Выбранные policy-level решения SC-DEC-01…03 повторно не запрашиваются. Настройка,
+наблюдение и conformance не закрываются словом ACCEPTED. Неожиданный material
+conflict или новый external access блокирует только затронутый путь.
+
+[HD-26](03_Development.md#first-core-local-commit) задаёт будущую standing policy
+ACCEPT exact first-core candidate → один local Commit; она не является разрешением
+Commit сейчас и не относится к этой documentation task. Push/Merge/Release
+требуют каждый отдельной явной Human authorization. Technical completion,
+Human acceptance, local commit result и runtime readiness остаются разными фактами.

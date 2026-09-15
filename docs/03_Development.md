@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-13'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_PRECOMMIT_DOCUMENTATION_CORRECTIONS_R7
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -44,7 +45,7 @@ authority_scope:
 
 ### Проектирование документации и область deliverable
 
-Ниже сохранён маршрут exact Global Design Package. Его Freeze относится к указанным трём файлам `AOS/`. Для нового scaffold/core документационная задача идёт от current owners к bounded [brief](../workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md); применение этого handoff к runtime предложено как `SCAFFOLD_CORE_DRAFT` и ожидает [SC-DEC-01](00_Core.md#scaffold-core-decisions). Подготовка нового DRAFT не меняет frozen bytes и не предоставляет им новую authority.
+Ниже сохранён маршрут exact Global Design Package. Его Freeze относится к указанным трём файлам `AOS/`. Для нового scaffold/core документационная задача идёт от current owners к bounded [brief](../workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md); содержание first-core handoff принято HD-01, а runtime launch отдельно ожидает [SC-DEC-04](00_Core.md#scaffold-core-decisions). Подготовка нового DRAFT не меняет frozen bytes и не предоставляет им новую authority.
 
 ```text
 Knowledge Baseline
@@ -197,6 +198,26 @@ controller не выдаёт ей новую C-006 и не переносит и
 отсутствует, зависимая работа ждёт, независимая в исходном scope продолжается.
 
 ## 8. Task Brief и Execution Authorization
+
+<a id="first-core-parent-autonomy"></a>
+
+**Принятая first-core модель — HD-08, HD-09, HD-10.**
+
+- **HD-08:** после согласования одной bounded parent task и её runtime authority
+  controller самостоятельно читает разрешённый контекст, планирует обратимую
+  работу, реализует, проверяет, диагностирует/корректирует, повторяет affected
+  checks и готовит итог. Промежуточные технические stages не требуют нового Human
+  approval; material scope/behavior/architecture/authority boundary возвращается
+  человеку по HD-25. Одна task без отдельного допуска effects недостаточна.
+- **HD-09 — B1:** автоматический выбор следующего child разрешён только внутри
+  того же parent при fresh inputs, действующих prerequisites и scope/authority,
+  без нового material решения. После completion нельзя самостоятельно взять
+  новую независимую цель из общего backlog. Transport queue C-016 не выдаёт
+  parent selection; отложенный FTR-007 не prerequisite внутреннего порядка.
+- **HD-10:** T2 → T2a/T2b/T2c допускается без Human approval, если parent outcome,
+  scope, authority и существенные Product/Architecture решения не меняются.
+  Вклад, оставшиеся критерии и состояние частей сохраняются у existing controller.
+  Переразбиение не создаёт новый parent или пустой budget.
 
 Task Brief описывает goal/scope/constraints/validation и требования к будущей
 Parent Task Authorization. Его paths/operations/effects имеют только
@@ -478,6 +499,13 @@ development checkpoint обеспечивается host до S0 и не имп�
 
 ### 10.3. Многоступенчатая диагностика
 
+**HD-14 — ordinary correction первого ядра.** Defect → diagnosis → bounded
+correction → affected re-check → continue выполняется автономно в принятом
+parent scope с существующим C-009A и отдельным corrector. Новый Human Gate нужен
+лишь при material изменении Product behavior, Architecture Contract, parent scope,
+authority, external access, protected boundary, dependency или Risk Profile.
+Обычная техническая ошибка сама по себе не требует нового поручения.
+
 **Первичное различение finding — DRAFT.** До correction установить предмет ошибки
 по источникам и наблюдениям; это маршрутизация внутри существующего цикла,
 не новый gate или lifecycle. Несколько совместимых причин остаются гипотезами
@@ -543,6 +571,17 @@ premises.
 
 ### 10.4. Progress и anti-loop
 
+**HD-20 — конечный бюджет первого ядра.** Каждая автономная parent task имеет
+finite work/resource budget с единицей, расходом и stop condition. Агент выбирает
+разумные конечные числа внутри Human constraints и фиксирует их до использования;
+не требует от человека технического числа на каждый шаг. Это не назначение
+Risk Profile и не право увеличить согласованный hard limit или обнулить историю.
+Продолжение оправдывают проверка конкретной correction, доказанный bounded
+transient retry, различающая переменная, materially new Evidence либо обоснованный
+рост уверенности. При прежней failure boundary без новой информации остановить
+affected loop и сообщить диагноз/evidence/blocker; число попыток не progress.
+Пороги диагностики ниже не разрешают игнорировать отсутствие information gain.
+
 Progress — failing required check стал PASS без равной/большей regression,
 failure boundary сузилась, hypothesis опровергнута/существенно изменена,
 уменьшилось число совместимых причин, observer доказан либо Evidence обосновало
@@ -591,7 +630,7 @@ declared dependency и Task Contract order.
 
 ## 11. Жизненный цикл документации и применимость публикации
 
-Документационный цикл избавлен от тяжеловесных инженерных проверок. Шаги 1–7 ниже описывают scoped Global Design publication; их нельзя применять как требование автоматически переписать frozen `AOS/` при новой scaffold/core-задаче. Её текущий authoring route: owner corrections/proposals → один производный brief → документальные checks → конкретный пакет решений. Runtime-применимость нового входа остаётся DRAFT до SC-DEC-01.
+Документационный цикл избавлен от тяжеловесных инженерных проверок. Шаги 1–7 ниже описывают scoped Global Design publication; их нельзя применять как требование автоматически переписать frozen `AOS/` при новой scaffold/core-задаче. Её текущий authoring route: owner corrections/proposals → один производный brief → документальные checks → конкретный пакет решений. First-core содержание принято HD-01; фактический runtime launch остаётся NOT_RUN до SC-DEC-04.
 
 1. **Workspace**: Source synthesis, research, drafts and superseded working artifacts live in `workspace/`; presence there does not create canonical ownership.
 2. **Pass 1 (Product Model)**: Define product goals, boundaries, actors, journeys, feature scope and preserved product decisions at WHAT level. Working output: `workspace/DRAFT_01_PRODUCT_MODEL.md`; published path after all gates: `AOS/01_PRODUCT_MODEL.md`.
@@ -695,7 +734,40 @@ scope, критерии, модель/инструменты, полномочи
 
 *Данные правила относятся исключительно к Runtime Implementation. Они не распространяются на документационные изменения в `workspace/` (создание и редактирование Markdown-документов регулируется документационным workflow и не требует Runtime Execution Authorization).*
 
-One active task, one causal change, no unrelated cleanup, inventory before sensitive mutation, explicit scope expansion, changed-file allowlist, atomic commit after separate authorization, docs↔schema↔CLI↔code↔tests consistency, source read-only during extraction, no automatic `git add -A`.
+One active task, one causal change, no unrelated cleanup, inventory before sensitive mutation, explicit scope expansion, changed-file allowlist, atomic commit after applicable authorization (для первого ядра — scoped HD-26 ниже), docs↔schema↔CLI↔code↔tests consistency, source read-only during extraction, no automatic `git add -A`.
+
+<a id="first-core-local-commit"></a>
+
+### 13.1. Standing policy доставки первого ядра — HD-26
+
+Только для принятого first-core workflow в AOS-3:
+
+```text
+READY_FOR_HUMAN_REVIEW
+→ explicit Human ACCEPT exact review subject
+→ один автоматический local Commit exact accepted candidate
+```
+
+Отдельный повторный вопрос «разрешить этот Commit?» не нужен: основание — эта
+scoped policy вместе с действительным текущим ACCEPT. PASS/review report не
+заменяют ACCEPT. До Commit проверить C-011 origin/subject/action, frozen candidate,
+actual branch/worktree/base/index, exact file allowlist и отсутствие unrelated
+staged content; будущий branch заранее не выдумывается. Не использовать `git add -A`.
+Изменённый candidate требует свежей проверки/принятия, а не переноса старого ACCEPT.
+
+Commit выполняет доступный Git adapter исполнителя как операцию доставки принятого
+результата, с отдельным C-014 record; это не выдача Git rights из C-006A и не выбор
+полного модуля FTR-015 для ядра. Замкнутый development loop не возобновляется ради
+новой независимой цели. Успех Commit подтверждается фактическим commit/tree и
+точным составом; потеря ответа требует reconciliation до повтора, не второго
+commit и не amend/переписывания истории. Локальная ошибка внутри разрешённого
+действия допускает bounded correction/retry только при доказанном отсутствии
+уже завершённого эффекта и сохранённой authority.
+
+Push, Merge и Release каждый требуют отдельной explicit Human authorization.
+Политика не действует для других repositories/workflows, documentation candidate
+notebook или просто принятого плана. Сейчас Git authorization остаётся NONE:
+runtime task и exact accepted implementation candidate ещё не существуют.
 
 ## 14. Правила реализации (только для Runtime)
 
@@ -724,6 +796,27 @@ Unit: schemas/status/path/state/digest/conflict/permission/idempotency, task/run
 Empty authority mapping permits no mutation, Task Brief `requested_*` treated as authority, transition without exact `{from,to}`/state-machine version, action-spec digest mismatch, bogus status, free-form Risk Profile, bool-as-int, mismatched session, lifecycle-stage/loop-action conflation, stale/concurrent controller update, state-bound envelope replay, revoked/changed parent authorization with cached old digest, Correction Gate replay for another diagnostic/candidate/correction, worker-declared completion, consumed stage-envelope reuse, malformed idle bypass, CLI exit 0 on failure, runtime schema bypass, scope not enforced, stale baseline, write-after-freeze, self-reference, read-only validator writes, remote secret leak, unrelated staging, environment false blocker, NOT_RUN→PASS, Evidence as auth, default authorized true, partial mutation no journal/reconciliation, run budget→false task failure, diagnostic restart for same signature, unchanged retry as progress, weak Evidence→speculative correction, residual risk without Human record, unknown impact→narrow false PASS, update overwrites state, external instruction, UI approval, stale index, absolute links, conflicting entrypoints, adapter drift.
 
 ## 18. Протокол validation
+
+<a id="first-core-final-review"></a>
+
+**HD-21 — fresh read-only final validator.** Итог first-core candidate проверяет
+свежий независимый read-only role/context, без истории авторских выводов как
+основания verdict. Ему доступны exact subject, accepted criteria и Evidence.
+Другой provider не обязателен, новый постоянный agent service не вводится.
+Validator не исправляет предмет: finding → separate correction executor → new
+candidate → affected checks → fresh final validation. Авторский self-check не
+объявляется этой независимой проверкой.
+
+**HD-22 — reviewable validated result.** Написанный код, запуск тестов, отдельные
+PASS или конец stage не закрывают parent. Применяется predicate §10.5: intended
+bounded result, фактически выполненные required checks, отсутствие несовместимых
+с review critical/material findings, decision-relevant Evidence, limitations,
+явные required NOT_RUN/UNKNOWN и одно Human review action. Отчёт при BLOCKED
+также нужен, но не называется успешным completion/READY_FOR_HUMAN_REVIEW всего
+заявленного профиля; required NOT_RUN внутри него не скрывается в PASS.
+Сводка коротко отвечает: что просили, что сделано, работает ли в заявленной
+области, что проверено, что неизвестно/ограничено и что решить человеку.
+Технические Evidence доступны в optional Details. Retention — HD-24 у Core.
 
 Freeze subject; verify environment/import provenance; run targeted checks; wider suite only if relevant; record commands/results; preserve required/optional; classify limitations; inspect diff; verify no validation mutation; stop with one next action.
 
@@ -849,7 +942,7 @@ vertical slice и найденные позднее пропуски. Эти п�
 и реальная автономная разработка сообщаются раздельно; частичный `PASS` не
 повышает общий результат.
 
-Для scaffold/core подготовлено точное уточнение этого порядка в [Product §17](01_Product.md#scaffold-core-outcome): технические срезы и positive/negative проверки выполняются внутри исходного интервала, а human usability evidence собирается отдельно. Это SCAFFOLD_CORE_DRAFT/SC-DEC-01; оно не объявляет пользовательский dogfood уже выполненным.
+Для scaffold/core подготовлено точное уточнение этого порядка в [Product §17](01_Product.md#scaffold-core-outcome): технические срезы и positive/negative проверки выполняются внутри исходного интервала, а human usability evidence собирается отдельно. Это принятое HD-01 уточнение первого ядра; оно не объявляет пользовательский dogfood уже выполненным.
 
 <a id="quality-requirements-verification"></a>
 
@@ -1057,9 +1150,11 @@ Human acceptance ≠ Git delivery
 
 <a id="scaffold-core-development"></a>
 
-## 24. Автономная разработка scaffold/core — SCAFFOLD_CORE_DRAFT
+## 24. Автономная разработка scaffold/core — принятый contract
 
-Этот route применяется после принятия [S0–K4](01_Product.md#scaffold-core-outcome), нужных contracts и отдельного launch. Сейчас он описывает подготовленный контракт будущей разработки. Матрица действий V3 и completion predicate находятся в Architecture §7 и Development §10, а `S0–K4` не являются новыми lifecycle enums.
+Scope [S0–K4](01_Product.md#scaffold-core-outcome), R7/V3 и policy приняты HD-01…28;
+фактический запуск всё ещё требует SC-DEC-04. Матрица V3 и predicate остаются у
+Architecture §7 и Development §10; S0–K4 не новые lifecycle enums.
 
 ### 24.1. До первого effect
 
@@ -1078,7 +1173,11 @@ Human acceptance ≠ Git delivery
 
 Следующий шаг определяется §10.5: reconcile effect → проверить authority/identity → восстановить state → диагностировать failing check → разрешить material unknown → взять dependency-ready критерий → affected checks → final validation. Действующий scheduler/launcher принадлежит host, не создаётся молча как дополнительный product scope.
 
-После каждого action сохраняются task/revision, candidate, критерии и Evidence, effects, диагностическая signature/level, попытки/resources, actual authority binding и next action. Worker выдаёт factual report и останавливается; checker работает в отдельной validation boundary, host оценивает результат и продолжает ту же task. Обычная correction имеет новое action binding и candidate, но не требует нового product plan.
+После каждого material transition сохраняется достаточный checkpoint по
+[HD-16/17](02_Architecture.md#first-core-durable-state), включая результат
+значимого action; это не отдельный artifact на каждый низкоуровневый вызов.
+Worker выдаёт factual report и останавливается, host продолжает ту же parent task.
+Обычная correction получает новое action binding/candidate, без нового product plan.
 
 Порядок реализации — S0 → K1 → K2 → K3 → K4; обязательные support contracts создаются до их первого consumer. Например, K2 уже требует durable state, scope reconciliation и независимой от worker проверки. Неполный промежуточный срез не выдаётся за готовое ядро. Если initial authority покрывает все срезы, их переходы не создают дополнительные Human Gates.
 
@@ -1090,6 +1189,21 @@ Human acceptance ≠ Git delivery
 диагностические checks, конфликт владельцев, vocabulary/report и lifecycle admission. V1/V2 conformance не переносится; host должен доказать SC-T21/22 до зависимого запуска.
 
 ### 24.3. Прерывание и передача controller
+
+**HD-18 — автоматическое продолжение обязательно.** Прерывание → durable state
+сохранён → подходящий host вновь доступен → reconciliation/stale detection →
+safe next action → автоматическое продолжение. Пользователь не восстанавливает
+контекст вручную и не посылает повторно «продолжи». Это требование, не доказанная
+возможность Codex. Host должен обнаружить незавершённый parent без прежнего чата.
+
+**HD-19 — real interruption/resume обязателен.** Испытание должно реально прервать
+process/session активной задачи, сохранить durable state, открыть fresh/new
+session без prior chat context, обнаружить незавершённую задачу, сверить repository
+и state, автоматически продолжить с безопасного места без повторения завершённого
+material effect. Ручной запуск или наличие checkpoint не PASS. Если selected
+Codex host не умеет true wake/resume, capability остаётся unsupported/BLOCKED для
+автономного профиля. Его нельзя «доказать» созданием нового controller/daemon;
+новый материальный механизм рассматривается по HD-13. Проверка сейчас NOT_RUN.
 
 При supported interruption host инициирует новый run через заявленный trigger и сначала восстанавливает checkpoint. Uncertain effects сверяются с target до retry; resources/ledger не сбрасываются, отозванная authority не восстанавливается из cache. После run allowance — resumable PAUSED_RESOURCE; продолжение возможно только при наличии host resources и исходного task hard limit. Нет ресурса или способа wake — честная пауза с exact next action.
 
@@ -1249,6 +1363,83 @@ SC-T14 сохраняет все прежние критерии и получа
 SC-T23…26 входят в общий FINAL-CHECK; успешный direct путь не заменяет queued
 journey и negative cases. История автономной разработки и работа product queue
 доказываются отдельно. Queue claim/ack не агрегируются в технический PASS.
+
+<a id="oss-core-verification"></a>
+
+### 24.9. Контрольные варианты восстановления и host — SCAFFOLD_CORE_DRAFT
+
+Адаптация [RF-13–15](05_Reference.md#oss-reference-adaptation) уточняет способы
+проверки SC-T04/09/10/11/13/18/21/22/24. Обязательные исходы уже принадлежат
+C-006A/C-010/C-012/C-016 и [host contract](02_Architecture.md#scaffold-core-host).
+Это документальные варианты existing checks, не новый набор версий или gate,
+не выбор Temporal/LangGraph/OpenHands и не реализация scheduler в notebook.
+Все runtime результаты NOT_RUN; до probe нужны exact host/profile и отдельная
+покрытая область effects по SC-DEC-04. Библиотечный пример не выдаёт authority.
+
+Для выбранного варианта заранее задать task/subject/version, входное сохранённое
+состояние, допустимый next action, наблюдаемые effects и условие отказа. Oracle
+берётся из task/owners и независимого наблюдения target, не из вывода worker.
+Исторические записи используются без изменения их bytes; проверка совместимости
+не повторяет исторические внешние effects. Replay history как у Temporal — один
+возможный HOW; AOS не требует event sourcing или конкретного формата history.
+
+| Вариант / existing checks | Контрольный вход и действие | Ожидаемое различение / Evidence |
+|---|---|---|
+| OSS-C01 / SC-T09/13/18/22 | Завершённая и прерванная истории одной поддержанной contract version; новая реализация reader/controller; сначала read-only восстановление | Восстановлены тот же subject, факты effect, consumption, counters и допустимый следующий переход. Изменение трактовки CONSUMED/terminal не проходит; новые effects при проверке истории отсутствуют. Совместимость history не доказывает реальные dispatch/wake |
+| OSS-C02 / SC-T18/21 | Те же файлы читаются без syntax errors, но record имеет V1/V2/mixed/unknown version вместо текущего V3 | Структурное чтение не даёт V3 resume/dispatch; явное ограничение версии, сохранённый оригинал. Успех только на пустой новой task не закрывает saved-state compatibility |
+| OSS-C03 / SC-T09/24 | Разрешена одна append-запись строки «7» в изначально пустой disposable файл. Отдельно прерывание до effect; после append, но до receipt/checkpoint. Новый run повторно входит в обработчик | В первом варианте после подтверждённого no-effect и fresh admission запись возможна; во втором подтверждённый append не повторяется. Файл содержит одну строку, ledger связывает исход с той же operation; при недостатке наблюдений WAIT_EVIDENCE. Идемпотентная перезапись «7» сама не выявила бы повтор, поэтому здесь выбран append |
+| OSS-C04 / SC-T04/09/21 | В checkpoint сохранён положительный ответ; до ещё не выполненного действия authority отозвана. Отдельно вместо решения передан произвольный resume=true | Нет effect по cached ответу или boolean без trusted origin/subject/scope. Положительный вариант с подлинным current решением должен пройти; безусловный отказ не закрывает admission. Проверяются actual target и current binding, не badge интерфейса |
+| OSS-C05 / SC-T10/22 | Процесс исполнителя действительно прекращён в объявленной точке при pending task и доступном остатке бюджета. Срабатывает заранее выбранный внешний trigger; человек не пишет «продолжи» | Новый run восстанавливает ту же task/ledger и current authority; доказан один continuation owner. Отдельный старый/конкурирующий run не получает effect. Memory-only state, ручной перезапуск и одна лишь сохранённая next action не доказывают автономный wake; при отсутствии trigger этот claim BLOCKED/NOT_RUN |
+| OSS-C06 / SC-T11/14/22 | Unit tests SDK/tools проходят; требуемый cross-package/integration/host check текущего candidate не выполнен либо относится к другой revision/environment | Required результат остаётся NOT_RUN/stale. Ночной CI старой версии не заменяет current Evidence. Положительный полный путь проверяет выбранный caller → admission → workspace/tool → observation → checkpoint → continuation; конкретный состав affected checks определяется изменённой гарантией |
+
+Повторный вход в node после interrupt у LangGraph — повод проверить расположение
+и учёт effect, не разрешение повторить его. Даже действие после точки approval
+нужно проверить на crash после effect и до receipt. Наличие persistent state
+не доказывает внешний запуск после смерти процесса. LocalWorkspace, контейнер,
+API server и самостоятельный continuation — разные возможности: каждый claim
+в host binding получает свой проверенный scope. Перечень пакетов OpenHands
+не принимается за conformance и не делает optional server обязательным для AOS.
+
+<a id="first-core-autonomy-proof"></a>
+
+### 24.10. Полное эмпирическое доказательство первого ядра — HD-28
+
+Обязательный E2E на exact Codex + macOS profile проверяет всю заявленную
+историю автономной разработки, а не только существование компонентов или один
+product example SC-T14. Перед запуском нужны SC-DEC-04 и покрытые probe/output
+effects; настоящий Human ACCEPT не заменяется synthetic fixture.
+
+```text
+Human-approved bounded parent + current authority
+→ intake/binding → adaptive internal decomposition → autonomous implementation
+→ ordinary correction при необходимом дефекте → material durable checkpoints
+→ real interruption → automatic fresh-session recovery без prior chat
+→ no duplicate completed material effect → completion predicate
+→ exact candidate frozen/bound → fresh read-only final validation
+→ READY_FOR_HUMAN_REVIEW → explicit Human ACCEPT → один local Commit
+```
+
+Final validation входит в proof predicate; достижение остальных условий перед
+freeze не выдаёт преждевременный PASS. После finding — HD-21 с новым candidate.
+Технический результат, Human decision и commit result фиксируются раздельно;
+terminal development state не отменяет предусмотренный HD-26 шаг доставки.
+
+| Проверяемая граница | Независимое основание / отрицательный контроль |
+|---|---|
+| Один parent, B1, адаптивные children | Trace с исходными scope/authority/criteria показывает внутренние изменения и переходы без нового Human gate; независимый parent из backlog после завершения не активируется |
+| Реализация и обычный дефект | Actual candidate/required checks; controlled ordinary defect проходит diagnosis/correction/re-check без изменения expected ради PASS |
+| Durability и restart | Независимое наблюдение material state до/после реального interruption, fresh session без старого чата; actual wake event и один continuation owner, сохранённый budget |
+| Unknown effect и stale authority | Завершённый append из OSS-C03 остаётся единственным; stale/revoked/mismatched inputs не дают effect, нехватка Evidence не становится no-effect |
+| Final review | Exact frozen subject, fresh read-only context, явные actual check outcomes; намеренный дефект обнаруживается и validator не ремонтирует subject |
+| ACCEPT и local Commit | Реальный current C-011, accepted candidate совпадает с commit tree/allowlist; forged/stale/другой subject не допускает Commit, unrelated файлы не включены |
+| Предел доказательства | Required NOT_RUN/UNKNOWN не агрегируются в PASS; Push/Merge/Release отсутствуют без отдельных решений, Linux/Windows/другие hosts не считаются проверенными |
+
+Одна доказанная история связывает эти границы и SC-T01…26, OSS-C01…06;
+несвязанные synthetic/unit PASS не заменяют общий путь. Fixture human decisions
+проверяют отрицательные и контрактные случаи отдельно от настоящего ACCEPT.
+Все фактические результаты этого E2E, host conformance, trusted capture и
+automatic resume сейчас **NOT_RUN**; поддержка wake и data routes **UNKNOWN**.
+Новый обязательный Test Lab, service, scheduler или постоянная agent role не создаются.
 
 <a id="feature-integration-readiness"></a>
 
@@ -1893,6 +2084,28 @@ EXPORT_CONTEXT не требует успеха ещё не реализован
 инвалидирует зависимые выводы; сохраняются unaffected facts, исторические records
 и Evidence. Неизвестное влияние не даёт узкий итоговый PASS.
 
+<a id="oss-ux-verification"></a>
+
+**Воспроизводимые UX-проверки по RF-18 — DRAFT.** Метод Storybook адаптирован к
+DS-T11/12/20/21 и [DS-PM01–05](06_Features.md#ux-pages-open-decisions), без выбора
+framework. Сначала задать source/page revision, исходные props/view model,
+mock inputs, viewport и последовательность действий, затем ожидаемые текст,
+состояние и аргументы handoff. Reference — [RF-18](05_Reference.md#oss-reference-adaptation).
+Все варианты ниже документальные, runtime NOT_RUN; новые browser/network/writes
+этот текст не разрешает. Simulation остаётся в approved preview boundary.
+
+| Вариант | Контроль и заранее заданный oracle | Что не засчитывается |
+|---|---|---|
+| DS-REF01 | В editor выбрать второй шаблон, ввести отличный от шаблона текст, открыть preview; сравнить видимый текст и данные передачи со значениями формы | Успешный render, наличие кнопки или один вызов callback с неправильными аргументами |
+| DS-REF02 | На тех же исходных данных отдельно пройти success и error → retry; проверить сохранение введённого и отсутствие второй логической карточки. Следующий case начинается с чистой fixture | PASS за счёт state/spy результата предыдущего case; error с ложным created; один только screenshot без проверки поведения |
+| DS-REF03 | Клавиатура, видимый focus, доступные названия, сообщение об ошибке; отдельно автоматический DOM-check с результатом incomplete | Отсутствие автоматических violations не закрывает ручные задания и incomplete. Результаты по методам раздельны; тест без мыши должен действительно пройти путь |
+| DS-REF04 | FRONTEND проверяется на mocks; отдельно выбранный INTEGRATION путь с фактическим API/результатом и свежим Evidence | Вызов mock не доказывает сохранение/доставку/решение человека. При недоступном обязательном API integration NOT_RUN; пригодность frontend pack оценивается в его собственном scope |
+
+Checks используют пользовательские роли/названия controls и фактический результат;
+конкретный runner/assertion library — HOW. Эти варианты уточняют наблюдения,
+не заменяют real usability pilot или проверку security boundary. Derived test
+output не меняет страницу/decision record, а ложный успех относится к checker.
+
 **Минимальный пользовательский пилот — PROPOSAL, не поручение запуска.** Одна
 выбранная feature, одна форма и связанная страница, обе поверхности, ограниченная
 симуляция, одна коррекция с diff, одно реальное решение через существующий канал
@@ -1958,6 +2171,11 @@ C-016 и SC-T14 ядра AOS не становятся тестами его п�
 | ADMIN — RA-T18–23 | Actual active revision/history/change event, current admin scope; conflict, потеря ответа, rollback, drift и отключение по Architecture | Доказательство отсутствия эффекта требует наблюдения host, не отсутствия ответа; имя роли не доказывает admin permission |
 | UX — RA-T24/25 и RA-U01–06 ниже | Непрограммист выполняет задания на безопасных искусственных данных и объясняет итог; результат сравнивается с заранее заданным бизнес-смыслом | Авторская репетиция документа не является usability trial; отсутствие ошибок evaluator не доказывает понятность матрицы |
 | Общий результат — RA-T26 | Изменить правило → проверить пример → применить → наблюдать новые права в реальном API/UI → отказной тест и сохранённая revision | Один editor или постоянный DENY не закрывает путь; корректные части при обходном endpoint не дают общий PASS |
+
+POLICY-примеры [RA-REF01–04](06_Features.md#rbac-reference-semantics) уточняют
+RA-T03/06 по методу RF-16: false, error и неиспользуемый attribute дают разные
+ожидаемые выводы. Подмена этого oracle семантикой стороннего evaluator не
+является успешной адаптацией; all-DENY также не проходит положительные случаи.
 
 **Применимость протокола совместимости.** Шаги §25.4 выполняются для одного
 FTR-031 и его host-приложения. C-015 registration, C-016 delivery/ack и queue

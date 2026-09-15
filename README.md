@@ -6,12 +6,13 @@
 repository_role: ACTIVE_PROJECT_KNOWLEDGE_REPOSITORY
 baseline_revision: R4-RU
 source_snapshot_commit: c7b3f166d6eaeae78348f9291a4cc28ab18dc92c
-implementation_repository: UNASSIGNED
+implementation_repository: NMF13579/AOS-3
 implementation_authorization: NONE
 git_authorization: NONE
 ```
 
-Сам runtime AOS в этом репозитории не создаётся без отдельного решения о target implementation repository.
+Сам runtime AOS здесь не создаётся. Для первого ядра выбран AOS-3 с изолированной
+branch/worktree; отдельная runtime launch authorization ещё не выдана.
 
 ## Документация
 
@@ -31,7 +32,10 @@ git_authorization: NONE
 
 Для текущей подготовки автономной разработки читать [применимость решений](docs/00_Core.md#scaffold-core-decisions) → [результат и срезы](docs/01_Product.md#scaffold-core-outcome) → выбранные dossiers в `06_Features.md` → [стыки](docs/02_Architecture.md#scaffold-core-interfaces) → [внешний цикл разработки](docs/03_Development.md#scaffold-core-development) → [implementation brief](workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md).
 
-Новые contracts имеют статус `SCAFFOLD_CORE_DRAFT`: это подготовленный предмет решения, не принятый состав или разрешение писать runtime. Полномочия текущей задачи ограничены документацией. Дальнейшие фичи готовятся отдельно по [правилу интеграции](docs/03_Development.md#feature-integration-readiness).
+First-core R7/V3 и HD-01…28 приняты в ограниченном scope у
+[Core](docs/00_Core.md#scaffold-core-decisions). Это не выбор всех FTR и не
+runtime proof/launch. Полномочия текущей задачи ограничены документацией.
+Дальнейшие фичи готовятся отдельно по [правилу интеграции](docs/03_Development.md#feature-integration-readiness).
 
 Замороженный `AOS/`, portable package и прежний AOS-3 blueprint сохраняют свои exact identities и исходные области принятия. Для новой задачи они используются через [provenance и границы применимости](docs/05_Reference.md#scaffold-core-sources); их прежний маршрут не является вторым активным заданием. Изменение frozen subject требует отдельного Reopen.
 

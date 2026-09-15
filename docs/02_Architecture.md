@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-13'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_PRECOMMIT_DOCUMENTATION_CORRECTIONS_R7
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -36,7 +37,9 @@ authority_scope:
 
 ## 1. Граница статуса
 
-Target architecture не является копией AOS-FARM, AgentOS или AOS-02. Historical code/documents используются как evidence/reference. Любое включение механизма в target design требует explicit human decision.
+Target architecture не является копией legacy AOS. Historical code/documents
+используются как evidence/reference. Материальный новый механизм требует Human
+decision по [HD-13](00_Core.md#first-core-data-policy); обычный обратимый HOW — агентский выбор.
 
 Документ задаёт принятый architecture baseline на уровне принципов, слоёв и contract classes, но не выбирает language, framework, database, dependencies или implementation repository. Candidate component map и `INFERENCE`-разделы остаются proposals.
 
@@ -567,7 +570,26 @@ Evidence kind, method/command, subject identity, output summary, locator/digest,
 
 Review subject, user impact, Evidence, findings, options, explicit human decision, actor/date и exact binding. Generated decision invalid.
 
+Для первого ядра provenance и допустимый next route определены
+[HD-23](00_Core.md#first-core-human-capture); наличие полей не доказывает capture.
+
 #### C-012 — Project Memory / Handoff
+
+<a id="first-core-durable-state"></a>
+
+**HD-16 — durable state вне чата.** Для первого ядра project-controlled state/artifacts,
+а не chat/session memory, позволяют новой авторизованной сессии восстановить
+parent identity, task/run state, exact candidate, material transitions, actual
+checks/findings, unresolved UNKNOWN, required NOT_RUN, оставшийся budget,
+allowed next route и безопасное действие. Сохраняется достаточная связь с owners,
+а не каждый transient token/tool trace. До продукта эту гарантию предоставляет host.
+
+**HD-17 — material transitions.** Обновлять минимальное достаточное durable
+представление после каждого существенного перехода состояния. Это не новый
+artifact после каждого low-level tool call. Admission/consumption перед effect
+и подтверждение результата до ack сохраняют более точные требования C-006A/C-016;
+укрупнение записи не разрешает окно для повторного эффекта. Retention —
+[HD-24](00_Core.md#first-core-human-capture), доказательство resume — Development.
 
 Loop-state schema/state-machine version, repository identity, lifecycle stage,
 controller action, task/run state, state revision/digest/event head,
@@ -593,7 +615,7 @@ current candidate и authority binding, критерии с NOT_RUN, пусто�
 этого запуска; создание state не обнуляет внешний budget. Missing checkpoint
 существующей задачи не является таким начальным состоянием.
 
-Уточнение C-012 — DRAFT: восстановимый record сохраняет доступную exact связь
+Принятое для первого ядра уточнение C-012: восстановимый record сохраняет доступную exact связь
 с C-005 и его ограничениями, выполненные действия и наблюдённые эффекты (включая
 неизвестный исход), результаты/актуальность проверок, незавершённые операции и
 следующий допустимый шаг. Контекстная сводка не заменяет эти источники. Недоступная
@@ -614,9 +636,13 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 
 Separate records for Commit, Push, Merge и Release.
 
+Для local Commit первой сборки основание — exact Human ACCEPT вместе с
+[HD-26](03_Development.md#first-core-local-commit), а не PASS. Это не расширяет
+effectful stage envelope и не выбирает полный модуль FTR-015 для ядра.
+
 <a id="module-connector-queue"></a>
 
-#### C-015 — Module Connection Contract (R7, DRAFT)
+#### C-015 — Module Connection Contract (R7, принят для первого ядра)
 
 Версия: AOS_MODULE_CONNECTION_V1. Immutable contract описывает WHAT подключения;
 формат serialization и layout выбираются в implementation profile.
@@ -645,10 +671,13 @@ DIRECT_READ проверяет текущую регистрацию, interface/
 интерфейс, несовместимость и недоступность возвращаются явно. Технические
 log/evidence outputs допустимы только в отдельно покрытой служебной области.
 
-#### C-016 — Message and Delivery Contract (R7, DRAFT)
+#### C-016 — Message and Delivery Contract (R7, принят для первого ядра)
 
 Версия: AOS_MODULE_MESSAGE_V1. Сообщение — immutable request/observation, delivery
 state хранится отдельно и не подменяет task/run/lifecycle C-012.
+
+Граница автономного выбора работы — [B1 / HD-09](03_Development.md#first-core-parent-autonomy):
+transport queue не выбирает новый независимый parent после завершения текущего.
 
 | Обязательный предмет | Содержание |
 |---|---|
@@ -749,7 +778,7 @@ queued; неизвестные C-015/C-016 версии допускают ли�
 
 ### 6.1. Композиция и сопровождение модулей — MODULAR_DRAFT
 
-Этот раздел уточняет предложение [MOD-DEC-01](01_Product.md#modular-decisions). Существующие C-001…C-014 сохраняют идентичности; R7 добавляет C-015/C-016 для подключения и доставки. Здесь описано содержание сообщений на уровне WHAT; wire format, внутреннее представление и алгоритм хранения не выбираются.
+Этот раздел задаёт принятые HD-01 first-core стыки в области [MOD-DEC-01](01_Product.md#modular-decisions). Существующие C-001…C-014 сохраняют идентичности; R7 добавляет C-015/C-016 для подключения и доставки. Здесь описано содержание сообщений на уровне WHAT; wire format, внутреннее представление и алгоритм хранения не выбираются.
 
 | Contract | Producer / владелец содержания | Данные и consumers | Отказ и область повторной проверки |
 |---|---|---|---|
@@ -872,21 +901,48 @@ Development. Пример проверяет описание; реальная 
 
 <a id="scaffold-core-profile"></a>
 
-### 6.2. Первоначальный профиль scaffold/core — SCAFFOLD_CORE_DRAFT
+### 6.2. Принятый профиль первого scaffold/core
 
-Предлагается проверить применимость прежнего AOS-3 профиля: local modular monolith, Python 3.12+, минимальные зафиксированные зависимости, локальная CLI-поверхность, repository-relative данные, отсутствие обязательного network client в продукте. Это предложение SC-DEC-02 с [provenance](05_Reference.md#scaffold-core-sources), не новое утверждение о существующем runtime или stack selection.
+<a id="first-core-build-boundary"></a>
 
-До реализации профиль должен назвать конкретные OS/runtime versions, target role и base, путь локальных state/evidence и queue/registration storage, допустимую dependency policy, finite queue profile C-016 и test command binding. Support claim первой версии ограничен проверенным macOS envelope; требование переносимости ядра сохраняется для целевых Linux/Windows. Внутренний storage engine и serialization HOW остаются за агентом; гарантии current identity, integrity, durable recovery и human provenance обязательны при любом представлении. Работа coding host с внешним provider отдельно проверяется по SC-DEC-03 даже при local-only продукте.
+**HD-03 — изоляция.** Новое ядро разрабатывается в отдельной isolated branch/worktree
+в назначенном [implementation repository](00_Core.md#scaffold-core-decisions),
+не непосредственно в текущем dev working tree. Точные имена/path/base выбираются
+и наблюдаются при preparation; isolation, сохранность unrelated state и точная
+identity обязательны. Эта документация не создаёт worktree и не меняет AOS-3.
+
+**HD-04 — REIMPLEMENT_FROM_CONTRACT.** Default не FIX_IN_PLACE: текущие принятые
+notebook contracts задают новое ядро. Reuse конкретного компонента допустим лишь
+после доказательства совместимости поведения и отсутствия переноса устаревшей
+семантики/дефектов. Источник reuse, принятый contract и проверки связываются явно.
+
+**HD-27 — legacy вне active graph.** Старый runtime/code сохраняется как
+legacy/reference/history, не удаляется автоматически и не является обязательной
+runtime/dependency базой нового ядра. В active graph входит только намеренно
+переиспользованный exact компонент с доказанной совместимостью; переименование
+старого package само по себе её не доказывает.
+
+**HD-06 — технический профиль.** Python 3.12+, local modular monolith, primary CLI;
+первая проверяемая ОС macOS, последующие targets Linux/Windows. Переносимость —
+обязательная гарантия, macOS-first задаёт порядок проверки. Конкретные версии,
+пути, state format, serializer, locking/storage engine и устройство локальной
+очереди выбирает исполнитель в принятых WHAT, с границами HD-12/13 у Core.
+
+До соответствующего effect профиль связывает actual OS/runtime versions, base,
+state/evidence/queue paths, finite C-016 limits и команды проверок. Это наблюдения
+и HOW, не повторный выбор уже принятой policy [HD-11/12](00_Core.md#first-core-data-policy).
+Поддержка macOS пока NOT_RUN; заявляется только по проверенному envelope.
+Data routes coding host проверяются отдельно даже при LOCAL_FIRST продукте.
 
 **Граница версии:** исходно поддерживаются только явно принятые Task/Authorization/Envelope/State contracts и их зафиксированные версии из этого owner. Неизвестная версия read-only показывается как unsupported, если не может быть безопасно разобрана; effect/resume запрещён. Старые AOS-3 данные не импортируются автоматически. Обязательный новый field, изменение enum/authority/completion или meaning создаёт несовместимость; producer/consumer compatibility проверяется до принятия сохранённой задачи. Optional field можно игнорировать только при явном разрешении reader contract.
 
 <a id="core-platform-boundary"></a>
 
-**Переносимое ядро и платформенная граница — SCAFFOLD_CORE_DRAFT.** Product
+**Переносимое ядро и платформенная граница — принято для первого ядра.** Product
 [задаёт переносимость](01_Product.md#core-os-portability); macOS — первая
 проверяемая среда. Предложенный execution adapter — минимальный локальный adapter
 с переносимым интерфейсом и платформенной реализацией. Конкретное средство
-исполнения ещё не выбрано (SC-DEC-02).
+исполнения выбирается как HOW при подготовке SC-DEC-02; Codex как первый host уже выбран HD-07.
 
 Ядро владеет смыслом task/authority/results/state; adapters изолируют операции
 файловой системы, процессы, права и системные инструменты. Зависимость от Unix
@@ -922,8 +978,8 @@ state-machine binding. C-005/C-006 остаются V1 с неизменными
 controller actions и 26 рёбер сохранены; V3 добавляет обязательные lifecycle
 условия допуска и атомарность их применения, а не новые полномочия.
 
-Набор заменяет проектный маршрут V2 только после принятия exact revision;
-публикация R5 не является activation. V1/V2, смешанные и неизвестные records
+Набор принят HD-01 для первого ядра; разрешение runtime activation остаётся
+SC-DEC-04. V1/V2, смешанные и неизвестные records
 не получают V3 effect/resume. Поддержанное read-only inspection сохраняет
 исходные bytes/version/limitations; migration вне scope. Прежнее значение
 HUMAN_REVIEW_REQUIRED в technical result и неоднозначные старые stage reports
@@ -934,6 +990,13 @@ R1–R4 и frozen материалы остаются свидетельства
 <a id="scaffold-core-host"></a>
 
 ### 6.3. Внешний host для начала разработки — SCAFFOLD_CORE_DRAFT
+
+**HD-07 — Codex-first, agent-agnostic core.** Codex выбран первым host для
+реального autonomy/conformance proof; это не утверждение, что он уже прошёл
+проверку. Claude Code и другие среды — последующие compatibility targets.
+Codex-specific HOW изолируется в adapter и не становится обязательной core
+семантикой без отдельного обоснованного Human decision. Actual version, capture,
+data paths, admission и wake capability ещё UNKNOWN / NOT_RUN.
 
 Host contract — вход разработки S0, не компонент ещё не созданного AOS. Он должен предоставить следующие наблюдаемые гарантии; присутствие агента в чате недостаточно:
 

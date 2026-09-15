@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-09-13'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_SCAFFOLD_CORE_DOCUMENTATION_R1
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -118,7 +119,10 @@ commands_tests_build_in_baseline_audit: NOT_RUN
 
 ### AOS-3
 
-AOS-3 используется как `READ_ONLY_REFERENCE` для конкретных проблем реализации. Authority для target notebook: `NONE`. Его текущая роль implementation repository относится к AOS-3 и не меняет `implementation_repository: UNASSIGNED` в notebook.
+AOS-3 выбран implementation/build repository первого ядра по текущему HD-02
+у [Core](00_Core.md#scaffold-core-decisions). Его старый runtime и process docs
+остаются `READ_ONLY_REFERENCE` / authority: `NONE` для новой сборки по HD-04/05/15/27.
+Назначение repository и нормативность его legacy содержимого — разные факты.
 
 **Локальный снимок 2026-09-15 — `OBSERVED_AT_SNAPSHOT`:** `NMF13579/AOS-3`, ветка `dev`, HEAD `e99cc3ee03128deb4506bc268839ebd1f52a3f3a`; рабочее дерево чистое. Прочитаны локальные `README.md` и `AGENTS.md`; закреплённые locators: [README.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/README.md), [AGENTS.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/AGENTS.md). Совпадение с текущим remote HEAD и доступность web locators: `NOT_RUN`.
 
@@ -132,7 +136,12 @@ AOS-3 используется как `READ_ONLY_REFERENCE` для конкре�
 | `development/` | Неавторитетные drafts, research, experiments и временные материалы |
 | `tools/` | Tooling разработки, не обязательный для runtime продукта |
 
-README обозначает продукт как development candidate. Это наблюдение о документированном назначении, а не проверка работоспособности или переносимости; runtime/platform tests и полный аудит: `NOT_RUN`. Назначение AOS-3 implementation repository notebook не следует из этого снимка: `HUMAN_ACCEPTED_FACT` о таком назначении им не устанавливается; значение в [Core](00_Core.md) остаётся `implementation_repository: UNASSIGNED`.
+README обозначает продукт как development candidate. Это историческое наблюдение
+о документированном назначении, не проверка работоспособности/переносимости;
+runtime/platform tests и полный аудит при чтении: `NOT_RUN`. Нынешнее назначение
+implementation repository установлено HD-02, не этим снимком. Таблица выше
+показывает старые заявленные роли AOS-3 и не назначает его process docs owners
+новой сборки. Current AOS-3 branch/base/dirty state здесь не перепроверены.
 
 **Исторический снимок 2026-09-13:** `NMF13579/AOS-3`, ветка `dev`, HEAD `d2ad68169b07a090548cbefc5add74e8dd171045`. Источники подготовки прочитаны выборочно. Полный аудит и runtime/platform tests при том чтении: `NOT_RUN`.
 
@@ -386,6 +395,85 @@ AgentOS `e3a60a92fbd5e78e583cddb519d39527583f3433`. Они совпали с §5
 repositories, independent validation, реальные измерения качества/стоимости,
 pilot enforcement, release/rollback и автономная разработка здесь NOT_RUN.
 Документальные контрольные входы не записываются как incidents или доказанные lessons.
+
+<a id="personal-reference-gap-adaptation"></a>
+
+### Предметные примеры из личных repositories — 2026-09-15
+
+Поручение: использовать референсы для заполнения оставшихся пробелов после
+поэлементной оценки ядра и модулей. Ниже продолжены RF-IDs существующего research
+record. Это точечное чтение, не полный аудит исходных проектов. Через GitHub GET
+прочитаны перечисленные файлы по exact commits. Наблюдение текста/schema —
+OBSERVED_AT_SNAPSHOT; описанный авторами incident — REPORTED; предложенные
+контрольные входы/привязки для AOS — SYNTHESIZED, DRAFT/PROPOSAL.
+Все repositories здесь READ_ONLY_REFERENCE, authority: NONE. Ни код источников,
+ни tests/build/runtime не запускались. Наличие схемы/инструкции не доказывает
+работающую реализацию, сохранённый PASS не переносится в notebook.
+
+| ID / пробел | Exact source и прочитанное основание | Адаптация / предел |
+|---|---|---|
+| RF-08 / 021: смысл или только bytes? | EQ.consilium-online [docs/business-rules.md](https://github.com/NMF13579/EQ.consilium-online/blob/c68a33499136e6d9689a3d294ed56cd83bd8f175/docs/business-rules.md), BR-ORG-002; AOS-3 [LESSONS.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/LESSONS.md), LES-012 Observation/Anti-fit/Regression | [FTR-021.S3/S4/N04–06](06_Features.md#ftr-021-semantic-fixtures): один смысл, реальное расхождение, identity-bound rewrite, недоступный owner. Сценарии T1/T2 созданы для AOS, не результаты аудита реализации EQ. Политика EQ не становится политикой AOS |
+| RF-09 / 025: причина → полезная regression | AOS-3 [LESSONS.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/LESSONS.md), LES-001/002 и LES-012: границы окружения/причины, описанный formatter identity incident, различающая проверка | [FTR-025.S3/S4/N04–07](06_Features.md#ftr-025-lesson-fixture): синтетические I1/E1–E3, ложная причина, слабая regression, recurrence. Исходные incident/tests не воспроизводились; REPORTED не превращается в подтверждённый incident notebook. Чужой HUMAN_ACCEPTED_RULE не принимает новый lesson |
+| RF-10 / 030: конкретная структура и предел schema check | AOS-Solution-Patterns [schemas/selection-request.schema.json](https://github.com/NMF13579/AOS-Solution-Patterns/blob/1ba9d759fd6707accd3f3d104a624609d3414fe3/schemas/selection-request.schema.json) и [schemas/selection-report.schema.json](https://github.com/NMF13579/AOS-Solution-Patterns/blob/1ba9d759fd6707accd3f3d104a624609d3414fe3/schemas/selection-report.schema.json): closed request, version=1, nonempty criteria; report final_status как string, authority как booleans | [Кандидат Check и FTR-030.S3/N04–06](06_Features.md#ftr-030-reference-pilot). Schema констатирует форму; ограничения, не выраженные ею, требуют semantic owner/check. Это предел доказательства по двум schemas, не finding о всей библиотеке: другие validators здесь не проверены. Ни общая schema AOS, ни migration target не выбраны |
+| RF-11 / 031: прикладные роли, объекты и scope | EQ.consilium-online [docs/business-rules.md](https://github.com/NMF13579/EQ.consilium-online/blob/c68a33499136e6d9689a3d294ed56cd83bd8f175/docs/business-rules.md), BR-ORG/ROLE/EQ/ADM; [docs/data-models.md](https://github.com/NMF13579/EQ.consilium-online/blob/c68a33499136e6d9689a3d294ed56cd83bd8f175/docs/data-models.md), Equipment/Checklist | [Кандидат RA-O02 и RA-EQ01–04](06_Features.md#rbac-abac-open): Equipment READ/UPDATE name, tenant isolation и альтернативные каналы. Source задаёт широкие бизнес-роли, не полную field matrix или MANAGE_FIELD_ACCESS; grants/делегация предложены отдельно. EQ не выбран для реализации, RLS/API security не проверены |
+| RF-12 / 032: предметный journey и проверяемый результат | pamyatka [docs/user-flows.md](https://github.com/NMF13579/pamyatka/blob/ddda12417936ca86cea2f002abbde9fe88fe31ce/docs/user-flows.md), Flows 1/3/5/6: создание snapshot/QR, web fallback, различение delivery failure и чтения | [Кандидат DS-O05 и DS-PM01–05](06_Features.md#ux-pages-open-decisions): локальный editor → preview с вымышленным нейтральным текстом. Error/retry/a11y дополнены из AOS DS-T12/20 как proposal, не наблюдены в source. Max, реальные данные/доставка, вечное хранение и медицинские требования не импортируются; DS-O02 не закрыт |
+
+**Проверенный, но не принятый перенос для 024.** pamyatka
+[docs/ROLLBACK-PROTOCOL.md](https://github.com/NMF13579/pamyatka/blob/ddda12417936ca86cea2f002abbde9fe88fe31ce/docs/ROLLBACK-PROTOCOL.md)
+различает сбой кода, отдельной функции, данных и deployment. Его общие действия
+«откатить последнюю версию/файлы/backup» не устанавливают сохранность новых данных,
+exact target или действующие полномочия AOS. Они не переносятся как автоматический
+rollback. Существующий [FTR-024](06_Features.md#ftr-024-release-contract) уже требует
+эти гарантии; reference не выбирает distribution/version/data policy и не закрывает
+оставшийся продуктовый вопрос. Проверка source ограничена этим документом.
+
+**Что осталось после этого дополнения.** Примеры делают конкретнее проверки
+021/025 и готовят варианты 030/031/032; они не дают глобального readiness PASS.
+Для 004/015/023 остаётся выбранный support/distribution/Git/CI profile; для 018/020
+— policy, данные и критерии; для 024 — профиль выпуска/сохранности; для 026/028/029
+— выбранные extension/collaboration/export interfaces и consumers. Граница
+неактивного 027 сохранена. У 031 не приняты grants/делегация/приложение, у 032
+не приняты journey/capture; у 030 не выбран настоящий contract/callers/migration.
+Открытые вопросы остаются у [владельца решений](06_Features.md#reference-adaptation-decisions)
+и соответствующих dossiers; новый параллельный decision registry не создаётся.
+Ни один прочитанный файл не доказывает SC-DEC-03: trusted capture, admission,
+durable checkpoint, единственного продолжателя и автоматическое пробуждение host.
+Launch prerequisites ядра сохраняются в [Core §20](00_Core.md#scaffold-core-decisions).
+
+<a id="oss-reference-adaptation"></a>
+
+### Применение open-source референсов — 2026-09-15
+
+Поручение пользователя: применить Temporal, LangGraph, OpenHands SDK, Cedar,
+Pydantic и Storybook к документации AOS. Это адаптация способов проверки и
+уточнение примеров, не выбор runtime dependencies. По GitHub GET установлены
+refs ниже и прочитаны указанные файлы; они фиксируют исследованный snapshot,
+не рекомендованную production version. В частности, Storybook `next` — ветка
+разработки. Отдельные official web pages прочитаны 2026-09-15; их редакция не
+приравнивается к commit основного repository, история сайта не фиксировалась.
+
+Все sources READ_ONLY_REFERENCE / authority: NONE. Наблюдение текста —
+OBSERVED_AT_SNAPSHOT; описанные upstream методы/результаты не воспроизводились.
+Адаптация — SYNTHESIZED, со статусом DRAFT соответствующего owner. Примеры AOS
+синтетические, tests/build/runtime источников и AOS NOT_RUN. Наличие зрелого
+reference не доказывает conformance выбранного host и не меняет SC-DEC/RA-O/DS-O.
+
+| ID / исследованный источник | Что применено у owner | Что не переносится / предел |
+|---|---|---|
+| RF-13 / Temporal Python SDK, main `b5a2bef1522da1825d931821a8b99e6492e2eac2`: [README.md, Workflow Replay](https://github.com/temporalio/sdk-python/blob/b5a2bef1522da1825d931821a8b99e6492e2eac2/README.md#workflow-replay) — проверка новой реализации по сохранённой history, обнаружение nondeterminism | [OSS-C01/02](03_Development.md#oss-core-verification): проверять supported saved-state, прерванные и terminal пути; сохранённая history не закрывает real dispatch/wake | Temporal server, event sourcing, SDK и формат истории не назначены архитектурой AOS. Воспроизведение transitions не разрешает replay внешних effects или перенос старой authority |
+| RF-14 / LangGraph, main `230927fb3a9ac9b2893a30322b4dfea7cdea9a8f`: [README.md](https://github.com/langchain-ai/langgraph/blob/230927fb3a9ac9b2893a30322b4dfea7cdea9a8f/README.md); [official Interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts), Resuming interrupts / Side effects — node запускается с начала, нужен тот же thread binding | [OSS-C03/04/05](03_Development.md#oss-core-verification): append различает повтор, cached boolean не подтверждает authority, resume сохраняет task/ledger | InMemorySaver не доказывает durable storage; interrupt/checkpoint не доказывает wake после завершения процесса. Boolean resume не становится trusted Human Decision; новый thread ID с пустым state не считается recovery |
+| RF-15 / OpenHands SDK, main `b054a2fe99173baee47897e4f3af7a910d3aab1e`: [tests/README.md](https://github.com/OpenHands/software-agent-sdk/blob/b054a2fe99173baee47897e4f3af7a910d3aab1e/tests/README.md), unit/cross/integration и nightly; [official architecture](https://docs.openhands.dev/sdk/arch/overview), packages / local и remote modes | [OSS-C05/06](03_Development.md#oss-core-verification): раздельно идентифицировать executor/workspace/continuation, требовать актуальный результат нужного стыка | Описанный nightly schedule — source claim, не проверенный CI run. SDK/unit PASS или контейнер не дают полный host PASS. Пакеты, server, Docker/Kubernetes и nightly вместо affected final checks не навязываются |
+| RF-16 / Cedar, main `314fd1b1ea77395b348c1fe107df55f59ad9c54e`: [README.md](https://github.com/cedar-policy/cedar/blob/314fd1b1ea77395b348c1fe107df55f59ad9c54e/README.md); [official Security](https://docs.cedarpolicy.com/other/security.html), formal model/property/differential testing; [Authorization](https://docs.cedarpolicy.com/auth/authorization.html), skip-on-error | [RA-REF01–04](06_Features.md#rbac-reference-semantics): независимый semantic oracle, различение false/error и используемых/неиспользуемых attributes; результат сверяется с contract AOS | Skip-on-error и explicit forbid несовместимы с автоматическим переносом в текущий grants-only FTR-031. Cedar не выбран dependency; проверенность evaluator не доказывает корректность бизнес-policy или всех host endpoints. Формальные доказательства не объявлены новым обязательным gate |
+| RF-17 / Pydantic, main `f543f06749b5c0adba7c9a1d31ff229b3d045d1a`: [docs/concepts/strict_mode.md](https://github.com/pydantic/pydantic/blob/f543f06749b5c0adba7c9a1d31ff229b3d045d1a/docs/concepts/strict_mode.md), coercion, JSON/native различия, field overrides | [ST-REF01–05](06_Features.md#strict-input-reference-cases): явная матрица channel/type/normalization, отсутствующих/неизвестных полей и совместимости callers | strict=True не заменяет целиком owner contract. Date-представления могут допустимо отличаться по каналам. Автоматический сбор rejected values через Logfire не переносится в диагностическую data policy AOS |
+| RF-18 / Storybook, next `4f66ceeb2410de4bcefe3ba3919267495cc40f37`: [docs/writing-tests/interaction-testing.mdx](https://github.com/storybookjs/storybook/blob/4f66ceeb2410de4bcefe3ba3919267495cc40f37/docs/writing-tests/interaction-testing.mdx) и [accessibility-testing.mdx](https://github.com/storybookjs/storybook/blob/4f66ceeb2410de4bcefe3ba3919267495cc40f37/docs/writing-tests/accessibility-testing.mdx), initial state → действия → assertions, a11y incomplete | [DS-REF01–04](03_Development.md#oss-ux-verification): фиксированный сценарий, точные данные передачи, error/retry, независимость fixtures и раздельные component/integration/a11y claims | Storybook/React/Vitest/Chromatic не назначены стеком AOS. Mock/callback PASS не доказывает backend/доставку, автоматический DOM-check не заменяет пользовательский pilot или проверку preview security |
+
+**Применимость результата.** Основные гарантии recovery, authority, completeness
+и независимого oracle уже были описаны у owners. Дополнение даёт различающие
+способы их проверки и примеры несовместимого переноса. Оно не объявляет исходные
+модули дефектными только за отсутствие названных libraries и не принимает новые
+бизнес-решения. Выбор support profile/host/app/journey и текущие launch permissions
+остаются у существующих owners. Independent validation и runtime conformance
+этим authoring не выполнены; исходный аудит и предыдущие RF-01–12 сохранены.
 
 <a id="interview-methodology-sources"></a>
 
@@ -657,11 +745,42 @@ Owner sections задают WHAT и совместимость, [существ�
 
 ## 14. Источники scaffold/core и применимость прежних решений
 
-Это provenance-маршрут текущей документационной работы, не дополнительный каталог требований. Предлагаемый новый handoff и unresolved decisions находятся у [Core](00_Core.md#scaffold-core-decisions); scope — у Product/Features; contracts и workflow — у Architecture/Development.
+<a id="first-core-human-source"></a>
+
+**Binding текущего Human сообщения HD-01…28, 2026-09-15.** Источник решения —
+явный пользовательский prompt в текущем диалоге с заголовком «Integrate Human
+Decisions for AOS First-Core Implementation into notebook», не агентский отчёт.
+Наблюдавшийся до этой правки notebook: `codex/work-20260915`, HEAD
+`228594905dd5dc355d8759fc466de9a2d644595e`; working изменения 03/05/06, включая
+деактивацию FTR-028. Поэтому одного HEAD недостаточно для принятого предмета.
+Принятый вход — first-core scope текущего R7 handoff, C-015/C-016 и V3, со
+scoped уточнениями самого HD prompt. Hash не доказывает human authenticity и
+не принимает все прочие dossiers в том же файле.
+
+| Исходный файл до интеграции HD | SHA-256 прочитанных bytes |
+|---|---|
+| `docs/00_Core.md` | `8c3f16cdedc6d281bf9a1622caa640e86e9136ca4890f8c6eb944d91d7d02120` |
+| `docs/01_Product.md` | `8e92cfe7bf783c323d4f4253d0645cf4ddfffaf8322d45ca8b33fdd472d3043a` |
+| `docs/02_Architecture.md` | `042eb9dff2f44fd225582305d79543dde3b808522ac6c5cc5c9326d0548ababe` |
+| `docs/03_Development.md` | `81c0df9b3925b62dacbd33688a8bb007d538b41c3b8a4c87e846ca169fa099c5` |
+| `docs/06_Features.md` | `49a9c25bd9f75cb04d8fab67cd4eb0bc4341828823c29e0a0281bc19885f6dc9` |
+| `workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md` | `62e23f1f225467a22e7839f8c5786a96105620e805376bbbaffb1a112108dd2f` |
+
+Эти digests фиксируют предшествующий subject, не выдаются за hashes нового
+documentation candidate. HD-правки являются его явным текущим основанием;
+материально иные последующие изменения не принимаются автоматически. Старые
+X1/frozen/portable records остаются неизменными. Точный timestamp/ID host capture
+не выдумывается: provenance данного сообщения не является runtime proof C-011.
+Target AOS-3 сейчас не читался и не изменялся; его будущие mutable bindings NOT_RUN.
+
+Это provenance-маршрут, не дополнительный каталог требований. Текущее принятие
+R7/HD-01…28 и остаток bindings/evidence находятся у [Core](00_Core.md#scaffold-core-decisions).
+Таблица ниже сохраняет основания прежней подготовки; её open/DRAFT/UNASSIGNED
+относятся к тем историческим subjects, не отменяют новое решение человека.
 
 | Источник / exact binding | Найденный факт и разрешённое использование | Ограничение для новой задачи |
 |---|---|---|
-| Current `docs/00_Core.md`–`06_Features.md`; исходный HEAD документационного worktree `8627d1cc01b84a794827673e473850c0187abe5e` | Семь owners и новые явно помеченные SCAFFOLD_CORE_DRAFT-разделы. Header `audited_source_commit` относится к прежнему snapshot, не к текущим edits | Действующий candidate определяется текущими bytes/diff; baseline acceptance не принимает новые предложения |
+| Исходная подготовка `docs/00_Core.md`–`06_Features.md`; HEAD документационного worktree `8627d1cc01b84a794827673e473850c0187abe5e` | Семь owners и тогда новые SCAFFOLD_CORE_DRAFT-разделы. Header `audited_source_commit` относится к прежнему snapshot | Новое HD-01 имеет отдельный binding ниже; прежняя baseline acceptance сама не принимала эти proposals |
 | [Global Design Freeze](../AOS/GLOBAL_DESIGN_FREEZE.md), ordered manifest `b9ef04820f9e71da1866c61c87417c7ac39d1c27c93a74327ab7f40f2e25aebf` | Три frozen files совпадают с записанными hashes. Их vocabulary/boundaries доступны как принятый scoped источник | Старый workflow отделяет correction в новую task; он не заменяет новый controller loop для иной task. Frozen bytes не изменяются |
 | [X1 decision](../workspace/AOS_DOCUMENTATION_X1/HUMAN_DECISION_RECORD.yaml), SHA-256 `3e9fbbcde2d07a8716f0dc28eb33e642e1c42766da738e41c7137abf358af197`; [manifest](../workspace/AOS_DOCUMENTATION_X1/CANDIDATE_MANIFEST.txt) `1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d` | Пять ARTIFACT records соответствуют файлам; decision фиксирует X1-DR-001/002=A и item-scoped X1 behavior. Эти формулировки не нужно заново придумывать | Исходный record сохраняет `raw_record_confirmation_required: true`; bytes не доказывают внешнее подтверждение этой записи. Source hashes внутри manifest относятся к историческому baseline. Нет authority для нового core/host/runtime |
 | [Portable acceptance](../AOS/portable/PACKAGE_ACCEPTANCE.yaml), subject [manifest](../AOS/portable/MANIFEST.txt) `1e3746b4bb6a326d9e93f805cb4ebe8a233c367976189aae1c0d385cde261901` | Одиннадцать content files соответствуют manifest; sidecar принимает exact package, сохраняя embedded DRAFT fields | Sidecar отдельно сохраняет open decisions, UNASSIGNED repository, отсутствие roadmap activation и runtime authority. Старый README DRAFT не означает, что sidecar отсутствует |

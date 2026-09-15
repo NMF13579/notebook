@@ -6,7 +6,7 @@
 
 ```yaml
 repository_role: ACTIVE_PROJECT_KNOWLEDGE_REPOSITORY
-implementation_repository: UNASSIGNED
+implementation_repository: NMF13579/AOS-3
 runtime_code_allowed_here: false
 implementation_authorization: NONE
 git_authorization: NONE
@@ -33,7 +33,11 @@ git_authorization: NONE
 
 Для явно поставленной задачи scaffold/core читать [Core: решения](docs/00_Core.md#scaffold-core-decisions), затем [Product: scope](docs/01_Product.md#scaffold-core-outcome), выбранные dossiers, [Architecture: стыки](docs/02_Architecture.md#scaffold-core-interfaces) и [Development: цикл](docs/03_Development.md#scaffold-core-development). [Brief](workspace/AOS_SCAFFOLD_CORE_IMPLEMENTATION_BRIEF.md) только собирает handoff и не владеет требованиями. [План документации](workspace/AOS_SCAFFOLD_CORE_AUTONOMOUS_DEVELOPMENT_PLAN.md) сохраняет историю подготовки и проверок; его наличие не поручает повторное выполнение. Scope, target и полномочия определяются текущей задачей, а не прежним worktree или текстом плана.
 
-Новые разделы `SCAFFOLD_CORE_DRAFT` не повышаются до accepted по факту выполнения плана. Не выбирать target, Risk Profile, host/provider или feature disposition за человека. Уже подтверждённое применимое решение не запрашивать повторно. Недостающие решения представить одним конкретным пакетом после authoring.
+Принятие first-core R7/V3 и HD-01…28 зафиксировано в [Core §20](docs/00_Core.md#scaffold-core-decisions).
+Это явное Human решение, не повышение DRAFT по факту выполнения плана. Target,
+профиль и Codex-first уже выбраны; mutable bindings/HOW и runtime Evidence
+остаются отдельными. Не запрашивать эти policy решения повторно и не назначать
+Risk Profile/новый provider за человека. Остальные DRAFT/dispositions сохраняют scope.
 
 Для будущей реализации внешний агент действует по заранее принятому scope и отдельной authority; его обратимый HOW и обычная correction не требуют нового product planning. Наличие этого маршрута не меняет роль notebook и не разрешает runtime здесь. Старые frozen/portable/blueprint материалы имеют [ограниченную применимость](docs/05_Reference.md#scaffold-core-sources), а не параллельный приоритет над текущей задачей.
 
@@ -167,6 +171,10 @@ Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
 ```
 
 Не выполняй Commit, Push, Merge, branch deletion, force push или Release без отдельного явного решения пользователя для exact action и subject.
+
+Standing policy [HD-26](docs/03_Development.md#first-core-local-commit) относится
+только к будущему first-core implementation workflow в AOS-3 после exact Human
+ACCEPT. Она не разрешает Git-действия в notebook или в текущей documentation task.
 
 ## Инварианты
 

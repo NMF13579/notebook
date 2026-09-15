@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-14'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_INTERVIEW_AUDIENCE_AND_DOCUMENT_ANNOTATIONS
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -1357,7 +1358,9 @@ tokens/денежные расходы. Меньше вопросов само �
 
 ## 15. Жизненный цикл внедрения (Project Roadmap)
 
-Прежняя общая последовательность покрывает Runtime Pipeline. Она не является одновременно вторым заданием на новый scaffold/core; для этой задачи подготовлено уточнение [S0–K4](#scaffold-core-outcome), ожидающее SC-DEC-01:
+Прежняя общая последовательность покрывает Runtime Pipeline. Для первого ядра
+приоритет имеет принятый HD-01 маршрут [S0–K4](#scaffold-core-outcome); список ниже
+сохраняет прежний контекст и не является вторым заданием:
 
 - **Foundation:** Базовый репозиторий, CLI skeleton и Logger.
 - **Slice 1 (Intake & Definition):** Приём намерения и формализация контрактов (Intent Contract).
@@ -1370,7 +1373,7 @@ tokens/денежные расходы. Меньше вопросов само �
 
 ## 16. Модульное ядро — DRAFT состава
 
-Пользователь подтвердил направление: полные описания выбранных фич при небольшом обязательном ядре. Этот раздел формирует продуктовый contract предложения; утверждение точного состава остаётся отдельным решением MOD-DEC-01. Единственный индекс возможностей и их placements находится в [06_Features](06_Features.md#4-индекс-каталога).
+Пользователь подтвердил направление: полные описания выбранных фич при небольшом обязательном ядре. Этот раздел формирует продуктовый contract предложения; First-core состав принят HD-01; оставшиеся placements относятся к MOD-DEC-01. Единственный индекс возможностей и их placements находится в [06_Features](06_Features.md#4-индекс-каталога).
 
 Основной пользователь — владелец проекта, ставящий ограниченную задачу агенту. Основной результат: понятный проверенный итог одной разрешённой задачи с доказательствами, решением человека и возможностью продолжения. Система должна обеспечивать цепь:
 
@@ -1404,7 +1407,8 @@ Spec; поведение частей — их Feature Passports. Полнота
 будущий AOS создаёт версию пользовательского проекта по его ТЗ. Состав и критерии
 этих проектов не смешиваются. Product tests AOS не доказывают автономность его
 внешней разработки; готовое ТЗ пользовательского проекта не доказывает его сборку.
-Нынешний S0–K4, grouping/dispositions и открытые SC-DEC/MOD-DEC сохраняются.
+Текущее принятие S0–K4 и остаток SC-DEC определены у [Core](00_Core.md#scaffold-core-decisions);
+невыбранные grouping/dispositions/MOD-DEC сохраняются.
 Это уточнение не выбирает более широкую версию AOS и не выдаёт launch authority.
 
 Общая task, внутренние работы, зависимости и завершение определяются
@@ -1478,7 +1482,7 @@ Declared интеграции с ядром и уже доступными мо�
 
 | ID | Вопрос и рекомендуемая граница | Альтернатива и последствие | Статус |
 |---|---|---|---|
-| MOD-DEC-01 | Принять placements в индексе: 13 core-семейств, 7 сценарных модулей для 8 семейств (FTR-005+022 объединены), 2 support-модуля; остальные 7 семейств не расширять. Принять классификацию зависимостей вместо обязательного запуска всех связанных фич | Оставить только исходный X1: потребуется сузить заявленный полный цикл. Сделать все 23 обязательными: увеличится минимальная зависимость и стоимость сопровождения | WAIT_HUMAN по оставшемуся составу; группировка FTR-005+022 выбрана человеком |
+| MOD-DEC-01 | Принять placements в индексе: 13 core-семейств, 7 сценарных модулей для 8 семейств (FTR-005+022 объединены), 2 support-модуля; остальные 7 семейств не расширять. Принять классификацию зависимостей вместо обязательного запуска всех связанных фич | Оставить только исходный X1: потребуется сузить заявленный полный цикл. Сделать все 23 обязательными: увеличится минимальная зависимость и стоимость сопровождения | ACCEPTED для 13 first-core срезов по HD-01; WAIT_HUMAN только по оставшемуся составу; группировка FTR-005+022 выбрана человеком |
 | MOD-DEC-02 | Подтвердить interface/support envelope перед реализацией FTR-004/015/023: допустимые поверхности, платформы, способ поставки, Git-host/CI providers и совместимость версий | Ограничиться platform-neutral контрактом; допустимо для обзора дизайна, не даёт implementation-ready утверждения по integrations | OPEN; точный выбор не сделан |
 | MOD-DEC-03 | Определить trusted capture человеческого решения и правила sensitive/provider-data, доступа и хранения для выбранного deployment context | До определения запретить неизвестные external effects и не устанавливать универсальный retention срок | OPEN; блокирует зависимые runtime claims |
 
@@ -1492,7 +1496,24 @@ X1 dispositions сохраняются. Остальные объединени�
 
 <a id="scaffold-core-outcome"></a>
 
-## 17. Scaffold и первое ядро — SCAFFOLD_CORE_DRAFT
+## 17. Scaffold и первое ядро — принятое содержание, runtime NOT_RUN
+
+<a id="first-core-selected-scope"></a>
+
+**HD-01 — полный предложенный первый core.** Приняты все first-core срезы
+FTR-001/002/003/006/008/009/010/011/012/013/014/016/019 и маршрут S0→K4,
+текущий R7 handoff, C-015/C-016 и V3 complete-task loop. Минимальные локальные
+коннекторы и durable queue входят в этот scope с начала ядра. Он не сужается
+до X1-only/MVP; слово «минимальный» ниже означает отсутствие поздних модулей,
+а не разрешение пропустить выбранные критерии. Полный функционал всех 33 FTR
+не выбран; поздние/deferred модули не prerequisite сборки ядра.
+
+Техническая готовность требует цельного результата, а эмпирическое доказательство
+первого autonomous workflow — полного пути [HD-28](03_Development.md#first-core-autonomy-proof)
+на Codex + macOS. Частичные component PASS недостаточны. Ожидаемая поверхность:
+короткая понятная сводка и optional Details по [HD-22](03_Development.md#first-core-final-review).
+Технический review не подменяет настоящий Human ACCEPT; следующий local Commit
+регулирует только [HD-26](03_Development.md#first-core-local-commit).
 
 Пользователь результата — владелец проекта, заранее задавший достаточную bounded задачу и полномочия. Наблюдаемый итог первого ядра: одна разрешённая локальная задача проходит от достаточного input через execution/check/diagnose/correct до проверенного результата, понятного review package и состояния, из которого работа воспроизводимо продолжается. Владелец не управляет каждой correction и каждым переходом между согласованными срезами.
 
@@ -1519,7 +1540,11 @@ S0–K4 — порядок доказательства результатов, 
 
 **Приёмка автономного интервала:** заранее достаточные inputs позволяют дойти до K4 без новых product решений; обычный дефект исправляется в scope; после поддержанного host interruption работа продолжается по сохранённому состоянию; required checks и effects согласованы с exact candidate. Проверки [SC-T01…26](03_Development.md#scaffold-core-checks) задают наблюдаемые Evidence. Usability claims «человек понял результат» остаются отдельным human observation и не заменяются агентской оценкой.
 
-Правило manual dogfood сохраняет смысл проверки пользовательской пользы. Для этого DRAFT предлагается: сначала разрешённая техническая реализация S0–K4 и воспроизводимые positive/negative journeys, затем пользовательский dogfood для принятия/расширения продукта. Рутинная correction не требует повторного ручного dogfood; изменение этого порядка относится к SC-DEC-01. Без принятия уточнения нельзя заявлять весь интервал как уже разрешённую automation.
+Правило manual dogfood сохраняет смысл проверки пользовательской пользы. HD-01
+принимает порядок: техническая реализация S0–K4 с positive/negative journeys,
+затем пользовательский dogfood для принятия/расширения продукта. Рутинная correction
+не требует повторного ручного dogfood. Scope принят, фактический запуск по-прежнему
+требует SC-DEC-04; приёмка конечного candidate и local Commit следуют HD-26.
 
 Будущие фичи прорабатываются по одной после выбора человеком. Они не входят в первое ядро автоматически. Полный backlog, installer, архитектурный модуль, CI/Git delivery, search/index, patterns, audit tools, UI и domains остаются вне этого интервала, кроме явно названной необходимой базовой гарантии. [Точный scope каждой core-возможности](06_Features.md#core-first-scope) принадлежит dossier; [правило расширения](03_Development.md#feature-integration-readiness) проверяет только реальные стыки.
 
@@ -1548,5 +1573,5 @@ result validation и recovery, иначе нужен точный BLOCKED/UNKNOW
 Чтение переносимого state на другой ОС не означает разрешение resume: paths,
 permissions, environment, authority и actual effects проверяются заново.
 Поведение и проверки принадлежат [Architecture](02_Architecture.md#core-platform-boundary)
-и [Development](03_Development.md#core-platform-checks). Выбор stack/target/host
-остаётся в существующем SC-DEC реестре; здесь не создаётся новый набор решений.
+и [Development](03_Development.md#core-platform-checks). Принятые stack/target/host
+и оставшиеся bindings/evidence приведены в существующем SC-DEC у Core.

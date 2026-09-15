@@ -1,17 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-13'
+updated: '2026-09-15'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: AOS_PRECOMMIT_DOCUMENTATION_CORRECTIONS_R7
+current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
-current_change_status: SCAFFOLD_CORE_DRAFT
+current_change_status: HUMAN_ACCEPTED_FACT
+current_change_scope: FIRST_CORE_HD_01_28_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -82,7 +83,7 @@ feature dossier ≠ execution authorization
 
 ## 4. Индекс каталога
 
-| ID | Семейство фич | Слой | Рекомендация | Решение человека (исходная область) | Место в модульном составе — DRAFT |
+| ID | Семейство фич | Слой | Рекомендация | Решение человека (исходная область) | Место в составе; first-core принят по HD-01 |
 |---|---|---|---|---|---|
 | `FTR-001` | Приём намерения, проблемное интервью и уточнение результата | Product Runtime | `KEEP` | `SELECT_FOR_X1` | CORE: Намерение → Intent Record |
 | `FTR-002` | Read-only исследование проекта, карта возможностей и реестр gaps/conflicts | Product Runtime | `KEEP` | `UNDECIDED` | CORE: Наблюдение проекта → context/gaps |
@@ -111,7 +112,7 @@ feature dossier ≠ execution authorization
 | `FTR-025` | Observability, audit log, память incidents/lessons и continuous improvement | Product Runtime Support / Operations | `KEEP` | `UNDECIDED` | MODULE: Инцидент → lesson/regression proposal |
 | `FTR-026` | Модель extensions, plugins и capability modules | Architecture Extension | `DEFER` | `UNDECIDED` | OUT_OF_SCOPE: текущий dossier без изменения |
 | `FTR-027` | Предметные модули: Medical и Design | Regulated / Creative Domain Extensions | `DEFER` | `DEFERRED` | MODULE_PLACEHOLDER: неактивное предметное направление |
-| `FTR-028` | Workbench или SaaS UI для onboarding, status, review и collaboration | UX Wrapper | `DEFER` | `UNDECIDED` | OUT_OF_SCOPE: текущий dossier без изменения |
+| `FTR-028` | Workbench или SaaS UI для onboarding, status, review и collaboration | UX Wrapper | `DEFER` | `DEFERRED` | Неактивна по решению пользователя; проработка и реализация отложены |
 | `FTR-029` | Экспорт templates, prompt packs, cross-repo context, localization и policy overlays | Packaging / Extension Support | `DEFER` | `UNDECIDED` | OUT_OF_SCOPE: текущий dossier без изменения |
 | `FTR-030` | Внутренние contract tools: strict loaders, parser sunset, registry audits и schema/runtime drift tests | Development Factory Internal | `DEFER` | `UNDECIDED` | SUPPORT_MODULE: Стабильные contracts → strict tools/migration proof |
 | `FTR-031` | Расширенное управление доступом RBAC/ABAC для создаваемых проектов | Security Extension | `DEFER` | `DEFERRED` | MODULE_DRAFT / IN_DISCOVERY: rbac abac, доступ к полям внутри приложения |
@@ -122,7 +123,7 @@ feature dossier ≠ execution authorization
 
 Матрица раздела 4 — единственный индекс состава. CORE означает обязательную возможность основного цикла, а не обязательный запуск каждого сценария семьи. MODULE включён в предлагаемую целевую документацию целиком, но требуется по условию сценария. SUPPORT_MODULE — предлагаемая полная документация FTR-017/FTR-030 с отложенным запуском до доказанной необходимости. MODULE_PLACEHOLDER регистрирует будущий модуль с минимальным известным смыслом и не означает готовность его контракта, выбор для roadmap или реализацию. OUT_OF_SCOPE сохраняет старые dispositions и dossiers; это не новое человеческое решение DEFERRED.
 
-Направление «малое ядро + полные модули» подтверждено пользователем; точная матрица и предлагаемые изменения связей ожидают решения [MOD-DEC-01](01_Product.md#modular-decisions). SELECT_FOR_X1/SUPPORTING_CONTROL_ONLY продолжают описывать X1; новая матрица не расширяет эти решения автоматически. Все уточнения ниже с пометкой MODULAR_DRAFT являются предложениями в рамках авторизованной документационной работы.
+HD-01 принимает first-core часть матрицы и применимые contracts по §4.2. Остальная матрица остаётся в [MOD-DEC-01](01_Product.md#modular-decisions). SELECT_FOR_X1/SUPPORTING_CONTROL_ONLY сохраняют исходную область X1; first_core_human_disposition отдельно задаёт принятый core-срез. MODULAR_DRAFT вне этого среза остаётся предложением.
 
 Основной сценарий и ограничения: [Product](01_Product.md#modular-core). Общие гарантии интерфейсов и совместимости: [Architecture](02_Architecture.md#module-contracts). Проверка полноты: [Development](03_Development.md#modular-documentation-checks).
 
@@ -144,9 +145,15 @@ feature dossier ≠ execution authorization
 
 <a id="core-first-scope"></a>
 
-## 4.2. Первое ядро — SCAFFOLD_CORE_DRAFT
+## 4.2. Первое ядро — принято по HD-01
 
-Индекс §4 остаётся единственным каталогом. Для предлагаемого первого ядра ниже у FTR-001/002/003/006/008/009/010/011/012/013/014/016/019 добавлен раздел «Первый core-срез»: он ограничивает сценарии семьи для [S0–K4](01_Product.md#scaffold-core-outcome), не меняя исходный human disposition. Полная семейная возможность сохраняется в dossier; дополнительные сценарии готовятся позднее. Это уточнение MOD-DEC-01/SC-DEC-01, не автоматическое принятие 13 фич.
+Индекс §4 остаётся единственным каталогом. [HD-01 у Product](01_Product.md#first-core-selected-scope)
+принимает весь предложенный first-core package: ниже у 13 выбранных семейств
+раздел «Первый core-срез» и все применимые safety/negative guarantees задают его
+границу. Метаданные first_core_human_disposition: REQUIRED относятся только к
+этому срезу. Исходный human_disposition полной семьи/X1 сохраняет прежний scope;
+дополнительные сценарии и остальные FTR не приняты автоматически. Для первых
+core-срезов применяются HD-08…28 через owners, текущая runtime authorization NONE.
 
 Критерии указанного среза и все применимые safety/negative guarantees обязательны. Семейный критерий, требующий настоящего пользовательского наблюдения, не считается исполненным автоматическим тестом. Full feature acceptance не выводится из PASS минимального core-среза. Достаточные preaccepted inputs могут быть переданы извне: чтение результата другой семьи не требует повторно запускать её интервью или approval.
 
@@ -393,8 +400,10 @@ R01–R11 — IDs findings прежнего аудита в чате, не но�
 | R11 / 033 | [Recovery v0.2](#ftr-033-contract) задаёт static assessment-to-handoff как PROPOSAL; установка не обязательна, дальнейший ремонт отдельно | Направление задано текущим запросом, DEFERRED сохранён. [REC-O](#recovery-open) отделяют принятие среза, выбранный pilot и фактические adapters; HANDOFF_PREPARED не означает получение или исправление проекта |
 
 R06 отложен решением пользователя об инактивации FTR-027: обе строки Medical/Design
-сохраняют только варианты на случай отдельного возобновления, ответа сейчас не требуют
-и не блокируют текущую работу. Остальные строки также не требуют немедленного ответа
+сохраняют только варианты на случай отдельного возобновления. R07 также отложен
+решением пользователя о деактивации FTR-028 (Workbench/SaaS UI). Эти варианты
+ответа сейчас не требуют и не блокируют текущую работу.
+Остальные строки также не требуют немедленного ответа
 до выбора соответствующего scope. Уже действующие решения не задаются снова.
 Назначение repository, выдача доступа, бюджет фактических запусков и проверка resume
 ведутся отдельно по Development §25.7.2; они не заменяют эти содержательные выборы.
@@ -408,6 +417,8 @@ R06 отложен решением пользователя об инактив
 
 ```yaml
 feature_id: FTR-001
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime
 synthesis_recommendation: KEEP
 human_disposition: SELECT_FOR_X1
@@ -429,7 +440,7 @@ shared_defaults_present: false
 
 Свободный запрос смешивает problem, solution, assumptions и constraints.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Достаточный текст запроса и ранее подтверждённые ответы преобразуются в C-001 с исходным текстом, problem/outcome, constraints и видимыми assumptions. Углублённое интервью нужно только при material gap.
 
@@ -561,6 +572,8 @@ Read-only исследование уже созданного AOS-проект�
 
 ```yaml
 feature_id: FTR-002
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -582,7 +595,7 @@ shared_defaults_present: false
 
 До planning агент не знает repository identity, capabilities и current state.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Read-only обзор одного declared repository/worktree и нужного вопроса; source types и coverage ограничены выбранным профилем. Для нового проекта фиксируется отсутствие repo. Полный semantic graph/RAG не входит.
 
@@ -725,6 +738,8 @@ Snapshot-bound inventory, capability map, gaps, conflicts, unknowns и candidate
 
 ```yaml
 feature_id: FTR-003
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime
 synthesis_recommendation: KEEP
 human_disposition: SELECT_FOR_X1
@@ -746,7 +761,7 @@ shared_defaults_present: false
 
 Product intent теряется между idea, architecture и task execution.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** C-001 и достаточные preaccepted требования связываются с Product Spec/Feature Passport и criterion IDs. Spec владеет cross-feature фактами, Passport — конкретным поведением. Внутри run не выбирается новый product slice.
 
@@ -1244,6 +1259,8 @@ UNKNOWN, а не общий положительный балл. Приёмка 
 
 ```yaml
 feature_id: FTR-006
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime / Development Factory Boundary
 synthesis_recommendation: KEEP
 human_disposition: SUPPORTING_CONTROL_ONLY
@@ -1265,7 +1282,7 @@ shared_defaults_present: false
 
 Free-form request не должен становиться executable work автоматически.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Одна task с dependency-ready критериями S0–K4: C-005 requested/prohibited scope, ограничения и проверки. Реальная C-006 поступает отдельно через trusted capture. Backlog service FTR-007 не нужен. C-005 задаёт исходную lifecycle stage; текущая хранится в C-012. Полный цикл должен быть явен в принятом scope, а standalone read-only task не получает mutation по одному имени stage.
 
@@ -1594,6 +1611,8 @@ completion owner и [общая C-005](03_Development.md#autonomous-project-deve
 
 ```yaml
 feature_id: FTR-008
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -1615,7 +1634,7 @@ shared_defaults_present: false
 
 Nontechnical user cannot understand state, blocker and next action.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Read-only status/next/details через выбранную минимальную surface: task/run/controller axes, source freshness, blocker и одно допустимое действие. Web dashboard и отдельный tutor module не нужны.
 
@@ -1623,7 +1642,7 @@ Nontechnical user cannot understand state, blocker and next action.
 
 **Связь с реализацией:** K4; SC-T10/11/14; C-012/C-009/C-010/C-011 читаются без изменения owners. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
 
-**Переносимость R3:** Предлагаемая первая surface — переносимая CLI; конкретный интерфейс ещё в SC-DEC-02. Status показывает capability/support limitations и не требует macOS-приложения или определённого терминала. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+**Переносимость R3:** Первая surface — переносимая CLI, принятая HD-06; детали команд остаются HOW. Status показывает capability/support limitations и не требует macOS-приложения или определённого терминала. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
 
 ### Подключение и очередь первого ядра — R7
 
@@ -1748,6 +1767,8 @@ Read-only отображение task/run/controller axes. Next берётся �
 
 ```yaml
 feature_id: FTR-009
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Development Factory / Safety Boundary
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -1769,7 +1790,7 @@ shared_defaults_present: false
 
 Mutation without exact identity, scope and environment risks contamination.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Read-only target/action preview для локального effect. Identity учитывает relevant uncommitted bytes и unrelated user state; HEAD сам по себе недостаточен.
 
@@ -1904,6 +1925,8 @@ Traversal, symlink escape, wrong root, неизвестный ownership либо
 
 ```yaml
 feature_id: FTR-010
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Development Factory
 synthesis_recommendation: SIMPLIFY
 human_disposition: UNDECIDED
@@ -1925,7 +1948,7 @@ shared_defaults_present: false
 
 Scope in prose does not constrain actual mutation.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Полный bounded product completion loop и один выбранный execution adapter: current admission, отдельные execute/correct workers, ledger, D0…D5, gate, affected checks и final predicate. До собственного runtime разработку ведёт проверенный внешний host.
 
@@ -1933,7 +1956,7 @@ Scope in prose does not constrain actual mutation.
 
 **Связь с реализацией:** K2–K4; SC-T04…11/14/15/16/17/18/21/22; canonical matrix и C-005/006/006A/007/008/009/009A/010/012. Общие условия — [первое ядро](#core-first-scope), проверочные сценарии — [Development](03_Development.md#scaffold-core-checks).
 
-**Переносимость R3:** Предложен минимальный локальный execution adapter с переносимым интерфейсом; средство исполнения остаётся в SC-DEC-02. Нет обязательного Unix shell в ядре; missing capability даёт точный отказ, не обход admission. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
+**Переносимость R3:** Предложен минимальный локальный execution adapter с переносимым интерфейсом; конкретное средство исполнения остаётся HOW в SC-DEC-02; первый host Codex принят HD-07. Нет обязательного Unix shell в ядре; missing capability даёт точный отказ, не обход admission. Общие границы — [Architecture](02_Architecture.md#core-platform-boundary), проверки — [SC-T19/20](03_Development.md#core-platform-checks).
 
 ### Подключение и очередь первого ядра — R7
 
@@ -2097,6 +2120,8 @@ Mismatch identity/state/action, stale/revoked authority, forbidden effect либ
 
 ```yaml
 feature_id: FTR-011
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime Support / Development Factory
 synthesis_recommendation: KEEP
 human_disposition: SUPPORTING_CONTROL_ONLY
@@ -2118,7 +2143,7 @@ shared_defaults_present: false
 
 Different validators/CLI paths produce incompatible status and false green.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Локальный Result Contract и минимальные check/doctor/self-test entrypoints в принятом профиле. Required/conditional checks получают явные command bindings; remote CI не требуется без scenario decision.
 
@@ -2265,6 +2290,8 @@ Unknown enum, неверный interpreter/import, exit success при failure, 
 
 ```yaml
 feature_id: FTR-012
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime / Review Boundary
 synthesis_recommendation: KEEP
 human_disposition: SUPPORTING_CONTROL_ONLY
@@ -2286,7 +2313,7 @@ shared_defaults_present: false
 
 Technical output is difficult to review and may be mistaken for acceptance.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Один review package: criterion → current Evidence → результат/ограничение и explicit options. Поддерживается trusted capture решения для exact subject; автоматическая цель заканчивается техническим review, без выдуманного Human ACCEPT.
 
@@ -2416,6 +2443,8 @@ Missing actor/source/subject, generated ACCEPT, непроверенное Evide
 
 ```yaml
 feature_id: FTR-013
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Development Factory / Validation Boundary
 synthesis_recommendation: KEEP
 human_disposition: SUPPORTING_CONTROL_ONLY
@@ -2437,7 +2466,7 @@ shared_defaults_present: false
 
 Validation can target a moving or contaminated candidate.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Exact baseline/candidate, фактический diff и проверочный subject для каждого effect/check. Изоляция выбирается по риску; identity не ограничивается HEAD.
 
@@ -2561,6 +2590,8 @@ Live checkout mismatch, self-referential identity, изменение subject в
 
 ```yaml
 feature_id: FTR-014
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime / Development Factory Boundary
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -2582,7 +2613,7 @@ shared_defaults_present: false
 
 Failure or interruption loses actual state and invites unsafe retry.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Continuation после supported interruption, pause и unknown effect: reconcile target/ledger/current authority до next action. Произвольный destructive rollback не входит; внешняя host wake capability проверяется отдельно.
 
@@ -2753,6 +2784,11 @@ shared_defaults_present: false
 
 **Источник и статус уточнения:** MODULAR_DRAFT в рамках плана документации; исходные problem, acceptance, negative cases и legacy crosswalk сохранены. Общие гарантии — [Architecture](02_Architecture.md#module-contracts), product decisions — [MOD-DEC-01…03](01_Product.md#modular-decisions). Это предложение поведения/размещения, не изменение исходного human disposition.
 
+**Scoped first-core policy:** [HD-26](03_Development.md#first-core-local-commit)
+разрешает один local Commit после exact Human ACCEPT в будущем first-core workflow.
+Это основание для соответствующего C-014, не PASS→permission и не выбор полного
+FTR-015. Остальные Git действия и workflows сохраняют отдельные полномочия.
+
 **Граница полного ТЗ:** Полный сценарный модуль Git lifecycle; отсутствие доставки не отменяет технический результат задачи. Нет автоматического перехода между четырьмя действиями.
 
 
@@ -2878,6 +2914,8 @@ Closure report and separately authorized Git/release actions bound to the exact 
 
 ```yaml
 feature_id: FTR-016
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Product Runtime / Development Factory Boundary
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -2899,7 +2937,7 @@ shared_defaults_present: false
 
 Context is lost between sessions/tools; agents read too much or omit relevant rules.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Durable task checkpoint/context/handoff без обязательного индекса: source references, exact candidate, criteria/checks, actual authority binding, effects, ledger/resources и one next action. До продукта это обеспечивает внешний host.
 
@@ -3404,6 +3442,8 @@ data policy делает зависимую рекомендацию stale; по
 
 ```yaml
 feature_id: FTR-019
+first_core_human_disposition: REQUIRED
+first_core_decision_ref: HD-01
 layer: Minimal Safety Floor
 synthesis_recommendation: KEEP
 human_disposition: UNDECIDED
@@ -3425,7 +3465,7 @@ shared_defaults_present: false
 
 Actions differ by write/network/data/Git/authority risk and external content can inject instructions.
 
-### Первый core-срез — SCAFFOLD_CORE_DRAFT
+### Первый core-срез — принят по HD-01
 
 **Объём:** Read-only классификация action, paths, effects, input trust и действующей authority перед локальным dispatch. Базовая проверка provenance не зависит от optional FTR-021 audit.
 
@@ -3826,11 +3866,36 @@ Read-only consistency/authenticity checks with one owner per fact and snapshot-b
 
 | Case | Требование / contract | Дано | Когда | Тогда |
 |---|---|---|---|---|
-| FTR-021.S1 | Критерии приёмки и основной процесс FTR-021 | Два представления одного owner, одно изменено | Проверить audit scope | Drift и owner видны с exact source identities; findings read-only и не принимают решение за человека. |
+| FTR-021.S1 | Критерии приёмки и основной процесс FTR-021 | Два представления одного owner, одно изменено | Проверить audit scope | Изменение identity и возможное расхождение смысла различены по контрольным примерам ниже; finding содержит owner и exact sources, остаётся read-only и не принимает решение за человека. |
 | FTR-021.S2 | Критерии приёмки и основной процесс FTR-021 | Stale report, unknown actor и дублированное правило | Запросить current audit | Нет current PASS/authenticity; duplicate отмечен без удаления; покрытие ограничено явно. |
 | FTR-021.N01 | Негативный случай №1; C-010; FTR-021 snapshot binding | Audit report относится к версии owner A, текущий owner имеет версию B | Использовать отчёт для текущей проверки | Старый отчёт не даёт current PASS; указаны изменившийся source и нужная повторная проверка. |
 | FTR-021.N02 | Негативный случай №2; C-011; FTR-021 authenticity | Decision привязан к текущему subject, но источник actor неизвестен | Проверить authenticity решения | Authority не подтверждена; действие, требующее этого решения, заблокировано. |
 | FTR-021.N03 | Негативный случай №3; FTR-021 one owner per fact | В audit scope найдены два документа, объявляющие себя owner одного правила | Выполнить consistency audit | Конфликт владельцев и оба пути показаны в finding; ни один документ не удалён и не исправлен. |
+
+<a id="ftr-021-semantic-fixtures"></a>
+
+### Различение смыслового расхождения и смены identity — DRAFT
+
+Уточнение S1 использует [RF-08](05_Reference.md#personal-reference-gap-adaptation).
+Синтетический вход: owner разрешает сотруднику T1 читать оборудование T1 и
+запрещает читать/менять оборудование T2; projection описывает ту же операцию READ
+тем же actor. За основу взяты BR-ORG-002/BR-ROLE-004 EQ, но ни политика EQ, ни его платформенные исключения
+не принимаются здесь как правила AOS. Все строки — отдельные документальные
+проверки, остальные входы корректны; runtime NOT_RUN.
+
+| Case | Изменённый вход | Ожидаемый вывод аудитора и различающее основание |
+|---|---|---|
+| FTR-021.S3 | Owner и projection одинаково запрещают READ T2 | В проверенном отношении смыслового расхождения нет; перечислены прочитанные sources и scope. Это не PASS всего repository |
+| FTR-021.S4 | Projection перефразирована: «сотрудник может читать оборудование своей организации; чужой — нет» | Для заданного actor/READ тот же набор разрешённых записей; semantic finding отсутствует. Новые bytes и применимость прежних records проверяются отдельно |
+| FTR-021.N04 | Projection разрешает READ T2, если известен ID оборудования | Смысловой conflict: конкретные actor T1, object T2, READ дают разные ответы. Finding связывает BR-ORG-002/owner с точным местом projection; одинаковые поля/корректный Markdown не закрывают расхождение |
+| FTR-021.N05 | Как S4, но принятие projection привязано к её прежним exact bytes | Смысл эквивалентен в данном scope, identity новая, прежнее принятие не переносится. Отчёт не называет перефразирование новой бизнес-политикой и не заменяет digest в record |
+| FTR-021.N06 | Owner недоступен; есть только пересказ и checksum projection | Достаточность сравнения UNKNOWN с exact coverage gap. Ни «дрейфа нет», ни «смысл изменён» не доказаны; структура/хеш не заменяют источник |
+
+Oracle задаётся owner-правилом и парой разрешённого/запрещённого примеров,
+до чтения ответа аудитора. Для N04 проверяющий должен найти различие разрешений,
+для S3/S4 — не придумать его. Это сохраняет C-010/C-011: эквивалентность смысла
+не означает перенос Evidence/решения на новый subject. Новые contracts,
+автоматическая коррекция и универсальный запрет форматирования не вводятся.
 
 **Открытые решения и полнота:** MOD-DEC-03 ограничивает authenticity claims; без trusted capture возможен отчёт о непроверенной записи, но не доказательство её подлинности. При незакрытом решении готовность ограничена дизайном; зависимые implementation claims UNKNOWN.
 
@@ -4441,6 +4506,43 @@ stale, чужой либо неподтверждённый record не прим
 | FTR-025.N02 | Негативный случай №2; C-011; FTR-025 human-owned rule change | Lesson candidate отклонён человеком для текущего subject | Обработать решение | Правила проекта не меняются; rejection сохраняет provenance и не превращается в принятие. |
 | FTR-025.N03 | Негативный случай №3; FTR-025 audit availability | Запись incident в audit log завершилась ошибкой | Подготовить отчёт операции | Сбой журналирования и граница доступных Evidence видны; сохранение log не объявляется успешным. |
 
+<a id="ftr-025-lesson-fixture"></a>
+
+### От incident к различающей regression — DRAFT
+
+Источник формы примера — AOS-3 LES-012, границы переноса в
+[RF-09](05_Reference.md#personal-reference-gap-adaptation). Историческое описание
+прочитано, incident не воспроизведён. Следующий вход **синтетический**: это
+документальный oracle для parent S1, не новая принятая запись в 04_Lessons.
+
+Дано: fixture I1 содержит identity-bound файл F, принятую revision A и три
+связанных с subject наблюдения. E1: проверка identity исходного F/A проходит.
+E2: форматирование создаёт F/B; синтаксис/lint проходят, identity check отклоняет
+B относительно A. E3: восстановлены именно исходные bytes A, при том же checker
+и окружении identity check проходит. Эти E1–E3 — заданные наблюдения примера,
+не выполненные здесь проверки. Цель не включает изменение поведения F.
+
+Ожидаемая цепочка: I1 → E1/E2/E3 → ограниченный вывод «форматирование сменило
+identity предмета, по которому сохранялась прежняя привязка» → lesson candidate
+«учитывать exact-byte binding перед механической правкой» → regression ниже.
+Вывод не утверждает, что formatter вообще сломан или что поведение B неверно.
+До отдельного решения lesson остаётся candidate; способ хранения/retention не выбран.
+
+| Case | Вариант | Проверяемый результат |
+|---|---|---|
+| FTR-025.S3 | Полный I1; поиск по incident/signature и связанному F/B | Находится тот же incident; cause ссылается на различающие E1–E3, lesson и regression доступны по связям, а не только по совпадению текста |
+| FTR-025.N04 | Предложена причина «неисправна сеть» при полном I1 | Причина не поддержана этими наблюдениями; её нельзя выдать за установленную. Требуется различающее Evidence, если гипотеза сохраняется |
+| FTR-025.N05 | Остался только E2 с сообщением FAIL, bytes/checker/env недоступны | Не утверждать доказанную причину по временному соседству с formatter; перечислить недостающие наблюдения, сохранить candidate |
+| FTR-025.S4 | Предложена regression: неизменённый A проходит; B не получает прежнее принятие A; обычный не связанный с identity файл можно форматировать | Проверяется механизм повторения и положительное поведение. Expected задан до реализации check; scopes/subjects каждого результата различены |
+| FTR-025.N06 | Вместо S4 предложены «lint проходит», «поле lesson заполнено» либо замена ожидаемого digest на B без основания — отдельные варианты | Ни один не доказывает устранение повторения: первые два не различают A/B, третий скрывает нарушение привязки. Regression не засчитывается |
+| FTR-025.N07 | Новый incident I2 с тем же механизмом в новой сессии | I2 сохраняет свой subject/Evidence и связь recurrence с I1; исходная история не обнуляется. Одной одинаковой строки FAIL недостаточно для тождества причин |
+
+Для self-check сначала восстановить цепочку по sources, затем отдельно
+проверить ложную причину и бесполезную regression. Смена статуса lesson не
+выполняет correction или policy mutation. Эта детализация parent не расширяет
+payload [минимальной диагностики](#event-diagnostics-behavior): её событие
+по-прежнему не содержит raw code, exceptions или произвольные Evidence dumps.
+
 **Открытые решения и полнота:** MOD-DEC-03: доступ, чувствительные поля и retention. До решения нет обещания универсального хранения/передачи или автоматического удаления. При незакрытом решении готовность ограничена дизайном; зависимые implementation claims UNKNOWN.
 
 <a id="event-diagnostics-behavior"></a>
@@ -4648,7 +4750,7 @@ specialist gates, клиническая/юридическая authority аге
 feature_id: FTR-028
 layer: UX Wrapper
 synthesis_recommendation: DEFER
-human_disposition: UNDECIDED
+human_disposition: DEFERRED
 product_scope_effect: NONE_UNTIL_HUMAN_DECISION
 implementation_maturity: NOT_ASSIGNED
 current_runtime_verification: NOT_RUN
@@ -4656,6 +4758,14 @@ dossier_readiness: DESIGN_CANDIDATE
 feature_specific_contract_required: true
 shared_defaults_present: true
 ```
+
+**Решение пользователя от 2026-09-15:** «Дезактивируй фичу Saas».
+FTR-028 (Workbench/SaaS UI) неактивна: её проработка, выбор пользовательского
+пути и реализация отложены до отдельного решения о возобновлении. Остаток R07
+не требует ответа и не блокирует готовность ядра или других выбранных модулей.
+Ниже сохранён прежний design candidate как материал для возможного возвращения;
+это не действующее задание и не сообщение об отключении работающего runtime.
+Базовый Status/Next/Details FTR-008 и UX Pages FTR-032 сохраняют собственные scope.
 
 **Проблема**
 
@@ -4669,13 +4779,14 @@ Nonprogrammers may need visual collaboration, but UI can become hidden authority
 
 ### Условие запуска (`Trigger`)
 
-Выбранная человеком цель или условие workflow требует capability `FTR-028`.
+Только после отдельного решения пользователя о возобновлении FTR-028 и выборе
+конкретного scope; наличие ссылки или условия workflow само по себе фичу не активирует.
 
 ### Предварительные условия
 
 - Релевантные product facts и authority sources определены
 - Required repository/subject identity проверена, если feature работает с repository
-- Human disposition остаётся `UNDECIDED`, пока нет явного решения человека
+- Human disposition — `DEFERRED`; требуется отдельное решение о возобновлении FTR-028
 
 ### Входные данные
 
@@ -5056,6 +5167,66 @@ Unexpected fields/state, bypass loader, docs/runtime drift или неохвач
 | FTR-030.N02 | Негативный случай №2; FTR-030 accepted contract/version | Valid record дополнен полем, отсутствующим в принятой закрытой схеме | Передать record strict loader | Record отвергнут с указанием неожиданного поля; оно не игнорируется молча. |
 | FTR-030.N03 | Негативный случай №3; FTR-030 representation consistency | Принятый contract запрещает state X, runtime representation допускает X | Сравнить docs и runtime representation | Mismatch указан как drift; conformance не получает PASS, canonical document автоматически не переписывается. |
 
+<a id="ftr-030-reference-pilot"></a>
+
+### Предметный кандидат строгой проверки — PROPOSAL
+
+[RF-10](05_Reference.md#personal-reference-gap-adaptation) даёт доступный пример:
+`selection-request.schema.json` и `selection-report.schema.json` из
+AOS-Solution-Patterns. Это кандидат для первого read-only Check, не выбранный
+runtime contract ядра и не поручение Migration/Sunset. Возможные consumers
+005/022 получают результаты только через принятый module binding; наличие
+внешней библиотеки остаётся необязательным для архитектурного анализа.
+
+Документальный valid request V: request_id `R1`, schema_version `1`, capabilities
+`["read"]`, requirements с requirement_id `REQ1` и acceptance_criteria,
+содержащими criterion_id `AC1`, capabilities `["read"]`. Эти значения
+синтетические; schema-valid не означает наличие pattern для `read` в registry.
+
+| Case | Вход при неизменных остальных условиях | Ожидаемое различение |
+|---|---|---|
+| FTR-030.S3 | V по exact request schema RF-10 | Структура допустима; checker не обещает selection success, качество архитектуры или authority |
+| FTR-030.N04 | V с лишним top-level полем; отдельно schema_version `2`; отдельно пустой acceptance_criteria | Несоответствие соответствующему правилу schema; нет молчаливого удаления поля, смены версии или заполнения критерия |
+| FTR-030.N05 | Report проходит JSON Schema, но final_status содержит произвольную строку либо authority.execution_authorized = true | Source schema допускает string/boolean, поэтому её прохождение не доказывает допустимость статуса или выдачу authority. Semantic check должен применить owner-правило; если оно не связано — conformance UNKNOWN, не догадка |
+| FTR-030.N06 | Новый loader проверяет V, второй объявленный caller продолжает прямой parse | Успех первого входа не закрывает покрытие второго; Migration/Sunset не завершены |
+
+До выбранной реализации связать exact accepted owner/version, реальные callers,
+допустимые outcomes и их отображение в C-009, missing/invalid/version cases и
+проверку семантики. Schema/parser/library/version внутри этих гарантий — HOW;
+реальный contract и migration subject должны быть известны. Чужие поля
+`human_verified`/`execution_authorized` сами не становятся C-011/C-006.
+Статусы/схемы библиотеки не импортируются целиком. Runtime проверки NOT_RUN.
+
+<a id="strict-input-reference-cases"></a>
+
+### Матрица строгих входов по Pydantic — DRAFT
+
+[RF-17](05_Reference.md#oss-reference-adaptation) конкретизирует S1/N01–03:
+одинаковый смысл contract не требует одинакового wire-представления, но каждый
+объявленный caller должен иметь явные правила нормализации и отказа. Слово
+`strict` само не задаёт эти правила; режим, источник Python/JSON и overrides
+проверяются вместе. Pydantic не назначен обязательной зависимостью.
+
+Синтетический contract примера: `count` — целое без преобразования строк и
+boolean; `day` — календарная дата, допустимая как date-значение native input или
+ISO-строка JSON; неизвестные поля запрещены, обязательное нельзя опустить или
+заменить null. Это oracle примера, не новая schema всех C-contracts. При выбранной
+реализации настоящий owner заранее задаёт каждое правило и supported channels.
+
+| Вариант | Вход при остальных корректных полях | Ожидаемый результат |
+|---|---|---|
+| ST-REF01 | Native count=7/day=date; JSON count=7/day="2026-09-15" | Оба допустимы и выражают одни значения; сравнивается нормализованный смысл, а не равенство сырых типов |
+| ST-REF02 | count="7" либо true, отдельно в каждом поддержанном канале | Отказ по типу count, без скрытого преобразования. Field-level lax override, обходящий правило, не даёт conformance |
+| ST-REF03 | day — строка в native input; отдельно несуществующая календарная дата в JSON | В первом случае неподдержанная representation, во втором неверное значение; не «исправлять» дату. Допустимая ISO-строка JSON из ST-REF01 сохраняет положительный путь |
+| ST-REF04 | Пропущенный count; null; неизвестное поле — отдельно | Отказ по соответствующему правилу. Strict type checking не заменяет проверки required/null/extra; default не выдумывается |
+| ST-REF05 | Старый caller рассчитывал на строку count="7"; новый loader отвергает её | Явно обнаружена несовместимость caller. Migration-complete требует покрытия всех заявленных callers и выбранной совместимости; не включать lax fallback ради PASS и не удалять старый parser автоматически |
+
+Для каждого отказа различимы поле/правило/класс причины; diagnostics не раскрывают
+raw запрещённые данные только потому, что библиотечный exception их содержит.
+Формат ошибок и допустимая projection связываются с реальным caller contract.
+ST-REF дополняют структурные и semantic проверки выше, не доказывают правильность
+бизнес-правил. Runtime NOT_RUN; schema/версии/реальные callers ещё не выбраны.
+
 **Открытые решения и полнота:** Toolchain и способы distribution — MOD-DEC-02; конкретные runtime representations ещё NOT_RUN, contract-level negative examples описываются здесь. При незакрытом решении готовность ограничена дизайном; зависимые implementation claims UNKNOWN.
 
 ### Точечное исследование перед реализацией
@@ -5321,14 +5492,78 @@ application binding; проверки отдельных частей не за�
 | RA-C04 | CREATE мог сохранить D5, ответ потерян; отдельно UPDATE мог изменить D1 | До повтора host выясняет исход исходной операции. Доказанный успех не повторяется; неизвестность не превращается в no-effect, запрещённые поля не раскрываются ради подтверждения. Architecture: восстановление domain writes |
 | RA-C05 | FTR-032 отсутствует; отдельно UX-макет матрицы принят, runtime policy не применялась | Разработка/работа editor не требует UX-модуля; принятие макета не активирует AccessModel. Разрешение host и реальное apply остаются обязательными. Architecture: граница FTR-032 |
 
+<a id="rbac-reference-semantics"></a>
+
+### Проверка смысла evaluator по Cedar — DRAFT
+
+[RF-16](05_Reference.md#oss-reference-adaptation) используется как метод:
+заранее заданная модель смысла → примеры/контрпримеры → сравнение результата
+реализации. Формальная модель, собственный язык политик или Cedar dependency
+не вводятся. RA-T01–08 уже требуют oracle, независимый от проверяемого evaluator;
+одного совпадения двух реализаций с общей ошибочной логикой недостаточно.
+
+Cedar пропускает policy, давшую error, и может разрешить запрос по другой permit.
+В текущем FTR-031 ошибка **используемого** security attribute даёт DENY затронутому
+решению даже при другом grant (RA-T06). Для адаптации это обязательное различие;
+explicit forbid Cedar также не становится редактируемым deny в grants-only модели.
+Основание ожидаемых ответов — семантика этого dossier, не default библиотеки.
+
+| Вариант / исходное правило | Дано: object/scope/catalog и остальные inputs корректны | Ожидаемый итог |
+|---|---|---|
+| RA-REF01 / RA-T03 | Две роли; одна не даёт grant, вторая даёт безусловный grant операции | ALLOW; отсутствие grant не explicit deny |
+| RA-REF02 / RA-T02/03 | Условие OWN_RECORD первого grant корректно вычислено как false, второй действующий grant не требует OWN_RECORD и разрешает операцию | ALLOW, если выполнены обязательные ограничения; false первого grant не ошибка и не запрет поверх другого |
+| RA-REF03 / RA-T06 | OWN_RECORD применим, но требуемый owner отсутствует/invalid/stale; второй grant разрешает операцию | DENY затронутому решению; skip-on-error с ALLOW выявляется как несовместимость |
+| RA-REF04 / RA-T06 | READ title не использует assigned_to_id, он отсутствует; остальные необходимые данные и grant корректны | ALLOW; отсутствие неиспользуемого атрибута не превращает весь объект в отказ |
+
+Каждый вариант проверяется отдельно, причины false/error/missing-unused не
+сливаются. При изменении catalog/model перепроверяются affected правила и
+сохранённые применимые примеры; сравнение policy revisions не активирует новую
+модель. POLICY PASS не закрывает реальный API/serializer/admin boundary: продолжают
+действовать [ENFORCEMENT/ADMIN checks](03_Development.md#rbac-abac-verification).
+Reference не выбирает бизнес-роли, grants или приложение RA-O02. Runtime NOT_RUN.
+
 <a id="rbac-abac-open"></a>
+
+### Прикладной кандидат из EQ — PROPOSAL для RA-O02
+
+[RF-11](05_Reference.md#personal-reference-gap-adaptation) предоставляет реальные
+описанные бизнес-роли и объекты. Кандидат пилота — **Equipment: чтение карточки и
+изменение name**, две вымышленные организации T1/T2, один сотрудник и один админ
+T1. Это предложение предмета для FTR-031; EQ не назначен первым приложением или
+implementation repository, его runtime enforcement не проверен.
+
+| Элемент | Что даёт reference | Кандидат binding / оставшийся выбор |
+|---|---|---|
+| Row boundary | BR-ORG-001/002; organization_id у Equipment | Организационные роли читают только T1. Scope задаёт host, не request body; платформенные исключения отдельно, не «админ видит всё» по имени |
+| Роли | BR-ROLE-002/004: админ управляет своей организацией, сотрудник просматривает её оборудование | Предложение: сотрудник READ name/inventory_number, админ дополнительно UPDATE name; field grants требуют принятия, они не выводятся автоматически из широкого слова «управляет» |
+| Поля и defaults | В data-models названы name, inventory_number, organization_id, status_id и привязки | В этом узком предложении generic UPDATE только name; организация задаётся host, status/привязки остаются бизнес-процессами с историей BR-EQ-006. Правила остальных полей и CREATE вне выбранного примера, не забытая реализация |
+| Admin policy | BR-ADM-002 относится к управлению администраторами платформы | Не доказывает MANAGE_FIELD_ACCESS. Отдельно назначить, кто меняет/применяет AccessModel, в какой области и может ли делегировать; не расширять полномочия по названию роли |
+| Каналы | BR-EQ-007 требует org-admin для Excel import; BR-ROLE-007 ограничивает support чтением | Inventory реальных detail/list/search/export/import/background/direct API обязателен до enforcement. Ограничение двух операций пилота не скрывает действующие обходные пути; при их наличии покрыть их либо явно исключить эффект безопасным host-boundary |
+
+Синтетические контрольные входы для рассмотрения этого варианта:
+
+- **RA-EQ01:** сотрудник T1 читает разрешённые поля E1 из T1 через detail/list;
+  того же пользователя и E2 из T2 host отклоняет без утечки существования/значений.
+- **RA-EQ02:** админ T1 меняет только name E1; попытка тем же запросом сменить
+  organization_id на T2 отклоняется целиком, name остаётся прежним.
+- **RA-EQ03:** сотрудник пытается UPDATE name; отдельно поддержка вызывает write
+  через альтернативный доступный канал. Нет эффекта; скрытой кнопки недостаточно.
+- **RA-EQ04:** есть role admin, но нет отдельного MANAGE_FIELD_ACCESS: apply модели
+  недопустим. Положительный apply проверяется отдельно для явно уполномоченного actor.
+
+RA-EQ не заменяют RA-T01–26/RA-C01–05; после выбора binding применимые проверки
+выполняются на реальных каналах. Не переносить в grants-only модель отдельные
+explicit deny правила по одному совпадению слов «запрещено»: row/business guards
+остаются у host. Все результаты здесь NOT_RUN. Для RA-O02 теперь есть предметный
+вариант; требуются выбор приложения/scope, field grants и admin-делегации, затем
+inventory каналов. Неполные правила reference не дополняются вымышленными grants.
 
 ### Остаточные решения и автономная подготовка
 
 | ID | Что определено / чего не хватает | Кто и что закрывает |
 |---|---|---|
 | RA-O01 | FTR-031, имя и прикладное направление установлены; grants-only, три операции и минимальный scope — PROPOSAL | Человек рассматривает единый candidate; при необходимости индивидуальных deny/экспорта/иных операций выбрать расширение с наблюдаемыми последствиями. Не задавать заново вопрос «права AOS или приложения» |
-| RA-O02 | Первое приложение, реальные бизнес-сценарии/роли, админ-делегация, row scope, поля/defaults, обязательные каналы и критерии pilot UNKNOWN | Сначала найти принятые ответы в ТЗ; только отсутствующие существенные choices собрать в один пакет. Рекомендован один Document-подобный объект; fixture выше не назначает реальный проект |
+| RA-O02 | Есть предметный кандидат EQ выше: Equipment READ/UPDATE name, роли и tenant boundary из reference; выбор приложения/scope, field grants, admin-делегация и полный набор каналов остаются OPEN | Рассмотреть этот ограниченный вариант либо иной объект из принятого ТЗ. После выбора связать grants/defaults, каналы и RA-EQ/RA-T с реальным binding; наличие reference не назначает проект |
 | RA-O03 | Stack/ORM, identity/transaction/storage adapters, supported versions и фактическое покрытие путей UNKNOWN | Агент готовит application binding по Architecture. Обратимый HOW выбирает сам; изменение гарантий/данных возвращает человеку. Repository/доступы/budget/launch/resume — отдельные предпосылки |
 | RA-O04 | Приложения исходного пакета недоступны; точная исполняемая schema не проверена | Использовать owner-текст как candidate, до реализации подготовить единую schema/fixtures из принятых правил; не выдумывать содержимое отсутствующих файлов |
 
@@ -5543,6 +5778,39 @@ IDs сохранены из R2 и локальны для FTR-032. Это design
 
 <a id="ux-pages-open-decisions"></a>
 
+### Предметный кандидат UX-пилота — PROPOSAL для DS-O05
+
+[RF-12](05_Reference.md#personal-reference-gap-adaptation) даёт сценарий из
+pamyatka: выбрать шаблон → изменить текст → создать документ/QR → открыть
+web-представление. Предложен **локальный макет двух страниц**: редактор и preview
+созданного документа. Текст нейтральный вымышленный, например инструкция к
+оборудованию; нет реальных пациентов, контактов, активных public tokens, внешних
+deeplinks или отправок. Это кандидат задания UX, не принятие предметной функции
+Medical и не обещание работающего backend.
+
+View model предложения: список из двух синтетических шаблонов, title/body,
+выбранный template, editing/saving/error/created, локальная ссылка на preview.
+В created виден снимок выбранного текста; preview использует тот же снимок.
+QR обозначен как имитация без рабочего адреса. Error и retry — дополнения AOS
+по DS-T12, а не обнаруженное поведение source. Изменения текста остаются в
+симуляции; экспорт FRONTEND/INTEGRATION по существующему contract различён.
+
+| Case | Путь пользователя | Критерий качества предложения |
+|---|---|---|
+| DS-PM01 | Выбрать второй шаблон, изменить body, создать и открыть preview | Обе страницы показывают именно изменённый текст и выбранный title; не первоначальный шаблон. Пользователь видит отметку «имитация», результат не объявлен сохранённым в backend |
+| DS-PM02 | После редактирования вызвать имитацию ошибки, затем retry | Введённое не потеряно; ошибка понятна, повтор доступен. Нет ложного created при error, retry не создаёт вторую логическую карточку |
+| DS-PM03 | Выполнить тот же путь клавиатурой и на узком экране | Поля имеют labels, фокус виден, порядок действий достижим, error доступен без цвета; основной текст и controls не обрезаны. Exact viewport/средства a11y фиксируются в выбранном pilot profile |
+| DS-PM04 | Другой инженер получает FRONTEND pack без прежнего чата | Восстанавливает две страницы, view model, expected states и известный gap API; QR/created не выдаёт за доставку или интеграционный PASS |
+| DS-PM05 | Пользователь нажимает кнопку подготовки принятия макета | Видит request и «не записано», пока реальный trusted канал не подтвердил решение по этой revision. Событие доставки в source не заменяет capture AOS |
+
+Oracle — заранее заданные значения второй формы, сценарии error/retry и видимые
+границы симуляции, не просто наличие двух HTML. Проверки связаны с
+DS-T02/03/12/15/16/20/21, а безопасность preview — с DS-T10–14. Успешная ручная
+репетиция текста не доказывает usability: реальный pilot и независимый reader
+NOT_RUN. Нужно выбрать этот journey либо другой, принять существенные критерии
+и определить профиль проверки; DS-O02 о записи человеческого решения остаётся
+отдельным выбором. Source не назначает Max или иной transport для AOS.
+
 ### Открытые решения DS-O01–05 и предел достаточности
 
 | ID | Текущий ответ / что осталось | Зависимость и следующий шаг |
@@ -5551,7 +5819,7 @@ IDs сохранены из R2 и локальны для FTR-032. Это design
 | DS-O02 | PROPOSAL: решение через существующий trusted агентный канал; browser viewer только подготавливает request. Прямой writable UI — альтернативный более широкий scope с проверенным adapter | Класс В: согласовать первый пользовательский путь; рекомендован агентный канал с видимым «не записано», ценой передачи сообщения. Независимо готовятся contracts/review; real acceptance path зависит от выбора и доступности capture по MOD-DEC-03 |
 | DS-O03 | Embedded YAML и ограниченный behavior описаны; exact supported schema/version, normalization/limits и runtime profile ещё не определены | Перед исполнением получить единый проверяемый input contract и fixtures, не свой YAML-parser. Parser/внутреннее представление — HOW агента; решение человека нужно лишь если сужается обязательное поведение/совместимость. Не смешивать D02/D03 |
 | DS-O04 | Preview environment и обеспечение запретов UNKNOWN | Проверить имеющийся adapter/browser/version на DS-T10–14 и declared resources. До доказательства — безопасное чтение/производное представление, interactive NOT_RUN; смена существенной trust/data boundary требует отдельного решения |
-| DS-O05 | Реальный pilot: выбранные feature/journey/pages, view model, data/access/a11y cases и критерии качества не назначены | Класс В для выбора предмета/приёмки; предложен один сценарий редактирования и связанная страница. Разбор синтетического DS-T12 независим; люди/бюджет/среда фактического пилота — отдельно класс Г |
+| DS-O05 | Подготовлен предметный кандидат из pamyatka выше: редактор → preview, view model и DS-PM01–05. Journey/критерии ещё не приняты; реальные data/access/a11y profile и pilot не назначены | Класс В: выбрать этот ограниченный сценарий либо другой и его приёмку. Люди/бюджет/среда фактического пилота — отдельно класс Г; reference не закрывает DS-O02 |
 
 Полнота модели улучшена, но весь первый пользовательский путь не объявляется
 достаточным/принятым до DS-O02/05 и обязательных supported contracts. Эти unknowns
