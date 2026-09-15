@@ -198,6 +198,33 @@ Product-level problem, users, journeys, scope, non-goals, constraints, metrics, 
 [Development §25.0](03_Development.md#autonomous-project-development), без нового
 владельца требований или схемы Product Spec.
 
+<a id="quality-requirements-contract"></a>
+
+##### C-002/C-003: существенные условия качества и их передача — DRAFT
+
+Для [текущего уточнения FTR-003](06_Features.md#quality-requirements-behavior) используется производное структурированное представление существующих constraints/metrics/acceptance. Это способ разрешённой документационной адаптации, не принятие runtime schema. Общие схемы C-002/C-003 не получают обязательных quality_* fields. Каждый quality fact хранится один раз у существующего владельца; остальные разделы ссылаются или суммируют его с явной ссылкой. Quality Profile допустим как название представления, без отдельного артефакта/registry. Markdown остаётся читаемым источником, machine representation — производным.
+
+Содержание представления, независимо от оформления: смысл условия; exact owner requirement ref/revision и source locator; статус; область/условия применения; проверяемый outcome или названный gap. Предположение не становится human decision. Для cross-artifact refs нужен устойчивый ID/anchor, отличный от content revision; один source может поддерживать несколько requirements, одно требование — несколько checks. Concerns — необязательные labels, не новая глобальная таксономия. Внутреннее хранение, сериализация и алгоритм сборки относятся к HOW.
+
+Продуктовый факт принадлежит C-003, feature-specific addition — C-002. Применимость определяется scope исходного требования, а не наличием заполненного списка ссылок. Отсутствие quality-раздела у мелкой фичи допустимо; неизвестная применимость оформляется как unknown для затронутого решения, а не отрицание наследования. Исторические документы без нового представления читаются по прежним constraints/acceptance; обязательного backfill нет.
+
+Отклонение в C-002 содержит ссылку на исходное product requirement/revision, ограниченную область, замену/исключение, rationale и ссылку на решение, действительно допускающее это изменение. C-003 не копируется и не переписывается ради одной фичи. До применимого решения deviation остаётся DRAFT; после решения меняется только указанный scope. Несовместимые действующие требования дают conflict, не last-writer-wins. Common safety/data/authority boundaries не снимаются присутствием записи deviation.
+
+| Producer → contract → consumer | Передаваемый смысл и исход |
+|---|---|
+| FTR-001/разрешённые source artifacts → C-001/ответы → FTR-003 | Исходные слова, context и provenance. Нормализованное условие возвращается на обычный review, а не принимается по факту заполнения |
+| FTR-003 → C-003/C-002 exact constraints/acceptance refs → FTR-005 | Только material architecture question; owner need/no-need/ADR остаётся FTR-005, ранее принятое применимое решение не выбирается заново |
+| FTR-003 → C-003/C-002 → FTR-006 | Принятый outcome/область либо явный unknown; FTR-006 связывает requirement refs с отдельными check IDs в C-005.validation_matrix |
+| FTR-006 → C-005 → существующий controller/VALIDATE → FTR-011/C-009 → C-010/FTR-012 | Exact subject, required checks, пригодный метод и фактические результаты; используются AOS_VALIDATION_ENVELOPE_V3, check_results/aggregate_result и полный vocabulary C-009, включая CONTRACT_VIOLATION. Нет отдельного quality verdict или прямой записи FTR-003 в validator |
+
+Для проверки измеримого условия должны быть известны применимый сценарий, subject/revision, среда/fixture/load, измеряемый outcome/метрика, источник критерия, метод и ограничения. Достаточные сведения можно передать ссылками; точные числа не обязательны для любого требования и не придумываются. Например, проверка времени на пустой базе не подтверждает условие при заданной нагрузке, а проверка сохранности требует обозначенного failure scenario. Если метод отсутствует, соответствующая проверка NOT_RUN с причиной; безопасный PLAN может подготовить метод. Required NOT_RUN запрещает PASS своего aggregate, не аннулируя независимые результаты.
+
+Изменение исходного требования, scope или решения делает зависимые projections/Brief/check applicability требующими пересмотра. Старые Evidence не редактируются в «новый результат». Consumer проверяет exact references и полноту applicable requirements, включая обычный текст; сводка без раздела или потерянный ref не разрешает молча пропустить constraint. Unsupported format/revision требует явного отказа либо поддержанного чтения canonical sources с сохранением смысла. Additive compatibility не заявляется только по добавлению поля.
+
+Граница C-015/C-016 не расширяется: текущее изменение — документация и смысл существующих данных, новых endpoints, подписок и очередей нет. Будущие read/persist операции выполняются по bindings/effects владельца; чтение представления не сохраняет скрытый cache и не создаёт result. ADD/ENABLE представления не активирует другие фичи; UPDATE сверяет revisions/consumers; DISABLE/REMOVE убирает только представление и сохраняет обычный Spec/Brief flow; DELETE не распространяется на исходные ответы, requirements, decisions или Evidence. Сохранение/удаление по-прежнему требует своего покрытого scope. Наличие FTR-005/011 в выбранных supporting controls не доказывает их runtime availability; FTR-023 не required dependency этого пути.
+
+Изменения условий применимости отражаются в существующей карте §6.1: FTR-005/006/007/012/032 и сценарные consumers 031/033 получают тот же C-002/C-003 с актуальным смыслом; FTR-016 переносит owner refs, FTR-017 не выводит authority из ranking. Их форматы и dispositions здесь не изменяются. Проверяются затронутые потребители, не проводится миграция всех dossiers. [QR-C01–12](03_Development.md#quality-requirements-verification) проверяют сохранение смысла и отказ при потере условий.
+
 #### C-004 — Architecture Decision Record
 
 ```yaml
@@ -664,23 +691,23 @@ queued; неизвестные C-015/C-016 версии допускают ли�
 
 | Contract | Producer / владелец содержания | Данные и consumers | Отказ и область повторной проверки |
 |---|---|---|---|
-| C-001 | FTR-001; человек подтверждает intent | Original request, problem/outcome, assumptions/unknowns; FTR-003 | Неясная цель → уточнение; проверить перенос смысла в Spec |
-| C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012/032 (FTR-012 читает критерии C-002; FTR-032 — выбранные требования, journey и expected set) | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution, полноту review criteria и UX mapping/context FTR-032 |
+| C-001 | FTR-001; человек подтверждает intent | Original request, problem/outcome, assumptions/unknowns; FTR-003; FTR-033 читает intent для Recovery Intake | Неясная цель → уточнение; проверить перенос смысла в Spec |
+| C-002/C-003 | FTR-003; принятый Product artifact | Actor, scope, behavior, I/O, failures, criteria, disposition; FTR-005/006/007/012/032 (FTR-012 читает критерии C-002; FTR-032 — выбранные требования, journey и expected set); подготовка FTR-031 читает бизнес-сценарии доступа для application binding; FTR-033 читает принятые desired/protected sources выбранного next PLAN | Нет критерия → DRAFT без execution; проверить ADR, Brief, child contribution, полноту review criteria, UX mapping/context FTR-032 и ожидаемые решения доступа FTR-031 |
 | C-004 | FTR-005 готовит; человек выбирает | Вопрос, варианты, Evidence, выбор/последствия; FTR-003/005/006/022 | Нет решения → selected_option отсутствует; проверить зависимые задачи и patterns |
-| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013/016/032; FTR-032 читает scope/checks выбранной задачи, не выдаёт её authority | Противоречивый scope → отказ допуска; проверить preview/candidate, child task, criterion-to-Evidence review и соответствие UX pack запрошенной FRONTEND/INTEGRATION задаче |
-| C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-006 (report binding)/019/010/014/016 | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
+| C-005 | FTR-006; Task Brief owner | Task/revision, requested/prohibited scope, criteria/checks/limits; FTR-007/009/010/012/013/016/032; FTR-032 читает scope/checks выбранной задачи, не выдаёт её authority; FTR-033 читает scope/checks текущей assessment/handoff task; будущую C-005 оформляет FTR-006 | Противоречивый scope → отказ допуска; проверить preview/candidate, child task, criterion-to-Evidence review и соответствие UX pack запрошенной FRONTEND/INTEGRATION задаче |
+| C-006 | Человек — issuer; controller хранит binding | Subject, разрешённые/запрещённые effects, срок/отзыв; FTR-006 (report binding)/019/010/014/016; FTR-033 сверяет текущие read/output effects, не переносит authority на будущий ремонт | Missing/stale/revoked → запрет эффекта; проверить admission и resume |
 | C-006A | Controller — issuer stage envelope | Transition/action/state/candidate и parent binding; FTR-006 (report binding)/010/014 | Mismatch/replay → отказ до effect; проверить execute/correct paths |
-| C-007 | FTR-009; наблюдение repository и preview | Root/worktree/baseline/dirty state/actions/permissions; FTR-002/004/010/013 | Изменён subject → новое preview; проверить discovery binding, preservation, admission и сверку validation subject |
+| C-007 | FTR-009; наблюдение repository и preview | Root/worktree/baseline/dirty state/actions/permissions; FTR-002/004/010/013; FTR-033 использует subject/read boundary Git и directory через разрешённый collector | Изменён subject → новое preview; проверить discovery binding, preservation, admission и сверку validation subject |
 | C-008 | Worker FTR-010; factual observation (при потере не синтезируется recovery) | До/после, envelope, effects/unknown effects, stop reason; FTR-013/014/025, controller FTR-010 как reader observations | Неполный effect → reconciliation; проверить отсутствие двойного исполнения |
-| C-009 | Controller выдаёт; FTR-011 возвращает observation | Purpose/transition, candidate, required checks, results, limitations; FTR-006 (report binding)/008/010/011/012/014/023; FTR-032 читает technical results/limitations, не получает полномочия ValidationEnvelope для отображения | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness и разделение coverage/verification в UX surfaces |
+| C-009 | Controller выдаёт; FTR-011 возвращает observation | Purpose/transition, candidate, required checks, results, limitations; FTR-006 (report binding)/008/010/011/012/014/023; FTR-032 читает technical results/limitations, не получает полномочия ValidationEnvelope для отображения; FTR-033 читает purpose-bound outcomes, не aggregate health score | Required NOT_RUN/unknown impact → нет completion; проверить aggregation/staleness и разделение coverage/verification в UX surfaces |
 | C-009A | Controller оценивает diagnostic record | Signature, hypotheses, prediction, recovery, correction binding; FTR-010 | Слабое Evidence/replay → DENY; проверить D0…D5 и fresh correction |
-| C-010 | Наблюдавший checker/worker либо FTR-014 для recovery observation; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/010/011/012/013/014/021/023/025/032; FTR-032 читает Evidence для surfaces/pack | Недоступный источник → UNKNOWN; проверить ссылки, redaction, границу результата и применимость UX Evidence к page/runtime/source snapshot |
-| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021/025/032; FTR-032 читает запись и её применимость через FTR-012, не создаёт решение из viewer | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля, UX badge/index и handoff по exact decision scope |
-| C-012 | Controller создаёт первый record и владеет controller/lifecycle transitions по workflow; FTR-016 сохраняет/выдаёт | Versions, creation/resume context, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017; продолжение FTR-032 обслуживают controller и FTR-016/014, без второго state owner | Старая revision → recover, не overwrite; проверить старые задачи, concurrency и продолжение UX page/index/pack operations |
+| C-010 | Наблюдавший checker/worker либо FTR-014 для recovery observation; immutable Evidence | Метод, subject, результат, locator, limitations; FTR-008/010/011/012/013/014/021/023/025/032; FTR-032 читает Evidence для surfaces/pack; FTR-033 импортирует Evidence с исходным subject, без объявления нового run | Недоступный источник → UNKNOWN; проверить ссылки, redaction, границу результата и применимость UX Evidence к page/runtime/source snapshot |
+| C-011 | Человек — owner; FTR-012 готовит review | Actor/source, subject, decision, scope/время; FTR-006/008/012/015/019/021/025/032; FTR-032 читает запись и её применимость через FTR-012, не создаёт решение из viewer; FTR-033 читает origin/scope решения по Assessment, не создаёт human selection | Неизвестный actor/stale subject → решение не применяется; проверить admission без audit-модуля, UX badge/index и handoff по exact decision scope |
+| C-012 | Controller создаёт первый record и владеет controller/lifecycle transitions по workflow; FTR-016 сохраняет/выдаёт | Versions, creation/resume context, state axes, candidate, authority, ledger, decisions, next action; FTR-007/008/010/014/016/017; продолжение FTR-032 обслуживают controller и FTR-016/014, без второго state owner; FTR-033 сохраняет continuity через FTR-016/controller; после handoff records historical | Старая revision → recover, не overwrite; проверить старые задачи, concurrency и продолжение UX page/index/pack operations |
 | C-013 | FTR-004; план и наблюдённые результаты установки | Package/target, ownership, operations, preview, conflicts/recovery; FTR-004/009/011/014 | Конфликт user state → стоп apply; проверить install/update/uninstall и повтор |
 | C-014 | FTR-015; отдельная запись каждого действия | Action, repo/source/target, candidate, authority, результат; FTR-012/014/015/024 | Remote uncertainty → проверить эффект до retry; проверить Git-действия отдельно |
-| C-015 | Автор module contract; FTR-010 проверяет registration, FTR-016 хранит runtime binding | Identity/revision/interfaces/capabilities/lifecycle; FTR-004/005/009/010/011/014/016/019/022; contract FTR-032 и его вызовы проверяются через FTR-010/009/019, без собственной registry | Unknown/incompatible/disabled → нет нового вызова; проверить consumers, lifecycle и recovery, включая direct/queued операции FTR-032 |
-| C-016 | Разрешённый caller/publisher формирует сообщение; FTR-010 владеет delivery, FTR-016 хранит | Operation/message/subject/authority refs, bounded payload, delivery/result; FTR-005/008/010/011/014/016/019; FTR-032 формирует запросы записи и получает связанные outcomes через FTR-010, не читает storage очереди напрямую | Duplicate/stale/unknown effect → dedup/reconciliation; ack не закрывает task; проверить повтор и прерывание page/index/pack writes FTR-032 |
+| C-015 | Автор module contract; FTR-010 проверяет registration, FTR-016 хранит runtime binding | Identity/revision/interfaces/capabilities/lifecycle; FTR-004/005/009/010/011/014/016/019/022; contract FTR-032 и его вызовы проверяются через FTR-010/009/019, без собственной registry; FTR-033 recovery имеет отдельный module binding по §10.4, без собственной registry | Unknown/incompatible/disabled → нет нового вызова; проверить consumers, lifecycle и recovery, включая direct/queued операции FTR-032 |
+| C-016 | Разрешённый caller/publisher формирует сообщение; FTR-010 владеет delivery, FTR-016 хранит | Operation/message/subject/authority refs, bounded payload, delivery/result; FTR-005/008/010/011/014/016/019; FTR-032 формирует запросы записи и получает связанные outcomes через FTR-010, не читает storage очереди напрямую; FTR-033 сохраняет external outputs/передаёт handoff через core; ack не receipt | Duplicate/stale/unknown effect → dedup/reconciliation; ack не закрывает task; проверить повтор и прерывание page/index/pack writes FTR-032 |
 
 Сверка карты влияния обязательна при изменении входа dossier: каждый именованный C-contract из раздела «Входные данные» должен иметь эту фичу среди consumers таблицы либо явное объяснение неприменимости. Чтение contract собственным producer также учитывается, если он принимает сохранённый record как вход. Проверка criteria-to-Evidence и stale review входит в область изменения C-002/C-005; изменение C-007 затрагивает сверку candidate в FTR-013.
 
@@ -702,6 +729,28 @@ disable/remove с pending effects — по [§25.8](03_Development.md#ux-pages-v
 гарантией; неизвестное влияние обрабатывается по [§18.1](03_Development.md#modular-maintenance).
 
 Backlog, pattern и incident имеют владельцев содержания в своих feature contracts. Хранение через FTR-016 не передаёт ему это владение. Идентичность issuer/actor проверяется принятым способом capture, а не наличием имени в поле.
+
+**Прикладной модуль FTR-031 — DRAFT.** Подготовка его application binding использует
+C-002/C-003 через выбранное ТЗ; изменение ролей, полей, обязательных каналов или
+правил доступа затрагивает [RA-T01–26](06_Features.md#rbac-abac-cases) по изменённой
+гарантии. Runtime `rbac_abac` не читает Markdown ТЗ на каждом запросе. Его реальные
+producers/consumers принадлежат host-приложению и перечислены в
+[§10.3](#rbac-abac-contract). C-005/C-006/C-009/C-012 регулируют работу coding agent,
+а не каждое прикладное решение ALLOW/DENY или применение AccessModel. C-015/C-016
+не навязываются компоненту пользовательского приложения (§25.0 Development);
+подключение этой capability как runtime extension самого AOS здесь не задано.
+Нельзя добавлять FTR-031 reader внутренних records/очереди AOS по одному совпадению
+слов «модуль», «решение» или «active». Возможная UX-проекция FTR-032 остаётся
+производной; изменение её макета не активирует прикладную policy.
+
+**Recovery / FTR-033 — DRAFT.** Изменение intent/desired sources затрагивает
+Assessment/NextAction; subject/index/coverage и Evidence — claims/freshness;
+origin/scope C-011 — human disposition, не наблюдаемые факты; C-005/C-006 —
+допуск только текущей задачи. Изменения C-012/C-015/C-016 затрагивают saved state,
+versions и передачу. [§10.4](#recovery-contract) задаёт реальные readers/writers;
+[REC checks](03_Development.md#recovery-verification) повторяются по affected
+claims/операциям, не всем FTR. Optional C-004/C-013 относятся к отдельным
+последующим задачам, не required входам Recovery и не fallback authority.
 
 <a id="architecture-patterns-interfaces"></a>
 
@@ -1093,7 +1142,7 @@ Scope имеет allowlist/exclusions; symlink/traversal не расширяет
 
 | Producer → interface/version → consumer | Mode и результат | Ownership и эффекты |
 |---|---|---|
-| Разрешённый host/caller → `graph_rag.find/v1` → caller или FTR-016 | DIRECT_READ: запрос/scope/mandatory/budget → source-faithful candidates, paths, reasons, coverage/freshness | FTR-017 владеет derived index, факты у source owner; in-memory поиск без persistent writes/network |
+| Разрешённый host/caller → `graph_rag.find/v1` → caller или FTR-016 | DIRECT_READ: запрос/scope/mandatory/budget → source-faithful candidates, paths, reasons, coverage/freshness; поддержанный impact-профиль → раздельные зависимости/потребители и возможное влияние | FTR-017 владеет derived index, факты у source owner; in-memory поиск без persistent writes/network |
 | Host/FTR-002 observations + применимые Product/Architecture refs → `graph_rag.compare/v1` → caller/FTR-005/reviewer | DIRECT_READ: exact Target/Observed/Mapping → Delta, witnesses, applicability и ограничения | Сравнение отдельно от top-k; не меняет ADR/дизайн/код, не дублирует FTR-021 authenticity |
 | Host с task refs/FTR-016 → `graph_rag.context/v1` → FTR-016 → существующий host | DIRECT_READ: задача/mandatory sources → кандидаты контекста, missing inputs, relevant Delta, next-action recommendation | Итоговый Context Pack и session/task state принадлежат FTR-016; нет task selection/dispatch |
 | Host/FTR-016 continuation refs → `graph_rag.check/v1` → caller/FTR-014/FTR-016 | DIRECT_READ: текущая применимость либо явно historical/unknown | Нет записи cache/pending registry; resume не replay внешней mutation |
@@ -1104,6 +1153,39 @@ Scope имеет allowlist/exclusions; symlink/traversal не расширяет
 Required boundaries: разрешённый reader/exclusion policy под FTR-009/019; registration/version routing FTR-010 с хранением bindings FTR-016; C-009 Result/C-010 provenance. Для context/resume required FTR-016, для persistence — scoped writer и C-016 controller. Они не объявляются существующими по AOS-3 source path. Optional: FTR-002 map, FTR-007 task candidates, FTR-021 аудит. Нет цикла «контекст нужен для создания индекса, индекс нужен для контекста»: FTR-016 поддерживает прямые источники, FTR-017 принимает явный corpus.
 
 Локальная композиция не требует plugin loader/брокера/FTR-026. QUEUED_EVENT subscriptions в базовом профиле отсутствуют (`NOT_APPLICABLE`: нет background consumer); внешний результат передаёт caller при следующем check/context. Event-driven refresh потребует revision C-015/C-016. Очередь и finite limits принадлежат core, модуль не заводит свою. До эффекта профиль задаёт versions, handlers/generation, read/write/service scope, limits, supported target/host/OS и Error/Result binding. `RESULT/PARTIAL/NO_MATCHES/STALE/UNSUPPORTED` и Delta labels — payload semantics внутри C-009, не новые глобальные result enums.
+
+<a id="graph-rag-impact-contract"></a>
+
+#### Граф RAG: типизированное impact-представление — DRAFT
+
+Владелец наблюдаемого поведения — [FTR-017](06_Features.md#graph-rag-impact-behavior). Это уточнение contract-кандидата C-015, а не новый Dependency Graph owner, API service или schema registry. Impact проходит через `graph_rag.find/v1`; `context/v1` может передать его FTR-016 с теми же основаниями и ограничениями. `compare/v1` сохраняет отдельный смысл Delta. До подключения фиксируются exact contract/payload revision, профиль и поддержка consumers: прежний find без impact сохраняет поисковую семантику; неподдержанный impact/profile/revision явно отклоняется, не подменяется обычным поиском. Имена `/v1` здесь не доказывают совместимость с работающим API.
+
+Первый профиль-кандидат `DATA_CONTRACT_IMPACT_V1` внутри `LEXICAL_GRAPH_CONTEXT_V1` использует уже существующие PRODUCES/CONSUMES. Это ограниченный набор правил интерпретации, не пользовательский DSL. Другие семейства (например, статические IMPORTS или work prerequisites) не продолжают его closure без отдельно поддержанного правила и проверки. Общий словарь не переименовывается ради DIP.
+
+| Отношение/ситуация | Допустимый результат профиля |
+|---|---|
+| `P --PRODUCES--> D <--CONSUMES-- C` | CONSUMES задаёт C → D; при изменении D C — прямой consumer candidate. При изменении P C — кандидат через derived dependency C → P только при совместимых identity/revision D, аспекте изменения и установленном provider binding потребителя. При обоих применимых основаниях upstream(C) содержит прямые D и P; одно PRODUCES не добавляет D → P |
+| Несколько возможных P у D | Без exact provider binding нет зависимости C от каждого P; есть условный кандидат/неизвестный переход. Похожие label/type не создают join |
+| `TESTS` / `VALIDATES`: проверка → subject | Обратное чтение даёт revalidation candidate, не продолжение dependency closure. DIP `VALIDATED_BY` — допустимое объяснение обратного вида, не новая хранимая стрелка |
+| `BINDS_TO_CONTRACT` / `BINDS_TO_FEATURE` | Сопоставление и кандидат проверки соответствия при применимом изменении; не автоматически data-flow или утверждение «реализовано» |
+| `REFERENCES`, Target/Observed Mapping | Навигация/сравнение; не проводят transitive impact. Unsupported relation явно ограничена, а если нужна запрошенному профилю — профиль запроса отклоняется |
+| DIP `DEPENDS_ON` / `IMPLEMENTS` / `PERMITS` | Не импортируются как универсальные синонимы. Отдельная декларация требует явного поддержанного mapping смысла; PERMITS не участвует в dependency traversal и не выдаёт permission |
+
+Исторический неизменяемый D не меняется задним числом от изменения P: без подходящего аспекта изменения propagation через этот результат недопустима. Пути разных Target/Observed views и семейств отношений не смешиваются. Product/Data/Execution — предметные проекции, а не замена оси Target/Observed; переход между ними требует конкретного поддержанного отношения.
+
+Подтверждение каждого шага содержит исходные edge identities и направления, правило интерпретации, exact source revisions/locators, scope и применимость. Источник должен подтверждать именно вид отношения, не только наличие упомянутых объектов. В одной группе поддержки необходимы все её источники; между независимыми достаточными группами достаточно одной действительной. Потеря обязательного witness лишает силы эту группу, а не автоматически все остальные. Проверка source identity/hash не доказывает семантику или human acceptance; `REPORTED`/`SYNTHESIZED` остаются отдельными гипотезами.
+
+Текущая обязательная цепочка содержит только шаги с подтверждёнными основаниями, применимой актуальностью, текущей фазой, обязательностью и истинными условиями. Условия FALSE исключают переход; OPTIONAL/FUTURE/UNKNOWN, material conflict, stale и evaluation error дают явно ограниченный результат вне этой цепочки. Ошибка одного независимого пути не отменяет другой действительный witness. Если профиль поддерживает отдельно запрошенный исследовательский путь за неизвестным переходом, все его продолжения остаются гипотезами. Accepted expectation и отличающееся observation сосуществуют как основания Delta; это не автоматически конфликт authority.
+
+Результат различает число **исходных hops** и **dependency steps**: P → D ← C сохраняет два исходных hops; подтверждённый derived C → P считается одним dependency step. Прежние hop limits и output caps §10.1 не меняются. Профиль объявляет также конечные пределы dependency depth, посещений и рассмотренных связей; их исчерпание нельзя скрыть за pagination. Оба ограничения применяются, derived join не обходит raw-hop budget. Числа DIP 3/256/1024 не принимаются как новые defaults. Точные поддержанные limits относятся к profile binding, а структуры/алгоритм обхода и сериализацию выбирает исполнитель.
+
+Для одинаковых immutable inputs/profile/policy выдача детерминирована: дистанция, endpoint identity, witness identity; root attribution и ограничения сохраняются. Циклы завершаются в пределах budgets без включения root в собственные зависимые sets. Result-only filter не удаляет нужный промежуточный D; traversal filter ограничивает сам исследованный путь и отражается в coverage. Access/exclusion policy применяется до обоих: скрытый intermediary нельзя раскрыть через path, ID, count, error или cursor.
+
+Coverage сообщает четыре независимые границы: (1) inventory/прочитанный corpus с exclusions; (2) поддержанные predicate/profile и их область; (3) завершённость обхода, depth/resource cuts и неизвестные продолжения; (4) полноту представления результата/continuation. «Полно в объявленной модели отношений» допустимо только при достаточном corpus/predicate coverage и завершённом обходе без влияющих unresolved frontiers; это не `actual_program_impact_complete`. Полная последняя страница не делает частичное исследование полным. Недостаточный byte budget не удаляет существенные ограничения; действует прежний bounded error/continuation contract.
+
+Current query требует разрешённого current capture либо достаточного подтверждения неизменности области; явно historical query не становится current evidence. Continuation/result binding включает capture/generation, subjects, view, profile/revision, условия и аспект изменения, filters/limits/access policy. Изменение binding требует нового запроса. Новые consumers и изменение resolution могут затронуть старые неизменённые sources; проверка только прежнего reverse index недостаточна. Полное перестроение bounded scope допустимо; selective refresh остаётся оптимизацией с проверкой эквивалентности, включая joins, coverage и прежние отрицательные выводы.
+
+I/O и lifecycle остаются у существующего C-015/C-016: find/check не сохраняют cache, usage или hidden refresh; сохранение нового derived результата требует покрытого queued effect. При UPDATE consumers проверяют новую семантическую revision и cursor bindings; несовместимый старый результат не переинтерпретируется. DISABLE/REMOVE оставляют разрешённый direct flow с честной неполнотой impact, DELETE DATA требует отдельного scope и не удаляет owner facts/Evidence. FTR-021 не становится required query gate; собственную целостность входа проверяет FTR-017. [GR-DI01–10](03_Development.md#graph-rag-impact-verification) проверяют эти уточнения вместе с прежними GR-C01–10.
 
 #### Граф RAG: corpus, поиск и сравнение
 
@@ -1229,6 +1311,323 @@ pages, accepted snapshots и внешние records, ядро может чит�
 Обновлённый runtime/converter получает новую binding; старый pack не становится
 current автоматически. REMOVE implementation не удаляет пользовательские данные;
 DELETE DATA — отдельная authority. Сам модуль не имеет scheduler/completion owner.
+
+<a id="rbac-abac-contract"></a>
+
+### 10.3. rbac abac / FTR-031 — прикладной DRAFT contract
+
+[Product](01_Product.md#rbac-abac-product) и [FTR-031](06_Features.md#ftr-031-contract)
+задают WHAT минимального `2.0-candidate`. Это компонент в процессе приложения,
+не новый controller/PDP-сервис AOS. Public contracts ниже описывают логические
+границы, не обязательные имена функций или serialization.
+
+**Владение.** Host владеет identity, актуальными role assignments, tenant/project
+и object authorization, доменными данными, бизнес-переходами и каталогом полей.
+Каталог задаёт stable field IDs, типы, server mapping, ceilings допустимых
+role/field/action, обязательные условия и security attribute bindings.
+Единственный owner настроек — активная AccessModel в хранилище host: grants и
+версионная история. Каталог/роль/admin permission не редактируются этой моделью.
+UI, YAML export, документация и preview — производные; шаблон AOS не перезаписывает
+активные настройки. Одна active model относится к точно определённой области.
+
+**Два вида полномочий.** AccessDecision содержит request_id, policy_revision,
+scope, action, field ID, ALLOW/DENY и безопасную причину. Эти два значения —
+решение о прикладном доступе, не расширение technical enum C-009 и не C-011.
+DRAFT/ACTIVE/RETIRED также относятся только к AccessModel. MANAGE_FIELD_ACCESS
+выдаётся приложением; scoped применение модели не требует development approval
+на каждую настройку. Coding agent по-прежнему действует по Core и C-005/C-006;
+FTR-019 не заменяет object/field authorization приложения и наоборот.
+
+| Логическая точка / producer → consumer | Необходимое содержание и результат | Ошибка / граница |
+|---|---|---|
+| resolve_subject: identity/role services host → evaluator/admin | Проверенная identity, текущие роли и их scope; доверенность и актуальность проверяются сервером | Клиентская роль/tenant не источник; missing/stale вход блокирует затронутое решение |
+| authorize_object: domain access host → field evaluator | Доступ к записи/области для точной READ/CREATE/UPDATE операции; pre-state или проверенный create context | Field grant только сужает разрешение; CREATE не зависит автоматически от object.READ |
+| field_catalog: schema/domain owner → editor/evaluator | Совместимые IDs/descriptors/server mapping, editable ceilings и подключённые attributes; правила NOT_LOCKED и server-owned полей | Неизвестная/нерассмотренная привязка закрыта; неподключённый шаблон недоступен; ошибка неиспользуемого атрибута не блокирует другие решения |
+| project_read: evaluator + row scope → serializer/UI | Индивидуальная разрешённая проекция до выдачи detail/list/create/update response | Скрытие в браузере не защита; response metadata имеет отдельный фиксированный контракт и не дублирует запрещённые значения |
+| validate_write: evaluator → domain mutation host | Решение по всему payload/точный allowlist до binding и effects, затем собственная business validation host | Одно запрещённое/неизвестное поле — отказ всего запроса; null/старое значение не исключение |
+| policy_store: уполномоченная admin operation → store/evaluator | Active revision, история, сравнение expected revision, единая публикация новой версии/pointer/change event | Подтверждённый отказ проверки/публикации оставляет прежнюю active; потеря ответа не доказывает отказ, unknown outcome выясняется до повтора |
+| admin_access: host admin authorization → editor/apply/rollback | MANAGE_FIELD_ACCESS в конкретной области, проверяется заново при mutation; bootstrap/recovery у host | Модель не назначает admin/роли, не меняет ceilings и чужую область; отсутствие admin READ не означает право чтения значений |
+| preview: synthetic fixture + model → тот же evaluator → admin explanation | Решение/объяснение для искусственного контекста, без выполнения action/impersonation | Результат не переносится как permit, draft не активирован, не-admin не получает policy dump |
+
+**Режим и совместимость обмена (§25.4, шаги 3–4).** Состав модуля — только
+FTR-031: editor/preview, evaluator и host adapter, без нового объединения FTR.
+В минимальном candidate вызовы идут напрямую через сервер host с ответом на
+текущий запрос. Это прикладной request/response, не режим DIRECT_READ C-015:
+write/apply/rollback могут иметь эффекты без очереди AOS. Собственных queued
+commands, subscribers и scheduler здесь нет; change event — сохраняемый факт
+в policy store, а не обещание доставки C-016. Если host уже имеет фоновые пути,
+они остаются в inventory и проходят enforcement либо закрываются.
+
+Предоставляемые возможности — field decision, read projection, write allowlist,
+admin apply/rollback и synthetic preview. Обязательные producers — семь host
+точек таблицы выше; фактические consumers — editor, serializer, domain mutation
+и policy store. FTR-032 — необязательный инструмент подготовки UX; отсутствие
+этого инструмента не отменяет обязательный editor внутри готового приложения.
+Ни один consumer не читает чужое storage в обход host interface.
+
+До первого зависимого вызова binding сопоставляет поддержанные версии public
+contract модуля, формата AccessModel, каталога/security bindings и каждого host
+adapter/consumer. Policy revision обозначает конкретные правила, не версию
+схемы. Неизвестный или несовместимый набор блокирует затронутый путь до effects
+и выдачи данных; старое имя поля/старый PASS не доказывают совместимость.
+Поддержанный старый reader допускается по явно проверенному mapping, иначе —
+явный отказ без silent conversion. Конкретные номера, encoding и способ
+проверки выбираются при Engineering Design; migration сохраняет исходные данные
+и не назначается автоматически. Изменение binding требует проверки его реальных
+consumers, а не всего каталога AOS.
+
+Граница effects: evaluator/preview сами не меняют доменные данные, active policy,
+роль или authority; project_read выдаёт только разрешённые значения. Domain
+mutation принадлежит host и допускается после validate_write и business checks.
+Apply/rollback меняют только разрешённую модель, её историю/pointer/change event;
+они не отменяют уже совершённые доменные writes. Собственное сетевое обращение,
+новый provider или доступ к данным за scope этим подключением не предоставлены.
+Audit host, если он требуется приложению, остаётся отдельным объявленным эффектом.
+
+**Application binding перед зависимой реализацией.** Связать exact ТЗ/бизнес-сценарии,
+объект и область, роли/админ-делегацию, версию каталога/модели/адаптера, supported
+field/action/condition и правила доступности security inputs. Перечислить реальные
+producers и все пути к защищённой сущности: serializers, detail/list, writes и их
+responses, filter/sort/search/export/reports/aggregate/bulk/subscriptions, aliases,
+background jobs и иные имеющиеся endpoints. Для каждого — проверяемая точка
+enforcement либо закрытый путь. Это ограниченная карта одного application binding,
+не новая глобальная registry и не поиск всех возможных пар FTR.
+
+Тот же binding задаёт domain defaults/creation context, pre-state и границу
+проверки/commit, response metadata, безопасные причины отказа, наблюдаемое
+восстановление и обязательные проверки по [Development](03_Development.md#rbac-abac-verification).
+При UPDATE host связывает policy/record version с фактическим применением; изменение
+до commit требует fresh оценки либо безопасного отказа. При CREATE решение использует
+серверные значения до client binding. SET_ON_CREATE без READ не запрещает создание;
+успешность записи сообщается без выдачи запрещённых полей по согласованному response
+contract. Неподдержанный режим не включается. Механизм транзакций, хранения и
+синхронизации — HOW; JSON Schema не доказывает эти гарантии.
+
+**Версии и восстановление.** Apply сверяет current admin permission, draft/catalog
+и expected_active_revision; модель, active pointer и change event публикуются
+совместно либо не публикуются. Event содержит actor/scope/старую и новую revision/
+изменение правил, без значений защищённых полей. При потерянном ответе сначала
+сопоставить исходный запрос, фактическую active revision, историю и event. Доказанную
+активацию не повторять; неизвестность не считать отказом и не компенсировать
+слепым rollback. Повтор после доказанного отсутствия эффекта заново проверяет
+authority/revision; конкурирующее новое состояние не затирается. Способ корреляции
+и атомарности выбирается host implementation, новый сервис журнала не требуется.
+
+Для CREATE/UPDATE доменной записи потерянный ответ также не означает отсутствие
+эффекта. Host связывает исходную операцию с наблюдаемым исходом/идентичностью
+записи и проверяет его до повтора; модуль не создаёт вторую запись и не повторяет
+write по одному timeout. Если исход недоступен в текущих полномочиях, повтор
+этой операции остаётся заблокированным до разрешённого выяснения состояния.
+Доказанный успех сообщается без выдачи запрещённых полей; доказанное отсутствие
+эффекта допускает новый вызов с актуальными policy, identity и pre-state.
+Способ корреляции/защиты от повторов задаёт host; отмена UI-запроса не доказывает
+отмену серверной операции. Это обязательство application binding, не использование
+C-012 AOS как runtime-журнала прикладных записей.
+
+Rollback — новая revision из старых правил с новой проверкой прав/совместимости.
+Межзапросного ALLOW/DENY cache в candidate нет; каждый новый запрос использует
+активную policy и актуальные роли. Новое поле UNREVIEWED/закрыто; совпадение имени
+не доказывает совместимость rename/type/source. Неизменённые поля работают только
+при подтверждённых descriptors и используемых attributes. Старые explicit-deny
+политики не импортируются автоматически. Поддержка версий фиксируется в binding;
+миграция и изменение бизнес-смысла требуют отдельного покрытого действия.
+
+**Lifecycle компонента.** Гарантии [§25.5](03_Development.md#module-connection-lifecycle)
+применяются к host binding, без обязательной очереди/registry AOS. Для операций
+над implementation действует authority задачи разработки; MANAGE_FIELD_ACCESS
+разрешает только прикладное управление правилами и не разрешает uninstall/migration.
+
+| Операция | Допуск, переход и проверяемый выход |
+|---|---|
+| ADD / ENABLE | Подготовить host identity/object/catalog/store и проверить совместимые consumers до открытия защищённых путей. До пригодной policy доступ закрыт; partial setup остаётся закрытым и восстановимым, не затирает существующие данные. UI может создаваться позже enforcement, но обязателен к общему результату |
+| UPDATE | Прекратить новые вызовы затронутого binding; учесть начатые read/write/apply/rollback. Дождаться завершения или подтвердить отмену, неизвестные effects выяснить до переключения. Только покрытая migration, затем проверка новых consumers перед открытием; старые вызовы не перенаправляются молча на новую семантику |
+| DISABLE | Отключение editor не выключает enforcement. При отключении enforcement сначала закрыть новые зависимые запросы, затем завершить/reconcile начатые операции; draining не выдаётся за disabled. Непригодная policy не открывает обход; inspection сохранённых данных требует соответствующих host прав |
+| REMOVE IMPLEMENTATION | Сначала disable/reconcile и проверка всех consumers. Обязательный consumer без проверенной замены блокирует удаление; закрытие endpoint защищает данные, но не выполняет обязательную функцию приложения. Исключить её можно только изменением согласованного scope. Убрать только owned bindings/implementation в разрешённой задаче, сохранить данные/историю; re-install не повторяет старые effects |
+| DELETE DATA | Отдельно определить exact datasets/owners, ограничения хранения, backup/recovery, зависимых consumers, незавершённые операции и delete authority по §25.5. Ни remove, ни admin apply, ни истечение срока хранения сами не разрешают удаление |
+
+FTR-032 может при выбранном UX-сценарии описывать UI этих правил, но не является
+required runtime dependency и не владеет AccessModel. Принятие UX-макета C-011
+не применяет policy; прикладное apply не принимает модель FTR-031 или код AOS.
+FTR-016/025 не становятся хранилищами runtime policy/change event: это host owners.
+Проверка/разработка самого компонента следует общему coding workflow; память и
+completion этого процесса остаются у существующего controller.
+
+<a id="recovery-contract"></a>
+
+### 10.4. Recovery / FTR-033 — DRAFT contract v0.2
+
+[Product](01_Product.md#recovery-product) задаёт результат,
+[Features](06_Features.md#ftr-033-contract) — поведение и REC cases. Recovery
+владеет смыслом Intake/Assessment, сравнением стратегий и составом next context.
+Он не владеет source project facts вместо их источников, человеческим решением,
+общим controller state, scanner, executor или новым хранилищем Project Memory.
+Состав — одна FTR-033 с внешними dependencies, без присоединения их FTR к модулю.
+
+**Subject, данные и чтение.** Один primary root, scope/coverage/exclusions,
+observed_at и manifest прочитанных bytes. Git binding включает доступные HEAD,
+branch, worktree/index и staged/unstaged/untracked; unborn/detached значения
+nullable с причиной. Directory использует manifest без git init. В manifest:
+relative path, entry type, digest прочитанного regular file с алгоритмом, значимые
+mode flags и link target как данные. Nested/submodule/внешние links не обходятся
+автоматически; непрочитанные/binary/large/secret-excluded части явно перечислены.
+Missing digest не заменяется фиктивным. Чтение по очереди не доказывает атомарный
+snapshot: backend даёт свою гарантию либо проверку согласованности с пределами.
+Drift не смешивается в один subject; только affected claims STALE/UNKNOWN.
+
+Source tree/VCS не изменяются; отчёт/continuity пишутся только в разрешённый
+external workspace. Остальная среда/network не разрешены этим фактом. Reader
+не исполняет target code/hooks/helpers/config instructions. Before/after equality
+доказывает лишь конечное равенство; zero-write claim требует наблюдаемой boundary
+и проверенных возможностей reader. Непроверенная часть NOT_RUN, не safe-by-name.
+Known credential stores/keys/secret .env/production datasets исключены; случайный
+секрет не попадает в prompt/output/Details. Разрешён redacted finding. Перенос
+пакета использует разрешённые relative locators/attachments, без raw credentials
+и раскрытия sensitive absolute root. Неизвестная data/provider boundary блокирует
+затронутое чтение/передачу, не безопасный intake.
+
+**Records: один семантический контракт, не executable schema.** Text/ID непустые,
+ID уникальны в session; Ref связывает id/revision/locator и digest либо null с
+ограничением. Digest именует алгоритм; Instant имеет timezone, неизвестное время
+не заменяется временем анализа. Claim/Evidence/Decision/Subject/Action refs
+типизированы. [] означает известное отсутствие, UNKNOWN — отдельный claim.
+Unknown enum, duplicate ID, missing required/незадокументированное поле или неверный
+тип дают contract error; boolean не revision/counter. Формат и parser — HOW,
+расширение требует явной schema revision, без угадывания принимающей стороной.
+
+| Record / логическая группа | Обязательное содержание и ограничения |
+|---|---|
+| SubjectIdentity | id, kind GIT_WORKTREE/DIRECTORY_SNAPSHOT, root_binding, observed_at, scope_paths, manifest_ref, coverage, freshness, limitations; только для Git: nullable head/branch, worktree_state, nullable index_binding |
+| Claim | id, statement, Core fact_class, source_refs, nullable subject_ref/observed_at, scope, limitations. OBSERVED_AT_SNAPSHOT требует subject/Evidence; HUMAN_ACCEPTED_FACT — подлинного exact decision, не названия файла |
+| CheckRecord | id, purpose, nullable required_for_action, method_ref, subject_ref, execution RUN/NOT_RUN, C-009 result, evidence_refs, limitations. NOT_RUN → result NOT_RUN; RUN требует actual outcome/Evidence. Imported run сохраняет старый subject/time, не объявляется исполнением текущей сессии |
+| Finding | id, symptom_claim_refs, nullable root_cause_claim_ref, affected_action, impact, resolution_step, evidence_refs; причина hypothesis, пока метод не различил альтернативы |
+| DispositionCandidate | id, disposition из Features, scope, rationale_claim_refs, benefits, costs_and_risks, unknowns, reversal_conditions; не selection, количественная оценка только с методом/assumptions |
+| DecisionBinding | decision_ref, subject_refs, scope, effect, origin_ref, actor, decided_at; projection проверенного C-011, не новый writer человеческой authority |
+| NextAction | id, purpose, target_stage PLAN, allowed_analysis_scope, out_of_scope, input_refs, completion_conditions, negative_checks, stop_conditions, unresolved_inputs |
+| A — Intake | schema_version/recovery_id/revision/created_at; intent_ref C-001; mode ADOPT/RECOVER; subject_request (не verified subject); nullable decision_owner_ref/output_workspace_ref; read_scope; data_boundary с explicit unknown; согласованный analysis_budget с единицей/значением; initial_unknowns ClaimRefs |
+| B — Assessment | schema_version/recovery_id/revision, intake_ref, subject_ref, coverage, claims/checks/findings/candidate_dispositions, nullable recommended_candidate_id, limitations, next_action, created_at. Families product_state/technical_state/behavior_state/delivery_state/source_authority_map имеют claim_refs и limitations |
+| C — Decision + Handoff | schema_version/recovery_id/revision, assessment_ref, recovery_state, nullable decision_binding/MMB/first_recovery_slice, handoff, created_at. До human event — DRAFT с decision null. Handoff: target_stage PLAN, input_refs, must_recheck_on_resume, missing_contracts, execution_authorization_ref null, git_authorization_ref null, nullable receipt_ref |
+
+B различает observed/desired/protected behavior; последние ссылаются на принятый
+источник либо proposal/unknown. Build/run/test entrypoints — claims о declarations,
+исполнение только в CheckRecord. last_known_good требует subject, критерий good,
+Evidence/limits либо UNKNOWN; tag не доказывает restore. data_state отдельно
+описывает сведения о DB/migrations/services/backup, не выводится из Git.
+Без verified subject сохраняется Intake/явно incomplete draft, а не фиктивно
+полный B. Partial coverage допустима при пригодном ограниченном subject.
+Упаковка C не создаёт новых фактов. Receipt — не C-011 и не transport ack.
+
+**Привязка выбора к C-011.** Recovery dispositions не расширяют enum человеческих
+решений ACCEPT/NEEDS_CHANGES/REJECT/DEFER. Перед подтверждением показать exact
+Assessment revision, выбранный DispositionCandidate и NextAction с её scope/stage.
+DecisionBinding.effect сохраняет ссылки на этот выбор и next objective из
+проверенного C-011; это projection, не inference по recommended_candidate_id.
+Общее ACCEPT отчёта с несколькими вариантами без определённого выбора не допускает
+PREPARING_HANDOFF. Уже принятое exact направление/задание не спрашивать снова;
+смена рекомендации агента сама не меняет выбор человека. DEFER/REJECT отражают
+паузу/отказ продолжать, но не разрешают архивирование, deletion или исполнение.
+
+**Получение пакета и начало работы — разные события.** Receipt связывает свою
+identity/origin, receiving workflow/consumer, exact package revision/digest,
+NextAction ref/stage PLAN и результат проверки доступности required input refs
+в разрешённой среде receiver. Его producer — принимающая сторона, не отправитель
+Recovery. C-016 delivery ack без такого результата не становится receipt.
+Неверный subject/receiver, missing input или непроверенный origin оставляют
+HANDOFF_PREPARED с причиной; receipt старой редакции не относится к новой.
+Подтверждение получения не создаёт автоматически новую C-005, ACTIVE C-012 либо
+запуск PLAN. Принимающая FTR-006 отдельно формирует task по текущему поручению;
+если задача уже существует, связывает пакет с ней без повторного создания.
+Один logical handoff operation при redelivery возвращает прежний receipt;
+тот же operation с иным payload отклоняется по C-016. Это не global exactly-once
+обещание, а проверяемая привязка конкретной доставки/приёмки.
+
+<a id="recovery-mmb"></a>
+
+**Minimum Managed Baseline — единственное определение.** Versioned evidence-bound
+вход одной NextAction, не global SoT/backup/authorization. Required fields:
+
+| Поля | Смысл |
+|---|---|
+| subject_ref, assessment_ref, goal_ref | Exact subject/scope, immutable assessment и подтверждённая цель next task |
+| decision_refs, source_refs | Применимые решения направления/scope/protected behavior; минимальные разрешённые inputs с fact class/назначением |
+| critical_flow_refs, entrypoint_claim_refs, check_refs | Flows/entrypoints либо explicit UNKNOWN для задачи уточнения; actual и необходимые NOT_RUN проверки |
+| preservation_refs, blocker_refs, unknown_refs | Пользовательские изменения, protected behavior/data, ограничения и affected actions |
+| last_known_good_claim_ref | Scoped подтверждение либо explicit UNKNOWN |
+| next_action_ref, recheck_refs | Одна NextAction и mutable facts для проверки до применения пакета |
+
+Условие достаточности — Features: missing input может быть предметом безопасного
+PLAN, но не исчезает из required inputs другой задачи. Нет blanket acceptance
+каждого наблюдения. Если направление/next objective уже подтверждены, повторный
+Human Gate неизменного scope не нужен.
+
+**Runtime composition C-015/C-016.** В отличие от прикладного FTR-031, Recovery —
+модуль самого AOS. C-015 связывает recovery revision/FTR-033 с exact accepted
+contract, handler/instance/generation, версиями records/interfaces, capabilities,
+support envelope и finite C-016 profile; это описание будущего подключения,
+не найденные APIs и не разрешение активации. FTR-010 регистрирует/доставляет,
+FTR-016 сохраняет, FTR-009/019 проверяют допуск. Предлагаемые operation names ниже
+логические; точная command grammar/transport — Engineering Design.
+
+| Producer → consumer / contract | Когда required, режим и fallback |
+|---|---|
+| FTR-001 / C-001 → Recovery intake | Intent всегда нужен; actual user input с provenance допустим вручную, не invented owner decision |
+| FTR-009/019 / C-007 и текущая C-006 → разрешённый collector FTR-002 → Recovery | До instrumented read: subject/capability/scope/authority. Нет safe reader → intake/import bounded evidence, не обход на target helper |
+| FTR-002/C-010 и принятые C-002/C-003 sources → Assessment | Read доступных observations/desired/protected refs; unsupported часть UNKNOWN, не собственный второй scanner |
+| FTR-011/012 / C-009/C-010/C-011 → Recovery | Check outcomes, Evidence/origin и exact decision. Manual records допустимы только с проверяемым origin; иначе authority-dependent transition blocked |
+| Recovery → FTR-008 и читатель пакета | DIRECT_READ сохранённого summary/context: registration/version/scope checks, без скрытого persistence/следования refs за data boundary |
+| Recovery → FTR-016 через FTR-010 / C-016 → saved revision | QUEUED_COMMAND только по отдельному допустимому task/stage binding записи external output, не из read-only PLAN. Один operation/subject/expected output base/authority binding; partial/duplicate/error по общему transport |
+| Recovery → FTR-003/006, FTR-016 / C-016,C-012 | QUEUED_COMMAND разрешённой передачи exact package с отдельным effectful binding; receiver проверяет refs/revision и возвращает receipt. C-012 текущей задачи сохраняет observation; новая задача не создаётся по ack |
+| FTR-014 + controller → восстановление записи/сессии | При unknown effect/interruption, до retry; последний complete artifact остаётся читаемым. Нет другого scheduler/current-state owner |
+| FTR-004 / C-013; FTR-005 / C-004; FTR-010/011/013 | Только отдельные optional install/architecture support/последующие execution-validation tasks. Не prerequisites static assessment; они не запускаются по рекомендации Recovery |
+
+Recovery читает текущие C-005/C-006 своей задачи, но не заполняет полномочия
+будущего ремонта из них. Null execution/Git refs в handoff относятся к следующей
+работе; текущий разрешённый output persistence имеет собственный проверенный
+binding. Нет разрешения на output → transient summary, durable handoff не заявлен.
+DIRECT_READ не пишет product state; effectful requests идут через существующий
+controller/admission. Служебный COMMAND не получает C-006A с lifecycle PLAN:
+при использовании этого маршрута требуется действующая задача разрешённого
+persistence/delivery с допустимой EXECUTE стадией и fresh envelope, ограниченным
+только external output/receipt. Это не EXECUTE ремонта и не разрешение target code.
+Recovery не переводит standalone PLAN в EXECUTE автоматически и не запускает
+служебную задачу по собственному решению. Если такого binding нет, возможны
+подготовка/transient output или разрешённое документальное сохранение по §9
+Development; они не объявляются выполненным C-016 journey. Exact профиль должен
+назвать фактически поддержанный путь. Отдельно выданное разрешение на одну такую
+задачу не требует повторного human approval каждого её штатного сохранения.
+QUEUED_EVENT нужен только при объявленном реальном subscriber;
+новые подписчики и обязательный event bus не добавляются этим candidate.
+
+**Durability/resume.** External sidecar — место размещения records, не новый owner
+controller state. Complete revision публикуется атомарно/принятым primitive через
+FTR-016; partial не заменяет последнюю полную, tmp не единственное Evidence.
+До публикации writer проверяет expected base внешнего output: конкурирующая
+revision не затирается, stale writer получает conflict/reconciliation. Source
+subject и output revision — разные identities; неизменный HEAD source не
+доказывает неизменность sidecar. При lost response сопоставить operation, сохранённые bytes/base, delivery state и
+receipt до retry; не дублировать C-011. Mutable inputs recheck перед handoff/resume,
+старый business intent сохраняется, но не даёт authority новым effects. После
+передачи ongoing state принадлежит C-012 workflow; Recovery records historical,
+не второй editable current. Receiver unavailable оставляет prepared без receipt.
+Sensitive retention/deletion boundary определяют до записи, путь/serializer — HOW.
+
+**Lifecycle §25.5.** ADD/ENABLE требует совместимого C-015, объявленных capabilities,
+разрешённых config/storage и проверенных journeys допускаемых операций до включения;
+partial registration остаётся inactive/recoverable. Reader/writer/receiver required
+по соответствующей операции таблицы: нет receiver — запрещён HANDED_OFF, но возможен
+Assessment/prepared; нет writer — только разрешённый transient результат. Не объявлять
+полную capability по одному degraded пути. Установка самого модуля в AOS не означает installation
+в обследуемый source root. UPDATE прекращает affected delivery, reconcile in-flight,
+сохраняет старые records/messages и применяет лишь покрытую migration; unknown version
+не получает silent conversion. DISABLE закрывает новые вызовы/enqueue, pending удерживает
+с причиной, in-flight выясняет до disabled. Saved packages читаются разрешённым
+независимым reader. REMOVE требует disable/reconciliation и замены required consumers,
+снимает только owned bindings/code; пакеты, human decisions и source не удаляются.
+Re-install не повторяет старые сообщения. DELETE DATA — отдельно по §25.5 с exact
+datasets/owners/retention/backup/consumers/authority; удаление sidecar не меняет source.
+
+Нельзя создать цикл recovery → install в target → recovery. Manual review внешнего
+пакета возможен до runtime-модуля, но не доказывает C-015 integration. Проверки —
+[Development](03_Development.md#recovery-verification), inputs/profile UNKNOWN.
 
 ## 11. Адаптеры агентов
 
