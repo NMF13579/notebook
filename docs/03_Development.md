@@ -849,6 +849,35 @@ vertical slice и найденные позднее пропуски. Эти п�
 
 Для scaffold/core подготовлено точное уточнение этого порядка в [Product §17](01_Product.md#scaffold-core-outcome): технические срезы и positive/negative проверки выполняются внутри исходного интервала, а human usability evidence собирается отдельно. Это SCAFFOLD_CORE_DRAFT/SC-DEC-01; оно не объявляет пользовательский dogfood уже выполненным.
 
+<a id="quality-requirements-verification"></a>
+
+#### Условия качества FTR-003: применение и ограниченная проверка — DRAFT
+
+Предмет — [производное представление](06_Features.md#quality-requirements-behavior) существующих требований, их применимость и передача по [C-002/C-003 → C-005 → C-009](02_Architecture.md#quality-requirements-contract). Это уточнение текущего Spec/Brief flow по §25.4–25.7, без новой фичи, quality schema, отдельной активации или изменения трёхсценарного pilot выше. Предварительная документационная репетиция одного условия не доказывает автономную готовность всего интервью.
+
+QR-C01–12 — контрактные сценарии, не написанные или выполненные runtime tests. Исходные критерии FTR-003/005/006/011 сохраняются. Для каждого отрицательного варианта остальные входы корректны; случаи выполняются по отдельности. Sources/decisions и числа в fixtures искусственные и не принимаются как реальные human decisions/пороги AOS.
+
+| Case | Вход/нарушение | Ожидаемый результат и стык |
+|---|---|---|
+| QR-C01 | Мелкая правка надписи без новой material concern; отдельно есть применимое product constraint, но quality-раздел отсутствует | Новый раздел/опрос не обязателен; исходное constraint сохраняется в C-002/C-005. Отсутствие раздела не NOT_APPLICABLE и не доказательство полного NFR coverage |
+| QR-C02 | Пользователь не знает допустимую потерю данных, а задача выбирает поведение сохранения | Один unknown с affected decision/resolution step; зависимое решение не выдумано. Независимая подготовка ТЗ/read-only PLAN продолжается; специальные Product-правила о непредоставленных данных не заменены общим запретом |
+| QR-C03 | Источник говорит только «быстро»; агент записал «200 ms» | Точный порог отвергнут как не происходящий из источника; исходные слова и кандидат понимания сохранены, открытый вопрос видим |
+| QR-C04 | Один факт в C-003 и производная строка; отдельно строка содержит независимо изменённый порог | В первом случае один owner/ref, во втором conflict/предложение owner correction. Изменение производной строки не обновляет принятое требование само |
+| QR-C05 | Product QR-P@1 действует для всех фич; C-002 предлагает исключение для F1 со ссылкой лишь на draft. Затем fixture даёт применимое decision для F1 | До решения действует QR-P@1; после действительного binding исключение только F1, остальные сохраняют QR-P@1. Чужая revision/scope либо попытка отменить safety не допускают ослабления |
+| QR-C06 | Условие взято из ответа/переданного документа; отдельно source locator недоступен или предложение агента выдано за подтверждённое | Сохраняются wording, source/revision и реальный статус; недостаток provenance видим. Нормализация не синтезирует принятие |
+| QR-C07 | Рекомендация «Redis» без исходного ограничения; отдельно явное принятое требование использовать совместимый интерфейс; обычная правка без architecture consequence | Рекомендация остаётся solution candidate, исходное условие UNKNOWN; явное constraint не стирается как «неправильное». FTR-005 получает только material вопрос и может вернуть no-need; ADR не создаётся от метки concern |
+| QR-C08 | Synthetic QR-P@1: «не менее 95 из 100 ответов поиска ≤500 ms при 20 одновременных пользователях на dataset D@1 в E@1»; declared метод M@1 и пригодный subject известны | C-003 хранит факт, C-002 ссылается, FTR-006 создаёт check с отдельным ID и QR-P@1 ref, условиями D/E/M. Несколько checks могут ссылаться на QR-P@1 без collision. Проверка пустой базы не заменяет заданную; ни число, ни метод не изобретены compiler |
+| QR-C09 | У required check нет пригодного метода/запуска; отдельно imported valid check по exact subject с отрицательным результатом | NOT_RUN/FAIL остаются видимыми, aggregate не PASS; запись по схеме кандидата `result` вместо текущего C-009 не принимается молча. Positive действительный набор результатов проходит только по полному C-009, без Human ACCEPT |
+| QR-C10 | После C-005 requirement/deviation изменён; отдельно старый документ без quality-полей либо consumer не понимает representation | Зависимый Brief/check binding пересматривается, старый PASS historical. Legacy constraints читаются без обязательного backfill; unsupported представление не отключает требования: supported canonical route либо явный gap |
+| QR-C11 | Недоступна runtime FTR-005/011 или representation выключено; отдельно FTR-023 не выбрана | Документальная подготовка продолжается по sources; runtime availability/check остаются UNKNOWN/NOT_RUN. Нет фиктивного запуска, обязательной CI или объявления supporting control невыбранным заново; выключение представления сохраняет Spec/Brief |
+| QR-C12 | Прерывание между source и сохранением; новый сеанс; повтор передачи; отдельно FTR-003 и FTR-006 локально корректны, но стык потерял requirement ref/условие | Возобновление читает последнюю подтверждённую revision и сверяет source; не заявляет несохранённый output durable, не повторяет effect без reconciliation. Потеря requirement на стыке не закрывает общий критерий. Quality/decision/validation не создают C-006 или Git authority |
+
+Ожидания задаются по исходным требованиям, независимо от нормализатора/compiler. «Всегда UNKNOWN», пустой список или заполненные поля при потере смысла не проходят QR-C01/05/08 и положительный сквозной путь QR-C12. Два исполнителя могут выбрать разные Markdown layout или методы при сохранении применимых критериев; свобода HOW не разрешает другой порог/нагрузку или silent override.
+
+Следующий bounded experiment после выбора предмета: одна реальная фича, обычно 1–3 существенных условия, без жёсткого потолка при подтверждённой необходимости. Сравнить исходный constraints/acceptance путь с производным представлением на тех же sources; одно условие передать в проект C-005, material architecture question — в need/no-need FTR-005. Результат документационного прохода — reviewable requirement/ref/check plan, а не фактический PASS. Реальное измерение требует пригодных subject/method/environment и отдельного scope на выполнение через текущий workflow, вне notebook runtime.
+
+До эксперимента назвать вопрос, read/output boundary, бюджет и допустимую нагрузку на человека. Измерить найденные существенные unknowns/исправленные решения, повторные/лишние вопросы, clarification loops и затраты оформления/контекста; подготовку представления учитывать. Польза — улучшенное конкретное решение или ранее выявленный material gap при заранее допустимых затратах. «Предотвращённый rework» без наблюдаемого сравнения остаётся гипотезой. При отсутствии пользы оставить обычные constraints/metrics/acceptance, не удаляя требования и не расширяя механизм. Permanent schema/автоматизация требуют отдельного обоснования; текущие pilot/измерения/runtime/independent review — NOT_RUN.
+
 <a id="repository-graph-pilot"></a>
 
 ### 22.2. Проектный граф: рабочий цикл и pilot — PROPOSAL
@@ -952,6 +981,29 @@ Slice 1 охватывает применимые AC-01–03, AC-09–10, AC-12�
 | GR-C10 | Coverage/oracle: top-k miss, new incoming relation, partial parser, ambiguous mapping, future expectation | Independent source-set показывает правильные MATCHED/UNVERIFIED/PLANNED_DIFFERENCE и limitations; нулевой recall/всегда UNKNOWN не проходит positive |
 
 Применимые прежние FTR-017.S1/S2/N01–03 сохраняются. Core regression включает обычный direct-source Context Pack без модуля, раздельные selection/authority/result и отсутствие изменения human/task owners. Effects измеряются независимо: declared expected fields адаптера, static PASS и supplied-values unit tests не подтверждают sandbox/capture/persistence/installed journey.
+
+<a id="graph-rag-impact-verification"></a>
+
+#### Уточнения impact из DIP-R1: GR-DI01–10 — DRAFT
+
+Это контрактные примеры к [FTR-017](06_Features.md#graph-rag-impact-behavior) и [C-015](02_Architecture.md#graph-rag-impact-contract), не исполняемые тесты. Исходные G01–38/R01–24, 96 R3 cases и GR-C01–10 сохраняются. Новый namespace не смешивает DIP AC-01 с R3 AC-01. Runtime/installed execution всех GR-DI — `NOT_RUN`.
+
+Первый полный путь добавляется в LINKED_CONTEXT: разрешённый source → поддержанное PRODUCES/CONSUMES основание → `find/v1` с impact profile → объяснение caller/FTR-016 → host; затем material negative и обычный find без impact. TARGET_OBSERVED и CONTINUITY_AND_PRODUCT используют те же правила в своём scope. Новый parent, scheduler или обязательный selective-refresh этап не создаются. GR-C01–09 продолжают проверять реальную registration, read/effect boundary, C-016 writer, lifecycle и parent completion; таблица ниже уточняет смысл ответов.
+
+| Case | Synthetic stimulus и независимый expected outcome | Критерии FTR-017 |
+|---|---|---|
+| GR-DI01 | P PRODUCES D, C CONSUMES D, exact provider/version binding: downstream(P) содержит прямого C; upstream(C) — P. Witness содержит обе исходные стрелки, 2 raw hops / 1 dependency step. При изменении D C — прямой consumer candidate; неподходящий аспект immutable historical D не проводит влияние P | G03/G38, R10 |
+| GR-DI02 | Обозначение X ⇒ Y означает независимо заданную допустимую зависимость X от Y, обеспеченную fixtures PRODUCES/CONSUMES. B ⇒ A, C ⇒ A, B ⇒ C: downstream(A) direct={B,C}, transitive={}; дополнительный путь до B сохранён. Без B ⇒ A: direct={C}, transitive={B}. Stale короткий путь не вытесняет valid длинный; цикл не включает root и завершается; у двух roots отдельная attribution | G03/G04/G11 |
+| GR-DI03 | REFERENCES-only endpoint не зависим; TESTS/VALIDATES возвращают только revalidation candidate. Target B ⇒ A и Observed C ⇒ B не дают смешанного пути A→C. PERMITS не даёт grant; исторический PASS не становится current | G10/G25/G34/G37/G38 |
+| GR-DI04 | TRUE/current/required проходит; FALSE не проходит; OPTIONAL/FUTURE/UNKNOWN, evaluation error и conflict не попадают в текущие обязательные sets. Исследовательское продолжение остаётся гипотезой; accepted file с draft relation не повышает authority | G03/G10/G29 |
+| GR-DI05 | Одна поддержка требует источники S1+S2, альтернативная — S3. Удаление S1 оставляет связь по S3; удаление также S3 лишает current support. History сохранена. Потеря альтернативы видима, valid witness не обнуляется | G11/G32 |
+| GR-DI06 | P1/P2 производят похожий D, C не привязан к provider: нет декартова списка подтверждённых зависимостей. После exact binding к P2 подтверждён только P2. Запрос D.field при entity-only model явно coarse; неизвестный/неоднозначный subject не заменён похожим | G26/G27/G38, R24 |
+| GR-DI07 | Partial parser, depth/node/edge cutoff, пустой partial ответ и несколько страниц: corpus/predicate/traversal/presentation различимы, caveats не исчезают. Result-only filter «component» сохраняет intermediate D; raw-hop cutoff не обходится derived step. Hidden D не раскрыт ни путём, ни counts/cursor | G08/G09/G27, R08/R11/R13 |
+| GR-DI08 | Same HEAD + новый untracked consumer либо новый resolver binding при старых source bytes: current result требует достаточного recapture. Selective refresh, если реализован, совпадает с bounded full rebuild по semantic result/support/coverage; historical result остаётся historical | G11/G30/G31/G32, R12 |
+| GR-DI09 | Повтор exact inputs даёт одинаковый semantic output; valid continuation сохраняет query/profile/policy bindings. Другой view/profile/generation/доступ, bool вместо integer limit, неизвестный enum либо несовместимый old consumer явно отклоняются. Обычный find и разрешённый fallback работают, но fallback не сообщает полный impact | G18/G21/G38, R14/R24; GR-C01/C06 |
+| GR-DI10 | Public source→find→context→host positive действительно находит consumer; намеренно REFERENCES-only path исключён. Реальный потребитель теряет view/limitation или выдаёт test PASS — общий путь не проходит даже при unit PASS. Повтор в новом процессе использует проверенные bindings; query не пишет, сохранение отдельно проверяется GR-C03–06 | G12/G17/G19/G23/G35/G37, R18/R20; GR-C07/C09 |
+
+Если case не меняет условие явно, fixture имеет разрешённый полный scope, действительные current/required/TRUE source bindings и конечные budgets, достаточные для ожидаемого пути. В GR-DI01 полный upstream(C) равен direct={D,P}, transitive={}; downstream(P) direct={C}, transitive={}: одно PRODUCES не создаёт D → P. Oracles задаются из вручную проверенного source-set/бизнес-сценария до вызова evaluator. Ответ по case ID, всегда пустые sets/UNKNOWN или граф, генерирующий собственную «истину», не проходят positive cases. Actual runtime defect нельзя вывести из этих topology fixtures; проверка реального эффекта принадлежит соответствующему сценарию приложения. Сравнение пользы ниже дополнительно учитывает ложные impact candidates и пропущенных значимых потребителей, раздельно от точности Delta; подготовка карты не предоставляется экспериментальной группе бесплатно.
 
 #### Ограниченное измерение полезности
 
@@ -1806,3 +1858,209 @@ EXPORT_CONTEXT не требует успеха ещё не реализован
 принятых результатов отношение не определено. Security/schema/behavior/usability
 выводы раздельны, результаты и экономия сейчас NOT_RUN/UNKNOWN. Пилот не заменяет
 историю автономной разработки модуля MOD-A01…05 и реальный host continuation.
+
+<a id="rbac-abac-verification"></a>
+
+### 25.9. FTR-031: подготовка и проверка доступа к полям — DRAFT
+
+Применение §25.4–25.7 к [FTR-031](06_Features.md#ftr-031-contract), не новый
+протокол. [Product](01_Product.md#rbac-abac-product) задаёт результат,
+[Architecture](02_Architecture.md#rbac-abac-contract) — application binding/стыки,
+[brief](../workspace/AOS_RBAC_ABAC_MODULE_IMPLEMENTATION_BRIEF.md) — маршрут чтения.
+Создание модуля coding agent и настройка работающего приложения его пользователем
+различаются: C-005/C-006/controller относятся к первому процессу; второй проверяет
+MANAGE_FIELD_ACCESS host и не получает AOS authority от успешного apply.
+
+Перед coding plan собрать выбранные бизнес-сценарии и independent expected
+outcomes, каталог/модель и inventory реальных путей к сущности. Для каждого пути
+из Architecture указать binding enforcement либо проверяемый отказ. Обязательный
+для приложения канал не исключается агентом ради PASS. Schema/fixtures получают
+один supported contract; отсутствующие EXAMPLE/SCENARIOS не восстанавливаются по
+названиям. До запуска известны target, scope, effects/outputs, checks/oracles,
+finite limits и host continuation по §25.1. Parser/framework/storage остаются HOW.
+
+Собирать по порядку доступности: host identity/object/catalog/store contracts →
+field decision и защита серверных путей → editor/preview/apply → integrated check.
+Первый store/каталог не требует работающего редактора, bootstrap admin даёт host.
+Точный порядок внутренних работ выбирает агент; защита обязательна до открытия
+соответствующего пути. Один C-005/C-006 и существующий §10/§25.2 охватывают создание
+выбранного компонента и интеграций; обычная correction не требует нового product
+выбора. Если компонент внутри пользовательского проекта, действует §25.0: C-015/
+C-016 и SC-T14 ядра AOS не становятся тестами его прикладных запросов. Если работа
+затрагивает само ядро, проверяются действительно affected core paths.
+
+| Группа | Метод и независимое основание | Предел результата |
+|---|---|---|
+| POLICY — RA-T01–08 | Бизнес-сценарии → ожидаемые ALLOW/DENY с причиной; отдельно комбинации ролей, операций, scope, false/error и несовместимые inputs | Expected values не генерируются тем же evaluator из тех же grants; совпадение schema и evaluator не доказывает бизнес-истину |
+| ENFORCEMENT — RA-T09–17 | Прямые вызовы реальных API, наблюдение response bytes и доменных effects; каждый endpoint/serializer из binding имеет положительный путь либо проверенный отказ | UI masking, mock serializer и локальный evaluator PASS не доказывают серверное применение; защищённый write не оставляет partial effect |
+| ADMIN — RA-T18–23 | Actual active revision/history/change event, current admin scope; conflict, потеря ответа, rollback, drift и отключение по Architecture | Доказательство отсутствия эффекта требует наблюдения host, не отсутствия ответа; имя роли не доказывает admin permission |
+| UX — RA-T24/25 и RA-U01–06 ниже | Непрограммист выполняет задания на безопасных искусственных данных и объясняет итог; результат сравнивается с заранее заданным бизнес-смыслом | Авторская репетиция документа не является usability trial; отсутствие ошибок evaluator не доказывает понятность матрицы |
+| Общий результат — RA-T26 | Изменить правило → проверить пример → применить → наблюдать новые права в реальном API/UI → отказной тест и сохранённая revision | Один editor или постоянный DENY не закрывает путь; корректные части при обходном endpoint не дают общий PASS |
+
+**Применимость протокола совместимости.** Шаги §25.4 выполняются для одного
+FTR-031 и его host-приложения. C-015 registration, C-016 delivery/ack и queue
+generations неприменимы к этому runtime по §25.0; их отсутствие не исключает
+проверку реальных interfaces, версий, data/effects и lifecycle из Architecture.
+Change event не считается очередью. Если позднее предложено подключение к самому
+ядру AOS, оно требует отдельного contract scope, а не наследует этот вывод.
+
+| Шаги §25.4 / применимый контроль | Основание и проверка для FTR-031 |
+|---|---|
+| 1–2: предмет и поведение | Product + dossier: прикладные поля, DEFERRED/DRAFT, RA-T01–25; нет дублирования FTR-019 и нового объединения с FTR-032 |
+| 3–4: композиция, interfaces и versions | Architecture §10.3: host producers → evaluator/adapter → serializer/domain/store; RA-C01/05 и RA-T09–17 проверяют совместимость и обходы. При достаточных host contracts первый editor не нужен для bootstrap store |
+| 5: lifecycle | Все операции ADD/ENABLE, UPDATE, DISABLE, REMOVE, DELETE DATA из Architecture; RA-C02–04 вместе с RA-T18–23. Required consumer нельзя объявить optional ради удаления |
+| 6: semantic readiness / MOD-A06 | К1–К10 и реальные consumer paths; RA-T09/16/26 отвергают unit PASS с неправильным serializer. RA-C04 различает потерю ответа и отсутствие эффекта. Runtime отказ не равен качественной неполноте документации |
+| 7–8: автономная сборка / MOD-A01–05 | Один parent выбранного приложения по §25.0/§10.5, текущие criteria/authority/ledger и real integrations. MOD-A02 проверяет стык с host, MOD-A05 — регрессию его обязательных сценариев; C-015/C-016-специфическая часть MOD-A07 для 005+022 сюда не переносится |
+
+RA-C01–05 — проверки интеграции/lifecycle по existing protocol, не отдельный gate.
+Для Evidence каждого выполненного случая связать exact module candidate,
+host/adapter и model/catalog versions, policy revision, request/subject, проверенный
+путь, метод, ожидаемое/наблюдаемое и фактические effects. Прежний PASS другого
+набора не переносится. Несовместимость блокирует affected path; корректные
+независимые paths не становятся ошибочными автоматически. Техническое завершение
+всё равно требует всех обязательных сценариев выбранного приложения.
+
+Локальные RA-* введены при адаптации сообщения и не объявляются IDs отсутствующего
+SCENARIOS.yaml. Все runtime/security/usability проверки NOT_RUN. Ошибка реализации,
+требования, checker или среды различается по §10.3; ненадёжный oracle исправляется
+отдельно, критерии не ослабляются. Повтор без новых сведений использует §10.4,
+interruption — §10.2 с общим ledger/authority и actual effects. Finished tasks
+не возобновляются из-за необязательного улучшения.
+
+**Шесть пользовательских задач — PROPOSAL пилота.** Основа —
+[документальный fixture](06_Features.md#rbac-abac-cases). Каждый вариант стартует
+от своей явно изменённой копии; настройки реального приложения не затрагиваются.
+
+| ID | Задание / изменённый начальный draft | Заранее заданный результат |
+|---|---|---|
+| RA-U01 | editor.UPDATE title дан без условия; настроить «редактор меняет только своё» | D1 разрешён, D2 запрещён; OWN_RECORD виден |
+| RA-U02 | У editor добавлен READ internal_notes; закрыть внутренние заметки | Для U1 нет READ notes; manager сохранён |
+| RA-U03 | У editor отсутствует SET_ON_CREATE external_code; разрешить заполнение при создании | SET_ON_CREATE разрешён, UPDATE по-прежнему недоступен по каталогу |
+| RA-U04 | Проверить изменение D3.title | Запрет по LOCKED понятен; дополнительная роль не снимает ограничение |
+| RA-U05 | Снять editor.READ title у U1 с editor+viewer и объяснить итог | READ сохраняется от viewer; «не выдано этой ролью» не принято за общий запрет |
+| RA-U06 | Бизнес-правило «notes только manager»; намеренно добавлен viewer.READ notes | Найти и убрать ошибочный grant, проверить combined result; расширение не осталось незамеченным |
+
+Предложенный критерий из источника: все шесть задач завершены без редактирования
+кода, ни одно намеренное ошибочное расширение не пропущено. Фиксировать итоговую
+матрицу, ошибки, обращения за помощью, время и ограничения выборки в существующем
+отчёте §12; состав участников/первое приложение не назначены. Не приписывать этим
+заданиям реальные результаты. Для оценки пользы учитывать также подготовку,
+correction и интеграцию по Product §13; неизвестные значения не заменять нулями.
+
+Перед техническим завершением §10.5 проверяет current candidate, все обязательные
+пути binding, критерии фичи/реальных стыков, reconciled effects и сохранённый state.
+При изменении grants/catalog/security bindings/roles/adapter/response повторить
+затронутые POLICY/ENFORCEMENT/ADMIN/UX проверки; неизвестное влияние расширяет
+проверку или ограничивает итог. Смена примера не доказывает новую runtime revision.
+
+<a id="recovery-verification"></a>
+
+### 25.10. Recovery / FTR-033 — подготовка, совместимость и проверка DRAFT
+
+Применение §25.4–25.7 к [Recovery](06_Features.md#ftr-033-contract), не новый
+протокол и не полномочия на pilot. Две разные задачи: создание самого модуля
+по §25.1/§10 и работа будущего модуля над existing project. Успех второй не
+доказывает автономную историю первой, а HANDOFF_PREPARED не завершает ремонт.
+
+**Будущее использование.** Static discovery/assessment — bounded PLAN с отчётом
+и stop; human disposition отдельно, подготовка handoff в следующей разрешённой
+PLAN task. Стадии и их permissions принадлежат текущему workflow, recovery_state
+их не заменяет. Классы STATIC_OBSERVATION / EXECUTABLE_OBSERVATION / TARGET_MUTATION
+не Risk Profiles. В static scope последние два не допускаются. Служебные output
+effects должны входить в task boundary и идти по Architecture admission; название
+PLAN не предоставляет write authority. Handoff null refs запрещают перенос
+разрешения текущего отчёта на будущие команды/ремонт/Git.
+
+Для queued persistence/delivery §10.0 и C-006A запрещают dispatch effectful
+COMMAND из standalone PLAN. Проверить отдельный действующий service task/stage
+binding только на external outputs; не переходить в EXECUTE по одному желанию
+сохранить отчёт. Разрешённое документальное сохранение по §9 — другой путь,
+не proof C-016 integration. При отсутствии поддержанного пути — transient/blocked
+output с ограничением. Профиль будущего runtime обязан назвать этот путь и его
+authority; он не расширяет read-only границу исходного проекта. Разработка самого
+модуля по §25.1 остаётся своей task и не является service authority его пользователя.
+
+Budget задаётся до run с единицей/значением и stop behavior. На исчерпании или
+stop не начинать следующую discovery/tool работу; допустим только заранее
+покрытый путь сохранения/отчёта о фактическом состоянии. Если persistence тоже
+запрещён/недоступен, сообщить transient/потерянную часть, не обходить запрет ради
+durability. Не резервировать себе новый budget автоматически. Повтор без новых
+данных — §10.3–10.4, unknown effect/resume — §10.2, validation не исправляет subject.
+
+**Следующая executable observation — отдельная задача.** До запуска фиксируются
+exact command/entrypoint/cwd/subject, synthetic inputs, trusted tool origin,
+environment, write/network allowlist, credentials/data boundary, конечные limits,
+stop/cancel и ожидаемое наблюдение. Копия проекта сама не доказывает confinement.
+Нет пригодного provider → NOT_RUN, независимый Assessment возможен. Реализация
+reader/schema/test adapter — работа будущей покрытой сборки до их зависимого
+применения, а не требование заранее создать продукт ради implementation planning.
+
+**Совместимость и порядок сборки.** Intake/claim contracts → safe reader/import и
+storage/origin interfaces → Assessment/state projection → handoff/receiver → real
+integrated cases. Код scanner/executor/Project Memory не дублировать: использовать
+объявленные capability boundaries. Нет runtime dependency от установки файлов
+AOS в source root. Для runtime-модуля, однако, C-015/C-016 и реальные consumers
+проверяются по [Architecture §10.4](02_Architecture.md#recovery-contract).
+
+| §25.4 / контроль | Применение, наблюдаемый результат и отрицательный пример |
+|---|---|
+| 1–2: предмет/поведение | Product + dossier: FTR-033, DEFERRED/DRAFT, source unchanged, Assessment → один PLAN. REC-AC-001…012 и REC-POS-001…003 исключают пустой отчёт/постоянный отказ при достаточном входе |
+| 3–4: стыки | C-001/002/003/005/006/007/009/010/011/012 + C-015/C-016 карта в Architecture. Корректный export с неверным receipt или недоступным required ref не даёт HANDED_OFF (REC-NEG-020/026/028) |
+| 5: lifecycle | ADD/UPDATE/DISABLE/REMOVE/DELETE DATA; pending/in-flight/old versions и required consumers не N/A при фактических sidecar/queue effects; REC-C01–03 и output/replay REC-C04–07 ниже |
+| 6: semantic readiness / MOD-A06 | К1–К10, восемь репетиций и обе попытки опровержения; fake C-011, stale manifest, скрытый execution и score не проходят REC-NEG-001…030. Defined records не заменяют достоверность их contents |
+| 7–8: module build / MOD-A01–05 | Exact accepted scope/profile, target, parent C-005/C-006, limits/continuation и реальный host. MOD-A02/05 проверяют reader→Assessment→decision→receiver и affected core regression. Контроллер закрывает общую task по §10.5, не по числу файлов |
+
+Designed compatibility cases (runtime NOT_RUN):
+
+| ID | Вход / ожидаемый результат |
+|---|---|
+| REC-C01 | Совместимые C-015/record/reader/receiver versions → REC-POS-001. Unknown/mixed version либо partial ADD → нет business dispatch, поддержанное inspection без conversion, данные сохранены |
+| REC-C02 | UPDATE/DISABLE с pending save и in-flight handoff → новые calls закрыты, pending удержаны, effect/receipt выяснены до перехода; old generation не replay на новый handler |
+| REC-C03 | REMOVE при required consumer без замены → BLOCKED; после покрытой замены/disable/reconciliation удалить только owned implementation. Пакет/decisions/source сохраняются; DELETE DATA отдельно, reinstall не повторяет очередь |
+| REC-C04 | Standalone PLAN пытается отправить save COMMAND → нет effectful dispatch/записи из его authority. Отдельный разрешённый service EXECUTE может сохранить только external output, без target writes; документальное сохранение не объявляется C-016 runtime PASS |
+| REC-C05 | Assessment B1 рекомендует S1, содержит S2; общее ACCEPT без выбранного next objective → не PREPARING_HANDOFF. Подлинный выбор S2+N2 по B1 сохраняет именно S2+N2; смена рекомендации S1 не меняет его, enum C-011 не расширен |
+| REC-C06 | Пакет P1 передан, ответ потерян; redelivery того же operation → тот же receipt, не новая task. Ack без inputs check, receipt P0/другого receiver или тот же operation с P2 → не HANDED_OFF P1. Новый PLAN не запускается от receipt |
+| REC-C07 | Два writer от output revision O1 при неизменном source HEAD; первый сохранил O2 → второй не затирает O2, получает conflict/reconciliation. Проверка source identity не подменяет expected output base; unknown save не повторяется с новым operation ID |
+
+**Методы и Evidence.** Тесты проектируются на disposable fixtures из dossier:
+Git staged/unstaged/untracked и directory, conflicting README/checks, два manifest,
+external link, sentinel, test-only/forged C-011, interrupted writer, unavailable
+receiver/provider. Ожидания заданы до implementation. Harness наблюдает
+target_write_events, target_code_execution_events, network_events, disclosed_payloads,
+complete revisions и exact receipts. Поиск строк в summary и before/after equality
+не доказывают отсутствие временных/внешних effects. Actual API/handler journeys
+и реальные storage/origin/receiver adapters нужны для integrated completion;
+stub/ручной walkthrough подтверждают только свою ограниченную область.
+
+Каждое выполненное наблюдение содержит purpose/method, module/contract/subject
+revision, environment/coverage, expected/actual, Evidence и ограничения. Import
+старого PASS сохраняет старый checked subject; проверка импорта не означает
+повтор теста. Смена source/index/untracked/contract/consumer/decision/permission
+делает affected выводы неприменимыми до recheck, не обнуляя unrelated conclusions.
+
+**Ограниченный pilot — PROPOSAL.** Один отдельно выбранный не-AOS проект и вопрос,
+safe static read, external workspace, без target commands/mutations. Owner intake
+→ Assessment → понимание → exact direction/next objective decision → MMB/handoff
+→ свежий исполнитель проверяет inputs следующего PLAN без чата автора.
+Он открывает нужные refs и rechecks mutable facts, не пересканирует всё по умолчанию.
+Это не обязательный multi-agent runtime и не доказательство исправления проекта.
+
+Владелец по default summary без технической подсказки должен объяснить: (1) scope
+исследования/NOT_RUN; (2) препятствие и степень установления причины; (3) следующий
+результат/альтернативу; (4) смысл решения и что не разрешено; (5) stop/resume.
+Критерий candidate: все пять сохраняют смысл, нет путаницы «найдено=работает»,
+«направление=authority», «handoff=исправлено». Ошибка понимания ведёт к исправлению
+формулировки/дизайна в покрытой correction, не снижению критерия. Успех знакомого
+с AOS владельца не обобщается на новых пользователей; contrasting case отдельно.
+
+В существующем отчёте §12 фиксировать время до понятного Assessment, material
+questions, прочитанный/переданный контекст, доступные расходы, claims без основания,
+ложную проверенность, помощь/ошибки понимания, успех handoff и повторное широкое
+чтение. Человеческое время на принятый результат — по Product §13; UNKNOWN не ноль,
+без принятых результатов отношение не определено. Эффект ремонта/экономию измерять
+по отдельно выполненному slice; здесь NOT_RUN. Safety counts сообщать отдельно,
+не компенсировать неразрешённый эффект удобным интерфейсом.
+
+Документальная проверка, pilot, runtime tests, независимый review и автономная
+сборка имеют раздельные выводы. Открытые REC-O не заполняются догадкой; после
+ограниченной проверки/правки — report и stop без автоматического запуска pilot.
