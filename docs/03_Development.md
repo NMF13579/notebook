@@ -1,18 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-15'
+updated: '2026-09-16'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
+current_change_subject: FIRST_CORE_DEVELOPMENT_PROCESS_SIMPLIFICATION
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_HD_01_28_ONLY
+current_change_scope: FIRST_CORE_DEVELOPMENT_WORKFLOW_DOCUMENTATION_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: ACCEPTED
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -242,6 +242,55 @@ candidate и action-spec digest; он не приписывается челов
 и bounded correction в своих пределах. Она не расширяется по мере декомпозиции:
 каждый effect требует обычного fresh admission, новый scope — отдельного решения.
 
+<a id="first-core-development-execution"></a>
+
+### 8.1. Разработка первого ядра до согласованного результата
+
+Принято [решением 2026-09-16](00_Core.md#first-core-development-simplification).
+При подготовке supervised-разработки единицей согласования является bounded
+parent task с результатом, критериями, разрешёнными source/state/scratch paths,
+действиями/эффектами, текущим model/data route, сроком и общим конечным бюджетом.
+Покрытые внутренние стадии S0–K4, декомпозиция, проверка и обычная correction не
+становятся отдельными Human Gates. Явно ограниченный старый grant сохраняет свои
+границы; это правило не включает автоматически непокрытые стадии или попытки.
+
+После допуска parent агент самостоятельно исправляет код, тесты, fixtures и
+настройки запуска в согласованных пределах, повторяет затронутые проверки и
+продолжает к результату. Новое имя временной попытки внутри заранее разрешённого
+scratch root — HOW; оно не меняет цель, полномочия и оставшийся бюджет. Используется
+одна проверенная конфигурация среды и стабильная область записи; новую sandbox
+политику под каждую попытку не создавать без выявленной технической необходимости.
+Исправление конфигурации не разрешает расширить доступ или отменить защиту.
+
+| Наблюдаемый исход попытки | Следующее действие внутри действующего допуска |
+|---|---|
+| Ошибка подготовки; отсутствие целевого эффекта доказано | Сохранить причину, существенные Evidence и частичную историю; исправить настройку и использовать новую изолированную попытку в разрешённом root, с fresh binding и тем же бюджетом |
+| Целевой эффект подтверждён | Не повторять эффект; проверить результат и продолжить разрешённый маршрут |
+| Исход эффекта неизвестен | Остановить зависимый эффект и сверить фактическое состояние; без слепого повтора, сброса lock/ledger или выдуманного отсутствия эффекта. При неустранённой существенной неопределённости вернуть точный blocker |
+
+Новый каталог не является способом обойти admission, replay barrier, неизвестный
+эффект или запрет текущего grant. Обычный fail сам по себе не требует обращения
+к человеку. Обращение требуется при существенном Product/Architecture решении,
+расширении scope/authority/access, изменении защищённой границы или материального
+риска, неустранённой опасной неопределённости, исчерпании бюджета/срока либо
+действии, для которого сохранён отдельный Human decision, включая Git/delivery.
+При отсутствии нового различающего Evidence повторяющийся цикл останавливается.
+
+Для сопровождения достаточно одного актуального durable состояния задачи,
+необходимых результатов проверок и итогового отчёта со ссылками на Evidence.
+После material transitions оно обновляется; новые launch/stage документы и
+согласования каждого внутреннего шага не требуются. Сохраняются decision-relevant
+история, точные bindings и finite budget; число отчётов/тестов не заменяет
+работающий сквозной результат и обязательные критерии.
+
+Финальный exact candidate проверяет свежий read-only reviewer. Finding передаётся
+отдельному correction executor в пределах parent authority; затем affected checks
+и свежая финальная проверка нового candidate. Технический PASS не означает ACCEPT.
+Это порядок разработки AOS: C-006A/C-009/C-009A, V3 и требования к создаваемому
+продукту не упрощаются. Supervised-сборка и доказательство native conformance /
+autonomous resume имеют отдельные результаты; требуемые UNKNOWN/NOT_RUN сохраняются.
+Этот раздел сам по себе не разрешает запуск, новые native probes или Git actions.
+
 ## 9. Preflight репозитория
 
 Проверить root, worktree, branch, HEAD, baseline, staged/unstaged/untracked, diff, nested repos, symlinks, paths, interpreter/dependencies, sandbox/network/remote, temp boundary, stop conditions, candidate identity, source/destination и credentials/data boundary.
@@ -265,7 +314,11 @@ CORRECT | FINAL_VALIDATE | IDLE` — controller actions версии
 Read-only. Decision-ready Task Brief, risks, validation, stop conditions.
 
 ### EXECUTE
-Exact authorized scope, one stage, no hidden next stage, no unrelated cleanup; terminal result → report and stop.
+Worker выполняет один допущенный stage/action в exact scope и возвращает результат
+controller. Для принятой full-cycle parent task остановка worker не требует нового
+Human запуска следующего покрытого шага: controller продолжает по §8.1/§10.0.
+Самостоятельная single-stage task не получает полномочий следующей стадии;
+terminal parent result → report and stop. Unrelated cleanup не разрешён.
 
 ### VALIDATE
 Read-only exact candidate. Does not fix. Independent validation required only when risk/task demands it. Переход к отдельному corrector возможен только по full-cycle правилам §10.0, не из полномочий validator.
@@ -1163,9 +1216,57 @@ Architecture §7 и Development §10; S0–K4 не новые lifecycle enums.
 3. Уточнить только существенные отсутствующие входы. Готовые Intent/Spec/Passport и исходные человеческие ответы не проходят повторное интервью ради ceremony.
 4. Сформировать конечные acceptance criteria и их dependency order для всего S0–K4. Декомпозиция — работа агента внутри scope; backlog FTR-007 не обязателен. Это не transport queue C-016, выбранная для первого ядра.
 5. Bind действующую runtime authority и [host capability](02_Architecture.md#scaffold-core-host), command/environment и допустимую test/probe boundary. Проверить доверенное происхождение input, срок/отзыв, ресурсные ограничения и supported resume.
-6. Required host/environment check без Evidence даёт конкретный BLOCKED/NOT_RUN. Нельзя начать S0 под видом проверки собственного ещё не реализованного guard.
+6. Required host/environment check без Evidence даёт конкретный BLOCKED/NOT_RUN для зависимого product effect. Покрытые изолированные native probes и supervised preparation по §24.1a продолжаются; нельзя начать runtime S0 под видом проверки собственного ещё не реализованного guard.
 
 Для положительного автономного пути C-005 ссылается на exact заранее принятые C-002/C-003. Генерация новых DRAFT-версий в K1 не делает их accepted и не заменяет source binding задачи. Поэтому проверка intake/spec generation и исполнение по уже принятым входам различаются; недостаточная идея, требующая нового человеческого выбора, не обещает uninterrupted autonomous completion.
+
+<a id="native-host-bounded-probes"></a>
+
+### 24.1a. Native probes до решения о новом механизме — D1
+
+[Human решение D1](00_Core.md#host-integration-d1) задаёт bounded experiment,
+не новый product module. Сначала привязать для каждого probe exact installed
+host/interface/version, task/candidate/state, входной допуск, allowed paths/effects,
+инъекцию отказа, независимый oracle, timeout/budget и evidence destination.
+Непривязанный интерфейс/доступ оставляет зависимый probe `NOT_RUN` с точным gap;
+это не FAIL capability. Не требовать от ещё проверяемой capability заранее
+доказать саму себя: изолированный probe ограничивается независимо от её результата.
+
+| Probe | Минимальный positive/negative case | Критерий и предел |
+|---|---|---|
+| NP-01 — admission/state binding | Один native разрешённый effect; отдельно менять по одному candidate/state/current authority до dispatch, повторить тот же native допуск; revoked/expired случаи с действительным источником либо явно обозначенным contract fixture | При совпадении effect выполнен, при mismatch/reuse/отзыве effect отсутствует. Fixture decision не доказывает реальный Human capture; plain sandbox replay не является replay native approval |
+| NP-02 — fresh-context continuation | Native trigger запускает новую сессию, которой переданы только locator durable parent state и минимальная инструкция поиска | Без prior chat/ручного «продолжи» обнаружены task, candidate, budget и next safe action; read-only результат. Старый transcript через resume/fork или excludeTurns не доказывает fresh context |
+| NP-03 — single continuer | Два task-owned contender предъявляют одну pending operation через штатный маршрут; после завершения первого остаётся устаревший contender | Native boundary допускает не больше одного effectful owner и отклоняет устаревший effect. Наблюдатель не сериализует вызовы собственным lock; contenders не имеют обходного права записи |
+| NP-04 — interruption/resume | Реально прервать только disposable task-owned process/session в заранее выбранной точке; native trigger при доступном host запускает fresh continuation | Durable state/budget сохранены; current repository/state сверены, определён безопасный шаг. Ручной старт проверяет recoverability отдельно, не autonomous resume |
+| NP-05 — duplicate-effect protection | Разрешить одну append-запись «7»; прерывание до effect и после effect до receipt/checkpoint; повторный native вход той же operation | Подтверждённый effect не повторяется; при доказанном no-effect возможен fresh допуск; при неопределённости WAIT_EVIDENCE. Oracle читает точные bytes и operation evidence; идемпотентная overwrite скрыла бы duplicate |
+
+NP-01…05 уточняют порядок минимальных checks SC-T04/09/21/22 и OSS-C03…05,
+не заменяют полный HD-28 или все V3 обязательства. Изолированные положительные
+результаты не закрывают сквозной proof. Runtime результат каждого нового NP —
+`NOT_RUN` до фактического выполнения; прежние narrow Evidence используются только
+при совпадении проверенной гарантии и current binding.
+
+`PASS` требует фактического ожидаемого результата и отрицательного контроля.
+`FAIL` native capability требует валидного входа, поддержанного native маршрута,
+наблюдаемого нарушения выбранной гарантии и исключения ошибки fixture/привязки;
+точные условия и actual/expected сохраняются. Потерянный вывод — `UNKNOWN`,
+неисполненный/неподготовленный случай — `NOT_RUN`/`BLOCKED`. Ошибка setup
+диагностируется отдельно, не служит основанием permanent control layer.
+Обычная bounded correction harness допустима внутри полномочий, но нельзя
+«исправить» тест реализацией отсутствующей проверяемой защиты в его driver.
+
+После конкретного native FAIL остановить зависимый путь и вернуть минимальный
+недостающий механизм, почему штатного недостаточно, варианты, стоимость/риски и
+отдельное Human решение на architecture change. До этого permanent adapter не
+вводится. Нет progress/new evidence — остановить соответствующий цикл, без
+бесконечного поиска настроек или повторения одинаковых probes.
+
+**Supervised preparation:** можно подготовить входы/изоляцию/dependency order,
+команды будущей сборки и проверок, ручные контрольные точки и ограничения.
+Runtime-код/scaffolding и запуск сборки не следуют из такой подготовки.
+Самостоятельное выполнение внутри одного разрешённого run, ручное восстановление
+и полная autonomous readiness — три разных claims. Если позже отдельно разрешена
+supervised implementation, её Evidence не повышается до autonomous resume/HD-28.
 
 ### 24.2. Внешний development loop с S0
 

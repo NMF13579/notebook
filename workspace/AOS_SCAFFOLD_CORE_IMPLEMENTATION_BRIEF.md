@@ -1,6 +1,9 @@
 # AOS — scaffold и первое ядро: implementation brief
 
-Дата интеграции: 2026-09-15. Revision: R7 + HD-01…28. Принятое содержание
+> Current execution navigation: [accepted result and next chat](AOS_CORE_CONTINUATION_PLAN.md).
+> This brief owns no runtime status; historical launch labels below are not a restart instruction.
+
+Дата интеграции: 2026-09-15. Revision: R7 + HD-01…28 + HOST-INTEGRATION-D1 (BOUNDED_EXPERIMENT). Принятое содержание
 первого ядра; runtime launch NOT_RUN. Implementation authorization: NONE.
 Git authorization текущей documentation task: NONE.
 
@@ -39,7 +42,16 @@ complete-task loop. Никакого уменьшения до X1-only; позд
 | Данные/dependencies | LOCAL_FIRST и bounded dependency policy приняты у Core; разрешённые state/evidence paths, queue limits и фактические existing data routes уточняет исполнитель. Новый external access отдельно |
 | Host | Codex выбран первым; core agent-agnostic. Actual capture/admission/checkpoint/wake conformance UNKNOWN/NOT_RUN |
 | Parent | B1 и adaptive decomposition приняты. Exact task/revision, outcome/check bindings, finite budget в Human constraints и текущие effects ещё подготовить |
-| Launch | SC-DEC-04 NOT_RUN: отдельная explicit runtime authorization с Risk Profile, paths/operations/effects, limits/expiry; этот brief её не выдаёт |
+| Launch | Knowledge brief не выдаёт допуск. Existing exact AOS-FIRST-CORE-001/R1 grant проверяется по implementation records; R2 связывает изменённые bytes и покрытие effects, не переносит grant автоматически |
+
+[D1](../docs/00_Core.md#host-integration-d1) принят как BOUNDED_EXPERIMENT;
+permanent external host-adapter не принят. Перед новым механизмом выполнить
+минимальные [NP-01…05](../docs/03_Development.md#native-host-bounded-probes)
+штатных возможностей Codex. UNKNOWN/NOT_RUN не заменяют наблюдаемый native FAIL;
+после FAIL требуется отдельный Human architecture decision. Supervised preparation
+допустима без заявления autonomous resume/readiness; текущая задача не запускает
+runtime, probes или расписание. Exact implementation handoff R2 содержит привязки
+и finite probe budget; accepted R1 и исторические результаты не переписываются.
 
 ## 4. Нормативность и HOW
 

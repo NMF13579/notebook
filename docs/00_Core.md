@@ -1,18 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-15'
+updated: '2026-09-16'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
+current_change_subject: FIRST_CORE_DEVELOPMENT_PROCESS_SIMPLIFICATION
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_HD_01_28_ONLY
+current_change_scope: FIRST_CORE_DEVELOPMENT_WORKFLOW_DOCUMENTATION_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: ACCEPTED
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -405,6 +405,49 @@ decision-ready вопросом: issue/gap, почему действующег�
 bounded варианты, trade-offs/последствия и рекомендация. Обычные обратимые HOW
 выбирает агент; классификация не превращает предпочтение реализации в новый gate.
 
+<a id="host-integration-d1"></a>
+
+### HOST-INTEGRATION-D1 — BOUNDED_EXPERIMENT
+
+Текущее явное Human решение от 2026-09-15 принимает D1 только как
+`BOUNDED_EXPERIMENT`: сначала минимальные conformance probes штатных возможностей
+Codex. Предложение permanent external host-adapter **не принято**. Это уточнение
+HD-13 для первого ядра, а не выбор нового состава host или ослабление C-006/C-006A.
+
+До наблюдаемого `FAIL` соответствующей native capability новый permanent control
+layer не вводится. Отсутствие найденного API, `UNKNOWN`, `NOT_RUN`, неполная схема
+и невалидный test harness не заменяют такой FAIL. Сам FAIL также не разрешает
+архитектурную коррекцию: вернуть минимальное решение именно отсутствующего
+механизма, альтернативы/стоимость и отдельный Human decision. Другие принятые
+Product/Architecture boundaries сохраняются. [Протокол и критерии FAIL](03_Development.md#native-host-bounded-probes)
+принадлежат Development; [граница эксперимента](02_Architecture.md#scaffold-core-host)
+не допускает подмены штатной capability самописным controller.
+
+Допускается подготовить первоначальную сборку в supervised режиме: входы,
+порядок работ, команды и границы проверок. Это не доказательство autonomous
+resume/readiness и не разрешение выполнить product implementation в текущей
+документационной задаче. Принятые 13 core-срезов и HD-28 не меняются.
+
+Существующее exact разрешение SC-DEC-04 для AOS-FIRST-CORE-001/R1 не требуется
+выдавать повторно ради этой правки. Handoff R2 должен явно связать новые owner
+bytes и проверить применимость прежнего допуска к каждому следующему effect;
+agent-written R2 не переносит автоматически grant на другой subject/новые effects.
+Сейчас разрешена подготовка документации/R2. Новый доступ, активация расписания
+или uncovered effect не выводятся из принятия экспериментального направления.
+
+<a id="first-core-development-simplification"></a>
+
+### Упрощение разработки первого ядра — решение 2026-09-16
+
+Текущее Human «Согласен» принимает предложенную правку процесса notebook и
+handoff: одно задание до согласованного результата и общий конечный бюджет,
+самостоятельные обычные исправления и безопасные новые изолированные попытки
+в разрешённой области, свежая независимая проверка итога. Владелец конкретных
+правил — [Development §8.1](03_Development.md#first-core-development-execution).
+Полные 13 core-семейств, C-006A, HD-28 и D1 сохраняются; новый control layer не
+выбирается. Это разрешение только на документационную правку. Оно не возобновляет
+K3, не расширяет прежние одноразовые grants и не выдаёт runtime/Git authority.
+
 <a id="first-core-human-capture"></a>
 
 ### Решение человека и хранение основания — HD-23, HD-24
@@ -433,8 +476,8 @@ retention boundary; это сообщение не выполняет deletion �
 |---|---|---|
 | SC-DEC-01 | HD-01: полный предложенный first-core package S0–K4, 13 core-срезов, R7/C-015/C-016/V3 | ACCEPTED. Scope/contracts выбраны; не все 33 FTR и не runtime authority |
 | SC-DEC-02 | AOS-3; [изоляция/стратегия/профиль](02_Architecture.md#first-core-build-boundary); LOCAL_FIRST/HD-12; B1 и budget у Development | HUMAN_ACCEPTED_FACT для policy. OPEN только implementation-time binding: branch/worktree/base, actual OS/runtime/architecture, adapter, paths, конечные queue/resource numbers и commands. Агент выбирает/наблюдает их в принятых пределах, без повторного product выбора |
-| SC-DEC-03 | [Codex-first](02_Architecture.md#scaffold-core-host), HD-11/23/24; durable state и обязательный [resume proof](03_Development.md#first-core-autonomy-proof) | HUMAN_ACCEPTED_FACT для host/data/retention/resume requirements. Реальные capture/admission/data routes/wake UNKNOWN; conformance и interruption/resume NOT_RUN |
-| SC-DEC-04 | Будущая exact parent task и отдельный runtime launch | NOT_RUN. Ожидается explicit Human authorization: Risk Profile, mutation paths, operations/effects, limits/expiry и текущий допуск. Их этот пакет не выдаёт |
+| SC-DEC-03 | [Codex-first](02_Architecture.md#scaffold-core-host), HD-11/23/24; durable state и обязательный [resume proof](03_Development.md#first-core-autonomy-proof) | HUMAN_ACCEPTED_FACT для host/data/retention/resume requirements. Реальные capture/admission/data routes/wake UNKNOWN; conformance и interruption/resume NOT_RUN. [D1](#host-integration-d1) принят только как BOUNDED_EXPERIMENT; permanent adapter не принят |
+| SC-DEC-04 | Exact parent task и отдельный runtime launch | Этот knowledge package не выдаёт runtime authorization. Выданный Human допуск AOS-FIRST-CORE-001/R1 учитывается по exact implementation handoff; R2 требует current binding и проверки покрытия каждого effect, а не повторного policy выбора. Фактический launch/conformance не выводится из допуска |
 
 Выбранные policy-level решения SC-DEC-01…03 повторно не запрашиваются. Настройка,
 наблюдение и conformance не закрываются словом ACCEPTED. Неожиданный material

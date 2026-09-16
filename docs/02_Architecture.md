@@ -6,13 +6,13 @@ status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
+current_change_subject: HOST_INTEGRATION_D1_BOUNDED_EXPERIMENT
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_HD_01_28_ONLY
+current_change_scope: FIRST_CORE_NATIVE_PROBES_AND_SUPERVISED_PREPARATION
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: ACCEPTED
+current_change_human_review: NOT_RUN
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -997,6 +997,21 @@ R1–R4 и frozen материалы остаются свидетельства
 Codex-specific HOW изолируется в adapter и не становится обязательной core
 семантикой без отдельного обоснованного Human decision. Actual version, capture,
 data paths, admission и wake capability ещё UNKNOWN / NOT_RUN.
+
+По [HOST-INTEGRATION-D1](00_Core.md#host-integration-d1) до архитектурных
+добавлений проверяются штатные native capabilities. Disposable driver/fixture
+может вызывать существующий интерфейс, вносить контролируемый mismatch и наблюдать
+результат; он не реализует вместо host проверяемые admission, ownership, recovery
+или deduplication. Prompt-проверка и программный guard внутри fixture не доказывают
+native enforcement. Не требуется общий conformance PASS до изолированного probe
+ещё неизвестной capability: требуется покрытый допуск и независимое ограничение
+его эффектов. Гарантии для последующей product implementation остаются обязательны.
+
+Подготовка supervised-сборки разрешена в [границе Development](03_Development.md#native-host-bounded-probes).
+Она не меняет agent-agnostic core, не выбирает permanent external host-adapter
+и не подтверждает автоматическое продолжение. При наблюдаемом native FAIL
+применяется отдельное решение по D1; новая постоянная архитектура не возникает
+как автоматический fallback.
 
 Host contract — вход разработки S0, не компонент ещё не созданного AOS. Он должен предоставить следующие наблюдаемые гарантии; присутствие агента в чате недостаточно:
 
