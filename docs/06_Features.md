@@ -1085,6 +1085,7 @@ Release и молчаливое перенесение полномочий не
 | FTR-004.U10 | Канал разрешён в SHA, но artifact отсутствует, имеет другой source commit или не проходит distribution admission: текущая установка сохранена, нет fallback |
 | FTR-004.U11 | Старый managed профиль → standalone → rollback: user bytes сохранены, runtime binding проверен, только известная managed-команда AGENTS.md обновлена |
 | FTR-004.U12 | `status` различает basic runtime, native bridge и реальный user selection; `--help` и synthetic fixtures не подтверждают полный First-Start |
+| FTR-004.U13 | Команда из README в пустой и существующей папке: точный target/channel, project structure и user bytes сохранены, post-check перед сообщением об успехе; ошибка скачивания не выглядит как успех, конфликт короткого entry блокируется |
 
 Эта таблица — ожидаемые проверки, не выполненные tests. Первый implementation
 результат — локальный U01 и применимые отрицательные случаи; затем реальный канал
