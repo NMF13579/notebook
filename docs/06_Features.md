@@ -1038,6 +1038,13 @@ Wrong target, неподдержанная версия или конфликт 
 подтверждает применение конкретного пакета. Изменение dev или Git push не
 обновляет проекты пользователей автоматически.
 
+Уточнение от 2026-09-17: команда агенту в целевом workspace запускает установку
+полного aos/root/project набора; GitHub main/stable — официальный канал,
+dev/test — явный тестовый. Каналы и semantics запроса принадлежат
+[Product](01_Product.md#aos-installed-update-decision), exact acquisition binding —
+[C-013](02_Architecture.md#installed-update-contract). Runtime PASS не следует
+из принятия этого направления; установка, обновление и rollback проверяются отдельно.
+
 **Входы:** опубликованный либо локальный проверенный пакет с exact identity,
 manifest и совместимостью; установленная версия и target; пользовательские
 настройки/state/Evidence; состояние выполняемой работы; текущий preview и apply
@@ -1074,6 +1081,10 @@ Release и молчаливое перенесение полномочий не
 | FTR-004.U06 | Неудачный post-check: проверяемое восстановление по объявленной boundary; несовместимые данные после миграции запрещают слепой rollback старого кода |
 | FTR-004.U07 | Пакет меняет базовые файлы запуска: покрытый launcher/updater transition проходит без изменения кода работающего процесса; неизвестный переход BLOCKED |
 | FTR-004.U08 | Канал недоступен, пакет повреждён или происхождение не подтверждено: пакет не активирован, текущая версия сохранена; удалённый путь проверяется отдельно от локального |
+| FTR-004.U09 | Standalone macOS arm64: полный aos/root/project набор, install/run/status/update без заранее установленных Python/Git/Xcode/CLT; чистая среда проверяется отдельно от PATH masking |
+| FTR-004.U10 | Канал разрешён в SHA, но artifact отсутствует, имеет другой source commit или не проходит distribution admission: текущая установка сохранена, нет fallback |
+| FTR-004.U11 | Старый managed профиль → standalone → rollback: user bytes сохранены, runtime binding проверен, только известная managed-команда AGENTS.md обновлена |
+| FTR-004.U12 | `status` различает basic runtime, native bridge и реальный user selection; `--help` и synthetic fixtures не подтверждают полный First-Start |
 
 Эта таблица — ожидаемые проверки, не выполненные tests. Первый implementation
 результат — локальный U01 и применимые отрицательные случаи; затем реальный канал

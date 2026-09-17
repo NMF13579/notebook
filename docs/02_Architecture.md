@@ -638,6 +638,30 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 поведение принадлежит [Product](01_Product.md#aos-installed-update-decision)
 и [FTR-004](06_Features.md#ftr-004-versioned-update). C-013 должен различать:
 
+Для GitHub-канала source binding содержит фиксированный repository AOS-3,
+выбранный stable/main либо test/dev, разрешённый commit SHA и manifest digest.
+Получение выполняется по SHA после разрешения ветки; изменение ветки во время
+операции не меняет выбранные bytes. Manifest подтверждает целостность; доверие
+к источнику определяется отдельно фиксированным upstream и HTTPS transport.
+Это refinement принятого плана standalone от 2026-09-17. Готовый macOS arm64
+образ связывает exact commit, product/runtime/dependency manifests, provider,
+launcher protocol и data schema. Remote acquisition проверяет publisher origin,
+asset digest/size и Apple distribution admission до запуска bytes; исходный
+Git archive не заменяет готовый runtime. Прежний Git transport остаётся историей
+первого managed кандидата. Разрешённый SHA передаётся между bootstrap и manager
+без повторного выбора изменившегося HEAD. Отсутствующий artifact означает отказ,
+а не fallback на другую версию. Private credential должен быть предоставлен явно.
+
+Локальный профиль использует content-addressed read-only DMG с собственным
+CPython 3.12, dependencies, полным продуктом и external provider. Видимый `aos/`
+остаётся полным, запуск идёт через проверенную immutable копию и общий run/update
+lock. Sealed native trust не ослабляется ради установки. Проверки developer build,
+базового runtime, bridge load, реального user selection и публичной подписи
+различны. Переход с прежнего managed runtime явно сохраняет старую версию и
+проверенный compatibility runtime для rollback; это не data migration.
+Skill/agent передаёт exact workspace target; default cwd CLI сам по себе не
+доказывает, что это проект, в котором человек отправил сообщение.
+
 - Выпущенный пакет: immutable identity/version, точный manifest файлов и digest,
   происхождение, совместимость launcher/runtime и формата данных, поддержанный
   переход from/to. Один номер версии без digest не идентифицирует пакет;
