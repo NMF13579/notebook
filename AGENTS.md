@@ -6,7 +6,9 @@
 
 ```yaml
 repository_role: ACTIVE_PROJECT_KNOWLEDGE_REPOSITORY
-implementation_repository: NMF13579/AOS-3
+implementation_repository: AOS-4
+implementation_repository_binding: LOCAL_REPOSITORY
+implementation_repository_remote: UNKNOWN
 runtime_code_allowed_here: false
 implementation_authorization: NONE
 git_authorization: NONE
@@ -136,6 +138,7 @@ Self-check автора внутри разрешённого documentation edit
 
 ## Reference repositories
 
+- https://github.com/NMF13579/AOS-3/tree/dev
 - https://github.com/NMF13579/AOS-FARM/tree/dev
 - https://github.com/NMF13579/AgentOS/tree/dev
 
@@ -173,7 +176,7 @@ Edit ≠ Commit ≠ Push ≠ Merge ≠ Release
 Не выполняй Commit, Push, Merge, branch deletion, force push или Release без отдельного явного решения пользователя для exact action и subject.
 
 Standing policy [HD-26](docs/03_Development.md#first-core-local-commit) относится
-только к будущему first-core implementation workflow в AOS-3 после exact Human
+только к будущему first-core implementation workflow в AOS-4 после exact Human
 ACCEPT. Она не разрешает Git-действия в notebook или в текущей documentation task.
 
 ## Инварианты

@@ -1,18 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-16'
+updated: '2026-10-04'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_DEVELOPMENT_PROCESS_SIMPLIFICATION
+current_change_subject: FIRST_CORE_REPOSITORY_BINDING_CONSUMER_SYNC
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_DEVELOPMENT_WORKFLOW_DOCUMENTATION_ONLY
+current_change_scope: REPOSITORY_ROLE_BINDING_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -793,7 +793,7 @@ One active task, one causal change, no unrelated cleanup, inventory before sensi
 
 ### 13.1. Standing policy доставки первого ядра — HD-26
 
-Только для принятого first-core workflow в AOS-3:
+Только для принятого first-core workflow в AOS-4:
 
 ```text
 READY_FOR_HUMAN_REVIEW
@@ -1840,7 +1840,7 @@ readiness при drift. Structural PASS не подменяет semantic PASS, a
 #### Обновление установленной копии AOS: последовательность реализации
 
 Для принятого [среза FTR-004](06_Features.md#ftr-004-versioned-update) реализация
-в AOS-3 выполняется отдельно от текущего documentation edit. Этот раздел не
+в локальном AOS-4 выполняется отдельно от текущего documentation edit. Этот раздел не
 разрешает runtime, Git writes, публикацию релиза или сетевое получение пакета.
 
 1. Сверить существующий installer, его ownership, entry/runtime lock, журнал и
@@ -1883,7 +1883,7 @@ Git и компиляторы самого разрабатываемого пр
 
 **Статус и scope.** План подготовлен по запросу пользователя от 2026-09-17
 «сделай план» после обсуждения упрощения установки. Последующее «реализуй план»
-разрешает локальную реализацию и проверки в AOS-3. Это не Human ACCEPT результата
+разрешает локальную реализацию и проверки в AOS-4. Это не Human ACCEPT результата
 и не полномочия на Commit/Push/Merge/Release. Первый профиль — macOS arm64;
 конкретный диапазон macOS определяется
 совместимостью готового runtime/native пакета и реальными проверками. Linux,
@@ -1892,8 +1892,8 @@ Windows и macOS x86_64 требуют следующих отдельных п�
 [FTR-004](06_Features.md#ftr-004-versioned-update) и [C-013](02_Architecture.md#installed-update-contract).
 Переход с Git transport на HTTPS отражён в C-013 в пределах этого среза.
 
-**Наблюдаемый старт.** Target реализации — portable `aos/` в AOS-3, не runtime
-в notebook и не объединение с `first_core/`. Локальный кандидат
+**Наблюдаемый старт.** Target реализации — локальный AOS-4, не runtime
+в notebook. Исторический portable `aos/` в AOS-3 и локальный кандидат
 `codex/aos-chat-install-20260917` на базе
 `d0607bc47b1248ff451343e1a8dab8069a1609c8` уже имеет managed install/update/rollback/resume,
 но требует внешние Python 3.12 и Git; агентный skill устанавливается отдельно.
@@ -1917,7 +1917,7 @@ unmanaged `aos/`, фоновый update, автоочистка версий, а
 не считать локальный кандидат уже доставленным в main/dev. Согласовать в owners
 необходимый delta: самостоятельный runtime, HTTPS acquisition, bootstrap,
 совместимость manager и переход от существующей managed установки. Notebook
-остаётся источником; каждое изменение owners синхронизируется в AOS-3 с адаптацией
+остаётся источником; каждое изменение owners реализуется в AOS-4 с адаптацией
 ссылок и явным working-tree/commit provenance. Выбор упаковщика и layout —
 обратимый HOW; изменение security boundary или общего scope требует решения.
 Готово, когда перечислены public entry, состав пакета, ownership, from/to и
@@ -1937,12 +1937,14 @@ provider identity и sandbox без ослабления trust-проверок 
 нужная native capability проходит отдельный real-profile check, а неизвестные
 или недоступные capabilities видны явно. Один `--help` этого шага не закрывает.
 
-**Шаг 3 — получать готовый пакет по HTTPS.** Использовать fixed upstream AOS-3;
-сначала разрешить канал в exact commit SHA, затем выбрать соответствующий
-artifact для OS/architecture. Пакет связывает commit, manifest/digests, runtime,
+**Шаг 3 — получать готовый пакет по HTTPS.** Использовать отдельно принятый
+trusted upstream AOS-4; пока его remote binding остаётся `UNKNOWN`, remote
+acquisition имеет статус `NOT_RUN`. AOS-3 остаётся `READ_ONLY_REFERENCE`.
+Сначала разрешить канал в exact commit SHA, затем выбрать соответствующий artifact
+для OS/architecture. Пакет связывает commit, manifest/digests, runtime,
 launcher/provider identities, data schema и допустимые переходы. GitHub archive
 исходников сам по себе не заменяет пакет с готовой средой. Механизм подготовки
-artifact для каждого выпускаемого commit разрабатывается в AOS-3; его удалённая
+artifact для каждого выпускаемого commit разрабатывается в AOS-4; его удалённая
 активация/публикация требует отдельной authority. Попадание в main сохраняет
 значение официального выпуска, но не доказывает доступность готового artifact:
 если он ещё не готов, показать это и сохранить текущую установку; не подменять

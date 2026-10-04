@@ -1,18 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-15'
+updated: '2026-10-04'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: HOST_INTEGRATION_D1_BOUNDED_EXPERIMENT
+current_change_subject: FIRST_CORE_REPOSITORY_BINDING_CONSUMER_SYNC
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_NATIVE_PROBES_AND_SUPERVISED_PREPARATION
+current_change_scope: REPOSITORY_ROLE_BINDING_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -638,8 +638,11 @@ Package identity, ownership classes, operations, conflicts, preview binding, rec
 поведение принадлежит [Product](01_Product.md#aos-installed-update-decision)
 и [FTR-004](06_Features.md#ftr-004-versioned-update). C-013 должен различать:
 
-Для GitHub-канала source binding содержит фиксированный repository AOS-3,
-выбранный stable/main либо test/dev, разрешённый commit SHA и manifest digest.
+Для будущего GitHub-канала source binding содержит отдельно принятый trusted
+upstream AOS-4, выбранный stable/main либо test/dev, разрешённый commit SHA и
+manifest digest. Текущий remote binding AOS-4 остаётся `UNKNOWN` до отдельного
+решения; AOS-3 не используется как delivery source и остаётся
+`READ_ONLY_REFERENCE`.
 Получение выполняется по SHA после разрешения ветки; изменение ветки во время
 операции не меняет выбранные bytes. Manifest подтверждает целостность; доверие
 к источнику определяется отдельно фиксированным upstream и HTTPS transport.
@@ -996,10 +999,12 @@ Development. Пример проверяет описание; реальная 
 <a id="first-core-build-boundary"></a>
 
 **HD-03 — изоляция.** Новое ядро разрабатывается в отдельной isolated branch/worktree
-в назначенном [implementation repository](00_Core.md#scaffold-core-decisions),
-не непосредственно в текущем dev working tree. Точные имена/path/base выбираются
-и наблюдаются при preparation; isolation, сохранность unrelated state и точная
-identity обязательны. Эта документация не создаёт worktree и не меняет AOS-3.
+в назначенном [implementation repository](00_Core.md#scaffold-core-decisions) —
+локальном AOS-4, не непосредственно в его текущем working tree. Точные
+имена/path/base выбираются и наблюдаются при preparation; isolation, сохранность
+unrelated state и точная identity обязательны. Эта документация не создаёт
+worktree и не меняет AOS-4. AOS-3 остаётся read-only reference и не используется
+как implementation target или обязательная runtime/dependency база.
 
 **HD-04 — REIMPLEMENT_FROM_CONTRACT.** Default не FIX_IN_PLACE: текущие принятые
 notebook contracts задают новое ядро. Reuse конкретного компонента допустим лишь

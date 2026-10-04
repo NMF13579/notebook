@@ -1,15 +1,15 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R4-RU
-updated: '2026-09-15'
+updated: '2026-10-04'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_HUMAN_DECISIONS_HD_01_28
+current_change_subject: AOS3_REFERENCE_REPOSITORY_BINDING
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_HD_01_28_ONLY
+current_change_scope: REPOSITORY_ROLE_BINDING_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
 current_change_human_review: ACCEPTED
@@ -119,10 +119,24 @@ commands_tests_build_in_baseline_audit: NOT_RUN
 
 ### AOS-3
 
-AOS-3 выбран implementation/build repository первого ядра по текущему HD-02
-у [Core](00_Core.md#scaffold-core-decisions). Его старый runtime и process docs
-остаются `READ_ONLY_REFERENCE` / authority: `NONE` для новой сборки по HD-04/05/15/27.
-Назначение repository и нормативность его legacy содержимого — разные факты.
+```yaml
+url: https://github.com/NMF13579/AOS-3/tree/dev
+repository: NMF13579/AOS-3
+branch_label: dev
+mode: READ_ONLY_REFERENCE
+authority_for_aos4: NONE
+runtime_dependency_for_aos4: false
+implementation_target_for_aos4: false
+mutable_state_verified_for_current_use: NOT_RUN
+```
+
+Прямым решением человека 2026-10-04 AOS-3 назначен reference repository для
+AOS-4. Implementation/build target первого ядра теперь локальный AOS-4 по
+[HD-02 у Core](00_Core.md#scaffold-core-decisions); его remote binding пока
+`UNKNOWN`. AOS-3 разрешён только для targeted research и извлечения кандидатов,
+примеров поведения, failures, tests и lessons с exact provenance. Его runtime,
+process docs, contracts, topology, dependencies, stored state, gates и PASS не
+переносятся в AOS-4 автоматически и не дают implementation/runtime/Git authority.
 
 **Локальный снимок 2026-09-15 — `OBSERVED_AT_SNAPSHOT`:** `NMF13579/AOS-3`, ветка `dev`, HEAD `e99cc3ee03128deb4506bc268839ebd1f52a3f3a`; рабочее дерево чистое. Прочитаны локальные `README.md` и `AGENTS.md`; закреплённые locators: [README.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/README.md), [AGENTS.md](https://github.com/NMF13579/AOS-3/blob/e99cc3ee03128deb4506bc268839ebd1f52a3f3a/AGENTS.md). Совпадение с текущим remote HEAD и доступность web locators: `NOT_RUN`.
 
@@ -138,10 +152,10 @@ AOS-3 выбран implementation/build repository первого ядра по 
 
 README обозначает продукт как development candidate. Это историческое наблюдение
 о документированном назначении, не проверка работоспособности/переносимости;
-runtime/platform tests и полный аудит при чтении: `NOT_RUN`. Нынешнее назначение
-implementation repository установлено HD-02, не этим снимком. Таблица выше
-показывает старые заявленные роли AOS-3 и не назначает его process docs owners
-новой сборки. Current AOS-3 branch/base/dirty state здесь не перепроверены.
+runtime/platform tests и полный аудит при чтении: `NOT_RUN`. Нынешний reference
+status AOS-3 установлен текущим решением человека, не этим снимком. Таблица выше
+показывает старые заявленные роли внутри AOS-3 и не назначает его process docs
+owners новой сборки. Current AOS-3 branch/base/dirty state здесь не перепроверены.
 
 **Исторический снимок 2026-09-13:** `NMF13579/AOS-3`, ветка `dev`, HEAD `d2ad68169b07a090548cbefc5add74e8dd171045`. Источники подготовки прочитаны выборочно. Полный аудит и runtime/platform tests при том чтении: `NOT_RUN`.
 
@@ -771,7 +785,9 @@ documentation candidate. HD-правки являются его явным те
 материально иные последующие изменения не принимаются автоматически. Старые
 X1/frozen/portable records остаются неизменными. Точный timestamp/ID host capture
 не выдумывается: provenance данного сообщения не является runtime proof C-011.
-Target AOS-3 сейчас не читался и не изменялся; его будущие mutable bindings NOT_RUN.
+На момент этой исторической HD-интеграции AOS-3 не читался и не изменялся;
+его тогда будущие mutable bindings имели статус `NOT_RUN`. Текущий AOS-4 binding
+определяется [Core](00_Core.md#scaffold-core-decisions), а не этим snapshot.
 
 Это provenance-маршрут, не дополнительный каталог требований. Текущее принятие
 R7/HD-01…28 и остаток bindings/evidence находятся у [Core](00_Core.md#scaffold-core-decisions).
@@ -784,7 +800,7 @@ R7/HD-01…28 и остаток bindings/evidence находятся у [Core](0
 | [Global Design Freeze](../AOS/GLOBAL_DESIGN_FREEZE.md), ordered manifest `b9ef04820f9e71da1866c61c87417c7ac39d1c27c93a74327ab7f40f2e25aebf` | Три frozen files совпадают с записанными hashes. Их vocabulary/boundaries доступны как принятый scoped источник | Старый workflow отделяет correction в новую task; он не заменяет новый controller loop для иной task. Frozen bytes не изменяются |
 | [X1 decision](../workspace/AOS_DOCUMENTATION_X1/HUMAN_DECISION_RECORD.yaml), SHA-256 `3e9fbbcde2d07a8716f0dc28eb33e642e1c42766da738e41c7137abf358af197`; [manifest](../workspace/AOS_DOCUMENTATION_X1/CANDIDATE_MANIFEST.txt) `1f0d12c3328348126a5882f05e52a512157075e852993018ffb023cd979bf42d` | Пять ARTIFACT records соответствуют файлам; decision фиксирует X1-DR-001/002=A и item-scoped X1 behavior. Эти формулировки не нужно заново придумывать | Исходный record сохраняет `raw_record_confirmation_required: true`; bytes не доказывают внешнее подтверждение этой записи. Source hashes внутри manifest относятся к историческому baseline. Нет authority для нового core/host/runtime |
 | [Portable acceptance](../AOS/portable/PACKAGE_ACCEPTANCE.yaml), subject [manifest](../AOS/portable/MANIFEST.txt) `1e3746b4bb6a326d9e93f805cb4ebe8a233c367976189aae1c0d385cde261901` | Одиннадцать content files соответствуют manifest; sidecar принимает exact package, сохраняя embedded DRAFT fields | Sidecar отдельно сохраняет open decisions, UNASSIGNED repository, отсутствие roadmap activation и runtime authority. Старый README DRAFT не означает, что sidecar отсутствует |
-| [AOS-3 blueprint §2/§16](../workspace/AOS3_IMPLEMENTATION_READY_DRAFT.md), [migration map](../workspace/AOS3_NOTEBOOK_MIGRATION_MAP.md) `10b46fe19a6559e5a5ea53ecf414987fa1a97af18046a285ecfe9e86e221c86b` | Blueprint сообщает принятие migration map, AOS-3/Python/local profile и задаёт старый Slice 0–4. Hash map совпадает с binding | Blueprint остаётся DRAFT/authority NONE. Current target и перенос этих решений на новую задачу не подтверждены данным чтением; старые creation/migration/Push instructions не запускаются |
+| [AOS-3 blueprint §2/§16](../workspace/AOS3_IMPLEMENTATION_READY_DRAFT.md), [migration map](../workspace/AOS3_NOTEBOOK_MIGRATION_MAP.md) `10b46fe19a6559e5a5ea53ecf414987fa1a97af18046a285ecfe9e86e221c86b` | Blueprint сообщает принятие migration map, AOS-3/Python/local profile и задаёт старый Slice 0–4. Hash map совпадает с binding | Blueprint остаётся DRAFT/authority NONE. Перенос этих решений в текущий AOS-4 target не подтверждён данным чтением; старые creation/migration/Push instructions не запускаются |
 | [Root agent candidate](../workspace/AOS3_ROOT_AGENTS_CANDIDATE.md), [completion loop design](../workspace/AOS_DEVELOPMENT_COMPLETION_LOOP_DESIGN.md) | Обратимый HOW и bounded correction; подробное rationale controller/diagnostics | Working drafts не являются установленным host или новым owner. Перенесённая семантика читается в canonical Architecture/Development; отсутствие wake/admission capability не исправляется ссылкой на текст |
 
 Применимость frozen и portable packages ограничена их exact scope. В новом brief источник не выбирается по имени «implementation-ready» или по stored PASS. Если подтверждение или противоречие materially влияет на launch, решается точный вопрос SC-DEC, а не весь исторический package повторно.

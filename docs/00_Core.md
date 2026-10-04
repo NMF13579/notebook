@@ -1,18 +1,18 @@
 ---
 package: AOS_Project_Knowledge_Baseline
 package_revision: R7-RU
-updated: '2026-09-16'
+updated: '2026-10-04'
 status: HUMAN_ACCEPTED_KNOWLEDGE_BASELINE
 authority: FACT_CLASS_SCOPED
 human_review: COMPLETED_FOR_ACCEPTED_CONTENT
 human_acceptance: ACCEPTED
-current_change_subject: FIRST_CORE_DEVELOPMENT_PROCESS_SIMPLIFICATION
+current_change_subject: AOS4_IMPLEMENTATION_AOS3_REFERENCE_REPOSITORY_BINDING
 current_change_authority: CURRENT_EXPLICIT_HUMAN_INSTRUCTION
 current_change_status: HUMAN_ACCEPTED_FACT
-current_change_scope: FIRST_CORE_DEVELOPMENT_WORKFLOW_DOCUMENTATION_ONLY
+current_change_scope: REPOSITORY_ROLE_BINDING_ONLY
 current_change_agent_review: PASS
 current_change_agent_review_scope: DOCUMENTATION_AUTHOR_SELF_CHECK
-current_change_human_review: NOT_RUN
+current_change_human_review: ACCEPTED
 implementation_authorization: NONE
 git_authorization: NONE
 semantic_audit: COMPLETED_WITH_CORRECTIONS
@@ -59,7 +59,11 @@ current_work_mode: HUMAN_ACCEPTED_DOCUMENTATION_BASELINE
 knowledge_repository: NMF13579/notebook
 knowledge_branch_label: dev
 active_package_path: docs/
-implementation_repository: NMF13579/AOS-3
+implementation_repository: AOS-4
+implementation_repository_binding: LOCAL_REPOSITORY
+implementation_repository_remote: UNKNOWN
+reference_repositories: [NMF13579/AOS-3, NMF13579/AOS-FARM, NMF13579/AgentOS]
+reference_authority_for_target_aos: NONE
 legacy_projects: [AOS-FARM, AgentOS, AOS-1, AOS-02]
 legacy_authority: NONE
 ```
@@ -288,11 +292,11 @@ Risk Profile, protected/destructive actions и расширение authority. �
 |---|---|---|
 | `DIR-001` | Рабочее имя — AOS | Human-confirmed direction |
 | `DIR-002` | Пакет состоит из семи документов | Human-confirmed |
-| `DIR-003` | AOS-FARM, AgentOS, AOS-02 — reference-only | Human-confirmed |
+| `DIR-003` | AOS-3, AOS-FARM, AgentOS, AOS-02 — reference-only; authority `NONE` | Human-confirmed |
 | `DIR-004` | Exhaustive extraction прекращена | Human-confirmed |
 | `DIR-005` | Research выполняется по feature gap | Human-confirmed |
 | `DIR-006` | Feature dossiers понятны человеку и агенту | Human-confirmed |
-| `DIR-007` | Implementation repository первого ядра — `NMF13579/AOS-3` | Human decision HD-02; launch отдельно |
+| `DIR-007` | Implementation repository первого ядра — локальный `AOS-4`; remote binding `UNKNOWN` | Human decision HD-02, revised 2026-10-04; launch отдельно |
 | `DIR-008` | Один общий feature catalog | Human-accepted with baseline |
 
 ## 17. Открытые решения
@@ -351,12 +355,20 @@ R7 handoff и C-015/C-016 вместе с V3 loop; противоречащие 
 
 ### Репозиторий и нормативная граница — HD-02, HD-05, HD-15
 
-Implementation/build repository первого ядра — `NMF13579/AOS-3` (HD-02).
-Notebook остаётся knowledge repository: runtime здесь запрещён, текущая задача
-разрешает только документацию. Назначение target не разрешает его изменение.
+Implementation/build repository первого ядра — локальный `AOS-4` (HD-02,
+перепривязан прямым решением человека 2026-10-04); его GitHub owner/remote пока
+`UNKNOWN`. Notebook остаётся knowledge repository: runtime здесь запрещён,
+текущая задача разрешает только документацию. Назначение target не разрешает его
+изменение или Git-действия.
+
+`NMF13579/AOS-3` является `READ_ONLY_REFERENCE` с authority `NONE` для AOS-4.
+Его код, документы, contracts, tests, topology, зависимости, состояния и
+исторические PASS можно использовать только для targeted research с exact
+repository/ref/commit/path. Они не входят в active implementation graph AOS-4,
+не являются runtime dependency и не подтверждают current readiness AOS-4.
 
 Для новой сборки нормативны current accepted Product, Architecture Contracts,
-Development rules и authority boundaries notebook (HD-05). Старые AOS-3
+Development rules и authority boundaries notebook (HD-05). Материалы AOS-3
 Feature-development/artifact-process/lifecycle/governance документы —
 `REFERENCE_ONLY`. Малый локальный router/handoff и repository-specific run/test
 инструкции могут направлять к notebook и конкретизировать HOW, но не становятся
@@ -475,7 +487,7 @@ retention boundary; это сообщение не выполняет deletion �
 | ID | Принятое решение / owner | Статус и точный остаток |
 |---|---|---|
 | SC-DEC-01 | HD-01: полный предложенный first-core package S0–K4, 13 core-срезов, R7/C-015/C-016/V3 | ACCEPTED. Scope/contracts выбраны; не все 33 FTR и не runtime authority |
-| SC-DEC-02 | AOS-3; [изоляция/стратегия/профиль](02_Architecture.md#first-core-build-boundary); LOCAL_FIRST/HD-12; B1 и budget у Development | HUMAN_ACCEPTED_FACT для policy. OPEN только implementation-time binding: branch/worktree/base, actual OS/runtime/architecture, adapter, paths, конечные queue/resource numbers и commands. Агент выбирает/наблюдает их в принятых пределах, без повторного product выбора |
+| SC-DEC-02 | Локальный AOS-4; AOS-3 только `READ_ONLY_REFERENCE` / authority `NONE`; [изоляция/стратегия/профиль](02_Architecture.md#first-core-build-boundary); LOCAL_FIRST/HD-12; B1 и budget у Development | HUMAN_ACCEPTED_FACT для repository role. Remote AOS-4 `UNKNOWN`. OPEN только implementation-time binding: branch/worktree/base, actual OS/runtime/architecture, adapter, paths, конечные queue/resource numbers и commands. Агент выбирает/наблюдает их в принятых пределах, без повторного product выбора |
 | SC-DEC-03 | [Codex-first](02_Architecture.md#scaffold-core-host), HD-11/23/24; durable state и обязательный [resume proof](03_Development.md#first-core-autonomy-proof) | HUMAN_ACCEPTED_FACT для host/data/retention/resume requirements. Реальные capture/admission/data routes/wake UNKNOWN; conformance и interruption/resume NOT_RUN. [D1](#host-integration-d1) принят только как BOUNDED_EXPERIMENT; permanent adapter не принят |
 | SC-DEC-04 | Exact parent task и отдельный runtime launch | Этот knowledge package не выдаёт runtime authorization. Выданный Human допуск AOS-FIRST-CORE-001/R1 учитывается по exact implementation handoff; R2 требует current binding и проверки покрытия каждого effect, а не повторного policy выбора. Фактический launch/conformance не выводится из допуска |
 
